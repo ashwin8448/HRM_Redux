@@ -1,7 +1,6 @@
 import EmployeeViewWrapper from "./employeeView.ts";
 import { useNavigate, useParams } from "react-router-dom";
-// import DataContext from "../../core/store/DataContext.tsx";
-import { useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { getDateView, getWorkExp } from "../../utils/helper.ts";
 import Button from "../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
@@ -13,10 +12,9 @@ import { useMediaQuery } from "usehooks-ts";
 function EmployeeView() {
   //mobile design
   const matches = useMediaQuery("(min-width: 768px)");
-
   const { employeeId } = useParams();
   const navigate = useNavigate();
-  const { employees, loading } = useContext(DataContext);
+//   const { employees, loading } = useContext(DataContext);
   const [activeBtn, setActiveBtn] = useState("profile");
 
   const handleButtonClick = (buttonType: string) => {
