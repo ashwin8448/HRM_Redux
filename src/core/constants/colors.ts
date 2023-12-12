@@ -1,0 +1,15 @@
+const colors = {
+  PRIMARY_COLOR: "#FF0A67",
+  SECONDARY_COLOR: "rgba(36, 38, 45)",
+  LIGHT_GRAY_COLOR: " #d3d3d3",
+  DARK_GRAY_COLOR: "#8f8f8f",
+  BACKGROUND_COLOR: "#F3F5FA",
+  WHITE_COLOR: "#f9fafb",
+  WARNING_COLOR: "#FEECDC",
+  WARNING_TEXT_COLOR: "#B43403",
+  RED_COLOR: "red",
+  LINK_COLOR: "#0000FF",
+  LINK_HIGHLIGHT_COLOR: "#000099",
+};
+
+export default colors;
