@@ -3,7 +3,7 @@ import {
   UseFormSetValue,
   UseFormGetValues,
 } from "react-hook-form";
-import { Employee, FormEmployee, SelectOptionProps, Skill, SortDirection, TableProps } from "../core/interfaces/interface.ts";
+import { Employee, FormEmployee, ISelectOptionProps, Skill, SortDirection, TableProps } from "../core/interfaces/interface.ts";
 import React from "react";
 
 export function transformArrayToOptionsList(array: string[]) {
@@ -108,7 +108,7 @@ export const filterData = (employees: Employee[], tableProps: TableProps) => {
           ? tableProps.designation.value === employee.designation
           : true;
         const skillMatch = tableProps.skills
-          ? tableProps.skills.every((skillFilter: SelectOptionProps) => {
+          ? tableProps.skills.every((skillFilter: ISelectOptionProps) => {
             return employee.skills.some(
               (skill) => skill.id === skillFilter.value
             );
@@ -220,7 +220,7 @@ export const getNewEmpId = (employeesCount: number) => {
 };
 
 export const getNewEmployeeDetails = (formData: FieldValues) => {
-  const skillsInNewFormat = formData.skills.map((skill: SelectOptionProps) => ({
+  const skillsInNewFormat = formData.skills.map((skill: ISelectOptionProps) => ({
     id: skill.value,
     name: skill.label,
   }));

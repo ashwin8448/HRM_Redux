@@ -37,3 +37,7 @@ export interface InputProps {
     name: string;
     value?: string;
 }
+export interface ISelectOptionProps {
+    value: string;
+    label: string;
+}
