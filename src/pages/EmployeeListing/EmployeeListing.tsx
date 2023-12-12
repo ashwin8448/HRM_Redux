@@ -3,6 +3,8 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import fetchData from "../../utils/fetchData.ts";
 import MainHeading from "./MainHeading/MainHeading.tsx";
+import ActionsBar from "./SearchAndFilter/ActionsBar.tsx";
+import EmployeeTable from "./EmployeeTable/EmployeeTable.tsx";
 
 function EmployeeListing() {
 
@@ -35,6 +37,14 @@ function EmployeeListing() {
                 pauseOnFocusLoss={false} // avoid pausing when the window looses the focus
             />
             <MainHeading />
+            {/* include searching filtering techniques */}
+            <ActionsBar />
+            <EmployeeTable
+                deleteModal={deleteModal}
+                changeDltModalOpenStatus={changeDltModalOpenStatus}
+            />
+            {deleteModal && <div className="overlay" onClick={() => setDeleteModal(false)}></div>}
+
         </>
     );
 }
