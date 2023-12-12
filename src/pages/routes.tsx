@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 
-import ErrorPage from "../components/ErrorPage/ErrorPage.tsx";
 
 const router = createBrowserRouter(
   [
@@ -12,7 +11,7 @@ const router = createBrowserRouter(
           element: <></>,
         },
       ],
-      errorElement: <ErrorPage />,
+      errorElement: <></>,
     },
   ],
   { basename: import.meta.env.DEV ? "/" : "/HRM-App-React/" }
