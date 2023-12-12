@@ -3,8 +3,9 @@ import {
   UseFormSetValue,
   UseFormGetValues,
 } from "react-hook-form";
-import { Employee, FormEmployee, ISelectOptionProps, Skill, SortDirection, TableProps } from "../core/interfaces/interface.ts";
+import { Employee, FormEmployee, ISelectOptionProps, Skill, TableProps } from "../core/interfaces/interface.ts";
 import React from "react";
+import { SortDirection } from "../core/constants/constants.ts";
 
 export function transformArrayToOptionsList(array: string[]) {
   return array.map((value: string) => ({

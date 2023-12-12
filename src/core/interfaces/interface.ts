@@ -15,9 +15,6 @@ export interface IEmployee {
     moreDetails: string,
     role: IRole,
     department: IDepartment,
-    emp_name: string,
-    employment_mode: string,
-    gender: string,
     skills: ISkill[],
 }
 export interface ISkill {
