@@ -36,14 +36,14 @@ const TableWrapper = styled.table`
     padding: 10px;
     border-spacing: 0;
     text-align: left;
-    width: 20%;
+    width: 100%;
   }
   th:first-child,
   td:first-child {
     width: 100px;
   }
-  th:nth-child(6),
-  td:nth-child(6) {
+  th:nth-child(7),
+  td:nth-child(7) {
     width: 100px;
   }
   .loader-container {

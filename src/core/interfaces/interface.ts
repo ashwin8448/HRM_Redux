@@ -1,5 +1,15 @@
 import { Control } from "react-hook-form";
 
+export interface IData{
+    employeesData: IEmployeeData,
+    skills:ISkill[],
+    roles:IRole[],
+    departments:IDepartment[]
+}
+export interface IEmployeeData{
+    employees:IEmployee[],
+    count:number
+}
 export interface IEmployee {
     id: string,
     firstName: string,
@@ -29,11 +39,25 @@ export interface IDepartment {
     id: number,
     department: string
 }
+export interface IFormEmployee {
+    id: string,
+    firstName: string | null,
+    lastName: string | null,
+    dob: string | null,
+    email: string | null,
+    phone: string | null,
+    designation: string | null,
+    salary?: string | null,
+    dateOfJoining: string | null,
+    address: string | null,
+    role: ISelectOptionProps | null,
+    department: ISelectOptionProps | null,
+    skills: ISelectOptionProps[] | null,
+}
 
 export interface IErrorBoundaryProps {
     children: React.ReactNode;
 }
-
 export interface IErrorState {
     hasError: boolean;
     error: { message: string };
@@ -65,7 +89,7 @@ export interface InputProps {
     value?: string;
 }
 export interface ISelectOptionProps {
-    value: string;
+    value: number;
     label: string;
 }
 export interface ISelectDropdownProps {

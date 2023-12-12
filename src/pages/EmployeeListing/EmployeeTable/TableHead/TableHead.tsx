@@ -9,6 +9,7 @@ function TableHead() {
                 <TableHeadButton icon="expand_more">Name</TableHeadButton>
                 <TableHeadButton icon="expand_more">Designation</TableHeadButton>
                 <TableHeadButton icon="expand_more">Department</TableHeadButton>
+                <TableHeadButton icon="expand_more">Role</TableHeadButton>
                 <th>
                     <span className="table-title"> Skills </span>
                 </th>

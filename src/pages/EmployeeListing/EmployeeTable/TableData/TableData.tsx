@@ -1,11 +1,12 @@
 import { IEmployee } from "../../../../core/interfaces/interface.ts";
 import TableDataWrapper from "./tableData.ts";
-import StyledLink from "../../../../components/StyledLink.ts";
 import Button from "../../../../components/Button/Button.tsx";
-import SkillsChip from "../../../../components/Skills/SkillsChip.tsx";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import Tooltip from "./../../../../components/Tooltip/Tooltip.tsx";
+import { concatenateNames } from "../../../../utils/helper.ts";
+import StyledLink from "../../../../components/StyledLink.ts";
+import Tooltip from "../../../../components/Tooltip/Tooltip.tsx";
+import SkillsChip from "../../../../components/Skills/SkillsChip.tsx"
 
 function TableData({
     employee,
@@ -60,11 +61,9 @@ function TableData({
                 className="employee-data  employee-view"
                 onClick={handleEmployeeDetailsView}
             >
-                {employee.firstName}
+                {concatenateNames(employee.firstName, employee.lastName)}
             </td>
-            <td className="employee-data ">
-                {employee.designation}
-            </td>
+            <td className="employee-data ">{employee.designation}</td>
             <td className="employee-data ">{employee.department.department}</td>
             <td className="employee-data ">{employee.role.role}</td>
             <td

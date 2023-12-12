@@ -1,15 +1,12 @@
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
-import fetchData from "../../utils/fetchData.ts";
 import MainHeading from "./MainHeading/MainHeading.tsx";
 import ActionsBar from "./SearchAndFilter/ActionsBar.tsx";
 import EmployeeTable from "./EmployeeTable/EmployeeTable.tsx";
 
 function EmployeeListing() {
 
-    const data = fetchData();
-    console.log(data)
     const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
 
     const changeDltModalOpenStatus = () => {

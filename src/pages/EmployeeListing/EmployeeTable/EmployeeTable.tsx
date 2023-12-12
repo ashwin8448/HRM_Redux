@@ -1,14 +1,15 @@
-import { useContext, useMemo, useState } from "react";
-import { IEmployee } from "../../../core/interfaces/interface.ts";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { IData, IEmployee } from "../../../core/interfaces/interface.ts";
 import TableWrapper from "./employeeTable.ts";
 import TableData from "./TableData/TableData.tsx";
 import TableHead from "./TableHead/TableHead.tsx";
 import Loader from "../../../components/Loader/Loader.tsx";
 import { filterData, searchData, sortData } from "../../../utils/helper.ts";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal.tsx";
+import fetchData from "../../../utils/fetchData.ts";
 
 let pageSize = 5;
-
+ 
 function EmployeeTable({
     deleteModal,
     changeDltModalOpenStatus,
@@ -16,6 +17,10 @@ function EmployeeTable({
     deleteModal: boolean;
     changeDltModalOpenStatus: () => void;
 }) {
+    const [data,setData] = useState<IData>();
+    useEffect(()=>{
+        fetchData().then((data) => setData(data));
+    },[])
 
     //TODO: Fetch employees data, loading, filterprops
 
@@ -36,7 +41,7 @@ function EmployeeTable({
         // const filteredEmployees = filterData(sortedEmployees, tableProps);
         // const searchedEmployees = searchData(filteredEmployees, tableProps);
 
-        const searchedEmployees:IEmployee[] = [];
+        const searchedEmployees:IEmployee[] | [] = data?.employeesData.employees ?? [];
         // Update totalCount based on the filtered data length
         totalCount = searchedEmployees.length;
 
