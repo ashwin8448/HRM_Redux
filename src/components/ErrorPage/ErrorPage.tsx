@@ -1,6 +1,6 @@
 import ErrorPageWrapper from "./errorPage.js";
-import StyledLink from "../StyledLink.js";
-import Button from "../Button/Button.tsx";
+// import StyledLink from "../StyledLink.js";
+// import Button from "../Button/Button.tsx";
 import { useSearchParams } from "react-router-dom";
 
 function ErrorPage() {
@@ -44,11 +44,11 @@ function ErrorPage() {
           <p className="error-subtitle">
             But dont worry, you can find plenty of other things on our homepage
           </p>
-          <StyledLink to="/">
+          {/* <StyledLink to="/">
             <Button icon="home" className="back-to-home-btn">
               Back to homepage
             </Button>
-          </StyledLink>
+          </StyledLink> */}
         </>
       )}
     </ErrorPageWrapper>
