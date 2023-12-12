@@ -41,3 +41,11 @@ export interface ISelectOptionProps {
     value: string;
     label: string;
 }
+
+export interface ITableProps {
+    department: ISelectOptionProps | null;
+    designation: ISelectOptionProps | null;
+    skills: ISelectOptionProps[] | null;
+    employment_mode: ISelectOptionProps | null;
+    search_term: string | null;
+}
