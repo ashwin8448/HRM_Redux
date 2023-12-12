@@ -1,21 +1,21 @@
 import { Control } from "react-hook-form";
 
 export interface IEmployee {
-    id: string,
-    firstName: string,
-    lastName: string,
-    isActive: boolean,
-    dob: string,
-    email: string,
-    phone: string,
-    designation: string,
+    id?: string,
+    firstName?: string,
+    lastName?: string,
+    isActive?: boolean,
+    dob?: string,
+    email?: string,
+    phone?: string,
+    designation?: string,
     salary?: string,
-    dateOfJoining: string,
-    address: string,
-    moreDetails: string,
-    role: IRole,
-    department: IDepartment,
-    skills: ISkill[],
+    dateOfJoining?: string,
+    address?: string,
+    moreDetails?: string,
+    role?: IRole,
+    department?: IDepartment,
+    skills?: ISkill[],
 }
 export interface ISkill {
     id: number;

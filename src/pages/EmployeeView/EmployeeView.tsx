@@ -5,23 +5,32 @@ import { getDateView, getWorkExp } from "../../utils/helper.ts";
 import Button from "../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import DetailsSection from "../../components/Details/Details.tsx";
-import Loader from "../../components/Loader/loader.ts";
+import Loader from "../../components/Loader/Loader.tsx";
 import { toast } from "react-toastify";
-import { useMediaQuery } from "usehooks-ts";
+import { getData } from "../../core/api/functions.ts";
+import { IEmployee } from "../../core/interfaces/interface.ts";
+//TODO:
+// import { useMediaQuery } from "usehooks.ts";
+import { useMediaQuery } from "@mui/material";
 
 function EmployeeView() {
   //mobile design
+  //TODO:
   const matches = useMediaQuery("(min-width: 768px)");
   const { employeeId } = useParams();
+  const [employeeData, setEmployeeData] = useState<{loading:Boolean, employee:IEmployee}>({
+    loading: true,
+    employee: {},
+  });
   const navigate = useNavigate();
-//   const { employees, loading } = useContext(DataContext);
+  //   const { employees, loading } = useContext(DataContext);
   const [activeBtn, setActiveBtn] = useState("profile");
 
   const handleButtonClick = (buttonType: string) => {
     setActiveBtn(buttonType);
   };
 
-  const employee = employees.find((emp) => emp && emp.id === employeeId);
+  //   const employee = employees.find((emp) => emp && emp.id === employeeId);
 
   useEffect(() => {
     if (!employeeId) {
@@ -29,18 +38,31 @@ function EmployeeView() {
       toast.error("No employee Id was provided", {
         toastId: "employee-not-found",
       });
+      setEmployeeData({ ...employeeData, loading: false });
       navigate("/");
     } else {
-      if (!loading && !employee) {
-        throw new Response("Employee Not Found", { status: 404 });
-      }
+      getData("http://3.145.178.76:4000/employee/" + employeeId)
+        .then((response) => {
+            console.log(response.data.data)
+          if (response.status == 200 && !response.data)
+{            //TODO: throw new response?
+            throw new Response("Employee Not Found", { status: 404 });}
+          else setEmployeeData((prev)=> ({ ...prev, employee: response.data.data }));
+        })
+        .catch((error) => {
+          console.log(error);
+        })
+        .finally(() => setEmployeeData((prev)=>({ ...prev, loading: false })));
+    //   if (!loading && !employee) {
+    //     throw new Response("Employee Not Found", { status: 404 });
+    //   }
     }
-  }, [employeeId, employee, loading]);
+  }, []);
 
-  if (loading) return <Loader className="center-screen" />;
-
+  if (employeeData.loading) return (<Loader className="center-screen" />);
+  console.log(employeeData)
   return (
-    employee && (
+    employeeData.employee && (
       <>
         <span
           className="material-symbols-outlined back-btn"
@@ -50,7 +72,7 @@ function EmployeeView() {
           reply
         </span>
         <EmployeeViewWrapper>
-          <h2 className="employee-name">{employee.emp_name}</h2>
+          <h2 className="employee-name">{employeeData.employee.firstName+" "+employeeData.employee.lastName}</h2>
           <ButtonGrpWrapper className="details-section common-flex">
             <Button
               icon="person"
@@ -74,27 +96,27 @@ function EmployeeView() {
               <DetailsSection
                 icon="person"
                 title={matches ? "Full Name" : ""}
-                content={employee.emp_name}
+                content={employeeData.employee.firstName+" "+employeeData.employee.lastName}
               />
               <DetailsSection
                 icon="mail"
                 title={matches ? "Email" : ""}
-                content={employee.email}
+                content={employeeData.employee.email!}
               />
               <DetailsSection
                 icon="phone_iphone"
                 title={matches ? "Phone No" : ""}
-                content={employee.phone}
+                content={employeeData.employee.phone!}
               />
               <DetailsSection
                 icon="calendar_month"
                 title={matches ? "Date of Birth" : ""}
-                content={getDateView(employee.date_of_birth)}
+                content={getDateView(employeeData.employee.dob!)}
               />
               <DetailsSection
                 icon="home"
                 title={matches ? "Address" : ""}
-                content={employee.address}
+                content={employeeData.employee.address!}
               />
             </div>
           ) : (
@@ -102,32 +124,32 @@ function EmployeeView() {
               <DetailsSection
                 icon="person"
                 title={matches ? "Designation" : ""}
-                content={employee.designation}
+                content={employeeData.employee.designation!}
               />
               <DetailsSection
                 icon="mail"
                 title={matches ? "Department" : ""}
-                content={employee.department}
+                content={employeeData.employee.department!.department}
               />
-              <DetailsSection
+              {/* <DetailsSection
                 icon="phone_iphone"
                 title={matches ? "Employment Mode" : ""}
-                content={employee.employment_mode}
-              />
+                content={employeeData.employee.employment_mode!}
+              /> */}
               <DetailsSection
                 icon="calendar_month"
                 title={matches ? "Date of Joining" : ""}
-                content={getDateView(employee.date_of_joining)}
+                content={getDateView(employeeData.employee.dateOfJoining!)}
               />
               <DetailsSection
                 icon="home"
                 title={matches ? "Work Experience" : ""}
-                content={getWorkExp(employee.date_of_joining)}
+                content={getWorkExp(employeeData.employee.dateOfJoining!)}
               />
               <DetailsSection
                 icon="home"
                 title={matches ? "Skills" : ""}
-                content={employee.skills}
+                content={employeeData.employee.skills!}
               />
             </div>
           )}
