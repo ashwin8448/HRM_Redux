@@ -38,8 +38,7 @@ export function convertToFormEmployee(employee: Employee): FormEmployee {
 export function resetFiltersAndSearchBar() {
   const resettedValues = {
     department: null,
-    designation: null,
-    employment_mode: null,
+    role: null,
     skills: null,
     search_term: ""
   }
