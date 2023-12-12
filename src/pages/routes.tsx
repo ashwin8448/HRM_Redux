@@ -1,5 +1,6 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout.tsx";
+import EmployeeListing from "./EmployeeListing/EmployeeListing.tsx";
 
 const router = createBrowserRouter(
   [
@@ -8,7 +9,7 @@ const router = createBrowserRouter(
       children: [
         {
           path: "/",
-          element: <></>,
+          element: <EmployeeListing></EmployeeListing>,
         },
       ],
       errorElement: <></>,
