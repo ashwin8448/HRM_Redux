@@ -74,9 +74,6 @@ body {
 .logo-wrap {
   text-decoration: none;
 }
-.material-symbols-outlined {
-  color: ${colors.WHITE_COLOR};
-}
 .button-decoration {
   font-weight: 500;
   text-decoration: none;
