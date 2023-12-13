@@ -13,7 +13,7 @@ const TableHeadWrapper = styled.thead`
     }
   }
   .table-title {
-    font-size: 18px;
+    font-size: 14px;
     font-weight: 700;
     color: ${colors.SECONDARY_COLOR};
   }

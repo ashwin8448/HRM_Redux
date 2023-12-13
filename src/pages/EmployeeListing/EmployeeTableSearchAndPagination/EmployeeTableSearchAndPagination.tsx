@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import EmployeeTable from "../EmployeeTable/EmployeeTable.tsx";
-import EmployeeTableWithActionsWrapper from "./employeeTableWithActions.ts";
-import SearchBar from "./../SearchAndFilter/components/SearchBar/SearchBar";
-import PaginationResults from "../../../components/PaginationResults/PaginationResults.tsx"
+import EmployeeTableSearchAndPaginationWrapper from "./employeeTableSearchAndPagination.ts";
+import SearchBar from "../SearchAndFilter/components/SearchBar/SearchBar.tsx";
+import PaginationResults from "../../../components/PaginationResults/PaginationResults.tsx";
 
-function EmployeeTableWithActions() {
-
+function EmployeeTableSearchAndPagination() {
   const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
 
   const changeDltModalOpenStatus = () => {
@@ -25,8 +24,8 @@ function EmployeeTableWithActions() {
   }, [deleteModal]);
 
   return (
-    <EmployeeTableWithActionsWrapper className="global-padding">
-      <div className="border-top">
+    <EmployeeTableSearchAndPaginationWrapper className="global-padding">
+      <div className="border">
         <div className="common-flex global-padding">
           <SearchBar placeholder="Search by name" />
           <PaginationResults></PaginationResults>
@@ -39,7 +38,7 @@ function EmployeeTableWithActions() {
           <div className="overlay" onClick={() => setDeleteModal(false)}></div>
         )}
       </div>
-    </EmployeeTableWithActionsWrapper>
+    </EmployeeTableSearchAndPaginationWrapper>
   );
 }
-export default EmployeeTableWithActions;
+export default EmployeeTableSearchAndPagination;

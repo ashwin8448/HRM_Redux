@@ -9,6 +9,7 @@ import DeleteModal from "../../../components/DeleteModal/DeleteModal.tsx";
 import { fetchEmployeesData } from "../../../core/store/actions.ts";
 import store from "../../../core/store/configureStore.ts";
 import { useSelector } from "react-redux";
+import React from "react";
 
 let pageSize = 5;
 

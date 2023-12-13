@@ -51,6 +51,7 @@ function TableHeadButton({
         $isChildren={false}
         className={`common-flex table-button-head`}
         onClick={sortBtnClickHandler}
+        $noTransition={true}
       >
         <TableHeadIconWrapper
           $visible={visible}

@@ -3,17 +3,19 @@ import "react-toastify/dist/ReactToastify.css";
 import { useEffect, useState } from "react";
 import MainHeading from "./MainHeading/MainHeading.tsx";
 import ActionsBar from "./SearchAndFilter/ActionsBar.tsx";
-import EmployeeTableWithActions from "./EmployeeTableWithActions/EmployeeTableWithActions.tsx";
+import EmployeeTableSearchAndPagination from "./EmployeeTableSearchAndPagination/EmployeeTableSearchAndPagination.tsx";
 import StyledLink from "../../components/StyledLink.ts";
 import Button from "../../components/Button/Button.tsx";
 import { useMediaQuery } from "usehooks-ts";
 import ButtonGrpWrapper from "./../../components/Button/buttonGrpWrapper";
+import EmployeeTableActions from "./EmployeeTableActions/EmployeeTableActions.tsx"
+import EmployeeListingWrapper from "./employeeListing.ts";
 
 function EmployeeListing() {
   const matches = useMediaQuery("(min-width: 768px)");
 
   return (
-    <>
+    <EmployeeListingWrapper>
       <ToastContainer
         position="top-right"
         autoClose={5000}
@@ -30,8 +32,9 @@ function EmployeeListing() {
           <Button icon="add_circle">{matches ? "Add New Employee" : ""}</Button>
         </StyledLink>
       </ButtonGrpWrapper>
-      <EmployeeTableWithActions/>
-    </>
+      <EmployeeTableActions />
+      <EmployeeTableSearchAndPagination />
+    </EmployeeListingWrapper>
   );
 }
 export default EmployeeListing;

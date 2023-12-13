@@ -1,14 +1,17 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
 
-const ButtonWrapper = styled.button<{ $isChildren: boolean }>`
+const ButtonWrapper = styled.button<{
+  $isChildren: boolean;
+  $noTransition?: boolean;
+}>`
   border: ${(props) =>
     props.$isChildren ? `1px solid ${colors.LIGHT_GRAY_COLOR};` : `none`};
   background: ${(props) =>
     props.$isChildren ? `${colors.WHITE_COLOR}` : `transparent`};
   cursor: pointer;
   color: ${colors.SECONDARY_COLOR};
-  padding: ${(props) => (props.$isChildren ? `16px 20px` : `0`)};
+  padding: ${(props) => (props.$isChildren ? `10px` : `0`)};
   border-radius: 5px;
   text-decoration: none;
   gap: 5px;
@@ -17,8 +20,8 @@ const ButtonWrapper = styled.button<{ $isChildren: boolean }>`
   backface-visibility: hidden; // hide the element's back face on rotation
 
   // a smooth transition effect over a duration of 0.2 sec
-  transform: translateZ(0) scale(1);
-  transition: transform 0.2s;
+  ${(props) => !props.$noTransition && 'transform: translateZ(0) scale(1);'}
+  transition: ${(props) => !props.$noTransition && 'transform 0.2s'};
 
   // disables text selection by the user
   user-select: none;
@@ -40,11 +43,12 @@ const ButtonWrapper = styled.button<{ $isChildren: boolean }>`
   }
 
   &:hover {
-    transform: scale(0.95); //scales the button larger when hovered
+    ${(props) => !props.$noTransition && 'transform: scale(0.95);'} // scales the button larger when hovered
   }
   &:not(:disabled):active {
-    transform: translateY(-0.125rem);
+    ${(props) => !props.$noTransition && 'transform: translateY(-0.125rem);'}
   }
+
 
   .btn-loader {
     width: 24px;
