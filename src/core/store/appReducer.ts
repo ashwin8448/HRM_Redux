@@ -1,6 +1,6 @@
 import { combineReducers } from "redux";
 import employeeReducer from "./reducers/employeeReducer";
-import dropdownReducer from "./reducers/dropdownReducer";
+import dropdownReducer from "./reducers/dropdownReducer/dropdownReducer";
 import filterReducer from "./reducers/filterReducer";
 
 const appReducer = combineReducers({

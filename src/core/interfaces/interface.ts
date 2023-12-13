@@ -108,6 +108,7 @@ export interface ISelectOptionProps {
     value: number;
     label: string;
 }
+
 export interface ISelectDropdownProps {
     label: string;
     options?: ISelectOptionProps[]; //TODO: change to non nullable
