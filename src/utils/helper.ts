@@ -3,9 +3,15 @@ import {
   UseFormSetValue,
   UseFormGetValues,
 } from "react-hook-form";
-import { Employee, FormEmployee, ISelectOptionProps, Skill, TableProps } from "../core/interfaces/interface.ts";
+import {
+  IEmployee,
+  IFormEmployee,
+  ISelectOptionProps,
+  ISkill,
+  ITableProps,
+} from "../core/interfaces/interface.ts";
 import React from "react";
-import { SortDirection } from "../core/constants/constants.ts";
+import { SortDirection } from "../core/config/constants.ts";
 
 export function transformArrayToOptionsList(array: string[]) {
   return array.map((value: string) => ({
@@ -14,25 +20,36 @@ export function transformArrayToOptionsList(array: string[]) {
   }));
 }
 
-export function transformArrayToSkillOptionsList(skills: Skill[]) {
+export function transformArrayToSkillOptionsList(skills: ISkill[]) {
   return skills.map((skill) => ({
     value: skill.id,
-    label: skill.name,
+    label: skill.skill,
   }));
 }
-export function convertToFormEmployee(employee: Employee): FormEmployee {
+export function concatenateNames(firstName: string, lastName: string ): string {
+  return `${firstName} ${lastName}`
+}
+
+export function convertToFormEmployee(employee: IEmployee): IFormEmployee {
   return {
-    address: employee.address,
-    date_of_birth: employee.date_of_birth,
-    date_of_joining: employee.date_of_joining,
-    department: { label: employee.department, value: employee.department },
-    designation: { label: employee.designation, value: employee.designation },
-    emp_name: employee.emp_name,
-    employment_mode: { label: employee.employment_mode, value: employee.employment_mode },
-    email: employee.email,
-    gender: employee.gender,
     id: employee.id,
+    firstName: employee.firstName,
+    lastName: employee.lastName,
+    dob: employee.dob,
+    email: employee.email,
     phone: employee.phone,
+    designation: employee.designation,
+    salary: employee.salary,
+    dateOfJoining: employee.dateOfJoining,
+    address: employee.address,
+    role: {
+      label: employee.role.role,
+      value: employee.role.id,
+    },
+    department: {
+      label: employee.department.department,
+      value: employee.department.id,
+    },
     skills: transformArrayToSkillOptionsList(employee.skills),
   };
 }
@@ -49,15 +66,16 @@ export function resetFiltersAndSearchBar() {
 export function defaultFormVal() {
   const resettedVals = {
     ...resetFiltersAndSearchBar(),
-    emp_name: null,
+    firstName: null,
+    lastName: null,
+    dob: null,
     email: null,
     phone: null,
     address: null,
-    date_of_birth: null,
-    date_of_joining: null,
+    dateOfJoining: null,
     gender: null,
-    id: null
-  }
+    id: null,
+  };
   return resettedVals;
 }
 export const handleChange = (
@@ -65,63 +83,57 @@ export const handleChange = (
   fieldName: string,
   getValues: UseFormGetValues<FieldValues>,
   setValue: UseFormSetValue<FieldValues>,
-  tableProps: TableProps,
-  addTableProps: (tableProps: TableProps) => void
+  addTableProps: (tableProps: ITableProps) => void
 ) => {
   const currentFilters: FieldValues = getValues();
-  let currentTableProps: TableProps = {
+  let currentTableProps: ITableProps = {
     ...resetFiltersAndSearchBar(),
-    sort: tableProps.sort,
   };
   Object.keys(currentFilters).forEach((key: string) => {
     if (
       key === "department" ||
-      key === "designation" ||
       key === "skills" ||
-      key === "employment_mode" ||
+      key === "role" ||
       key === "search_term"
     ) {
       currentTableProps[key] = currentFilters[key];
     }
   });
-  const updatedFilters: TableProps = {
+  const updatedFilters: ITableProps = {
     ...currentTableProps,
     [fieldName]: value,
   };
   Object.keys(updatedFilters).forEach((key: string) => {
-    const tablePropsKey = key as keyof TableProps;
+    const tablePropsKey = key as keyof ITableProps;
     setValue(key, updatedFilters[tablePropsKey]);
   });
 
   addTableProps(updatedFilters);
 };
 
-export const filterData = (employees: Employee[], tableProps: TableProps) => {
+export const filterData = (employees: IEmployee[], tableProps: ITableProps) => {
   let employeeTableData = employees;
 
-  if (
-    tableProps
-  ) {
-    employeeTableData = employees.filter((employee) => {
+  if (tableProps) {
+    employeeTableData = employees.filter((employee:IEmployee) => {
       if (employee) {
-        const designationMatch = tableProps.designation
-          ? tableProps.designation.value === employee.designation
-          : true;
         const skillMatch = tableProps.skills
           ? tableProps.skills.every((skillFilter: ISelectOptionProps) => {
-            return employee.skills.some(
-              (skill) => skill.id === skillFilter.value
-            );
-          })
+              return employee.skills.some(
+                (skill) => skill.id === skillFilter.value
+              );
+            })
           : true;
         const departmentMatch = tableProps.department
-          ? tableProps.department.value === employee.department
+          ? tableProps.department.value === employee.department.id
           : true;
-        const empModeMatch = tableProps.employment_mode
-          ? tableProps.employment_mode.value === employee.employment_mode
+        const roleMatch = tableProps.role
+          ? tableProps.role.value === employee.role.id
           : true;
 
-        return designationMatch && skillMatch && departmentMatch && empModeMatch;
+        return (
+           skillMatch && departmentMatch && roleMatch
+        );
       }
       return true;
     });
@@ -130,9 +142,9 @@ export const filterData = (employees: Employee[], tableProps: TableProps) => {
 };
 
 export const searchData = (
-  employees: Employee[],
-  tableProps: TableProps
-): Employee[] => {
+  employees: IEmployee[],
+  tableProps: ITableProps
+): IEmployee[] => {
   if (
     !tableProps ||
     !tableProps["search_term"] ||
@@ -142,9 +154,9 @@ export const searchData = (
   }
   const searchText = tableProps["search_term"].toLowerCase();
 
-  return employees.filter((employee) =>
-    employee &&
-    employee["emp_name"].toLowerCase().includes(searchText)
+  return employees.filter(
+    (employee) =>
+      employee && concatenateNames(employee.firstName, employee.lastName).toLowerCase().includes(searchText)
   );
 };
 
@@ -178,30 +190,27 @@ export const sortFn = (x: string, y: string, flag: number) => {
   return 0;
 };
 
-export const sortData = (
-  employees: Employee[],
-  tableProps: TableProps
-) => {
+export const sortData = (employees: IEmployee[], tableProps: ITableProps) => {
   let sortedEmployees = employees;
 
-  if (tableProps && tableProps.sort && tableProps.sort.sortTerm != "") {
-    const sortProp = tableProps.sort;
-    let flag = sortProp.sortVal === SortDirection.ASC ? -1 : +1;
+  // if (tableProps && tableProps.sort && tableProps.sort.sortTerm != "") {
+  //   const sortProp = tableProps.sort;
+  //   let flag = sortProp.sortVal === SortDirection.ASC ? -1 : +1;
 
-    sortedEmployees = employees.sort((a: Employee, b: Employee) => {
-      if (a && b) {
-        let x = a[sortProp.sortTerm as keyof Employee];
-        let y = b[sortProp.sortTerm as keyof Employee];
-        if (typeof x === "string" && typeof y === "string") {
-          return sortFn(x.toLowerCase(), y.toLowerCase(), flag);
-        } else {
-          return 0;
-        }
-      }
-      return 0;
-    });
-    employees = sortedEmployees
-  }
+  //   sortedEmployees = employees.sort((a: IEmployee, b: IEmployee) => {
+  //     if (a && b) {
+  //       let x = a[sortProp.sortTerm as keyof Employee];
+  //       let y = b[sortProp.sortTerm as keyof Employee];
+  //       if (typeof x === "string" && typeof y === "string") {
+  //         return sortFn(x.toLowerCase(), y.toLowerCase(), flag);
+  //       } else {
+  //         return 0;
+  //       }
+  //     }
+  //     return 0;
+  //   });
+  //   employees = sortedEmployees;
+  // }
   return sortedEmployees;
 };
 
@@ -220,10 +229,12 @@ export const getNewEmpId = (employeesCount: number) => {
 };
 
 export const getNewEmployeeDetails = (formData: FieldValues) => {
-  const skillsInNewFormat = formData.skills.map((skill: ISelectOptionProps) => ({
-    id: skill.value,
-    name: skill.label,
-  }));
+  const skillsInNewFormat = formData.skills.map(
+    (skill: ISelectOptionProps) => ({
+      id: skill.value,
+      name: skill.label,
+    })
+  );
   const transformedInput = {
     emp_name: formData.emp_name,
     email: formData.email,
@@ -244,17 +255,19 @@ export const getNewEmployeeDetails = (formData: FieldValues) => {
 export const getDate = (dateVal: string) => {
   const [year, month, day] = dateVal.split("-");
   const newDate = new Date(`${year}-${month}-${day}`);
-  return newDate.toISOString().split('T')[0];
-}
+  return newDate.toISOString().split("T")[0];
+};
 
 export const getWorkExp = (dateOfJoining: string) => {
-  const [year, month, day] = dateOfJoining.split('-').map(Number);
+  const [year, month, day] = dateOfJoining.split("-").map(Number);
   const dateInNewFormat = new Date(year, month - 1, day);
   const DOJ = new Date(dateInNewFormat);
   const now = new Date();
-  const workExp: number = Math.floor((now.getTime() - DOJ.getTime()) / (1000 * 60 * 60 * 24 * 30));
-  return (workExp.toString() + "  months");
-}
+  const workExp: number = Math.floor(
+    (now.getTime() - DOJ.getTime()) / (1000 * 60 * 60 * 24 * 30)
+  );
+  return workExp.toString() + "  months";
+};
 
 export const getDateView = (dateVal: string) => {
   const [year, month, day] = dateVal.split("-").map(Number);
@@ -268,30 +281,38 @@ export const generatePlaceholder = (fieldName: string): string => {
 }
 
 export const getUrlType = (pathName: string) => {
-  const pathParts = pathName.split('/');
+  const pathParts = pathName.split("/");
   const secondPartOfPath = pathParts[1];
   return secondPartOfPath;
 }
 
-export const checkEmployeesEqual = (originalEmployee: Employee, editedEmployee: Employee) => {
+export const checkEmployeesEqual = (
+  originalEmployee: IEmployee,
+  editedEmployee: IEmployee
+) => {
   const originalEmpKeys = Object.keys(originalEmployee);
 
   for (let key of originalEmpKeys) {
-    const keyProp = key as keyof Employee;
+    const keyProp = key as keyof IEmployee;
     if (originalEmployee[keyProp] != editedEmployee[keyProp]) {
       if (keyProp === "skills") {
-        const skillsEqual = checkSkillsEqual(originalEmployee[keyProp], editedEmployee[keyProp]);
+        const skillsEqual = checkSkillsEqual(
+          originalEmployee[keyProp],
+          editedEmployee[keyProp]
+        );
         if (skillsEqual) return true;
-        return false
+        return false;
       }
-      return false
+      return false;
     }
   }
   return true;
-}
+};
 
-export const checkSkillsEqual = (originalSkillList: Skill[], editedSkillList: Skill[]) => {
-
+export const checkSkillsEqual = (
+  originalSkillList: ISkill[],
+  editedSkillList: ISkill[]
+) => {
   if (originalSkillList.length != editedSkillList.length) {
     return false;
   }
@@ -302,20 +323,20 @@ export const checkSkillsEqual = (originalSkillList: Skill[], editedSkillList: Sk
 
     const originalSkillKeys = Object.keys(originalSkill);
     for (let key of originalSkillKeys) {
-      const keyProp = key as keyof Skill;
+      const keyProp = key as keyof ISkill;
       if (originalSkill[keyProp] != editedSkill[keyProp]) {
-        return false
+        return false;
       }
     }
   }
 
   return true;
-}
+};
 
-export const removeNullEmployees = (employees: Employee[]) => {
+export const removeNullEmployees = (employees: IEmployee[]) => {
   return employees.filter((employee) => {
     if (employee) {
-      return employee
+      return employee;
     }
-  })
-}
+  });
+};
