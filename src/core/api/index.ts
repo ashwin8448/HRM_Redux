@@ -4,7 +4,7 @@ import { onResponse, onResponseError } from './responseInterceptor';
 
 
 const API = axios.create({
-    baseURL: import.meta.env.VITE_DATABASE_URL,
+    baseURL: import.meta.env.VITE_API_ENDPOINT,
     timeout: 120000,
 });
 

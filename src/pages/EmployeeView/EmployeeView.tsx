@@ -1,7 +1,8 @@
 import EmployeeViewWrapper from "./employeeView.ts";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { getDateView, getWorkExp } from "../../utils/helper.ts";
+import {useDispatch} from "react-redux"
+import { defaultFormVal, getDateView, getWorkExp } from "../../utils/helper.ts";
 import Button from "../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import DetailsSection from "../../components/Details/Details.tsx";
@@ -12,6 +13,7 @@ import { IEmployee } from "../../core/interfaces/interface.ts";
 //TODO:
 import { useMediaQuery } from "usehooks-ts";
 import ErrorPage from "../../components/ErrorPage/ErrorPage.tsx";
+import { fetchEmployeesData } from "../../core/store/actions.ts";
 
 function EmployeeView() {
   //mobile design
@@ -19,11 +21,12 @@ function EmployeeView() {
   const matches = useMediaQuery("(min-width: 768px)");
   console.log(matches);
   const { employeeId } = useParams();
-  const [employeeData, setEmployeeData] = useState<{loading:Boolean, employee:IEmployee}>({
+  const [employeeData, setEmployeeData] = useState<{loading:Boolean, employee:IEmployee|null}>({
     loading: true,
-    employee: {},
+    employee: null,
   });
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   //   const { employees, loading } = useContext(DataContext);
   const [activeBtn, setActiveBtn] = useState("profile");
 
@@ -37,6 +40,7 @@ function EmployeeView() {
 // req error: 
 
   useEffect(() => {
+
     if (!employeeId) {
       // Display error toast after initial render
       toast.error("No employee Id was provided", {
@@ -45,7 +49,7 @@ function EmployeeView() {
       setEmployeeData({ ...employeeData, loading: false });
       navigate("/");
     } else {
-      getData("http://3.145.178.76:4000/employee/" + employeeId)
+      getData("/employee/" + employeeId)
         .then((response) => {
             console.log(response.data.data)
           if (response.status == 200 && !response.data)

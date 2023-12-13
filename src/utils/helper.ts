@@ -4,8 +4,10 @@ import {
   UseFormGetValues,
 } from "react-hook-form";
 import {
+  IDepartment,
   IEmployee,
   IFormEmployee,
+  IRole,
   ISelectOptionProps,
   ISkill,
   ITableProps,
@@ -13,53 +15,49 @@ import {
 import React from "react";
 import { SortDirection } from "../core/config/constants.ts";
 
-export function transformArrayToOptionsList(array: string[]) {
-  return array.map((value: string) => ({
-    value: value,
-    label: value,
+export function transformArrayToOptionsList(
+  optionsArray: (ISkill | IDepartment | IRole)[]
+) {
+  return optionsArray.map((option: ISkill | IDepartment | IRole) => ({
+    value: option.id,
+    label:
+      (option as ISkill)?.skill ||
+      (option as IDepartment)?.department ||
+      (option as IRole)?.role,
   }));
 }
 
-export function transformArrayToSkillOptionsList(skills: ISkill[]) {
-  return skills.map((skill) => ({
-    value: skill.id,
-    label: skill.skill,
-  }));
+export function concatenateNames(firstName: string, lastName: string): string {
+  return `${firstName} ${lastName}`;
 }
-export function concatenateNames(firstName: string, lastName: string ): string {
-  return `${firstName} ${lastName}`
-}
-
-export function convertToFormEmployee(employee: IEmployee): IFormEmployee {
-  return {
-    id: employee.id,
-    firstName: employee.firstName,
-    lastName: employee.lastName,
-    dob: employee.dob,
-    email: employee.email,
-    phone: employee.phone,
-    designation: employee.designation,
-    salary: employee.salary,
-    dateOfJoining: employee.dateOfJoining,
-    address: employee.address,
-    role: {
-      label: employee.role.role,
-      value: employee.role.id,
-    },
-    department: {
-      label: employee.department.department,
-      value: employee.department.id,
-    },
-    skills: transformArrayToSkillOptionsList(employee.skills),
-  };
-}
+//TODO
+// export function convertToFormEmployee(employee: IEmployee): IFormEmployee {
+//   return {
+//     id: employee.id,
+//     firstName: employee.firstName,
+//     lastName: employee.lastName,
+//     dob: employee.dob,
+//     email: employee.email,
+//     phone: employee.phone,
+//     designation: employee.designation,
+//     salary: employee.salary,
+//     dateOfJoining: employee.dateOfJoining,
+//     address: employee.address,
+//     role: {
+//       label: employee.role.role,
+//       value: employee.role.id,
+//     },
+//     department: transformArrayToOptionsList(employee.department),
+//     skills: transformArrayToOptionsList(employee.skills),
+//   };
+// }
 export function resetFiltersAndSearchBar() {
   const resettedValues = {
     department: null,
     role: null,
     skills: null,
-    search_term: ""
-  }
+    search_term: "",
+  };
   return resettedValues;
 }
 
@@ -115,25 +113,26 @@ export const filterData = (employees: IEmployee[], tableProps: ITableProps) => {
   let employeeTableData = employees;
 
   if (tableProps) {
-    employeeTableData = employees.filter((employee:IEmployee) => {
+    employeeTableData = employees.filter((employee: IEmployee) => {
       if (employee) {
         const skillMatch = tableProps.skills
           ? tableProps.skills.every((skillFilter: ISelectOptionProps) => {
-              return employee.skills.some(
-                (skill) => skill.id === skillFilter.value
+              return (
+                employee.skills &&
+                employee.skills.some((skill) => skill.id === skillFilter.value)
               );
             })
           : true;
-        const departmentMatch = tableProps.department
-          ? tableProps.department.value === employee.department.id
-          : true;
-        const roleMatch = tableProps.role
-          ? tableProps.role.value === employee.role.id
-          : true;
+        const departmentMatch =
+          tableProps.department && employee.department
+            ? tableProps.department.value === employee.department.id
+            : true;
+        const roleMatch =
+          tableProps.role && employee.role
+            ? tableProps.role.value === employee.role.id
+            : true;
 
-        return (
-           skillMatch && departmentMatch && roleMatch
-        );
+        return skillMatch && departmentMatch && roleMatch;
       }
       return true;
     });
@@ -156,7 +155,13 @@ export const searchData = (
 
   return employees.filter(
     (employee) =>
-      employee && concatenateNames(employee.firstName, employee.lastName).toLowerCase().includes(searchText)
+      employee &&
+      concatenateNames(
+        employee.firstName,
+        employee.lastName ? employee.lastName : ""
+      )
+        .toLowerCase()
+        .includes(searchText)
   );
 };
 
@@ -271,20 +276,22 @@ export const getWorkExp = (dateOfJoining: string) => {
 
 export const getDateView = (dateVal: string) => {
   const [year, month, day] = dateVal.split("-").map(Number);
-  const monthName = new Date(year, month - 1, 1).toLocaleString('default', { month: 'long' });
+  const monthName = new Date(year, month - 1, 1).toLocaleString("default", {
+    month: "long",
+  });
   const dateFormatted = day + " " + monthName + " " + year;
   return dateFormatted;
-}
+};
 
 export const generatePlaceholder = (fieldName: string): string => {
   return `Select ${fieldName.replace(/_/g, " ").toLowerCase()}`;
-}
+};
 
 export const getUrlType = (pathName: string) => {
   const pathParts = pathName.split("/");
   const secondPartOfPath = pathParts[1];
   return secondPartOfPath;
-}
+};
 
 export const checkEmployeesEqual = (
   originalEmployee: IEmployee,
@@ -295,10 +302,10 @@ export const checkEmployeesEqual = (
   for (let key of originalEmpKeys) {
     const keyProp = key as keyof IEmployee;
     if (originalEmployee[keyProp] != editedEmployee[keyProp]) {
-      if (keyProp === "skills") {
+      if (keyProp === "skills" && originalEmployee.skills) {
         const skillsEqual = checkSkillsEqual(
-          originalEmployee[keyProp],
-          editedEmployee[keyProp]
+          originalEmployee[keyProp]!,
+          editedEmployee[keyProp]!
         );
         if (skillsEqual) return true;
         return false;

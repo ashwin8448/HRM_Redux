@@ -11,8 +11,8 @@ export interface IEmployeeData{
     count:number
 }
 export interface IEmployee {
-    id?: string,
-    firstName?: string,
+    id: string,
+    firstName: string,
     lastName?: string,
     isActive?: boolean,
     dob?: string,
@@ -39,6 +39,8 @@ export interface IDepartment {
     id: number,
     department: string
 }
+
+//TODO:
 export interface IFormEmployee {
     id: string,
     firstName: string | null,
