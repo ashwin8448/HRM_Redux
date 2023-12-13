@@ -15,7 +15,6 @@ API.interceptors.response.use(onResponse as unknown as (
     value: AxiosResponse<any, any>) => AxiosResponse<any, any> | Promise<AxiosResponse<any, any>>, 
     onResponseError);
 
-
 export const makeRequest = (
     method: string,
     url: string,

@@ -6,14 +6,18 @@ const DetailsSection = ({
   icon,
   title,
   content,
+  matches,
 }: {
   icon: string;
   title: string;
   content: string | ISkill[];
+  matches: boolean;
 }) => {
+  console.log(matches);
+  console.log((matches ? "mobile " : "")+"heading overflow-ellipsis");
   return (
     <DetailsWrapper className="common-flex">
-      <div className="heading overflow-ellipsis">
+      <div className={(matches ? "mobile " : "")+"heading overflow-ellipsis"}>
         <span className="material-symbols-outlined ">{icon}</span>
         <p className="title">{title}</p>
       </div>

@@ -8,10 +8,17 @@ const DetailsWrapper = styled.div`
   .heading {
     padding: 5px;
     border-right: 1px solid ${colors.LIGHT_GRAY_COLOR};
-    width: 160px;
+    width: 30%;
     > * {
       display: inline-block;
       vertical-align: bottom; /* Align elements at the bottom */
+    }
+  }
+
+  .mobile {
+    width: auto;
+    .title {
+      margin-left: 0;
     }
   }
 

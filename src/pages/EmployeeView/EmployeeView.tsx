@@ -10,13 +10,14 @@ import { toast } from "react-toastify";
 import { getData } from "../../core/api/functions.ts";
 import { IEmployee } from "../../core/interfaces/interface.ts";
 //TODO:
-// import { useMediaQuery } from "usehooks.ts";
-import { useMediaQuery } from "@mui/material";
+import { useMediaQuery } from "usehooks-ts";
+import ErrorPage from "../../components/ErrorPage/ErrorPage.tsx";
 
 function EmployeeView() {
   //mobile design
   //TODO:
   const matches = useMediaQuery("(min-width: 768px)");
+  console.log(matches);
   const { employeeId } = useParams();
   const [employeeData, setEmployeeData] = useState<{loading:Boolean, employee:IEmployee}>({
     loading: true,
@@ -31,6 +32,9 @@ function EmployeeView() {
   };
 
   //   const employee = employees.find((emp) => emp && emp.id === employeeId);
+// no id: toast
+// id und, no emp: ErrorPage
+// req error: 
 
   useEffect(() => {
     if (!employeeId) {
@@ -71,6 +75,7 @@ function EmployeeView() {
           {" "}
           reply
         </span>
+        <span>Hi {matches}</span>
         <EmployeeViewWrapper>
           <h2 className="employee-name">{employeeData.employee.firstName+" "+employeeData.employee.lastName}</h2>
           <ButtonGrpWrapper className="details-section common-flex">
@@ -97,26 +102,31 @@ function EmployeeView() {
                 icon="person"
                 title={matches ? "Full Name" : ""}
                 content={employeeData.employee.firstName+" "+employeeData.employee.lastName}
+                matches
               />
               <DetailsSection
                 icon="mail"
                 title={matches ? "Email" : ""}
                 content={employeeData.employee.email!}
+                matches
               />
               <DetailsSection
                 icon="phone_iphone"
                 title={matches ? "Phone No" : ""}
                 content={employeeData.employee.phone!}
+                matches
               />
               <DetailsSection
                 icon="calendar_month"
                 title={matches ? "Date of Birth" : ""}
                 content={getDateView(employeeData.employee.dob!)}
+                matches
               />
               <DetailsSection
                 icon="home"
                 title={matches ? "Address" : ""}
                 content={employeeData.employee.address!}
+                matches
               />
             </div>
           ) : (
@@ -125,31 +135,37 @@ function EmployeeView() {
                 icon="person"
                 title={matches ? "Designation" : ""}
                 content={employeeData.employee.designation!}
+                matches
               />
               <DetailsSection
                 icon="mail"
                 title={matches ? "Department" : ""}
                 content={employeeData.employee.department!.department}
+                matches
               />
               {/* <DetailsSection
                 icon="phone_iphone"
                 title={matches ? "Employment Mode" : ""}
                 content={employeeData.employee.employment_mode!}
+                matches
               /> */}
               <DetailsSection
                 icon="calendar_month"
                 title={matches ? "Date of Joining" : ""}
                 content={getDateView(employeeData.employee.dateOfJoining!)}
+                matches
               />
               <DetailsSection
                 icon="home"
                 title={matches ? "Work Experience" : ""}
                 content={getWorkExp(employeeData.employee.dateOfJoining!)}
+                matches
               />
               <DetailsSection
                 icon="home"
                 title={matches ? "Skills" : ""}
                 content={employeeData.employee.skills!}
+                matches
               />
             </div>
           )}
