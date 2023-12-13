@@ -25,7 +25,7 @@ function TableData({
     const navigate = useNavigate();
 
     const handleEmployeeDetailsView = () => {
-        navigate(`/view-employee?employeeId=${employee.id}`);
+        navigate(`/view-employee/${employee.id}`);
     };
 
     const handleCancelBtn = () => {
@@ -61,22 +61,20 @@ function TableData({
                 className="employee-data  employee-view"
                 onClick={handleEmployeeDetailsView}
             >
-                {concatenateNames(employee.firstName, employee.lastName)}
+                {employee.lastName ? concatenateNames(employee.firstName, employee.lastName) : employee.firstName}
             </td>
-            <td className="employee-data ">{employee.designation}</td>
-            <td className="employee-data ">{employee.department.department}</td>
-            <td className="employee-data ">{employee.role.role}</td>
-            <td
-                className="employee-data "
-                onMouseEnter={handleMouseEnter}
-                onMouseLeave={handleMouseLeave}
-            >
-                <SkillsChip
-                    className="overflow-ellipsis"
-                    skills={employee.skills}
-                    handleSkillsOverflow={handleSkillsOverflow}
-                />
-                {hover && skillsOverflow && <Tooltip message={employee.skills} />}
+            <td className="employee-data">{employee.designation || '-'}</td>
+            <td className="employee-data">{employee.department?.department || '-'}</td>
+            <td className="employee-data">{employee.role?.role || '-'}</td>
+            <td className="employee-data" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
+                {(Array.isArray(employee.skills) && employee.skills.length > 0) ? (
+                    <>
+                        <SkillsChip className="overflow-ellipsis" skills={employee.skills} handleSkillsOverflow={handleSkillsOverflow} />
+                        {hover && skillsOverflow && <Tooltip message={employee.skills} />}
+                    </>
+                ) : (
+                    '-'
+                )}
             </td>
             <td className="employee-data">
                 <div className=" actions-list common-flex">

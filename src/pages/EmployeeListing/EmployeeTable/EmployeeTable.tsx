@@ -7,9 +7,12 @@ import Loader from "../../../components/Loader/Loader.tsx";
 import { filterData, searchData, sortData } from "../../../utils/helper.ts";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal.tsx";
 import fetchData from "../../../utils/fetchData.ts";
+import { fetchEmployeesData } from "../../../core/store/actions.ts";
+import store from "../../../core/store/configureStore.ts";
+import { useSelector } from "react-redux";
 
 let pageSize = 5;
- 
+
 function EmployeeTable({
     deleteModal,
     changeDltModalOpenStatus,
@@ -17,10 +20,11 @@ function EmployeeTable({
     deleteModal: boolean;
     changeDltModalOpenStatus: () => void;
 }) {
-    const [data,setData] = useState<IData>();
-    useEffect(()=>{
-        fetchData().then((data) => setData(data));
-    },[])
+    const employeesData = useSelector((state: IData) => state.employeesData)
+
+    useEffect(() => {
+        store.dispatch(fetchEmployeesData())
+    }, [])
 
     //TODO: Fetch employees data, loading, filterprops
 
@@ -41,20 +45,21 @@ function EmployeeTable({
         // const filteredEmployees = filterData(sortedEmployees, tableProps);
         // const searchedEmployees = searchData(filteredEmployees, tableProps);
 
-        const searchedEmployees:IEmployee[] | [] = data?.employeesData.employees ?? [];
+        const searchedEmployees = employeesData.employees;
         // Update totalCount based on the filtered data length
-        totalCount = searchedEmployees.length;
+        // totalCount = searchedEmployees.length;
 
-        // Calculate the total number of pages based on the filtered data length
-        totalPageCount = Math.ceil(totalCount / pageSize);
+        // // Calculate the total number of pages based on the filtered data length
+        // totalPageCount = Math.ceil(totalCount / pageSize);
 
-        // Ensure that the current page is within the valid range
-        const validCurrentPage = Math.min(currentPage, totalPageCount);
+        // // Ensure that the current page is within the valid range
+        // const validCurrentPage = Math.min(currentPage, totalPageCount);
 
-        const firstPageIndex = (validCurrentPage - 1) * pageSize;
-        const lastPageIndex = firstPageIndex + pageSize;
+        // const firstPageIndex = (validCurrentPage - 1) * pageSize;
+        // const lastPageIndex = firstPageIndex + pageSize;
 
-        return searchedEmployees.slice(firstPageIndex, lastPageIndex);
+        return searchedEmployees
+        // .slice(firstPageIndex, lastPageIndex);
     }, [
         // tableProps, employees,
         currentPage, deleteModal
