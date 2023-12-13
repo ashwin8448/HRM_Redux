@@ -13,7 +13,7 @@ function Layout() {
     return (
         <>
             <Header />
-            <main className="main-section global-width global-padding">
+            <main className="main-section global-width">
 
                 {/* This element will render either 
                     <EmployeeListing /> when URL is '/'

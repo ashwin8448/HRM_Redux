@@ -8,11 +8,12 @@ function MainHeading() {
 
     return (
         <SectionWrapper>
-            <h1 className={matches ? `page-title` : `page-title-mobile`}>Employees</h1>
+            <h1 className={matches ? `page-title` : `page-title-mobile`}>Employee Management</h1>
+            
             {/* navigating to add-employee page */}
-            <StyledLink to="add-employee">
+            {/* <StyledLink to="add-employee">
                 <Button icon="add_circle">{matches ? "Add New Employee" : ""}</Button>
-            </StyledLink>
+            </StyledLink> */}
         </SectionWrapper>
     );
 }

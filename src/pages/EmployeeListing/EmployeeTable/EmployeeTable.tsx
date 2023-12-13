@@ -72,7 +72,7 @@ function EmployeeTable({
     const idToDltProp = { idToDlt, addIdToDlt };
 
     return (
-        <>
+        <div className="global-padding">
             <div className="table-overflow-scroll">
                 <TableWrapper>
                     <TableHead />
@@ -128,7 +128,7 @@ function EmployeeTable({
                 pageSize={pageSize}
                 onPageChange={(page: number) => setCurrentPage(page)}
             /> */}
-        </>
+        </div>
     );
 }
 export default EmployeeTable;
