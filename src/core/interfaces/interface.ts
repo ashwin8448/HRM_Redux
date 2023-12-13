@@ -4,11 +4,12 @@ export interface IData{
     employeesData: IEmployeeData,
     skills:ISkill[],
     roles:IRole[],
-    departments:IDepartment[]
+    departments:IDepartment[],
 }
 export interface IEmployeeData{
     employees:IEmployee[],
-    count:number
+    count:number,
+    loading:boolean
 }
 export interface IEmployee {
     id: string,

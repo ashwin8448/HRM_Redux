@@ -6,7 +6,6 @@ import TableHead from "./TableHead/TableHead.tsx";
 import Loader from "../../../components/Loader/Loader.tsx";
 import { filterData, searchData, sortData } from "../../../utils/helper.ts";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal.tsx";
-import fetchData from "../../../utils/fetchData.ts";
 import { fetchEmployeesData } from "../../../core/store/actions.ts";
 import store from "../../../core/store/configureStore.ts";
 import { useSelector } from "react-redux";
@@ -21,6 +20,8 @@ function EmployeeTable({
     changeDltModalOpenStatus: () => void;
 }) {
     const employeesData = useSelector((state: IData) => state.employeesData)
+    const employees = employeesData.employees;
+    const loading = employeesData.loading;
 
     useEffect(() => {
         store.dispatch(fetchEmployeesData())
@@ -75,7 +76,7 @@ function EmployeeTable({
             <div className="table-overflow-scroll">
                 <TableWrapper>
                     <TableHead />
-                    {false ? ( //TODO: replace with loading
+                    {loading ? ( //TODO: replace with loading
                         <tbody>
                             <tr className="no-border-row">
                                 <td colSpan={5}>
@@ -88,8 +89,8 @@ function EmployeeTable({
                         </tbody>
                     ) : (
                         <tbody>
-                            {employeesTableView.length > 0 ? (
-                                employeesTableView.map((employee: IEmployee, index: number) => {
+                            {employees.length > 0 ? (
+                                employees.map((employee: IEmployee, index: number) => {
                                     return (
                                         employee && (
                                             <TableData
