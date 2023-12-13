@@ -119,7 +119,7 @@ body {
   left: 50%;
 }
 .table-overflow-scroll{
-  border: 1px solid  #D3D3D3;
+  border-top: 1px solid  #D3D3D3;
   //TODO: missing border on large screens
 }
 .overflow-ellipsis{
@@ -131,7 +131,7 @@ body {
   color:${colors.SECONDARY_COLOR};
   cursor:pointer;
 }
-@media screen and (max-width: 1200px) {
+@media screen and (max-width: 1400px) {
   .table-overflow-scroll {
     overflow-x: auto;
   }

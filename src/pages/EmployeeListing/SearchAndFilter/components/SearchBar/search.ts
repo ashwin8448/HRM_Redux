@@ -2,7 +2,6 @@ import styled from "styled-components";
 import colors from "../../../../../core/constants/colors";
 
 const SearchWrapper = styled.div<{ $focus: boolean }>`
-  flex: 1;
   background-color: ${colors.WHITE_COLOR};
   border-radius: 4px;
   padding: 6px;
@@ -54,8 +53,9 @@ const SearchWrapper = styled.div<{ $focus: boolean }>`
     flex-direction: row-reverse;
   }
 
-  @media only screen and (max-width: 1200px) {
+  //TODO: css for mobile screens
+  /* @media only screen and (max-width: 1200px) {
     width: 100%;
-  }
+  } */
 `;
 export default SearchWrapper;
