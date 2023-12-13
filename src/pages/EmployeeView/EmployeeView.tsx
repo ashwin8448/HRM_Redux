@@ -12,8 +12,6 @@ import { getData } from "../../core/api/functions.ts";
 import { IEmployee } from "../../core/interfaces/interface.ts";
 //TODO:
 import { useMediaQuery } from "usehooks-ts";
-import ErrorPage from "../../components/ErrorPage/ErrorPage.tsx";
-import { fetchEmployeesData } from "../../core/store/actions.ts";
 
 function EmployeeView() {
   //mobile design
@@ -26,7 +24,6 @@ function EmployeeView() {
     employee: null,
   });
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   //   const { employees, loading } = useContext(DataContext);
   const [activeBtn, setActiveBtn] = useState("profile");
 
