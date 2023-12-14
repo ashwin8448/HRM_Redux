@@ -10,12 +10,13 @@ import {
 
 function DeleteModal({
     changeDltModalOpenStatus,
-    employeeId,
+    idArrayToDlt
 }: {
     changeDltModalOpenStatus: () => void;
-    employeeId: string;
+    idArrayToDlt:string[]
 }) {
 
+    console.log(idArrayToDlt)
     const confirmDlt = async () => {
 
         // TODO: Fetch the employee to delete
@@ -25,7 +26,6 @@ function DeleteModal({
 
         changeDltModalOpenStatus();
     };
-
     return (
         <DeleteModalWrapper>
             <Button
@@ -34,7 +34,7 @@ function DeleteModal({
                 onClick={changeDltModalOpenStatus}
             ></Button>
             <h2 className="delete-modal-heading">{DELETE_MODAL_HEADING}</h2>
-            <p className="confirm-delete">{CONFIRM_DELETE_TEXT(employeeId)}</p>
+            <p className="confirm-delete">{CONFIRM_DELETE_TEXT(idArrayToDlt)}</p>
             <div className="warning-container">
                 <div className="warning-heading common-flex">
                     <span className="material-icons-round">warning</span>

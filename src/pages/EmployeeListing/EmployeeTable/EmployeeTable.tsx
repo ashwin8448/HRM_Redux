@@ -15,15 +15,11 @@ let pageSize = 5;
 
 function EmployeeTable({
   deleteCheckBoxesList,
-  deleteModal,
-  changeDltModalOpenStatus,
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  deleteModal: boolean;
-  changeDltModalOpenStatus: () => void;
 }) {
   const employeesData = useSelector((state: IData) => state.employeesData);
   const employees = employeesData.employees;
@@ -70,13 +66,7 @@ function EmployeeTable({
   }, [
     // tableProps, employees,
     currentPage,
-    deleteModal,
   ]);
-
-  const addIdToDlt = (idToDlt: string) => {
-    setIdToDlt(idToDlt);
-  };
-  const idToDltProp = { idToDlt, addIdToDlt };
 
   return (
     <>
@@ -104,8 +94,6 @@ function EmployeeTable({
                         key={employee.id}
                         employee={employee}
                         index={index}
-                        changeDltModalOpenStatus={changeDltModalOpenStatus}
-                        idToDltProp={idToDltProp}
                         deleteCheckBoxesList={deleteCheckBoxesList}
                       />
                     )
@@ -122,12 +110,6 @@ function EmployeeTable({
           )}
         </TableWrapper>
       </div>
-      {deleteModal && (
-        <DeleteModal
-          changeDltModalOpenStatus={changeDltModalOpenStatus}
-          employeeId={idToDlt}
-        />
-      )}
       {/* TODO:Pagination  */}
       {/* <Pagination
                 className="pagination-bar"

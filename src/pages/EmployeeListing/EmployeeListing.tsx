@@ -6,7 +6,7 @@ import Button from "../../components/Button/Button.tsx";
 import { useMediaQuery } from "usehooks-ts";
 import ButtonGrpWrapper from "./../../components/Button/buttonGrpWrapper";
 import EmployeeTableActions from "./EmployeeTableActions/EmployeeTableActions.tsx";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SideFilterBar from "./SideFilterBar/SideFilterBar.tsx";
 
 function EmployeeListing() {
@@ -18,6 +18,27 @@ function EmployeeListing() {
   };
   const [checkedBoxesList, setCheckedBoxesList] = useState<string[]>([]);
   const deleteCheckBoxesList = { checkedBoxesList, setCheckedBoxesList };
+
+  const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
+
+  const changeDltModalOpenStatus = () => {
+    console.log();
+    setDeleteModal(
+      () => deleteCheckBoxesList.checkedBoxesList.length !== 0 && !deleteModal
+    );
+  };
+
+  useEffect(() => {
+    deleteModal
+      ? (document.body.style.overflow = "hidden") // Disable scrolling
+      : (document.body.style.overflow = "auto"); // Enable scrolling
+
+    // Cleanup function to re-enable scrolling when the component unmounts or when the modal is closed
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [deleteModal]);
+
   return (
     <>
       <ToastContainer
@@ -49,8 +70,14 @@ function EmployeeListing() {
           onClick={() => setSideFilterBarVisible(false)}
         ></div>
       )}
-      <EmployeeTableActions deleteCheckBoxesList={deleteCheckBoxesList} />
-      <EmployeeTableSearchAndPagination deleteCheckBoxesList={deleteCheckBoxesList} />
+      <EmployeeTableActions
+        deleteCheckBoxesList={deleteCheckBoxesList}
+        deleteModal={deleteModal}
+        changeDltModalOpenStatus={changeDltModalOpenStatus}
+      />
+      <EmployeeTableSearchAndPagination
+        deleteCheckBoxesList={deleteCheckBoxesList}
+      />
     </>
   );
 }

@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { useMediaQuery } from "usehooks-ts";
+import React from "react";
 import EmployeeTable from "../EmployeeTable/EmployeeTable.tsx";
 import EmployeeTableSearchAndPaginationWrapper from "./employeeTableSearchAndPagination.ts";
 import SearchBar from "../SearchAndFilter/components/SearchBar/SearchBar.tsx";
@@ -13,23 +12,6 @@ function EmployeeTableSearchAndPagination({
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
 }) {
-  const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
-
-  const changeDltModalOpenStatus = () => {
-    setDeleteModal(() => !deleteModal);
-  };
-
-  useEffect(() => {
-    deleteModal
-      ? (document.body.style.overflow = "hidden") // Disable scrolling
-      : (document.body.style.overflow = "auto"); // Enable scrolling
-
-    // Cleanup function to re-enable scrolling when the component unmounts or when the modal is closed
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [deleteModal]);
-
   return (
     <EmployeeTableSearchAndPaginationWrapper>
       <div className="border">
@@ -37,14 +19,7 @@ function EmployeeTableSearchAndPagination({
           <SearchBar placeholder="Search by name" />
           <PaginationResults></PaginationResults>
         </div>
-        <EmployeeTable
-          deleteCheckBoxesList={deleteCheckBoxesList}
-          deleteModal={deleteModal}
-          changeDltModalOpenStatus={changeDltModalOpenStatus}
-        />
-        {deleteModal && (
-          <div className="overlay" onClick={() => setDeleteModal(false)}></div>
-        )}
+        <EmployeeTable deleteCheckBoxesList={deleteCheckBoxesList} />
       </div>
     </EmployeeTableSearchAndPaginationWrapper>
   );

@@ -12,17 +12,10 @@ import Checkbox from "../../../../components/Checkbox/Checkbox.tsx";
 function TableData({
   employee,
   index,
-  changeDltModalOpenStatus,
-  idToDltProp,
   deleteCheckBoxesList,
 }: {
   employee: IEmployee;
   index: number;
-  changeDltModalOpenStatus: () => void;
-  idToDltProp: {
-    idToDlt: string;
-    addIdToDlt: (idToDlt: string) => void;
-  };
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
@@ -32,11 +25,6 @@ function TableData({
 
   const handleEmployeeDetailsView = () => {
     navigate(`/view-employee/${employee.id}`);
-  };
-
-  const handleCancelBtn = () => {
-    changeDltModalOpenStatus();
-    idToDltProp.addIdToDlt(employee.id); //id is set to have the employee of that id to be deleted inside the delete modal
   };
 
   //tooltip on hovering skills
@@ -102,8 +90,6 @@ function TableData({
           <StyledLink to={`/edit-employee?employeeId=${employee.id}`}>
             <Button icon="edit"></Button>
           </StyledLink>
-          {/* opens the modal on click */}
-          <Button icon="delete" onClick={handleCancelBtn}></Button>
         </div>
       </td>
     </TableDataWrapper>
