@@ -6,22 +6,15 @@ const EmployeeViewWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   background-color: ${colors.WHITE_COLOR};
-  padding: 20px 0;
   border: 1px solid ${colors.LIGHT_GRAY_COLOR};
   border-radius: 10px;
   margin: 0 auto;
-  max-width: 600px;
+  max-width: 700px;
+  padding: 25px;
+  gap: 25px;
 
-  > * {
-    padding: 0 20px;
-  }
   p {
     margin: 0;
-  }
-  h2 {
-    margin: 0 0 10px 0;
-    text-align: center;
-    padding-bottom: 10px;
   }
   .details-section {
     border-top: 1px solid ${colors.LIGHT_GRAY_COLOR};
@@ -52,13 +45,57 @@ const EmployeeViewWrapper = styled.div`
   }
 
   .detail-element {
-    margin: 20px 0;
-    display: flex;
-    flex-direction: column;
     gap: 10px;
     width: 100%;
     .material-symbols-outlined {
       color: ${colors.LIGHT_GRAY_COLOR};
+    }
+  }
+
+  img {
+    width: 175px;
+    border-radius: 50%;
+  }
+
+  .flex {
+    display: flex;
+  }
+
+  .employee-intro-section {
+    width: 100%;
+    gap: 20px;
+    .employee-intro {
+      flex-grow: 1;
+      flex-direction: column;
+      .employee-status {
+        border-bottom: 1px solid black;
+        padding-bottom: 10px;
+      }
+      .employee-info {
+        flex-grow: 1;
+        margin-top: 10px;
+        p {
+          padding: 5px 0 5px 10px;
+        }
+        .title {
+          width: 85px;
+        }
+      }
+    }
+  }
+  .employee-details-section {
+    width: 100%;
+    border: 1px solid black;
+    border-radius: 10px;
+    h2 {
+      border-bottom: 1px solid black;
+      margin: 0;
+      padding: 10px 20px;
+    }
+    .detail-element {
+      padding: 10px 20px;
+      display: flex;
+      flex-wrap: wrap;
     }
   }
 `;

@@ -1,8 +1,7 @@
 import EmployeeViewWrapper from "./employeeView.ts";
 import { useNavigate, useParams } from "react-router-dom";
 import { useEffect, useState } from "react";
-import {useDispatch} from "react-redux"
-import { defaultFormVal, getDateView, getWorkExp } from "../../utils/helper.ts";
+import { getDateView, getWorkExp } from "../../utils/helper.ts";
 import Button from "../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import DetailsSection from "../../components/Details/Details.tsx";
@@ -10,34 +9,30 @@ import Loader from "../../components/Loader/Loader.tsx";
 import { toast } from "react-toastify";
 import { getData } from "../../core/api/functions.ts";
 import { IEmployee } from "../../core/interfaces/interface.ts";
+import dummy_img from "../../assets/dummy_img.jpeg";
 //TODO:
+// why matches
 import { useMediaQuery } from "usehooks-ts";
 
 function EmployeeView() {
   //mobile design
   //TODO:
   const matches = useMediaQuery("(min-width: 768px)");
-  console.log(matches);
   const { employeeId } = useParams();
-  const [employeeData, setEmployeeData] = useState<{loading:Boolean, employee:IEmployee|null}>({
+  const [employeeData, setEmployeeData] = useState<{
+    loading: Boolean;
+    employee: IEmployee | null;
+  }>({
     loading: true,
     employee: null,
   });
   const navigate = useNavigate();
-  //   const { employees, loading } = useContext(DataContext);
   const [activeBtn, setActiveBtn] = useState("profile");
 
   const handleButtonClick = (buttonType: string) => {
     setActiveBtn(buttonType);
   };
-
-  //   const employee = employees.find((emp) => emp && emp.id === employeeId);
-// no id: toast
-// id und, no emp: ErrorPage
-// req error: 
-
   useEffect(() => {
-
     if (!employeeId) {
       // Display error toast after initial render
       toast.error("No employee Id was provided", {
@@ -48,24 +43,28 @@ function EmployeeView() {
     } else {
       getData("/employee/" + employeeId)
         .then((response) => {
-            console.log(response.data.data)
-          if (response.status == 200 && !response.data)
-{            //TODO: throw new response?
-            throw new Response("Employee Not Found", { status: 404 });}
-          else setEmployeeData((prev)=> ({ ...prev, employee: response.data.data }));
+          if (response.status == 200 && !response.data) {
+            //TODO: throw new response?
+            throw new Response("Employee Not Found", { status: 404 });
+          } else
+            setEmployeeData((prev) => ({
+              ...prev,
+              employee: response.data.data,
+            }));
         })
         .catch((error) => {
           console.log(error);
         })
-        .finally(() => setEmployeeData((prev)=>({ ...prev, loading: false })));
-    //   if (!loading && !employee) {
-    //     throw new Response("Employee Not Found", { status: 404 });
-    //   }
+        .finally(() =>
+          setEmployeeData((prev) => ({ ...prev, loading: false }))
+        );
+      //   if (!loading && !employee) {
+      //     throw new Response("Employee Not Found", { status: 404 });
+      //   }
     }
   }, []);
 
-  if (employeeData.loading) return (<Loader className="center-screen" />);
-  console.log(employeeData)
+  if (employeeData.loading) return <Loader className="center-screen" />;
   return (
     employeeData.employee && (
       <>
@@ -76,73 +75,105 @@ function EmployeeView() {
           {" "}
           reply
         </span>
-        <span>Hi {matches}</span>
         <EmployeeViewWrapper>
-          <h2 className="employee-name">{employeeData.employee.firstName+" "+employeeData.employee.lastName}</h2>
-          <ButtonGrpWrapper className="details-section common-flex">
-            <Button
-              icon="person"
-              children="Personal Details"
-              className={`detail-heading ${
-                activeBtn === "profile" ? "add-border-bottom" : ""
-              }`}
-              onClick={() => handleButtonClick("profile")}
-            />
-            <Button
-              icon="business_center"
-              children="Work Details"
-              className={`detail-heading ${
-                activeBtn === "work" ? "add-border-bottom" : ""
-              }`}
-              onClick={() => handleButtonClick("work")}
-            />
-          </ButtonGrpWrapper>
-          {activeBtn === "profile" ? (
+          <div className="flex employee-intro-section">
+            <img src={dummy_img} alt="Employee image" />
+            <div className="flex employee-intro">
+              <h2>
+                {employeeData.employee.firstName +
+                  " " +
+                  employeeData.employee.lastName}
+              </h2>
+              <div className="employee-status">
+                <span>Active/InActive {employeeData.employee.isActive}</span>
+                <span>{employeeData.employee.role?.role}</span>
+              </div>
+              <div className="flex">
+                <div className="employee-info">
+                  <DetailsSection
+                    icon="person"
+                    title="Department"
+                    content={employeeData.employee.department!.department}
+                  />
+                  <DetailsSection
+                    icon="person"
+                    title="Date hired"
+                    content={employeeData.employee.dateOfJoining!}
+                  />
+                </div>
+                <div className="employee-info">
+                  <DetailsSection
+                    icon="mail"
+                    content={employeeData.employee.email!}
+                  />
+                  <DetailsSection
+                    icon="phone_iphone"
+                    content={employeeData.employee.phone!}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
+          <div className="employee-details-section">
+            <h2>Personal Details</h2>
             <div className="detail-element">
               <DetailsSection
                 icon="person"
-                title={matches ? "Full Name" : ""}
-                content={employeeData.employee.firstName+" "+employeeData.employee.lastName}
+                title="Full Name"
+                content={
+                  employeeData.employee.firstName +
+                  " " +
+                  employeeData.employee.lastName
+                }
                 matches
+                newline={true}
               />
               <DetailsSection
                 icon="mail"
-                title={matches ? "Email" : ""}
+                title="Email"
                 content={employeeData.employee.email!}
                 matches
+                newline={true}
               />
               <DetailsSection
                 icon="phone_iphone"
-                title={matches ? "Phone No" : ""}
+                title="Phone No"
                 content={employeeData.employee.phone!}
                 matches
+                newline={true}
               />
               <DetailsSection
                 icon="calendar_month"
-                title={matches ? "Date of Birth" : ""}
+                title="Date of Birth"
                 content={getDateView(employeeData.employee.dob!)}
                 matches
+                newline={true}
               />
               <DetailsSection
                 icon="home"
-                title={matches ? "Address" : ""}
+                title="Address"
                 content={employeeData.employee.address!}
                 matches
+                newline={true}
               />
             </div>
-          ) : (
+          </div>
+          <div className="employee-details-section">
+            <h2>Professional Details</h2>
             <div className="detail-element">
               <DetailsSection
                 icon="person"
-                title={matches ? "Designation" : ""}
+                title="Designation"
                 content={employeeData.employee.designation!}
                 matches
+                newline={true}
               />
               <DetailsSection
                 icon="mail"
-                title={matches ? "Department" : ""}
+                title="Department"
                 content={employeeData.employee.department!.department}
                 matches
+                newline={true}
               />
               {/* <DetailsSection
                 icon="phone_iphone"
@@ -152,24 +183,27 @@ function EmployeeView() {
               /> */}
               <DetailsSection
                 icon="calendar_month"
-                title={matches ? "Date of Joining" : ""}
+                title="Date of Joining"
                 content={getDateView(employeeData.employee.dateOfJoining!)}
                 matches
+                newline={true}
               />
               <DetailsSection
                 icon="home"
-                title={matches ? "Work Experience" : ""}
+                title="Work Experience"
                 content={getWorkExp(employeeData.employee.dateOfJoining!)}
                 matches
+                newline={true}
               />
               <DetailsSection
                 icon="home"
-                title={matches ? "Skills" : ""}
+                title="Skills"
                 content={employeeData.employee.skills!}
                 matches
+                newline={true}
               />
             </div>
-          )}
+          </div>
         </EmployeeViewWrapper>
       </>
     )
@@ -177,3 +211,151 @@ function EmployeeView() {
 }
 
 export default EmployeeView;
+
+{
+  /* <EmployeeViewWrapper>
+<div className="flex employee-intro-section">
+  <img src={dummy_img} alt="Employee image" />
+  <div className="flex employee-intro">
+    <h2>
+      {employeeData.employee.firstName +
+        " " +
+        employeeData.employee.lastName}
+    </h2>
+    <div className="employee-status">
+      <span>Active/InActive {employeeData.employee.isActive}</span>
+      <span>{employeeData.employee.role?.role}</span>
+    </div>
+    <div className="flex">
+      <div className="employee-info">
+        <DetailsSection
+          icon="person"
+          title="Department"
+          content={employeeData.employee.department!.department}
+        />
+        <DetailsSection
+          icon="person"
+          title="Date hired"
+          content={employeeData.employee.dateOfJoining!}
+        />
+      </div>
+      <div className="employee-info">
+        <DetailsSection
+          icon="mail"
+          content={employeeData.employee.email!}
+        />
+        <DetailsSection
+          icon="phone_iphone"
+          content={employeeData.employee.phone!}
+        />
+      </div>
+    </div>
+  </div>
+</div>
+<ButtonGrpWrapper className="details-section common-flex">
+  <Button
+    icon="person"
+    children="Personal Details"
+    className={`detail-heading ${
+      activeBtn === "profile" ? "add-border-bottom" : ""
+    }`}
+    onClick={() => handleButtonClick("profile")}
+  />
+  <Button
+    icon="business_center"
+    children="Work Details"
+    className={`detail-heading ${
+      activeBtn === "work" ? "add-border-bottom" : ""
+    }`}
+    onClick={() => handleButtonClick("work")}
+  />
+</ButtonGrpWrapper>
+{activeBtn === "profile" ? (
+  <div className="detail-element">
+    <DetailsSection
+      icon="person"
+      title="Full Name"
+      content={
+        employeeData.employee.firstName +
+        " " +
+        employeeData.employee.lastName
+      }
+      matches
+      newline={true}
+    />
+    <DetailsSection
+      icon="mail"
+      title="Email"
+      content={employeeData.employee.email!}
+      matches
+      newline={true}
+    />
+    <DetailsSection
+      icon="phone_iphone"
+      title="Phone No"
+      content={employeeData.employee.phone!}
+      matches
+      newline={true}
+    />
+    <DetailsSection
+      icon="calendar_month"
+      title="Date of Birth"
+      content={getDateView(employeeData.employee.dob!)}
+      matches
+      newline={true}
+    />
+    <DetailsSection
+      icon="home"
+      title="Address"
+      content={employeeData.employee.address!}
+      matches
+      newline={true}
+    />
+  </div>
+) : (
+  <div className="detail-element">
+    <DetailsSection
+      icon="person"
+      title="Designation"
+      content={employeeData.employee.designation!}
+      matches
+      newline={true}
+    />
+    <DetailsSection
+      icon="mail"
+      title="Department"
+      content={employeeData.employee.department!.department}
+      matches
+      newline={true}
+    />
+    <DetailsSection
+      icon="phone_iphone"
+      title={matches ? "Employment Mode" : ""}
+      content={employeeData.employee.employment_mode!}
+      matches
+    /> 
+    <DetailsSection
+      icon="calendar_month"
+      title="Date of Joining"
+      content={getDateView(employeeData.employee.dateOfJoining!)}
+      matches
+      newline={true}
+    />
+    <DetailsSection
+      icon="home"
+      title="Work Experience"
+      content={getWorkExp(employeeData.employee.dateOfJoining!)}
+      matches
+      newline={true}
+    />
+    <DetailsSection
+      icon="home"
+      title="Skills"
+      content={employeeData.employee.skills!}
+      matches
+      newline={true}
+    />
+  </div>
+)}
+</EmployeeViewWrapper> */
+}
