@@ -1,28 +1,10 @@
 import { styled } from "styled-components";
 import colors from "../../core/constants/colors";
 
-const DetailsWrapper = styled.div<{ $newline?: boolean }>`
-  justify-content: flex-start !important;
-  /* border: 1px solid ${colors.LIGHT_GRAY_COLOR}; */
+const DetailsWrapper = styled.div<{ $newline?: boolean; $skill?: boolean }>`
   display: flex;
   flex-direction: ${(props) => props.$newline && "column"};
-
-  .heading {
-    padding: 5px;
-    border-right: 1px solid ${colors.LIGHT_GRAY_COLOR};
-    width: 30%;
-    > * {
-      display: inline-block;
-      vertical-align: bottom; /* Align elements at the bottom */
-    }
-  }
-
-  .mobile {
-    width: auto;
-    .title {
-      margin-left: 0;
-    }
-  }
+  width: ${(props) => (props.$skill || !props.$newline ? "100%" : "49%")};
 
   .content {
     width: 100%;
@@ -30,6 +12,7 @@ const DetailsWrapper = styled.div<{ $newline?: boolean }>`
     font-weight: 600;
     padding: 5px 0 10px 0;
   }
+
   .title {
     margin-left: 10px;
     font-size: 14px;

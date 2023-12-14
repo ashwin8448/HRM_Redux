@@ -6,7 +6,6 @@ const DetailsSection = ({
   icon,
   title,
   content,
-  matches,
   newline,
 }: {
   icon: string;
@@ -16,7 +15,7 @@ const DetailsSection = ({
   newline?: boolean;
 }) => {
   return (
-    <DetailsWrapper $newline={newline}>
+    <DetailsWrapper $newline={newline} $skill={typeof content != "string"}>
       <div className="description">
         <span className="material-symbols-outlined ">{icon}</span>
         {title && <span className="title">{title}</span>}

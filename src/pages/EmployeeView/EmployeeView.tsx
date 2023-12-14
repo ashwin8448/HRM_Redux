@@ -27,11 +27,10 @@ function EmployeeView() {
     employee: null,
   });
   const navigate = useNavigate();
-  const [activeBtn, setActiveBtn] = useState("profile");
-
-  const handleButtonClick = (buttonType: string) => {
-    setActiveBtn(buttonType);
-  };
+  // const [activeBtn, setActiveBtn] = useState("profile");
+  // const handleButtonClick = (buttonType: string) => {
+  //   setActiveBtn(buttonType);
+  // };
   useEffect(() => {
     if (!employeeId) {
       // Display error toast after initial render
@@ -44,12 +43,15 @@ function EmployeeView() {
       getData("/employee/" + employeeId)
         .then((response) => {
           if (response.status == 200 && !response.data) {
-            //TODO: throw new response?
+            //TODO: Handling errors
             throw new Response("Employee Not Found", { status: 404 });
           } else
             setEmployeeData((prev) => ({
               ...prev,
-              employee: response.data.data,
+              employee: {
+                ...response.data.data,
+                moreDetails: JSON.parse(response.data.data.moreDetails),
+              },
             }));
         })
         .catch((error) => {
@@ -63,7 +65,12 @@ function EmployeeView() {
       //   }
     }
   }, []);
-
+  // console.log(
+  //   employeeData.employee &&
+  //     getData(employeeData.employee.moreDetails!.photoId).then(
+  //       (response) => response
+  //     )
+  // );
   if (employeeData.loading) return <Loader className="center-screen" />;
   return (
     employeeData.employee && (
@@ -76,6 +83,24 @@ function EmployeeView() {
           reply
         </span>
         <EmployeeViewWrapper>
+          <div>
+            <div className="buttons">
+              {" "}
+              <ButtonGrpWrapper className="details-section common-flex">
+                <Button
+                  icon="edit"
+                  onClick={() =>
+                    navigate(`/edit-employee/${employeeData.employee!.id}`)
+                  }
+                />
+                <Button
+                  icon="delete"
+                  //TODO:
+                  // onClick={() => handleButtonClick("work")}
+                />
+              </ButtonGrpWrapper>
+            </div>
+          </div>
           <div className="flex employee-intro-section">
             <img src={dummy_img} alt="Employee image" />
             <div className="flex employee-intro">
@@ -128,7 +153,7 @@ function EmployeeView() {
                 matches
                 newline={true}
               />
-              <DetailsSection
+              {/* <DetailsSection
                 icon="mail"
                 title="Email"
                 content={employeeData.employee.email!}
@@ -141,7 +166,7 @@ function EmployeeView() {
                 content={employeeData.employee.phone!}
                 matches
                 newline={true}
-              />
+              /> */}
               <DetailsSection
                 icon="calendar_month"
                 title="Date of Birth"
@@ -162,32 +187,39 @@ function EmployeeView() {
             <h2>Professional Details</h2>
             <div className="detail-element">
               <DetailsSection
+                icon="mail"
+                title="Employee ID"
+                content={String(employeeData.employee.id)}
+                matches
+                newline={true}
+              />
+              <DetailsSection
                 icon="person"
                 title="Designation"
                 content={employeeData.employee.designation!}
                 matches
                 newline={true}
               />
-              <DetailsSection
+              {/* <DetailsSection
                 icon="mail"
                 title="Department"
                 content={employeeData.employee.department!.department}
                 matches
                 newline={true}
-              />
+              /> */}
               {/* <DetailsSection
                 icon="phone_iphone"
                 title={matches ? "Employment Mode" : ""}
                 content={employeeData.employee.employment_mode!}
                 matches
               /> */}
-              <DetailsSection
+              {/* <DetailsSection
                 icon="calendar_month"
                 title="Date of Joining"
                 content={getDateView(employeeData.employee.dateOfJoining!)}
                 matches
                 newline={true}
-              />
+              /> */}
               <DetailsSection
                 icon="home"
                 title="Work Experience"

@@ -12,15 +12,27 @@ const EmployeeViewWrapper = styled.div`
   max-width: 700px;
   padding: 25px;
   gap: 25px;
+  position: relative;
+
+  .buttons {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    button {
+      padding: 0;
+      border-radius: 5px;
+      border: 1px solid black;
+      span {
+        font-size: 30px;
+      }
+    }
+    button:hover {
+      transform: scale(0.95);
+    }
+  }
 
   p {
     margin: 0;
-  }
-  .details-section {
-    border-top: 1px solid ${colors.LIGHT_GRAY_COLOR};
-    border-bottom: 1px solid ${colors.LIGHT_GRAY_COLOR};
-    width: 100%;
-    justify-content: flex-start;
   }
 
   .material-symbols-outlined {
@@ -54,6 +66,7 @@ const EmployeeViewWrapper = styled.div`
 
   img {
     width: 175px;
+    height: 175px;
     border-radius: 50%;
   }
 
@@ -96,6 +109,7 @@ const EmployeeViewWrapper = styled.div`
       padding: 10px 20px;
       display: flex;
       flex-wrap: wrap;
+      justify-content: space-between;
     }
   }
 `;
