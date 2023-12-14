@@ -76,7 +76,7 @@ export function defaultFormVal() {
   };
   return resettedVals;
 }
-export const handleChange = (
+export const handleFilterChange = (
   value: any,
   fieldName: string,
   getValues: UseFormGetValues<FieldValues>,

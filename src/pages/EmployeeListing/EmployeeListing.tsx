@@ -28,6 +28,11 @@ function EmployeeListing() {
     );
   };
 
+  const [listingActive, setListingActive] = useState("List");
+  const handleActiveListing = (buttonTxt: string) => {
+    setListingActive(buttonTxt);
+  };
+
   useEffect(() => {
     deleteModal
       ? (document.body.style.overflow = "hidden") // Disable scrolling
@@ -71,13 +76,18 @@ function EmployeeListing() {
         ></div>
       )}
       <EmployeeTableActions
+        listingActive={listingActive}
+        handleActiveListing={handleActiveListing}
         deleteCheckBoxesList={deleteCheckBoxesList}
         deleteModal={deleteModal}
         changeDltModalOpenStatus={changeDltModalOpenStatus}
       />
-      <EmployeeTableSearchAndPagination
-        deleteCheckBoxesList={deleteCheckBoxesList}
-      />
+
+      {listingActive == "List" && (
+        <EmployeeTableSearchAndPagination
+          deleteCheckBoxesList={deleteCheckBoxesList}
+        />
+      )}
     </>
   );
 }

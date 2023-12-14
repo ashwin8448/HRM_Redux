@@ -8,6 +8,8 @@ function EmployeeTableActions({
   deleteCheckBoxesList,
   deleteModal,
   changeDltModalOpenStatus,
+  handleActiveListing,
+  listingActive,
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
@@ -15,28 +17,25 @@ function EmployeeTableActions({
   };
   deleteModal: boolean;
   changeDltModalOpenStatus: () => void;
+  handleActiveListing: (button: string) => void;
+  listingActive: string;
 }) {
-  const [activeBtn, setActiveBtn] = useState("List");
-  const handleButtonClick = (button: string) => {
-    setActiveBtn(button);
-  };
-
   return (
     <>
       <EmployeeTableActionsWrapper className="common-flex global-padding">
         <ButtonGrpWrapper className=" btn-grp-view">
           <Button
             icon="format_list_bulleted"
-            className={activeBtn === "List" ? "active" : ""}
-            onClick={() => handleButtonClick("List")}
+            className={listingActive === "List" ? "active" : ""}
+            onClick={() => handleActiveListing("List")}
             $noTransition={true}
           >
             List
           </Button>
           <Button
             icon="grid_on"
-            className={activeBtn === "Grid" ? "active" : ""}
-            onClick={() => handleButtonClick("Grid")}
+            className={listingActive === "Grid" ? "active" : ""}
+            onClick={() => handleActiveListing("Grid")}
             $noTransition={true}
           >
             Grid

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect } from "react";
 import SideFilterBarWrapper from "./sideFilterBar";
 import Button from "../../../components/Button/Button.tsx";
 import ActionsBar from "./../SearchAndFilter/ActionsBar.tsx";
@@ -25,7 +25,7 @@ function SideFilterBar({
     <SideFilterBarWrapper className="translateX" $visible={isVisible}>
       <div className="common-flex">
         <label className="page-title-mobile">Filters</label>
-      <Button className="close-btn" icon="close" onClick={oClick}></Button>
+        <Button className="close-btn" icon="close" onClick={oClick}></Button>
       </div>
       <ActionsBar />
     </SideFilterBarWrapper>
