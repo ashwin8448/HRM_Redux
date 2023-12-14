@@ -12,32 +12,36 @@ function Checkbox({
   };
   employeesIdList?: string[];
 }) {
-  //handle checkbox
-  const handleCheckboxChange = (event: any) => {
-    // console.log(event.target.dataset);
-    // if (employeeId)
-    //   deleteCheckBoxesList.setCheckedBoxesList((prevList) => {
-    //     if (prevList.includes(employeeId)) {
-    //       return prevList.filter((id) => id !== employeeId);
-    //     } else {
-    //       // Use the spread operator to create a copy of the array
-    //       return [...prevList, employeeId];
-    //     }
-    //   });
-    // if (employeesIdList) {
+  // handle checkbox
+  const handleCheckboxChange = () => {
+    deleteCheckBoxesList.setCheckedBoxesList((prevList) => {
+      if (employeeId) {
+        // Toggle the checkbox for individual employee
+        return prevList.includes(employeeId)
+          ? prevList.filter((id) => id !== employeeId)
+          : [...prevList, employeeId];
+      } else if (employeesIdList) {
+        // Toggle the checkbox for all employees
+        return prevList.length === employeesIdList.length
+          ? [] // Uncheck all if all are checked
+          : employeesIdList; // Check all if not all are checked
+      }
 
-    //   deleteCheckBoxesList.setCheckedBoxesList((prevList) => {
-    //     if (prevList.length === employeesIdList.length) {
-    //       return [];
-    //     } else return employeesIdList;
-    //   });
-    // }
+      return prevList;
+    });
   };
 
   return (
     <input
       type="checkbox"
       onChange={handleCheckboxChange}
+      checked={
+        employeeId
+          ? deleteCheckBoxesList.checkedBoxesList.includes(employeeId)
+          : employeesIdList
+          ? deleteCheckBoxesList.checkedBoxesList.length === employeesIdList.length
+          : false
+      }
     />
   );
 }
