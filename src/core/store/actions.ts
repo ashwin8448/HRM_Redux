@@ -79,8 +79,9 @@ export const fetchDropdownData = () => {
     try {
       dispatch(setLoading(true));
       const skillsResponse = await getData(apiURL.skills);
+      console.log
       const skillsResponseData: ISkill[] = skillsResponse.data.data;
-      dispatch(setDepartments(transformArrayToOptionsList(skillsResponseData)));
+      dispatch(setSkills(transformArrayToOptionsList(skillsResponseData)));
     } catch (error) {
       toast.error("Skills could not be fetched.", {
         toastId: "no-skills-data",
