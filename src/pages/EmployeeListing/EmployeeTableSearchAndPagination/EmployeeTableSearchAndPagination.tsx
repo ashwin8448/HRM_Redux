@@ -24,7 +24,7 @@ function EmployeeTableSearchAndPagination() {
   }, [deleteModal]);
 
   return (
-    <EmployeeTableSearchAndPaginationWrapper className="global-padding">
+    <EmployeeTableSearchAndPaginationWrapper>
       <div className="border">
         <div className="common-flex global-padding">
           <SearchBar placeholder="Search by name" />
