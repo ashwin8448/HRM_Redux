@@ -124,6 +124,9 @@ body {
 .center-screen{
   top: 50%;
   left: 50%;
+  position: absolute;
+  margin: auto;  
+
 }
 .table-overflow-scroll{
   border-top: 1px solid  #D3D3D3;

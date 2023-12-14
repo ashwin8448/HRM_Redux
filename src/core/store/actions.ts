@@ -3,9 +3,11 @@ import { getData } from "../api/functions.ts";
 import * as actionTypes from "./actionTypes.ts";
 import { transformArrayToOptionsList } from "../../utils/helper.ts";
 import {
+  IDepartment,
   IEmployee,
   IEmployeeData,
   ISelectOptionProps,
+  ISkill,
   ITableProps,
 } from "../interfaces/interface.ts";
 import { apiURL } from "../config/constants.ts";
@@ -47,7 +49,6 @@ export const fetchEmployeesData = () => {
       const response = await getData(apiURL.employee);
       const employeesResponseData: IEmployeeData = response.data.data;
       dispatch(setEmployees(employeesResponseData));
-      // return dataResponse; // Resolve the promise with the data
     } catch (error) {
       toast.error("No data is recieved", { toastId: "no-data" });
       console.error("Error fetching data:", error);
@@ -58,30 +59,47 @@ export const fetchEmployeesData = () => {
 };
 
 export const fetchDropdownData = () => {
-  return function (dispatch: Dispatch) {
-    getData(apiURL.departments)
-      .then((reponse) =>
-        dispatch(setDepartments(transformArrayToOptionsList(reponse.data)))
-      )
-      .catch((error) => {
-        toast.error("Departments could not be fetched.");
-        console.error("Error fetching dropdown data:", error);
+  return async function (dispatch: Dispatch) {
+    try {
+      dispatch(setLoading(true));
+      const departmentsResponse = await getData(apiURL.departments);
+      const departmentsResponseData: IDepartment[] = departmentsResponse.data;
+      dispatch(
+        setDepartments(transformArrayToOptionsList(departmentsResponseData))
+      );
+    } catch (error) {
+      toast.error("Departments could not be fetched", {
+        toastId: "no-departments-data",
       });
-    getData(apiURL.skills)
-      .then((reponse) =>
-        dispatch(setSkills(transformArrayToOptionsList(reponse.data.data)))
-      )
-      .catch((error) => {
-        toast.error("Skills could not be fetched.");
-        console.error("Error fetching dropdown data:", error);
+      console.error("Error fetching dropdown data:", error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+
+    try {
+      dispatch(setLoading(true));
+      const skillsResponse = await getData(apiURL.skills);
+      const skillsResponseData: ISkill[] = skillsResponse.data.data;
+      dispatch(setDepartments(transformArrayToOptionsList(skillsResponseData)));
+    } catch (error) {
+      toast.error("Skills could not be fetched.", {
+        toastId: "no-skills-data",
       });
-    getData(apiURL.roles)
-      .then((reponse) =>
-        dispatch(setRoles(transformArrayToOptionsList(reponse.data)))
-      )
-      .catch((error) => {
-        toast.error("Roles could not be fetched.");
-        console.error("Error fetching dropdown data:", error);
-      });
+      console.error("Error fetching dropdown data:", error);
+    } finally {
+      dispatch(setLoading(false));
+    }
+
+    try {
+      dispatch(setLoading(true));
+      const rolesResponse = await getData(apiURL.roles);
+      const rolesResponseData: ISkill[] = rolesResponse.data;
+      dispatch(setRoles(transformArrayToOptionsList(rolesResponseData)));
+    } catch (error) {
+      toast.error("Roles could not be fetched.", { toastId: "no-roles-data" });
+      console.error("Error fetching dropdown data:", error);
+    } finally {
+      dispatch(setLoading(false));
+    }
   };
 };

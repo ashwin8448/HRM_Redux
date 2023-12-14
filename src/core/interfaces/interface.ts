@@ -2,9 +2,21 @@ import { Control } from "react-hook-form";
 
 export interface IData{
     employeesData: IEmployeeData,
-    skills:ISkill[],
-    roles:IRole[],
-    departments:IDepartment[],
+    dropdownData:{
+        departments:{
+            loading: boolean,
+            departments: ISelectOptionProps[]
+        },
+        roles:{
+            loading: boolean,
+            roles: ISelectOptionProps[]
+        },
+        skills:{
+            loading: boolean,
+            skills: ISelectOptionProps[]
+        }
+    },
+    filterData:ITableProps
 }
 export interface IEmployeeData{
     employees:IEmployee[],

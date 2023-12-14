@@ -2,11 +2,10 @@ import { ITableProps } from "../../interfaces/interface.ts";
 import * as actionTypes from "../actionTypes.ts";
 
 const initialState = {
-  department: null,
-  designation: null,
-  employment_mode: null,
+  department:  null,
   skills: null,
-  search_term: "",
+  role:  null,
+  search_term:  null,
 };
 
 function filterReducer(
