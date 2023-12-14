@@ -25,6 +25,9 @@ const DeleteModalWrapper = styled.div`
     line-height: 1.5;
     color: ${colors.SECONDARY_COLOR};
   }
+  .confirm-delete{
+    width: 100%;
+  }
   .warning-container {
     display: flex;
     flex-direction: column;
@@ -52,7 +55,8 @@ const DeleteModalWrapper = styled.div`
   }
   .delete-btn {
     background-color: #e02424 !important;
-
+    color:${colors.WHITE_COLOR};
+    
     &:hover {
       background-color: rgba(200, 30, 30, 1) !important;
     }
