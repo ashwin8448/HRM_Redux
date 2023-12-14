@@ -42,17 +42,19 @@ function EmployeeTableActions({
             Grid
           </Button>
         </ButtonGrpWrapper>
-        <div className="common-flex delete-btn-grp">
-          {deleteCheckBoxesList.checkedBoxesList.length.toString()} items
-          selected{" "}
-          <Button
-            icon="delete"
-            onClick={changeDltModalOpenStatus}
-            className="delete-btn"
-          >
-            Delete
-          </Button>{" "}
-        </div>
+        {deleteCheckBoxesList.checkedBoxesList.length > 0 && (
+          <div className="common-flex delete-btn-grp">
+            {deleteCheckBoxesList.checkedBoxesList.length.toString()} items
+            selected{" "}
+            <Button
+              icon="delete"
+              onClick={changeDltModalOpenStatus}
+              className="delete-btn"
+            >
+              Delete
+            </Button>{" "}
+          </div>
+        )}
       </EmployeeTableActionsWrapper>
       {deleteModal && (
         <div className="overlay" onClick={changeDltModalOpenStatus}></div>
