@@ -13,7 +13,7 @@ const DeleteModalWrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding: 15px;
-  z-index: 2;
+  z-index: 3;
   margin: 0 auto;
   max-width: calc(100% - 30px); /* Adjusts the maximum width of the modal */
   max-height: calc(100% - 30px); /* Adjusts the maximum height of the modal */

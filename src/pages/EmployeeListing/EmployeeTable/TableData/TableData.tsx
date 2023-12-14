@@ -48,46 +48,60 @@ function TableData({
         setSkillsOverflow(isOverflow);
     };
 
-    return (
-        <TableDataWrapper
-            key={employee.id}
-            className={index % 2 !== 0 ? "alternate-table-row-color" : ""} // alternate colour for each row
-        >
-            <td className="employee-data">
-                {employee.id}
-            </td>
-            {/* navigating to view employee page */}
-            <td
-                className="employee-data  employee-view"
-                onClick={handleEmployeeDetailsView}
-            >
-                {employee.lastName ? concatenateNames(employee.firstName, employee.lastName) : employee.firstName}
-            </td>
-            <td className="employee-data">{employee.designation || '-'}</td>
-            <td className="employee-data">{employee.department?.department || '-'}</td>
-            <td className="employee-data">{employee.role?.role || '-'}</td>
-            <td className="employee-data" onMouseEnter={handleMouseEnter} onMouseLeave={handleMouseLeave}>
-                {(Array.isArray(employee.skills) && employee.skills.length > 0) ? (
-                    <>
-                        <SkillsChip className="overflow-ellipsis" skills={employee.skills} handleSkillsOverflow={handleSkillsOverflow} />
-                        {hover && skillsOverflow && <Tooltip message={employee.skills} />}
-                    </>
-                ) : (
-                    '-'
-                )}
-            </td>
-            <td className="employee-data">
-                <div className=" actions-list common-flex">
-                    {/* navigating to edit employee page */}
-                    <StyledLink to={`/edit-employee?employeeId=${employee.id}`}>
-                        <Button icon="edit"></Button>
-                    </StyledLink>
-                    {/* opens the modal on click */}
-                    <Button icon="delete" onClick={handleCancelBtn}></Button>
-                </div>
-            </td>
-        </TableDataWrapper>
-    );
+  return (
+    <TableDataWrapper
+      key={employee.id}
+      className={index % 2 !== 0 ? "alternate-table-row-color" : ""} // alternate colour for each row
+    >
+      <td className="employee-data">
+        <input type="checkbox" />
+      </td>
+
+      <td className="employee-data">{employee.id}</td>
+      {/* navigating to view employee page */}
+      <td
+        className="employee-data  employee-view"
+        onClick={handleEmployeeDetailsView}
+      >
+        {employee.lastName
+          ? concatenateNames(employee.firstName, employee.lastName)
+          : employee.firstName}
+      </td>
+      <td className="employee-data">{employee.designation || "-"}</td>
+      <td className="employee-data">
+        {employee.department?.department || "-"}
+      </td>
+      <td className="employee-data">{employee.role?.role || "-"}</td>
+      <td
+        className="employee-data"
+        onMouseEnter={handleMouseEnter}
+        onMouseLeave={handleMouseLeave}
+      >
+        {Array.isArray(employee.skills) && employee.skills.length > 0 ? (
+          <>
+            <SkillsChip
+              className="overflow-ellipsis"
+              skills={employee.skills}
+              handleSkillsOverflow={handleSkillsOverflow}
+            />
+            {hover && skillsOverflow && <Tooltip message={employee.skills} />}
+          </>
+        ) : (
+          "-"
+        )}
+      </td>
+      <td className="employee-data">
+        <div className=" actions-list common-flex">
+          {/* navigating to edit employee page */}
+          <StyledLink to={`/edit-employee?employeeId=${employee.id}`}>
+            <Button icon="edit"></Button>
+          </StyledLink>
+          {/* opens the modal on click */}
+          <Button icon="delete" onClick={handleCancelBtn}></Button>
+        </div>
+      </td>
+    </TableDataWrapper>
+  );
 }
 
 export default TableData;

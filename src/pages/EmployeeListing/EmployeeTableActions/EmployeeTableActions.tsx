@@ -33,7 +33,6 @@ function EmployeeTableActions() {
       </ButtonGrpWrapper>
       <div className="common-flex delete-btn-grp">
         {deleteCount} items selected <Button icon="delete" className="delete-btn">Delete</Button>{" "}
-        <Button icon="refresh"></Button>
       </div>
     </EmployeeTableActionsWrapper>
   );

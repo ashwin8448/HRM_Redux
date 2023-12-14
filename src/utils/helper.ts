@@ -179,8 +179,8 @@ export const findSortCriteria = (children: React.ReactNode) => {
   if (children === "Department") {
     sortCriteria = "department";
   }
-  if (children === "Employment Modes") {
-    sortCriteria = "employment_mode";
+  if (children === "Role") {
+    sortCriteria = "role";
   }
   return sortCriteria;
 };

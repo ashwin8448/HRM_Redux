@@ -59,7 +59,7 @@ function TableHeadButton({
         >
           {icon}
         </TableHeadIconWrapper>
-        <label className="table-title">{children}</label>
+        <label className="table-title common-flex">{children}</label>
       </ButtonWrapper>
     </th>
   );

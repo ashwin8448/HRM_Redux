@@ -16,18 +16,21 @@ const TableWrapper = styled.table`
     background-color: ${colors.WHITE_COLOR};
   }
   tr:nth-child(2n) {
-    td:nth-child(1) {
+    td:nth-child(1),
+    td:nth-child(2) {
       background-color: ${colors.WHITE_COLOR};
     }
   }
   tr:nth-child(2n + 1) {
-    td:nth-child(1) {
+    td:nth-child(1),
+    td:nth-child(2) {
       background-color: ${colors.BACKGROUND_COLOR};
     }
   }
   th {
     border-bottom: 1px solid ${colors.LIGHT_GRAY_COLOR};
-    &:first-child {
+    &:first-child,
+    &:nth-child(2) {
       background-color: ${colors.WHITE_COLOR};
     }
   }
@@ -39,11 +42,13 @@ const TableWrapper = styled.table`
     width: 100%;
   }
   th:first-child,
-  td:first-child {
-    width: 100px;
+  td:first-child,
+  th:nth-child(2),
+  td:nth-child(2) {
+    width: 60px;
   }
-  th:nth-child(7),
-  td:nth-child(7) {
+  th:nth-child(8),
+  td:nth-child(8) {
     width: 100px;
   }
   .loader-container {
@@ -76,7 +81,16 @@ const TableWrapper = styled.table`
     td:first-child {
       position: sticky;
       left: 0;
-      z-index: 10;
+      z-index: 1;
+    }
+    th:nth-child(2),
+    td:nth-child(2) {
+      position: sticky;
+      left: 60px;
+      z-index: 1;
+    }
+    th:nth-child(2),
+    td:nth-child(2) {
       border-right: 1px solid ${colors.LIGHT_GRAY_COLOR} !important;
     }
   }

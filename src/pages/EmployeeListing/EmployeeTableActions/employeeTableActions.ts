@@ -8,9 +8,10 @@ const EmployeeTableActionsWrapper = styled.div`
     justify-content: flex-start;
     padding: 1px;
     border-radius: 5px;
-    background-color: ${colors.LIGHT_GRAY_COLOR};
+    background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR};
     > button {
       background-color: transparent;
+      border: none;
       &.active {
         background-color: ${colors.WHITE_COLOR};
       }

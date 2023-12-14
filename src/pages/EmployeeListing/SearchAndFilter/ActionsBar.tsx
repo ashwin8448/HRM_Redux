@@ -4,6 +4,8 @@ import { resetFiltersAndSearchBar } from "../../../utils/helper.ts";
 import { ITableProps } from "../../../core/interfaces/interface.ts";
 import FilterSelectList from "./components/FilterSelect/FilterSelectList.tsx";
 import ActionsWrapper from "./actionsBar.ts";
+import React from "react";
+import ButtonGrpWrapper from "../../../components/Button/buttonGrpWrapper.ts";
 
 function ActionsBar() {
     //TODO: fetch table props
@@ -15,19 +17,20 @@ function ActionsBar() {
         //TODO: fire a change to the filter prop
     };
 
-    return (
-        <>
-            <ActionsWrapper className="common-flex m-30">
-                <h2 className="subheading filter-title">Filter By:</h2>
-                <div className="global-width common-flex form-flex-align">
-                    <FilterSelectList />
-                    <SearchBar placeholder="Search by name" />
-                </div>
-                <Button icon="" onClick={onReset}>
-                    Clear
-                </Button>
-            </ActionsWrapper>
-        </>
-    );
+  return (
+    <>
+      <ActionsWrapper>
+        <FilterSelectList />
+        <div className="common-flex btn-grp">
+          <Button icon="" className="filter-all-btn">
+            Apply Filters
+          </Button>
+          <Button icon="" onClick={onReset}>
+            Clear
+          </Button>
+        </div>
+      </ActionsWrapper>
+    </>
+  );
 }
 export default ActionsBar;

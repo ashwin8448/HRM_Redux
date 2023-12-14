@@ -2,33 +2,34 @@ import styled from "styled-components";
 import colors from "../../../core/constants/colors";
 
 const ActionsWrapper = styled.div`
-  padding: 20px;
+  margin-top: 20px;
   border-radius: 10px;
-  border: 1px solid ${colors.LIGHT_GRAY_COLOR};
   background-color: ${colors.WHITE_COLOR};
-  align-items: flex-end !important;
-  gap: 10px;
-
-  .filter-title {
-    align-self: center;
-  }
-  .form-flex-align {
-    align-items: flex-end !important;
-    gap: 15px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  
+  > * {
+    width: 100%;
   }
 
-  @media only screen and (max-width: 1200px) {
-    flex-direction: column;
-    > * {
-      width: 100%;
-    }
-    > button {
-      align-self: flex-start;
-      width: fit-content;
-    }
-    .form-flex-align {
-      flex-direction: column;
+  .filter-all-btn{
+    background-color: ${colors.DARK_PRIMARY_COLOR};
+    >label{
+      color: ${colors.WHITE_COLOR}
     }
   }
+  .btn-grp {
+    justify-content: flex-start;
+    align-self: flex-end;
+    gap: 10px;
+
+    > button{
+      flex: 1;
+      justify-content: center;
+    }
+  }
+
 `;
 export default ActionsWrapper;

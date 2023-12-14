@@ -52,6 +52,13 @@ body {
   line-height: 1.5;
   color: ${colors.SECONDARY_COLOR};
 }
+.page-title-mobile {
+    margin: 0;
+    font-size: 25px;
+    font-weight: 700;
+    line-height: 1.5;
+    color: ${colors.SECONDARY_COLOR};
+  }
 .subheading {
   margin: 0;
   font-weight: 700;
@@ -90,7 +97,7 @@ body {
   height: 100%;
   background-color: ${colors.SECONDARY_COLOR};
   opacity: 0.5;
-  z-index: 1;
+  z-index: 2;
   pointer-events: auto; /* Disable pointer events on the overlay so that clicks pass through */
   transition: 0.5s ease;  
 

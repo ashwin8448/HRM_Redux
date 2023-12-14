@@ -16,6 +16,8 @@ const TableHeadWrapper = styled.thead`
     font-size: 14px;
     font-weight: 700;
     color: ${colors.SECONDARY_COLOR};
+    justify-content: flex-start;
+    gap: 10px;
   }
   button {
     flex-direction: row-reverse;
