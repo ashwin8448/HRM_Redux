@@ -16,7 +16,8 @@ function EmployeeListing() {
   const handleButtonClick = () => {
     setSideFilterBarVisible(!isSideFilterBarVisible);
   };
-
+  const [checkedBoxesList, setCheckedBoxesList] = useState<string[]>([]);
+  const deleteCheckBoxesList = { checkedBoxesList, setCheckedBoxesList };
   return (
     <>
       <ToastContainer
@@ -48,8 +49,8 @@ function EmployeeListing() {
           onClick={() => setSideFilterBarVisible(false)}
         ></div>
       )}
-      <EmployeeTableActions />
-      <EmployeeTableSearchAndPagination />
+      <EmployeeTableActions deleteCheckBoxesList={deleteCheckBoxesList} />
+      <EmployeeTableSearchAndPagination deleteCheckBoxesList={deleteCheckBoxesList} />
     </>
   );
 }

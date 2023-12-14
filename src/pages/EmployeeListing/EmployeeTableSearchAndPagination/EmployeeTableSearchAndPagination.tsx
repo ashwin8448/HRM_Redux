@@ -5,7 +5,14 @@ import EmployeeTableSearchAndPaginationWrapper from "./employeeTableSearchAndPag
 import SearchBar from "../SearchAndFilter/components/SearchBar/SearchBar.tsx";
 import PaginationResults from "../../../components/PaginationResults/PaginationResults.tsx";
 
-function EmployeeTableSearchAndPagination() {
+function EmployeeTableSearchAndPagination({
+  deleteCheckBoxesList,
+}: {
+  deleteCheckBoxesList: {
+    checkedBoxesList: string[];
+    setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
+  };
+}) {
   const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
 
   const changeDltModalOpenStatus = () => {
@@ -31,6 +38,7 @@ function EmployeeTableSearchAndPagination() {
           <PaginationResults></PaginationResults>
         </div>
         <EmployeeTable
+          deleteCheckBoxesList={deleteCheckBoxesList}
           deleteModal={deleteModal}
           changeDltModalOpenStatus={changeDltModalOpenStatus}
         />

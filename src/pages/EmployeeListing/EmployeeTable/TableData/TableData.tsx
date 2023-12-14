@@ -6,47 +6,53 @@ import { useState } from "react";
 import { concatenateNames } from "../../../../utils/helper.ts";
 import StyledLink from "../../../../components/StyledLink.ts";
 import Tooltip from "../../../../components/Tooltip/Tooltip.tsx";
-import SkillsChip from "../../../../components/Skills/SkillsChip.tsx"
+import SkillsChip from "../../../../components/Skills/SkillsChip.tsx";
+import Checkbox from "../../../../components/Checkbox/Checkbox.tsx";
 
 function TableData({
-    employee,
-    index,
-    changeDltModalOpenStatus,
-    idToDltProp,
+  employee,
+  index,
+  changeDltModalOpenStatus,
+  idToDltProp,
+  deleteCheckBoxesList,
 }: {
-    employee: IEmployee;
-    index: number;
-    changeDltModalOpenStatus: () => void;
-    idToDltProp: {
-        idToDlt: string;
-        addIdToDlt: (idToDlt: string) => void;
-    };
+  employee: IEmployee;
+  index: number;
+  changeDltModalOpenStatus: () => void;
+  idToDltProp: {
+    idToDlt: string;
+    addIdToDlt: (idToDlt: string) => void;
+  };
+  deleteCheckBoxesList: {
+    checkedBoxesList: string[];
+    setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
+  };
 }) {
-    const navigate = useNavigate();
+  const navigate = useNavigate();
 
-    const handleEmployeeDetailsView = () => {
-        navigate(`/view-employee/${employee.id}`);
-    };
+  const handleEmployeeDetailsView = () => {
+    navigate(`/view-employee/${employee.id}`);
+  };
 
-    const handleCancelBtn = () => {
-        changeDltModalOpenStatus();
-        idToDltProp.addIdToDlt(employee.id);//id is set to have the employee of that id to be deleted inside the delete modal
-    };
+  const handleCancelBtn = () => {
+    changeDltModalOpenStatus();
+    idToDltProp.addIdToDlt(employee.id); //id is set to have the employee of that id to be deleted inside the delete modal
+  };
 
-    //tooltip on hovering skills
-    const [hover, setHover] = useState(false);
-    const handleMouseEnter = () => {
-        setHover(true);
-    };
-    const handleMouseLeave = () => {
-        setHover(false);
-    };
+  //tooltip on hovering skills
+  const [hover, setHover] = useState(false);
+  const handleMouseEnter = () => {
+    setHover(true);
+  };
+  const handleMouseLeave = () => {
+    setHover(false);
+  };
 
-    //check for skills overflowing the scroll width
-    const [skillsOverflow, setSkillsOverflow] = useState(false);
-    const handleSkillsOverflow = (isOverflow: boolean) => {
-        setSkillsOverflow(isOverflow);
-    };
+  //check for skills overflowing the scroll width
+  const [skillsOverflow, setSkillsOverflow] = useState(false);
+  const handleSkillsOverflow = (isOverflow: boolean) => {
+    setSkillsOverflow(isOverflow);
+  };
 
   return (
     <TableDataWrapper
@@ -54,7 +60,7 @@ function TableData({
       className={index % 2 !== 0 ? "alternate-table-row-color" : ""} // alternate colour for each row
     >
       <td className="employee-data">
-        <input type="checkbox" />
+        <Checkbox employeeId={employee.id} deleteCheckBoxesList={deleteCheckBoxesList}  />
       </td>
 
       <td className="employee-data">{employee.id}</td>

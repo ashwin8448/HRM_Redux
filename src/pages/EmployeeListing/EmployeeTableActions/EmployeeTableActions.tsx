@@ -3,7 +3,14 @@ import Button from "../../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../../components/Button/buttonGrpWrapper.ts";
 import EmployeeTableActionsWrapper from "./employeeTableActions.ts";
 
-function EmployeeTableActions() {
+function EmployeeTableActions({
+  deleteCheckBoxesList,
+}: {
+  deleteCheckBoxesList: {
+    checkedBoxesList: string[];
+    setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
+  };
+}) {
   const deleteCount = 2;
 
   const [activeBtn, setActiveBtn] = useState("List");
@@ -32,7 +39,10 @@ function EmployeeTableActions() {
         </Button>
       </ButtonGrpWrapper>
       <div className="common-flex delete-btn-grp">
-        {deleteCount} items selected <Button icon="delete" className="delete-btn">Delete</Button>{" "}
+        {deleteCheckBoxesList.checkedBoxesList.length.toString()} items selected{" "}
+        <Button icon="delete" className="delete-btn">
+          Delete
+        </Button>{" "}
       </div>
     </EmployeeTableActionsWrapper>
   );
