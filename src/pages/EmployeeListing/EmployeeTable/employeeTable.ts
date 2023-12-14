@@ -59,6 +59,7 @@ const TableWrapper = styled.table`
     width: 150vh;
   }
   .actions-list {
+    justify-content: center;
     gap: 5px;
   }
   .no-data {
