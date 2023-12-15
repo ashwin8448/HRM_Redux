@@ -8,6 +8,7 @@ import ButtonGrpWrapper from "./../../components/Button/buttonGrpWrapper";
 import EmployeeTableActions from "./EmployeeTableActions/EmployeeTableActions.tsx";
 import { useEffect, useState } from "react";
 import SideFilterBar from "./SideFilterBar/SideFilterBar.tsx";
+import EmployeeCardList from "../EmployeeCardList/EmployeeCardList.tsx";
 
 function EmployeeListing() {
   const matches = useMediaQuery("(min-width: 768px)");
@@ -83,11 +84,11 @@ function EmployeeListing() {
         changeDltModalOpenStatus={changeDltModalOpenStatus}
       />
 
-      {listingActive == "List" && (
+      {listingActive == "List" ? (
         <EmployeeTableSearchAndPagination
           deleteCheckBoxesList={deleteCheckBoxesList}
         />
-      )}
+      ):<EmployeeCardList deleteCheckBoxesList={deleteCheckBoxesList}/>}
     </>
   );
 }
