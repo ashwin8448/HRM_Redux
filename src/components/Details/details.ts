@@ -3,8 +3,9 @@ import colors from "../../core/constants/colors";
 
 const DetailsWrapper = styled.div<{ $newline?: boolean; $skill?: boolean }>`
   display: flex;
-  flex-direction: ${(props) => props.$newline && "column"};
-  width: ${(props) => (props.$skill || !props.$newline ? "100%" : "49%")};
+  flex-direction: ${(props) => props.$newline && 'column'};
+  width: ${(props) => (props.$skill || !props.$newline ? '100%' : '49%')};
+  position: relative;
 
   .content {
     width: 100%;

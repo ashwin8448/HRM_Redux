@@ -16,7 +16,7 @@ function departmentsReducer(
   switch (action.type) {
     case actionTypes.SET_DEPARTMENTS:
       return { ...state, departments: action.payload };
-    case actionTypes.SET_LOADING:
+    case actionTypes.SET_DEPARTMENTS_LOADING:
       return { ...state, loading: action.payload };
     default:
       return state;
