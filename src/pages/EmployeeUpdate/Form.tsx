@@ -4,6 +4,28 @@ const Form = () => {
   )
 }
 
+<div>Personal Details
+fname
+lname
+Dob
+address
+email
+phone
+</div>
+<div>Professional Details
+  Is Employed currently?
+    Date of joining
+    Salary
+    designation
+    role
+    skills
+    Department
+</div>
+<div>Uploads
+  Photo
+</div>
+<div>Review</div>
+
 export default Form
 // import { FormProvider, useForm } from "react-hook-form";
 // import Button from "../../components/Button/Button.tsx";
