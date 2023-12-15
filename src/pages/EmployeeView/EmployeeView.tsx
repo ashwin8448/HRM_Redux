@@ -128,7 +128,7 @@ function EmployeeView() {
                   <DetailsSection
                     icon="person"
                     title="Date hired"
-                    content={employeeData.employee.dateOfJoining!}
+                    content={getDateView(employeeData.employee.dateOfJoining!)}
                   />
                 </div>
                 <div className="employee-info">
