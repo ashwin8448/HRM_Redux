@@ -46,6 +46,7 @@ function EmployeeView() {
             //TODO: Handling errors
             throw new Response("Employee Not Found", { status: 404 });
           } else
+          console.log(response.data.data.moreDetails);
             setEmployeeData((prev) => ({
               ...prev,
               employee: {
