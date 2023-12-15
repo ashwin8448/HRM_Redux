@@ -10,6 +10,7 @@ import { toast } from "react-toastify";
 import { getData } from "../../core/api/functions.ts";
 import { IEmployee } from "../../core/interfaces/interface.ts";
 import dummy_img from "../../assets/dummy_img.jpeg";
+import ActiveChip from "../../components/ActiveChip/ActiveChip.tsx";
 //TODO:
 // why matches
 import { useMediaQuery } from "usehooks-ts";
@@ -70,7 +71,8 @@ function EmployeeView() {
   //     getData(employeeData.employee.moreDetails!.photoId).then(
   //       (response) => response
   //     )
-  // );
+  // )
+
   if (employeeData.loading) return <Loader className="center-screen" />;
   return (
     employeeData.employee && (
@@ -102,7 +104,10 @@ function EmployeeView() {
             </div>
           </div>
           <div className="flex employee-intro-section">
-            <img src={dummy_img} alt="Employee image" />
+            <img
+              src={employeeData.employee.moreDetails!.photoId}
+              alt="Employee image"
+            />
             <div className="flex employee-intro">
               <h2>
                 {employeeData.employee.firstName +
@@ -110,7 +115,7 @@ function EmployeeView() {
                   employeeData.employee.lastName}
               </h2>
               <div className="employee-status">
-                <span>Active/InActive {employeeData.employee.isActive}</span>
+                <ActiveChip isActive={employeeData.employee.isActive} />
                 <span>{employeeData.employee.role?.role}</span>
               </div>
               <div className="flex">

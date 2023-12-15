@@ -83,6 +83,9 @@ const EmployeeViewWrapper = styled.div`
       .employee-status {
         border-bottom: 1px solid black;
         padding-bottom: 10px;
+        display: flex;
+        gap: 20px;
+        align-items: center;
       }
       .employee-info {
         flex-grow: 1;
