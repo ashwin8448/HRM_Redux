@@ -147,7 +147,6 @@ function EmployeeView() {
             <h2>Personal Details</h2>
             <div className="detail-element">
               <DetailsSection
-                icon="person"
                 title="Full Name"
                 content={
                   employeeData.employee.firstName +
@@ -172,14 +171,12 @@ function EmployeeView() {
                 newline={true}
               /> */}
               <DetailsSection
-                icon="calendar_month"
                 title="Date of Birth"
                 content={getDateView(employeeData.employee.dob!)}
                 matches
                 newline={true}
               />
               <DetailsSection
-                icon="home"
                 title="Address"
                 content={employeeData.employee.address!}
                 matches
@@ -191,14 +188,12 @@ function EmployeeView() {
             <h2>Professional Details</h2>
             <div className="detail-element">
               <DetailsSection
-                icon="mail"
                 title="Employee ID"
                 content={String(employeeData.employee.id)}
                 matches
                 newline={true}
               />
               <DetailsSection
-                icon="person"
                 title="Designation"
                 content={employeeData.employee.designation!}
                 matches
@@ -225,14 +220,12 @@ function EmployeeView() {
                 newline={true}
               /> */}
               <DetailsSection
-                icon="home"
                 title="Work Experience"
                 content={getWorkExp(employeeData.employee.dateOfJoining!)}
                 matches
                 newline={true}
               />
               <DetailsSection
-                icon="home"
                 title="Skills"
                 content={employeeData.employee.skills!}
                 matches
