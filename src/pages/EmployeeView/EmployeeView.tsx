@@ -9,7 +9,6 @@ import Loader from "../../components/Loader/Loader.tsx";
 import { toast } from "react-toastify";
 import { getData } from "../../core/api/functions.ts";
 import { IEmployee } from "../../core/interfaces/interface.ts";
-import dummy_img from "../../assets/dummy_img.jpeg";
 import ActiveChip from "../../components/ActiveChip/ActiveChip.tsx";
 //TODO:
 // why matches
