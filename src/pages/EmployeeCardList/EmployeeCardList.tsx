@@ -6,6 +6,7 @@ import Loader from "../../components/Loader/Loader.tsx";
 import SearchBar from "../EmployeeListing/SearchAndFilter/components/SearchBar/SearchBar.tsx";
 import Button from "../../components/Button/Button.tsx";
 import Checkbox from "../../components/Checkbox/Checkbox.tsx";
+import { useState } from "react";
 
 function EmployeeCardList({ deleteCheckBoxesList,  employees,
     loading
@@ -18,12 +19,17 @@ function EmployeeCardList({ deleteCheckBoxesList,  employees,
     loading:boolean  
 }) {
 
+    const [selectAll, setSelectAll] = useState<boolean>(true);
+
+    const changeBtnText=()=>{
+        setSelectAll((prevSelectAll:boolean) => !prevSelectAll);
+    }
     return (
       <>
       <div className="common-flex global-padding">
         <SearchBar placeholder="Search by name" />
-        <Button>
-          Select All
+        <Button className="select-all" onClick={changeBtnText}>
+        {selectAll ? 'Select All' : 'Unselect All'}
           <Checkbox
             deleteCheckBoxesList={deleteCheckBoxesList}
             employeesIdList={employees.map((employee) => employee.id)}

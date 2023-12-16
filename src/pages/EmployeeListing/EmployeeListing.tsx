@@ -88,7 +88,7 @@ function EmployeeListing() {
 
   // Pagination 
   const employeesCount = useSelector((state: IData) => state.employeesData.count);
-  const totalPages=Math.ceil(employeesCount / 10);
+  const totalPages=Math.ceil(employeesCount / rowsPerPage);
 
   return (
     <>

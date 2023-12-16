@@ -23,30 +23,28 @@ function PaginationResults({
 }) {
 
   const [searchParams] = useSearchParams();
+  const pageNumber = searchParams.get("page")??"1"
 
-  const employeesCount = useSelector(
-    (state: IData) => state.employeesData.count
-  );
   const options = Array.from({ length: totalPages }, (_, index) =>
     String(index + 1)
   );
-  const [value, setValue] = useState({ value: 1, label: "1" }); // Set initial value to "01"
+  const [value, setValue] = useState({ value: Number(pageNumber), label: pageNumber }); // Set initial value to "01"
 
   const handleInputChange = (inputValue: string) => {
     if (inputValue != "") {
       // Only allow numeric input, otherwise revert to the initial value
-      const numericValue = parseInt(inputValue, 10);
+      const numericValue = Number(inputValue);
       if (!isNaN(numericValue) && options.includes(inputValue)) {
         setValue({ value: numericValue, label: inputValue });
+        updateSearchParams({page:inputValue})
       } else {
-        setValue({ value: 1, label: "01" }); // Revert to the initial value
+        setValue({ value: 1, label: "1" }); // Revert to the initial value
+        updateSearchParams({page:"1"})
       }
     }
   };
   useEffect(() => {
-    if (!searchParams.get("page"))
-      updateSearchParams({ page: searchParams.get("page") || "1" });
-    else updateSearchParams({ page: value.label });
+    setValue({ value: Number(searchParams.get("page")), label: pageNumber??"1" });
   }, [value]);
 
   return (
@@ -65,13 +63,16 @@ function PaginationResults({
         onChange={(selectedOption) => {
           if (selectedOption === null) {
             setValue({ value: 1, label: "1" });
+            updateSearchParams({page:"1"})
           } else {
             setValue(selectedOption);
+            updateSearchParams({page:selectedOption.label})
           }
         }}
         onInputChange={handleInputChange}
       />
-      {employeesCount + " "}
+      of {" "}
+      {totalPages + " "}
       results
     </PaginationResultsWrapper>
   );
