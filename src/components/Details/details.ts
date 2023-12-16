@@ -7,6 +7,12 @@ const DetailsWrapper = styled.div<{ $newline?: boolean; $skill?: boolean }>`
   width: ${(props) => ((props.$skill || !props.$newline) && '100%' )};
   position: relative;
 
+  &:hover{
+    .skills-tooltip{
+      visibility:visible;
+  }
+  }
+
   .content {
     width: 100%;
     font-size: 14px;
@@ -27,6 +33,10 @@ const DetailsWrapper = styled.div<{ $newline?: boolean; $skill?: boolean }>`
   .description {
     display: flex;
     align-items: center;
+  }
+
+  .skills-tooltip{
+    visibility:hidden;
   }
 `;
 export default DetailsWrapper;

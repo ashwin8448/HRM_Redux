@@ -19,10 +19,21 @@ const EmployeeTableActionsWrapper = styled.div`
   }
 `;
 const DeleteBtnWrapper = styled.div<{ $disabled: boolean }>`
+  position: relative;
   gap: 10px;
   > .delete-btn {
     color: ${(props) =>
       !props.$disabled ? `${colors.RED_COLOR}` : `${colors.LIGHT_GRAY_COLOR}`};
+  }
+  &:hover {
+    .dlt-btn-tooltip {
+      visibility: visible;
+    }
+  }
+
+  .dlt-btn-tooltip {
+    margin:10px;
+    visibility: hidden;
   }
 `;
 export { EmployeeTableActionsWrapper, DeleteBtnWrapper };

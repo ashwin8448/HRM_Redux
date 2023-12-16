@@ -27,15 +27,6 @@ function TableData({
     navigate(`/view-employee/${employee.id}`);
   };
 
-  //tooltip on hovering skills
-  const [hover, setHover] = useState(false);
-  const handleMouseEnter = () => {
-    setHover(true);
-  };
-  const handleMouseLeave = () => {
-    setHover(false);
-  };
-
   //check for skills overflowing the scroll width
   const [skillsOverflow, setSkillsOverflow] = useState(false);
   const handleSkillsOverflow = (isOverflow: boolean) => {
@@ -67,9 +58,7 @@ function TableData({
       </td>
       <td className="employee-data">{employee.role?.role || "-"}</td>
       <td
-        className="employee-data"
-        onMouseEnter={handleMouseEnter}
-        onMouseLeave={handleMouseLeave}
+        className="employee-data skills-data"
       >
         {Array.isArray(employee.skills) && employee.skills.length > 0 ? (
           <>
@@ -78,7 +67,7 @@ function TableData({
               skills={employee.skills}
               handleSkillsOverflow={handleSkillsOverflow}
             />
-            {hover && skillsOverflow && <Tooltip message={employee.skills} />}
+            {skillsOverflow && <Tooltip className="skills-tooltip" message={employee.skills} />}
           </>
         ) : (
           "-"

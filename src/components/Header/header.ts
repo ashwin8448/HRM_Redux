@@ -16,6 +16,11 @@ const HeaderWrapper = styled.header`
   }
   .logo {
     position: relative;
+    &:hover {
+      .header-tooltip {
+        visibility: visible;
+      }
+    }
   }
   .page-title {
     margin: 0;
@@ -30,5 +35,9 @@ const HeaderWrapper = styled.header`
     line-height: 1.5;
     color: ${colors.SECONDARY_COLOR};
   }
+  .header-tooltip {
+      visibility: hidden;
+  }
+
 `;
 export default HeaderWrapper;

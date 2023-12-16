@@ -22,6 +22,19 @@ const TableDataWrapper = styled.tr`
     }
 }
 
+.skills-data{
+    position: relative;
+    &:hover{
+        .skills-tooltip{
+        visibility: visible;
+    }
+    }
+}
+
+.skills-tooltip{
+    visibility: hidden;
+}
+
 button {
     flex-direction: row-reverse;
     background: none;

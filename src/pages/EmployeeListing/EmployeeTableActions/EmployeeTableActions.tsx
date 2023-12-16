@@ -6,6 +6,7 @@ import {
   DeleteBtnWrapper,
 } from "./employeeTableActions.ts";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal.tsx";
+import Tooltip from "../../../components/Tooltip/Tooltip.tsx";
 
 function EmployeeTableActions({
   deleteCheckBoxesList,
@@ -54,15 +55,20 @@ function EmployeeTableActions({
               selected
             </p>
           )}
-          <Button
-            icon="delete"
-            onClick={changeDltModalOpenStatus}
-            className="delete-btn"
-            disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
-            $noTransition={deleteCheckBoxesList.checkedBoxesList.length == 0}
-          >
-            Delete
-          </Button>{" "}
+          <>
+            <Button
+              icon="delete"
+              onClick={changeDltModalOpenStatus}
+              className="delete-btn"
+              disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
+              $noTransition={deleteCheckBoxesList.checkedBoxesList.length == 0}
+            >
+              Delete
+            </Button>{" "}
+            {deleteCheckBoxesList.checkedBoxesList.length == 0  &&(
+              <Tooltip className="dlt-btn-tooltip" message=" Do select the employees to delete the necessary ones" />
+            )}
+          </>
         </DeleteBtnWrapper>
       </EmployeeTableActionsWrapper>
       {deleteModal && (

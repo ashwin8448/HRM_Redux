@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ISkill } from "../../core/interfaces/interface.ts";
 import TooltipWrapper from "./tooltip";
 
-function Tooltip({ message }: { message: ISkill[] | string }) {
+function Tooltip({ message,className }: { message: ISkill[] | string,className?:string }) {
   const [mousePosition, setMousePosition] = useState({ x: 0 });
 
   //find mouse position on each mouse movement
@@ -21,7 +21,7 @@ function Tooltip({ message }: { message: ISkill[] | string }) {
   if (Array.isArray(message))
     tooltipMsg = message.map((msg) => msg.skill).join(", ");
   else tooltipMsg = message;
-  return <TooltipWrapper $left={mousePosition.x}>{tooltipMsg}</TooltipWrapper>;
+  return <TooltipWrapper className={className} $left={mousePosition.x}>{tooltipMsg}</TooltipWrapper>;
 }
 
 export default Tooltip;

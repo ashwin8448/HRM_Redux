@@ -16,14 +16,6 @@ const DetailsSection = ({
   matches?: boolean;
   newline?: boolean;
 }) => {
-  //tooltip on hovering skills
-  const [hover, setHover] = useState(false);
-  const handleMouseEnter = () => {
-    setHover(true);
-  };
-  const handleMouseLeave = () => {
-    setHover(false);
-  };
   //check for skills overflowing the scroll width
   const [skillsOverflow, setSkillsOverflow] = useState(false);
   const handleSkillsOverflow = (isOverflow: boolean) => {
@@ -35,8 +27,6 @@ const DetailsSection = ({
     <DetailsWrapper
       $newline={newline}
       $skill={typeof content != "string"}
-      onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}
     >
       <div className="description">
         <span className="material-symbols-outlined ">{icon}</span>
@@ -51,7 +41,7 @@ const DetailsSection = ({
             skills={content}
             handleSkillsOverflow={handleSkillsOverflow}
           />
-          {hover && skillsOverflow && <Tooltip message={content} />}
+          {skillsOverflow && <Tooltip className="skills-tooltip" message={content} />}
         </>
       ) : (
         "-"
