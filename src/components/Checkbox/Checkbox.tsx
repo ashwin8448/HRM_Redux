@@ -33,6 +33,7 @@ function Checkbox({
 
   return (
     <input
+      className="checkbox"
       type="checkbox"
       onChange={handleCheckboxChange}
       checked={

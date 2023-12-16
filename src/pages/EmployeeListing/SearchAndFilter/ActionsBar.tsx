@@ -1,11 +1,8 @@
 import Button from "../../../components/Button/Button.tsx";
-import SearchBar from "./components/SearchBar/SearchBar.tsx";
 import { resetFiltersAndSearchBar } from "../../../utils/helper.ts";
 import { ITableProps } from "../../../core/interfaces/interface.ts";
 import FilterSelectList from "./components/FilterSelect/FilterSelectList.tsx";
 import ActionsWrapper from "./actionsBar.ts";
-import React from "react";
-import ButtonGrpWrapper from "../../../components/Button/buttonGrpWrapper.ts";
 
 function ActionsBar() {
     //TODO: fetch table props

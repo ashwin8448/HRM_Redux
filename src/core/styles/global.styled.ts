@@ -66,7 +66,7 @@ body {
   line-height: 1.5;
   color: ${colors.SECONDARY_COLOR};
 }
-.modal-heading {
+.message-text {
   margin: 0;
   font-size: 14px;
   font-weight: 700;
@@ -141,6 +141,7 @@ body {
   color:${colors.SECONDARY_COLOR};
   cursor:pointer;
 }
+
 @media screen and (max-width: 1400px) {
   .table-overflow-scroll {
     overflow-x: auto;

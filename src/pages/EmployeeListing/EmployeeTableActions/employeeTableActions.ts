@@ -17,16 +17,12 @@ const EmployeeTableActionsWrapper = styled.div`
       }
     }
   }
-  .delete-btn-grp {
-    gap: 10px;
-    > .delete-btn {
-      > span {
-        color: ${colors.RED_COLOR};
-      }
-      > label {
-        color: ${colors.RED_COLOR};
-      }
-    }
+`;
+const DeleteBtnWrapper = styled.div<{ $disabled: boolean }>`
+  gap: 10px;
+  > .delete-btn {
+    color: ${(props) =>
+      !props.$disabled ? `${colors.RED_COLOR}` : `${colors.LIGHT_GRAY_COLOR}`};
   }
 `;
-export default EmployeeTableActionsWrapper;
+export { EmployeeTableActionsWrapper, DeleteBtnWrapper };

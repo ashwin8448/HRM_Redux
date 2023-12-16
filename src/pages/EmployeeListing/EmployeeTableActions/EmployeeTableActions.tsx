@@ -1,7 +1,10 @@
 import React, { useState } from "react";
 import Button from "../../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../../components/Button/buttonGrpWrapper.ts";
-import EmployeeTableActionsWrapper from "./employeeTableActions.ts";
+import {
+  EmployeeTableActionsWrapper,
+  DeleteBtnWrapper,
+} from "./employeeTableActions.ts";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal.tsx";
 
 function EmployeeTableActions({
@@ -41,19 +44,26 @@ function EmployeeTableActions({
             Grid
           </Button>
         </ButtonGrpWrapper>
-        {deleteCheckBoxesList.checkedBoxesList.length > 0 && (
-          <div className="common-flex delete-btn-grp">
-            {deleteCheckBoxesList.checkedBoxesList.length.toString()} items
-            selected{" "}
-            <Button
-              icon="delete"
-              onClick={changeDltModalOpenStatus}
-              className="delete-btn"
-            >
-              Delete
-            </Button>{" "}
-          </div>
-        )}
+        <DeleteBtnWrapper
+          className="common-flex"
+          $disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
+        >
+          {deleteCheckBoxesList.checkedBoxesList.length > 0 && (
+            <p className="message-text">
+              {deleteCheckBoxesList.checkedBoxesList.length.toString()} items
+              selected
+            </p>
+          )}
+          <Button
+            icon="delete"
+            onClick={changeDltModalOpenStatus}
+            className="delete-btn"
+            disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
+            $noTransition={deleteCheckBoxesList.checkedBoxesList.length == 0}
+          >
+            Delete
+          </Button>{" "}
+        </DeleteBtnWrapper>
       </EmployeeTableActionsWrapper>
       {deleteModal && (
         <div className="overlay" onClick={changeDltModalOpenStatus}></div>
