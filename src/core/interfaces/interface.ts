@@ -19,23 +19,7 @@ export interface IData{
     filterData:ITableProps
 }
 export interface IEmployeeData {
-  employees: {
-    id: string;
-    firstName: string;
-    lastName?: string;
-    isActive?: boolean;
-    dob?: string;
-    email?: string;
-    phone?: string;
-    designation?: string;
-    salary?: string;
-    dateOfJoining?: string;
-    address?: string;
-    moreDetails: string;
-    role?: IRole;
-    department?: IDepartment;
-    skills?: ISkill[];
-  }[];
+  employees: IEmployee[];
   count: number;
   loading: boolean;
 }

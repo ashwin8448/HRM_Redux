@@ -6,6 +6,7 @@ import {
   IDepartment,
   IEmployee,
   IEmployeeData,
+  IRole,
   ISelectOptionProps,
   ISkill,
   ITableProps,
@@ -47,12 +48,28 @@ export const fetchEmployeesData = () => {
     try {
       dispatch(setLoading(actionTypes.SET_LOADING, true));
       const response = await getData(apiURL.employee);
-      const employeesResponseData: IEmployeeData = response.data.data;
+      const employeesResponseData = response.data.data;
       const employees = employeesResponseData.employees;
       dispatch(
         setEmployees({
           ...employeesResponseData,
-          employees: employees.map((employee) => {
+          employees: employees.map((employee:{
+            id: string;
+            firstName: string;
+            lastName?: string;
+            isActive?: boolean;
+            dob?: string;
+            email?: string;
+            phone?: string;
+            designation?: string;
+            salary?: string;
+            dateOfJoining?: string;
+            address?: string;
+            moreDetails: string;
+            role?: IRole;
+            department?: IDepartment;
+            skills?: ISkill[];
+          }) => {
             return {
               ...employee,
               moreDetails: employee.moreDetails

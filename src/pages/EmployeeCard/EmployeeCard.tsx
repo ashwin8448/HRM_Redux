@@ -1,12 +1,11 @@
 import { useSelector } from 'react-redux';
-import ActiveChip from '../../components/ActiveChip/ActiveChip.js';
-import Checkbox from '../../components/Checkbox/Checkbox.js';
 import { IData, IEmployee } from '../../core/interfaces/interface.js';
-import Loader from '../../components/Loader/Loader.js';
 import EmployeeCardWrapper from './employeeCard.js';
 import { concatenateNames } from '../../utils/helper.js';
-import DetailsSection from '../../components/Details/Details.js';
 import { useEffect, useState } from 'react';
+import ActiveChip from '../../components/ActiveChip/ActiveChip.tsx';
+import Checkbox from '../../components/Checkbox/Checkbox.tsx';
+import DetailsSection from '../../components/Details/Details.tsx';
 
 function EmployeeCard({
   deleteCheckBoxesList,

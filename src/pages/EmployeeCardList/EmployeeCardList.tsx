@@ -1,10 +1,8 @@
 import { useSelector } from "react-redux";
-import ActiveChip from "../../components/ActiveChip/ActiveChip.js";
-import Checkbox from "../../components/Checkbox/Checkbox.js";
 import { IData, IEmployee } from "../../core/interfaces/interface.js";
-import Loader from "../../components/Loader/Loader.js";
 import EmployeeCard from "../EmployeeCard/EmployeeCard.tsx";
 import EmployeeCardListWrapper from "./employeeCardList.ts";
+import Loader from "../../components/Loader/Loader.tsx";
 
 function EmployeeCardList({ deleteCheckBoxesList }: {
     deleteCheckBoxesList: {
