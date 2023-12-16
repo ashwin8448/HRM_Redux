@@ -68,11 +68,6 @@ const TableWrapper = styled.table`
   .alternate-table-row-color {
     background-color: ${colors.WHITE_COLOR};
   }
-  .pagination-bar {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
   .no-border-row {
     border: none;
   }

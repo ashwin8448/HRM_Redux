@@ -141,7 +141,11 @@ body {
   color:${colors.SECONDARY_COLOR};
   cursor:pointer;
 }
-
+.pagination-bar {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
 @media screen and (max-width: 1400px) {
   .table-overflow-scroll {
     overflow-x: auto;

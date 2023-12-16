@@ -7,15 +7,16 @@ import SearchBar from "../EmployeeListing/SearchAndFilter/components/SearchBar/S
 import Button from "../../components/Button/Button.tsx";
 import Checkbox from "../../components/Checkbox/Checkbox.tsx";
 
-function EmployeeCardList({ deleteCheckBoxesList }: {
+function EmployeeCardList({ deleteCheckBoxesList,  employees,
+    loading
+   }: {
     deleteCheckBoxesList: {
         checkedBoxesList: string[];
         setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
     };
+    employees:IEmployee[];
+    loading:boolean  
 }) {
-    const employeesData = useSelector((state: IData) => state.employeesData);
-    const employees: IEmployee[] = employeesData.employees;
-    const loading = employeesData.loading;
 
     return (
       <>
@@ -30,7 +31,7 @@ function EmployeeCardList({ deleteCheckBoxesList }: {
         </Button>
       </div>
         <EmployeeCardListWrapper>
-            {loading ? <Loader /> :
+            {loading ? <Loader className="center-screen" /> :
                 employees.length > 0 ?
                     employees.map((employee: IEmployee) => {
                         return (

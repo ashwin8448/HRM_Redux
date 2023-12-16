@@ -9,6 +9,12 @@ import EmployeeTableActions from "./EmployeeTableActions/EmployeeTableActions.ts
 import { useEffect, useState } from "react";
 import SideFilterBar from "./SideFilterBar/SideFilterBar.tsx";
 import EmployeeCardList from "../EmployeeCardList/EmployeeCardList.tsx";
+import Pagination from "./EmployeeTable/Pagination/Pagination.tsx";
+import { useSearchParams } from "react-router-dom";
+import { fetchEmployeesData } from "../../core/store/actions.ts";
+import store from "../../core/store/configureStore.ts";
+import { useSelector } from "react-redux";
+import { IData, IEmployee } from "../../core/interfaces/interface.ts";
 
 function EmployeeListing() {
   const matches = useMediaQuery("(min-width: 768px)");
@@ -34,6 +40,25 @@ function EmployeeListing() {
     setListingActive(buttonTxt);
   };
 
+  // Pagination
+  const rowsPerPage = 10;
+  const [searchParams, setSearchParams] = useSearchParams({
+    page: "1",
+    sortBy: "id",
+    sortDir: "asc",
+  });
+
+  const updateSearchParams = (params: {
+    page?: string;
+    sortBy?: string;
+    sortDir?: string;
+  }) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      ...params,
+    });
+  };
+
   useEffect(() => {
     deleteModal
       ? (document.body.style.overflow = "hidden") // Disable scrolling
@@ -44,6 +69,26 @@ function EmployeeListing() {
       document.body.style.overflow = "auto";
     };
   }, [deleteModal]);
+
+  // Employees data fetching
+  const employeesData = useSelector((state: IData) => state.employeesData);
+  const employees: IEmployee[] = employeesData.employees;
+  const loading: boolean = employeesData.loading;
+
+  useEffect(() => {
+    store.dispatch(
+      fetchEmployeesData({
+        limit: rowsPerPage,
+        offset: (Number(searchParams.get("page") || "1") - 1) * rowsPerPage,
+        sortBy: searchParams.get("sortBy") || "id",
+        sortDir: searchParams.get("sortDir") || "asc",
+      })
+    );
+  }, [searchParams, rowsPerPage]);
+
+  // Pagination 
+  const employeesCount = useSelector((state: IData) => state.employeesData.count);
+  const totalPages=Math.ceil(employeesCount / 10);
 
   return (
     <>
@@ -87,8 +132,26 @@ function EmployeeListing() {
       {listingActive == "List" ? (
         <EmployeeTableSearchAndPagination
           deleteCheckBoxesList={deleteCheckBoxesList}
+          employees={employees}
+          loading={loading}
+          updateSearchParams={updateSearchParams}
+          searchParams={searchParams}
+          totalPages={totalPages}
         />
-      ):<EmployeeCardList deleteCheckBoxesList={deleteCheckBoxesList}/>}
+      ) : (
+        <EmployeeCardList
+          deleteCheckBoxesList={deleteCheckBoxesList}
+          employees={employees}
+          loading={loading}
+        />
+      )}
+
+      <Pagination
+        searchParams={searchParams}
+        updateSearchParams={updateSearchParams}
+        rowsPerPage={rowsPerPage}
+        totalPages={totalPages}
+      />
     </>
   );
 }

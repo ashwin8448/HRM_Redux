@@ -8,6 +8,7 @@ function Pagination({
   rowsPerPage,
   searchParams,
   updateSearchParams,
+  totalPages
 }: {
   rowsPerPage: number;
   searchParams: URLSearchParams;
@@ -20,26 +21,25 @@ function Pagination({
     sortBy?: string | undefined;
     sortDir?: string | undefined;
   }) => void;
+  totalPages:number
 }) {
-  const count = useSelector((state: IData) => state.employeesData.count);
-  const [totalPages, setTotalPages] = useState(1);
-  useEffect(() => setTotalPages(Math.ceil(count / rowsPerPage)), [count]);
-  let pageNumber = Number(searchParams.get("page"));
+  let currentPageNumber = Number(searchParams.get("page"));
 
   const paginationRange = usePagination({
     totalPageCount: totalPages,
     pageSize: rowsPerPage,
     siblingCount: 1,
-    currentPage: pageNumber,
+    currentPage: currentPageNumber,
   });
-
   const checkPage = (newPage: number) => {
     return newPage > totalPages ? totalPages : newPage < 1 ? 1 : newPage;
   };
   const updateParams = (update: number, mode?: string) => {
-    pageNumber =
-      mode === "step" ? checkPage(pageNumber + update) : checkPage(update);
-    updateSearchParams({ page: String(pageNumber) });
+    currentPageNumber =
+      mode === "step"
+        ? checkPage(currentPageNumber + update)
+        : checkPage(update);
+    updateSearchParams({ page: String(currentPageNumber) });
   };
   useEffect(() => {
     if (!searchParams.get("page"))
@@ -47,9 +47,11 @@ function Pagination({
   }, []);
 
   return totalPages > 1 ? (
-    <PaginationWrapper>
+    <PaginationWrapper className="pagination-bar">
       <li
-        className={`pagination-item ${pageNumber === 1 ? "disabled" : ""} `}
+        className={`pagination-item ${
+          currentPageNumber === 1 ? "disabled" : ""
+        } `}
         onClick={() => {
           updateParams(-1, "step");
         }}
@@ -65,7 +67,7 @@ function Pagination({
           return (
             <li
               className={`pagination-item ${
-                pageNumber  ? "selected" : ""
+                pageNumber === currentPageNumber ? "selected" : ""
               } `}
               key={pageNumber}
               onClick={() => {
@@ -79,7 +81,7 @@ function Pagination({
 
       <li
         className={`pagination-item ${
-          pageNumber === totalPages ? "disabled" : ""
+          currentPageNumber === totalPages ? "disabled" : ""
         } `}
         onClick={() => {
           updateParams(1, "step");
