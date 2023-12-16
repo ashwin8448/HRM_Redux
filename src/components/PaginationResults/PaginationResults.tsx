@@ -4,10 +4,10 @@ import selectStyleComponent from "../SelectStyle/selectCustomStyles";
 import PaginationResultsWrapper from "./paginationResults";
 import { useSelector } from "react-redux";
 import { IData } from "../../core/interfaces/interface";
+import { useSearchParams } from "react-router-dom";
 
 function PaginationResults({
   updateSearchParams,
-  searchParams,
   totalPages
 }: {
   updateSearchParams: ({
@@ -19,9 +19,11 @@ function PaginationResults({
     sortBy?: string | undefined;
     sortDir?: string | undefined;
   }) => void;
-  searchParams: URLSearchParams;
   totalPages:number
 }) {
+
+  const [searchParams] = useSearchParams();
+
   const employeesCount = useSelector(
     (state: IData) => state.employeesData.count
   );

@@ -27,17 +27,17 @@ function TableHead({
         <th>
         <Checkbox employeesIdList={employeesIdList} deleteCheckBoxesList={deleteCheckBoxesList}  />
         </th>
-        <TableHeadButton icon="expand_more">Id</TableHeadButton>
-        <TableHeadButton icon="expand_more">
+        <TableHeadButton icon="expand_more" title="id">Id</TableHeadButton>
+        <TableHeadButton icon="expand_more" title="name">
           <span className="material-symbols-outlined">person</span>Name
         </TableHeadButton>
-        <TableHeadButton icon="expand_more">
+        <TableHeadButton icon="expand_more" title="designation">
           <span className="material-symbols-outlined">badge</span>Designation
         </TableHeadButton>
-        <TableHeadButton icon="expand_more">
+        <TableHeadButton icon="expand_more" title="department.id">
           <span className="material-symbols-outlined">work</span>Department
         </TableHeadButton>
-        <TableHeadButton icon="expand_more">
+        <TableHeadButton icon="expand_more" title="role.id">
           <span className="material-symbols-outlined">engineering</span>Role
         </TableHeadButton>
         <th>

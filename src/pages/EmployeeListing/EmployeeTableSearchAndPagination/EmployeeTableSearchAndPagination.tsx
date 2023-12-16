@@ -12,7 +12,6 @@ function EmployeeTableSearchAndPagination({
   employees,
   loading,
   updateSearchParams,
-  searchParams,
   totalPages
 }: {
   deleteCheckBoxesList: {
@@ -30,7 +29,6 @@ function EmployeeTableSearchAndPagination({
     sortBy?: string | undefined;
     sortDir?: string | undefined;
   }) => void;
-  searchParams:URLSearchParams;
   totalPages:number
 }) {
 
@@ -39,7 +37,7 @@ function EmployeeTableSearchAndPagination({
       <div className="border">
         <div className="common-flex global-padding">
           <SearchBar placeholder="Search by name" />
-          <PaginationResults updateSearchParams={updateSearchParams} searchParams={searchParams} totalPages={totalPages}></PaginationResults>
+          <PaginationResults updateSearchParams={updateSearchParams} totalPages={totalPages}></PaginationResults>
         </div>
         <EmployeeTable
           deleteCheckBoxesList={deleteCheckBoxesList}

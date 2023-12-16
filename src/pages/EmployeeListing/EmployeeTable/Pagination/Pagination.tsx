@@ -3,15 +3,14 @@ import usePagination, { DOTS } from "../hook/usePagination.ts";
 import PaginationWrapper from "./pagination.ts";
 import { IData } from "../../../../core/interfaces/interface.ts";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "react-router-dom";
 
 function Pagination({
   rowsPerPage,
-  searchParams,
   updateSearchParams,
   totalPages
 }: {
   rowsPerPage: number;
-  searchParams: URLSearchParams;
   updateSearchParams: ({
     page,
     sortBy,
@@ -23,6 +22,8 @@ function Pagination({
   }) => void;
   totalPages:number
 }) {
+
+  const [searchParams] = useSearchParams();
   let currentPageNumber = Number(searchParams.get("page"));
 
   const paginationRange = usePagination({

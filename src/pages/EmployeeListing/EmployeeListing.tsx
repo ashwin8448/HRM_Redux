@@ -135,7 +135,6 @@ function EmployeeListing() {
           employees={employees}
           loading={loading}
           updateSearchParams={updateSearchParams}
-          searchParams={searchParams}
           totalPages={totalPages}
         />
       ) : (
@@ -147,7 +146,6 @@ function EmployeeListing() {
       )}
 
       <Pagination
-        searchParams={searchParams}
         updateSearchParams={updateSearchParams}
         rowsPerPage={rowsPerPage}
         totalPages={totalPages}
