@@ -43,11 +43,16 @@ export const setTableProps = (tableProps: ITableProps) => ({
 });
 
 //fetch methods
-export const fetchEmployeesData = () => {
+export const fetchEmployeesData = (params: {
+  limit: number;
+  offset: number;
+  sortBy: string;
+  sortDir: string;
+}) => {
   return async function (dispatch: Dispatch) {
     try {
       dispatch(setLoading(actionTypes.SET_LOADING, true));
-      const response = await getData(apiURL.employee);
+      const response = await getData(apiURL.employee,{params:params});
       const employeesResponseData = response.data.data;
       const employees = employeesResponseData.employees;
       dispatch(

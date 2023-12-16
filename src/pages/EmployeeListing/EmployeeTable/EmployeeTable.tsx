@@ -10,8 +10,9 @@ import { fetchEmployeesData } from "../../../core/store/actions.ts";
 import store from "../../../core/store/configureStore.ts";
 import { useSelector } from "react-redux";
 import React from "react";
+import { useSearchParams } from "react-router-dom";
+import Pagination from "./Pagination/Pagination.tsx";
 
-let pageSize = 5;
 
 function EmployeeTable({
   deleteCheckBoxesList,
@@ -21,21 +22,39 @@ function EmployeeTable({
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
 }) {
+  const rowsPerPage = 10;
   const employeesData = useSelector((state: IData) => state.employeesData);
   const employees = employeesData.employees;
   const loading = employeesData.loading;
+  const [searchParams, setSearchParams] = useSearchParams({
+    page: "1",
+    sortBy: "id",
+    sortDir: "asc",
+  });
+
+  const updateSearchParams = (params: {
+    page?: string;
+    sortBy?: string;
+    sortDir?: string;
+  }) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      ...params,
+    });
+  };
 
   useEffect(() => {
-    store.dispatch(fetchEmployeesData());
-  }, []);
+    store.dispatch(
+      fetchEmployeesData({
+        limit: rowsPerPage,
+        offset: (Number(searchParams.get("page") || "1") - 1) * rowsPerPage,
+        sortBy: searchParams.get("sortBy") || "id",
+        sortDir: searchParams.get("sortDir") || "asc",
+      })
+    );
+  }, [searchParams,rowsPerPage]);
 
   //TODO: Fetch employees data, loading, filterprops
-
-  const [idToDlt, setIdToDlt] = useState("");
-
-  const [currentPage, setCurrentPage] = useState(1);
-  let totalCount = 0;
-  let totalPageCount = 0;
 
   const employeesTableView = useMemo(() => {
     //TODO: if employees list is null
@@ -65,7 +84,6 @@ function EmployeeTable({
     // .slice(firstPageIndex, lastPageIndex);
   }, [
     // tableProps, employees,
-    currentPage,
   ]);
 
   return (
@@ -111,13 +129,11 @@ function EmployeeTable({
         </TableWrapper>
       </div>
       {/* TODO:Pagination  */}
-      {/* <Pagination
-                className="pagination-bar"
-                currentPage={currentPage}
-                totalPageCount={totalPageCount}
-                pageSize={pageSize}
-                onPageChange={(page: number) => setCurrentPage(page)}
-            /> */}
+      <Pagination
+        searchParams = {searchParams}
+        updateSearchParams = {updateSearchParams}
+        rowsPerPage={rowsPerPage}
+      />
     </>
   );
 }
