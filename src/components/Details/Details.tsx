@@ -29,30 +29,32 @@ const DetailsSection = ({
   const handleSkillsOverflow = (isOverflow: boolean) => {
     setSkillsOverflow(isOverflow);
   };
+
+  console.log(content)
   return (
-    <DetailsWrapper $newline={newline} $skill={typeof content != "string"} onMouseEnter={handleMouseEnter}
-      onMouseLeave={handleMouseLeave}>
-      <div className="description"
-      >
+    <DetailsWrapper
+      $newline={newline}
+      $skill={typeof content != "string"}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+    >
+      <div className="description">
         <span className="material-symbols-outlined ">{icon}</span>
         {title && <span className="title">{title}</span>}
       </div>
       {typeof content === "string" ? (
         <p className="content overflow-ellipsis">{content}</p>
+      ) : Array.isArray(content) && content.length > 0 ? (
+        <>
+          <SkillsChip
+            className="overflow-ellipsis"
+            skills={content}
+            handleSkillsOverflow={handleSkillsOverflow}
+          />
+          {hover && skillsOverflow && <Tooltip message={content} />}
+        </>
       ) : (
-        Array.isArray(content) && content.length > 0 ? (
-          <>
-            <SkillsChip
-              className="overflow-ellipsis"
-              skills={content}
-              handleSkillsOverflow={handleSkillsOverflow}
-            />
-            {hover && skillsOverflow && <Tooltip message={content} />}
-          </>
-        ) : (
-          "-"
-        )
-
+        "-"
       )}
     </DetailsWrapper>
   );

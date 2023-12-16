@@ -45,7 +45,7 @@ function SkillsChip({
     <SkillsListWrapper className={` ${className}`} ref={skillsContainerRef}>
       {skills.map((skill: ISkill) => {
         return (
-          <SkillsChipWrapper key={skill.id}>{skill.skill}</SkillsChipWrapper>
+          <SkillsChipWrapper  key={skill.id}>{skill.skill}</SkillsChipWrapper>
         );
       })}
     </SkillsListWrapper>

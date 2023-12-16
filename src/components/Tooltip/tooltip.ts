@@ -15,6 +15,8 @@ const TooltipWrapper = styled.div<{ $left: number }>`
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
   white-space: wrap;
+  max-height:300px;
+  overflow-y:auto;
 
   &:before {
     content: "";
