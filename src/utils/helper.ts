@@ -6,6 +6,7 @@ import {
 import {
   IDepartment,
   IEmployee,
+  IEmployeePost,
   IFormEmployee,
   IRole,
   ISelectOptionProps,
@@ -31,26 +32,26 @@ export function concatenateNames(firstName: string, lastName: string): string {
   return `${firstName} ${lastName}`;
 }
 //TODO
-// export function convertToFormEmployee(employee: IEmployee): IFormEmployee {
-//   return {
-//     id: employee.id,
-//     firstName: employee.firstName,
-//     lastName: employee.lastName,
-//     dob: employee.dob,
-//     email: employee.email,
-//     phone: employee.phone,
-//     designation: employee.designation,
-//     salary: employee.salary,
-//     dateOfJoining: employee.dateOfJoining,
-//     address: employee.address,
-//     role: {
-//       label: employee.role.role,
-//       value: employee.role.id,
-//     },
-//     department: transformArrayToOptionsList(employee.department),
-//     skills: transformArrayToOptionsList(employee.skills),
-//   };
-// }
+export function convertToFormEmployee(employee: IEmployee): IFormEmployee {
+  return {
+    id: employee.id,
+    firstName: employee.firstName,
+    lastName: employee.lastName,
+    dob: employee.dob,
+    email: employee.email,
+    phone: employee.phone,
+    designation: employee.designation,
+    salary: employee.salary,
+    dateOfJoining: employee.dateOfJoining,
+    address: employee.address,
+    role: {
+      label: employee.role.role,
+      value: employee.role.id,
+    },
+    department: transformArrayToOptionsList(employee.department),
+    skills: transformArrayToOptionsList(employee.skills),
+  };
+}
 export function resetFiltersAndSearchBar() {
   const resettedValues = {
     department: null,
@@ -72,7 +73,7 @@ export function defaultFormVal() {
     address: null,
     dateOfJoining: null,
     gender: null,
-    id: null,
+    isActive: null,
   };
   return resettedVals;
 }
@@ -233,29 +234,15 @@ export const getNewEmpId = (employeesCount: number) => {
   }
 };
 
-export const getNewEmployeeDetails = (formData: FieldValues) => {
-  const skillsInNewFormat = formData.skills.map(
-    (skill: ISelectOptionProps) => ({
-      id: skill.value,
-      name: skill.label,
-    })
-  );
-  const transformedInput = {
-    emp_name: formData.emp_name,
-    email: formData.email,
-    phone: formData.phone,
-    address: formData.address,
-    skills: skillsInNewFormat,
-    gender: formData.gender,
-    date_of_birth: formData.date_of_birth,
-    date_of_joining: formData.date_of_joining,
-    designation: formData.designation.value,
-    department: formData.department.value,
-    employment_mode: formData.employment_mode.value,
-  };
-
-  return transformedInput;
-};
+export const getNewEmployeeDetails = (
+  formData: FieldValues
+): IEmployeePost => ({
+  ...formData,
+  skills: formData.skills.map((skill: ISelectOptionProps) => skill.value),
+  department: formData.department.value,
+  role: formData.role.value,
+  isActive: formData.isActive === "Yes" ? true : false,
+});
 
 export const getDate = (dateVal: string) => {
   const [year, month, day] = dateVal.split("-");
@@ -295,7 +282,7 @@ export const getUrlType = (pathName: string) => {
 
 export const checkEmployeesEqual = (
   originalEmployee: IEmployee,
-  editedEmployee: IEmployee
+  editedEmployee: FieldValues
 ) => {
   const originalEmpKeys = Object.keys(originalEmployee);
 

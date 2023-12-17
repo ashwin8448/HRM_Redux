@@ -1,4 +1,4 @@
-import { ISkill } from "../../core/interfaces/interface";
+import { ISelectOptionProps, ISkill } from "../../core/interfaces/interface";
 import SkillsChip from "../Skills/SkillsChip.tsx";
 import DetailsWrapper from "./details.ts";
 
@@ -10,7 +10,7 @@ const DetailsSection = ({
 }: {
   icon: string;
   title?: string;
-  content: string | ISkill[];
+  content: string | ISkill[] | ISelectOptionProps[];
   matches?: boolean;
   newline?: boolean;
 }) => {

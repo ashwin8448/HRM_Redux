@@ -1,16 +1,30 @@
 import { Control } from "react-hook-form";
 
-export interface IData {
-  employeesData: IEmployeeData;
-  skills: ISkill[];
-  roles: IRole[];
-  departments: IDepartment[];
+export interface IData{
+  employeesData: IEmployeeData,
+  dropdownData:{
+      departments:{
+          loading: boolean,
+          departments: ISelectOptionProps[]
+      },
+      roles:{
+          loading: boolean,
+          roles: ISelectOptionProps[]
+      },
+      skills:{
+          loading: boolean,
+          skills: ISelectOptionProps[]
+      }
+  },
+  filterData:ITableProps
 }
+
 export interface IEmployeeData {
   employees: IEmployee[];
   count: number;
   loading: boolean;
 }
+
 export interface IEmployee {
   id: string;
   firstName: string;
@@ -24,10 +38,30 @@ export interface IEmployee {
   dateOfJoining?: string;
   address?: string;
   moreDetails?: { [key: string]: string };
+  photoId?:string
   role?: IRole;
   department?: IDepartment;
   skills?: ISkill[];
 }
+
+export interface IEmployeePost {
+  firstName?: string;
+  lastName?: string;
+  isActive?: boolean;
+  dob?: string;
+  email?: string;
+  phone?: string;
+  designation?: string;
+  salary?: string;
+  dateOfJoining?: string;
+  address?: string;
+  moreDetails?: { [key: string]: string };
+  role?: number;
+  department?: number;
+  skills?: [];
+}
+
+
 export interface ISkill {
   id: number;
   skill: string;

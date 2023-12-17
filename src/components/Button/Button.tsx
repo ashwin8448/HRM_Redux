@@ -7,18 +7,21 @@ function Button({
     className,
     onClick,
     loading,
+    disabled
 }: {
     children?: React.ReactNode;
     icon?: string;
     className?: string | undefined;
     onClick?: () => void;
     loading?: boolean;
+    disabled?:boolean
 }) {
     return (
         <ButtonWrapper
             $isChildren={children ? true : false}
             className={`common-flex ${className ?? ""}`}
             onClick={onClick!}
+            disabled={disabled}
         >
             {loading ? (
                 <span className="btn-loader" />

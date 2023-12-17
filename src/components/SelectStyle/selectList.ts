@@ -1,11 +1,7 @@
 import styled from "styled-components";
 
 const SelectListWrapper = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, minmax(200px, 1fr)); /* see notes below */
-  grid-gap: 15px;
   width: 100%;
-  flex: 1;
 
   @media only screen and (max-width: 1200px) {
     width: 100%;

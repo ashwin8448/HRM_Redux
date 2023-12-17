@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout.tsx";
 import EmployeeListing from "./EmployeeListing/EmployeeListing.tsx";
-import EmployeeView from "./EmployeeView/EmployeeView.tsx";
+import EmployeeViewLayout from "./EmployeeView/EmployeeViewLayout.tsx";
 import Form from "./EmployeeUpdate/Form.tsx";
 
 const router = createBrowserRouter(
@@ -15,7 +15,7 @@ const router = createBrowserRouter(
         },
         {
           path: "view-employee/:employeeId",
-          element: <EmployeeView />,
+          element: <EmployeeViewLayout />,
         },
         {
           path: "add-employee",
