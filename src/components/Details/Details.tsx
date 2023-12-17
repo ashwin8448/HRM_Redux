@@ -22,7 +22,6 @@ const DetailsSection = ({
     setSkillsOverflow(isOverflow);
   };
 
-  console.log(content)
   return (
     <DetailsWrapper
       $newline={newline}

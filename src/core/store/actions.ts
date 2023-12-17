@@ -43,7 +43,7 @@ export const setTableProps = (tableProps: ITableProps) => ({
 });
 
 //fetch methods
-export const fetchEmployeesData = (params: {
+export const fetchEmployeesData = (params?: {
   limit: number;
   offset: number;
   sortBy: string;
