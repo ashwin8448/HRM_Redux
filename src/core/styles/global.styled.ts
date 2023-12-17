@@ -146,6 +146,13 @@ body {
     display: flex;
     justify-content: center;
   }
+  .infinite-scroll-loader-div {
+    width: 100%;
+  }
+  .infinite-scroll-loader {
+    justify-content: center !important;
+    margin: 0 auto;
+  }
 @media screen and (max-width: 1400px) {
   .table-overflow-scroll {
     overflow-x: auto;

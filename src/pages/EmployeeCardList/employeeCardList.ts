@@ -1,5 +1,5 @@
-import styled from 'styled-components';
-import colors from '../../core/constants/colors';
+import styled from "styled-components";
+import colors from "../../core/constants/colors";
 
 const EmployeeCardListWrapper = styled.div`
   display: grid;
