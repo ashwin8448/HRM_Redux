@@ -44,8 +44,10 @@ function PaginationResults({
     }
   };
   useEffect(() => {
-    setValue({ value: Number(searchParams.get("page")), label: pageNumber??"1" });
-  }, [value]);
+    const newPageNumber = Number(searchParams.get("page")) ?? 1;
+    setValue({ value: newPageNumber, label: String(newPageNumber) });
+  }, [searchParams, pageNumber]);
+  
 
   return (
     <PaginationResultsWrapper className="common-flex">

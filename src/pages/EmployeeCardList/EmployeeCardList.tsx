@@ -8,51 +8,51 @@ import Button from "../../components/Button/Button.tsx";
 import Checkbox from "../../components/Checkbox/Checkbox.tsx";
 import { useState } from "react";
 
-function EmployeeCardList({ deleteCheckBoxesList,  employees,
-    loading
-   }: {
-    deleteCheckBoxesList: {
-        checkedBoxesList: string[];
-        setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
-    };
-    employees:IEmployee[];
-    loading:boolean  
+function EmployeeCardList({
+  deleteCheckBoxesList,
+}: {
+  deleteCheckBoxesList: {
+    checkedBoxesList: string[];
+    setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
+  };
 }) {
+  const [selectAll, setSelectAll] = useState<boolean>(true);
 
-    const [selectAll, setSelectAll] = useState<boolean>(true);
-
-    const changeBtnText=()=>{
-        setSelectAll((prevSelectAll:boolean) => !prevSelectAll);
-    }
-    return (
-      <>
+  const changeBtnText = () => {
+    setSelectAll((prevSelectAll: boolean) => !prevSelectAll);
+  };
+  return (
+    <>
       <div className="common-flex global-padding">
         <SearchBar placeholder="Search by name" />
         <Button className="select-all" onClick={changeBtnText}>
-        {selectAll ? 'Select All' : 'Unselect All'}
+          {selectAll ? "Select All" : "Unselect All"}
           <Checkbox
             deleteCheckBoxesList={deleteCheckBoxesList}
             employeesIdList={employees.map((employee) => employee.id)}
           />
         </Button>
       </div>
-        <EmployeeCardListWrapper>
-            {loading ? <Loader className="center-screen" /> :
-                employees.length > 0 ?
-                    employees.map((employee: IEmployee) => {
-                        return (
-                            employee && (
-                                <EmployeeCard key={employee.id} deleteCheckBoxesList={deleteCheckBoxesList} employee={employee} />
-                            )
-                        );
-                    })
-                    : (
-                        <div className="common-flex">
-                            No data Available
-                        </div>
-                    )}
-        </EmployeeCardListWrapper>
-        </>
-    );
+      <EmployeeCardListWrapper>
+        {loading ? (
+          <Loader className="center-screen" />
+        ) : employees.length > 0 ? (
+          employees.map((employee: IEmployee) => {
+            return (
+              employee && (
+                <EmployeeCard
+                  key={employee.id}
+                  deleteCheckBoxesList={deleteCheckBoxesList}
+                  employee={employee}
+                />
+              )
+            );
+          })
+        ) : (
+          <div className="common-flex">No data Available</div>
+        )}
+      </EmployeeCardListWrapper>
+    </>
+  );
 }
 export default EmployeeCardList;
