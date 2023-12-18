@@ -246,14 +246,6 @@ export const getNewEmployeeDetails = (formData: FieldValues): IEmployeePost => {
     isActive: isActive === "Yes" ? true : false,
   };
 
-  // return {
-  //   ...formData,
-  //   skills: formData.skills.map((skill: ISelectOptionProps) => skill.value),
-  //   department: formData.department[0].value,
-  //   role: formData.role[0].value,
-  //   isActive: formData.isActive === "Yes" ? true : false,
-  //   ...("photoId" in formData ? {} : { photoId: undefined }),
-  // };
 };
 
 export const getDate = (dateVal: string) => {
