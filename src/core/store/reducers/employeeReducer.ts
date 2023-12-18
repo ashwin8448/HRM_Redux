@@ -2,7 +2,7 @@ import { IEmployee } from "../../interfaces/interface.ts";
 import * as actionTypes from "../actionTypes.ts";
 
 const initialState = {
-  employees: [],
+  employeesForList: [],
   loading: true,
   count: 0,
 };
@@ -18,7 +18,7 @@ function employeeReducer(
     case actionTypes.SET_EMPLOYEES:
       return {
         ...state,
-        employees:
+        employeesForList:
           typeof action.payload != "boolean" && action.payload.employees,
         count: typeof action.payload != "boolean" && action.payload.count,
       };

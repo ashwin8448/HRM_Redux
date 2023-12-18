@@ -18,8 +18,8 @@ export const setLoading = (actionType: string, loading: boolean) => ({
   type: actionType,
   payload: loading,
 });
-export const setEmployees = (employeesData: {
-  employees: IEmployee[];
+export const setEmployeesForList = (employeesData: {
+  employeesList: IEmployee[];
   count: number;
 }) => ({
   type: actionTypes.SET_EMPLOYEES,
@@ -57,9 +57,9 @@ export const fetchEmployeesData = (params?: {
       const employeesResponseData = response.data.data;
       const employees = employeesResponseData.employees;
       dispatch(
-        setEmployees({
+        setEmployeesForList({
           ...employeesResponseData,
-          employees: employees.map((employee:{
+          employeesList: employees.map((employee:{
             id: string;
             firstName: string;
             lastName?: string;

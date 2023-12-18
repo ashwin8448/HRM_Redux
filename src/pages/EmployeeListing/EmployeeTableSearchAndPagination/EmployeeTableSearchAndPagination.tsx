@@ -20,7 +20,7 @@ function EmployeeTableSearchAndPagination({
 }) {
   // Employees data fetching
   const employeesData = useSelector((state: IData) => state.employeesData);
-  const employees: IEmployee[] = employeesData.employees;
+  const employees: IEmployee[] = employeesData.employeesForList;
   const loading: boolean = employeesData.loading;
 
   // Pagination

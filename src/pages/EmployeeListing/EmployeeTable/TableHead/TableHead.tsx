@@ -13,7 +13,7 @@ function TableHead({
   };
 }) {
   const employeesList = useSelector(
-    (state: IData) => state.employeesData.employees
+    (state: IData) => state.employeesData.employeesForList
   );
   const employeesIdList = employeesList.map(
     (employee: IEmployee) => employee.id

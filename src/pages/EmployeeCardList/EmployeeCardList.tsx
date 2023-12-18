@@ -26,11 +26,11 @@ function EmployeeCardList({
   };
 
   const cardsPerPage = 10;
-  const { employees, count,loading } = useSelector(
+  const { employeesForList, count,loading } = useSelector(
     (state: IData) => state.employeesData
   );
 
-  const [employeesGrid, setEmployeesGrid] = useState<IEmployee[]>(employees);
+  const [employeesGrid, setEmployeesGrid] = useState<IEmployee[]>(employeesForList);
   const [searchParams, setSearchParams] = useSearchParams({
     page: "1",
     sortBy: "id",
@@ -80,7 +80,7 @@ function EmployeeCardList({
         );
         setEmployeesGrid((prevEmployeesGrid) => {
           const uniqueEmployees = Array.from(
-            new Set([...prevEmployeesGrid, ...employees])
+            new Set([...prevEmployeesGrid, ...employeesForList])
           );
           return uniqueEmployees;
         });

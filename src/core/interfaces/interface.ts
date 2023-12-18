@@ -19,7 +19,7 @@ export interface IData{
     filterData:ITableProps
 }
 export interface IEmployeeData {
-  employees: IEmployee[];
+  employeesForList: IEmployee[];
   count: number;
   loading: boolean;
 }
