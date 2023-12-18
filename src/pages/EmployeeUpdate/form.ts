@@ -8,11 +8,6 @@ flex-direction: column;
 form{
   width: 70%;
 }
-.employee-img{
-  width: 200px;
-  height: 200px;
-  border-radius: 50%;
-}
 `
 
 

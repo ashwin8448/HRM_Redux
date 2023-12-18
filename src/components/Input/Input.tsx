@@ -26,7 +26,10 @@ function Input({
       {imageLink && (
         <div className="employee-img-container">
           <div className="employee-img">
-            <span className="material-symbols-outlined close-btn" onClick={()=>console.log("Hi")}>
+            <span
+              className="material-symbols-outlined close-btn"
+              onClick={() => console.log("Hi")}
+            >
               {" "}
               close
             </span>
@@ -54,6 +57,7 @@ function Input({
             type={type}
             id={label}
             className={className}
+            accept={imageLink && "image/png, image/gif, image/jpeg"}
             placeholder={`Enter your ${label}`}
             {...register(name, {
               ...validation,

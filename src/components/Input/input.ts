@@ -11,27 +11,29 @@ const InputWrapper = styled.div`
     width: 100%;
     display: flex;
     justify-content: center;
+
     .employee-img {
       display: inline-block;
       position: relative;
       border: 1px solid black;
-    }
-    .close-btn {
-      position: absolute;
-      top: 0;
-      right: 0;
+      border-radius: 10px;
+      padding: 10px;
+      width: auto;
+      height: auto;
+      img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+      }
+      .close-btn {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        cursor: pointer;
+      }
     }
   }
 
-  .employee-img{
-    border-radius: 10px;
-    padding: 10px;
-  }
-  .employee-img img{
-      width: 200px;
-      height: 200px;
-      border-radius: 50%;
-  }
   .subheading {
     white-space: nowrap;
   }
