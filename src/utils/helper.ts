@@ -234,15 +234,27 @@ export const getNewEmpId = (employeesCount: number) => {
   }
 };
 
-export const getNewEmployeeDetails = (
-  formData: FieldValues
-): IEmployeePost => ({
-  ...formData,
-  skills: formData.skills.map((skill: ISelectOptionProps) => skill.value),
-  department: formData.department.value,
-  role: formData.role.value,
-  isActive: formData.isActive === "Yes" ? true : false,
-});
+export const getNewEmployeeDetails = (formData: FieldValues): IEmployeePost => {
+  console.log(formData.department);
+  const { photoId, skills, department, role, isActive, ...rest } = formData;
+
+  return {
+    ...rest,
+    skills: skills.map((skill: ISelectOptionProps) => skill.value),
+    department: department[0].value,
+    role: role[0].value,
+    isActive: isActive === "Yes" ? true : false,
+  };
+
+  // return {
+  //   ...formData,
+  //   skills: formData.skills.map((skill: ISelectOptionProps) => skill.value),
+  //   department: formData.department[0].value,
+  //   role: formData.role[0].value,
+  //   isActive: formData.isActive === "Yes" ? true : false,
+  //   ...("photoId" in formData ? {} : { photoId: undefined }),
+  // };
+};
 
 export const getDate = (dateVal: string) => {
   const [year, month, day] = dateVal.split("-");

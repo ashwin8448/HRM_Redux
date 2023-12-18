@@ -119,8 +119,10 @@ function Form() {
   useEffect(() => {
     if (employeeData)
       for (let ObjKey in employeeData) {
+        console.log(employeeData);
         methods.setValue(ObjKey, (employeeData as any)[ObjKey]);
       }
+    console.log(methods.getValues());
   }, [employeeData]);
 
   const onReset = () => {
@@ -137,6 +139,8 @@ function Form() {
     setIsLoading(true);
     try {
       if (urlType === "add-employee") {
+        console.log("posting");
+        console.log(newEmployee);
         await postData(apiURL.employee, newEmployee);
         // Display toast for success state
         toast.success(`Added user ${newEmployee.firstName}`, {
@@ -147,7 +151,9 @@ function Form() {
         if (
           !checkEmployeesEqual(employeeData as IEmployee, methods.getValues())
         ) {
-          await updateData(apiURL.employee + employeeId, newEmployee);
+          console.log("updating");
+          console.log(newEmployee);
+          await updateData(apiURL.employee +"/"+ employeeId, newEmployee);
           // Display toast for success state
           toast.success(`Edited user ${newEmployee.firstName}`, {
             toastId: "edit-toast-id",
@@ -252,6 +258,12 @@ function Form() {
                   name="dateOfJoining"
                 />
                 <Input
+                  validation={nameValidation}
+                  label="Deisgnation"
+                  type="text"
+                  name="designation"
+                />
+                <Input
                   label="Currently employed"
                   type="radio"
                   options={["Yes", "No"]}
@@ -274,11 +286,7 @@ function Form() {
                   />
                   <img
                     className="employee-img"
-                    src={
-                      typeof methods.getValues("photoId") === "string"
-                        ? methods.getValues("photoId")
-                        : URL.createObjectURL(methods.getValues("photoId"))
-                    }
+                    src={methods.getValues("photoId")}
                     alt="Employee Image"
                   />
                 </InputRow>
@@ -317,7 +325,33 @@ function Form() {
                 </Button>
                 <Button
                   icon=""
-                  onClick={() => setActiveSection(activeSection + 1)}
+                  onClick={async () => {
+                    let validationStatus = true;
+                    switch (activeSection) {
+                      case 1:
+                        validationStatus = await methods.trigger([
+                          "firstName",
+                          "lastName",
+                          "email",
+                          "phone",
+                          "address",
+                          "dob",
+                        ]);
+                        break;
+                      case 2:
+                        validationStatus = await methods.trigger([
+                          "dateOfJoining",
+                          "isActive",
+                          "role",
+                          "department",
+                          "skills",
+                        ]);
+                        break;
+                      default:
+                        validationStatus = true;
+                    }
+                    validationStatus && setActiveSection(activeSection + 1);
+                  }}
                 >
                   Next
                 </Button>

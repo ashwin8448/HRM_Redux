@@ -4,23 +4,24 @@ import DetailsSection from "../../components/Details/Details.tsx";
 import ActiveChip from "../../components/ActiveChip/ActiveChip.tsx";
 import { FieldValues } from "react-hook-form";
 
-const EmployeeView = ({employee}:{employee:IEmployee|FieldValues}) => {
+const EmployeeView = ({ employee }: { employee: IEmployee | FieldValues }) => {
   return (
     <>
       {" "}
       <div className="flex employee-intro-section">
-        <img
-          src={employee.photoId}
-          alt="Employee image"
-        />
+        <img src={employee.photoId} alt="Employee image" />
         <div className="flex employee-intro">
-          <h2>
-            {employee.firstName +
-              " " +
-              employee.lastName}
-          </h2>
+          <h2>{employee.firstName + " " + employee.lastName}</h2>
           <div className="employee-status">
-            <ActiveChip isActive={employee.isActive} />
+            <ActiveChip
+              isActive={
+                typeof employee.isActive === "boolean"
+                  ? employee.isActive
+                  : employee.isActive === "Yes"
+                  ? true
+                  : false
+              }
+            />
             <span>{employee.role?.role}</span>
           </div>
           <div className="flex">
@@ -28,7 +29,9 @@ const EmployeeView = ({employee}:{employee:IEmployee|FieldValues}) => {
               <DetailsSection
                 icon="person"
                 title="Department"
-                content={employee.department!.department}
+                content={
+                  employee.department!.department || employee.department!.label
+                }
               />
               <DetailsSection
                 icon="person"
@@ -37,14 +40,8 @@ const EmployeeView = ({employee}:{employee:IEmployee|FieldValues}) => {
               />
             </div>
             <div className="employee-info">
-              <DetailsSection
-                icon="mail"
-                content={employee.email!}
-              />
-              <DetailsSection
-                icon="phone_iphone"
-                content={employee.phone!}
-              />
+              <DetailsSection icon="mail" content={employee.email!} />
+              <DetailsSection icon="phone_iphone" content={employee.phone!} />
             </div>
           </div>
         </div>
@@ -55,11 +52,7 @@ const EmployeeView = ({employee}:{employee:IEmployee|FieldValues}) => {
           <DetailsSection
             icon="person"
             title="Full Name"
-            content={
-              employee.firstName +
-              " " +
-              employee.lastName
-            }
+            content={employee.firstName + " " + employee.lastName}
             matches
             newline={true}
           />
