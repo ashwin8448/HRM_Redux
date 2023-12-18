@@ -138,6 +138,7 @@ export interface InputProps {
   options?: string[];
   name: string;
   value?: string;
+  imageLink?:string;
 }
 export interface ISelectOptionProps {
   value: number;

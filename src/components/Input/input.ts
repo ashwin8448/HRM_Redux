@@ -7,13 +7,38 @@ const InputWrapper = styled.div`
   flex-direction: column;
   flex: 1;
 
+  .employee-img-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    .employee-img {
+      display: inline-block;
+      position: relative;
+      border: 1px solid black;
+    }
+    .close-btn {
+      position: absolute;
+      top: 0;
+      right: 0;
+    }
+  }
+
+  .employee-img{
+    border-radius: 10px;
+    padding: 10px;
+  }
+  .employee-img img{
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+  }
   .subheading {
     white-space: nowrap;
   }
 
   input {
     padding: 10px;
-    font-weight:500;
+    font-weight: 500;
     outline: none;
     color: ${colors.SECONDARY_COLOR};
     background-color: white;

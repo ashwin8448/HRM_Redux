@@ -153,7 +153,7 @@ function Form() {
         ) {
           console.log("updating");
           console.log(newEmployee);
-          await updateData(apiURL.employee +"/"+ employeeId, newEmployee);
+          await updateData(apiURL.employee + "/" + employeeId, newEmployee);
           // Display toast for success state
           toast.success(`Edited user ${newEmployee.firstName}`, {
             toastId: "edit-toast-id",
@@ -276,20 +276,13 @@ function Form() {
             {activeSection === 3 && (
               <Fieldset className="form-details ">
                 <legend className="subheading">Uploads</legend>
-                <InputRow className="common-flex">
-                  <Input
-                    // TODO: validation rule
-                    // validation={nameValidation}
-                    label="Photo"
-                    type="file"
-                    name="photoId"
-                  />
-                  <img
-                    className="employee-img"
-                    src={methods.getValues("photoId")}
-                    alt="Employee Image"
-                  />
-                </InputRow>
+                <Input
+                  // TODO: validation rule
+                  label="Photo"
+                  type="file"
+                  name="photoId"
+                  imageLink={methods.getValues("photoId")}
+                />
               </Fieldset>
             )}
             {activeSection === 4 && (
