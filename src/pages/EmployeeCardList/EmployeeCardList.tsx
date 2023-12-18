@@ -4,7 +4,7 @@ import Button from "../../components/Button/Button.tsx";
 import Checkbox from "../../components/Checkbox/Checkbox.tsx";
 import Loader from "../../components/Loader/loader.ts";
 import { IData, IEmployee } from "../../core/interfaces/interface";
-import { fetchEmployeesData } from "../../core/store/actions.ts";
+import { fetchEmployeesData, fetchEmployeesDataForGrid, fetchEmployeesDataForList, resetEmployeesGrid } from "../../core/store/actions.ts";
 import EmployeeCard from "../EmployeeCard/EmployeeCard.tsx";
 import SearchBar from "../EmployeeListing/SearchAndFilter/components/SearchBar/SearchBar";
 import EmployeeCardListWrapper from "./employeeCardList.ts";
@@ -26,30 +26,11 @@ function EmployeeCardList({
   };
 
   const cardsPerPage = 10;
-  const { employeesForList, count,loading } = useSelector(
+  const { employeesForGrid, count,loading } = useSelector(
     (state: IData) => state.employeesData
   );
 
-  const [employeesGrid, setEmployeesGrid] = useState<IEmployee[]>(employeesForList);
-  const [searchParams, setSearchParams] = useSearchParams({
-    page: "1",
-    sortBy: "id",
-    sortDir: "asc",
-  });
-
-  const updateSearchParams = (params: {
-    page?: string;
-    sortBy?: string;
-    sortDir?: string;
-  }) => {
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      ...params,
-    });
-  };
-
-  const currentPage = Number(searchParams.get("page") || "1");
-  const [page, setPage] = useState<number>(currentPage);
+  const [page, setPage] = useState<number>(0);
 
   const [infiniteLoading, setInfiniteLoading] = useState(false);
   const bottomObserver = useRef<IntersectionObserver | null>(null);
@@ -64,6 +45,7 @@ function EmployeeCardList({
   };
 
   useEffect(() => {
+    console.log(page)
     if (page <= totalPages) {
       setInfiniteLoading(true);
 
@@ -71,19 +53,13 @@ function EmployeeCardList({
       const delay = 500;
       const timeoutId = setTimeout(() => {
         store.dispatch(
-          fetchEmployeesData({
-            limit: employeesGrid.length,
-            offset: page * cardsPerPage,
+          fetchEmployeesDataForGrid({
+            limit: cardsPerPage,
+            offset: (page-1) * cardsPerPage,
             sortBy: "id",
             sortDir: "asc",
           })
         );
-        setEmployeesGrid((prevEmployeesGrid) => {
-          const uniqueEmployees = Array.from(
-            new Set([...prevEmployeesGrid, ...employeesForList])
-          );
-          return uniqueEmployees;
-        });
       }, delay);
 
       return () => clearTimeout(timeoutId); // Clear the timeout on component unmount
@@ -109,8 +85,8 @@ function EmployeeCardList({
   }, []);
 
   useEffect(() => {
-    // Always set the page to 1 when the component is mounted
-    updateSearchParams({ page: "1" });
+    store.dispatch(resetEmployeesGrid());
+
   }, []); 
 
   return (
@@ -121,13 +97,13 @@ function EmployeeCardList({
           {selectAll ? "Select All" : "Unselect All"}
           <Checkbox
             deleteCheckBoxesList={deleteCheckBoxesList}
-            employeesIdList={employeesGrid.map((employee) => employee.id)}
+            employeesIdList={employeesForGrid.map((employee) => employee.id)}
           />
         </Button>
       </div>
       <EmployeeCardListWrapper>
-        {employeesGrid.length > 0 ? (
-          employeesGrid.map((employee: IEmployee) => (
+        {employeesForGrid.length > 0 ? (
+          employeesForGrid.map((employee: IEmployee) => (
             <EmployeeCard
               key={employee.id}
               deleteCheckBoxesList={deleteCheckBoxesList}

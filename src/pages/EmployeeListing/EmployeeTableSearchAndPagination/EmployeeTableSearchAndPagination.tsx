@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import Pagination from "../EmployeeTable/Pagination/Pagination.tsx";
 import { IData, IEmployee } from "../../../core/interfaces/interface.ts";
 import { useSelector } from "react-redux";
-import { fetchEmployeesData } from "../../../core/store/actions.ts";
+import { fetchEmployeesData, fetchEmployeesDataForList } from "../../../core/store/actions.ts";
 import store from "../../../core/store/configureStore.ts";
 
 function EmployeeTableSearchAndPagination({
@@ -49,7 +49,7 @@ function EmployeeTableSearchAndPagination({
 
   useEffect(() => {
     store.dispatch(
-      fetchEmployeesData({
+      fetchEmployeesDataForList({
         limit: rowsPerPage,
         offset: (Number(searchParams.get("page") || "1") - 1) * rowsPerPage,
         sortBy: searchParams.get("sortBy") || "id",

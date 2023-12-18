@@ -19,7 +19,9 @@ export interface IData{
     filterData:ITableProps
 }
 export interface IEmployeeData {
+  employees: IEmployee[];
   employeesForList: IEmployee[];
+  employeesForGrid: IEmployee[];
   count: number;
   loading: boolean;
 }
