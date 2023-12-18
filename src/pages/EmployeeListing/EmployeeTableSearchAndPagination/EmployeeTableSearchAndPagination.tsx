@@ -64,10 +64,11 @@ function EmployeeTableSearchAndPagination({
         <div className="border">
           <div className="common-flex global-padding">
             <SearchBar placeholder="Search by name" />
-            <PaginationResults
+            {/* <PaginationResults
               updateSearchParams={updateSearchParams}
               totalPages={totalPages}
-            ></PaginationResults>
+            ></PaginationResults> */}
+            Showing {rowsPerPage} of {employeesCount} results
           </div>
           <EmployeeTable
             deleteCheckBoxesList={deleteCheckBoxesList}

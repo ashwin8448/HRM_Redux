@@ -52,6 +52,7 @@ export const fetchEmployeesData = (params?: {
   return async function (dispatch: Dispatch) {
     try {
       dispatch(setLoading(actionTypes.SET_LOADING, true));
+      console.log(params)
       const response = await getData(apiURL.employee,{params:params});
       const employeesResponseData = response.data.data;
       const employees = employeesResponseData.employees;
@@ -85,6 +86,7 @@ export const fetchEmployeesData = (params?: {
         })
       );
     } catch (error) {
+      console.log(error)
       toast.error('No data is recieved', { toastId: 'no-data' });
       console.error('Error fetching data:', error);
     } finally {
