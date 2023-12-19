@@ -28,9 +28,6 @@ function ActionsBar({ onClick }: { onClick: () => void }) {
     : [];
   const updateSearchParams = (params: {
     page?: string;
-    sortBy?: string;
-    sortDir?: string;
-    search?: string,
     skillIds?: string,
   }) => {
     setSearchParams({

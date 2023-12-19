@@ -13,6 +13,7 @@ import { useSelector } from 'react-redux';
 import { IData, IEmployee } from '../../core/interfaces/interface.ts';
 import SearchBar from './SearchAndFilter/components/SearchBar/SearchBar.tsx';
 import Checkbox from '../../components/Checkbox/Checkbox.tsx';
+import { useSearchParams } from 'react-router-dom';
 
 function EmployeeListing() {
   const matches = useMediaQuery('(min-width: 768px)');
@@ -59,6 +60,22 @@ function EmployeeListing() {
   const changeBtnText = () => {
     setSelectAll((prevSelectAll) => !prevSelectAll);
   };
+
+  const [searchParams, setSearchParams] = useSearchParams();
+  const updateSearchParams = (params: {
+    page?: string;
+    search?: string,
+  }) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      ...params,
+    });
+  };
+
+  const search = searchParams.get("search")??"";
+  const [searchState, setSearchState] = useState(search);
+  const searchValue = { searchState, setSearchState }
+
   return (
     <>
       <ToastContainer
@@ -98,7 +115,7 @@ function EmployeeListing() {
         changeDltModalOpenStatus={changeDltModalOpenStatus}
       />
       <div className="common-flex global-padding">
-        <SearchBar placeholder="Search by name" />
+        <SearchBar placeholder="Search by name" value={searchValue} updateSearchParams={updateSearchParams} />
         {/* <PaginationResults
               updateSearchParams={updateSearchParams}
               totalPages={totalPages}
