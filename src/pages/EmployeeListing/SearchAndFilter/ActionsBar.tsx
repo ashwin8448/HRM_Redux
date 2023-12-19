@@ -39,7 +39,7 @@ function ActionsBar({ onClick }: { onClick: () => void }) {
     });
   };
 
-  const [skillFilterState, setSkillFilterState] = useState<ISelectOptionProps[]>([]);
+  const [skillFilterState, setSkillFilterState] = useState<ISelectOptionProps[]>(skillIdsArray);
   const skillFilterValue = { skillFilterState, setSkillFilterState }
 
   const applyFilters = () => {
@@ -56,12 +56,6 @@ function ActionsBar({ onClick }: { onClick: () => void }) {
   useEffect(() => {
     store.dispatch(fetchDropdownData());
   }, []);
-
-  useEffect(() => {
-    if (!skillsLoading) {
-      setSkillFilterState(skillIdsArray)
-    }
-  }, [])
 
   return (
     <>
