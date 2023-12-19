@@ -3,6 +3,7 @@ import { InputProps } from "../../core/interfaces/interface.ts";
 import InputError from "../InputError/InputError.tsx";
 import RadioGrp from "../Radio/RadioGrp.tsx";
 import InputWrapper from "./input.ts";
+import { ChangeEvent, useState } from "react";
 
 function Input({
   validation,
@@ -17,6 +18,7 @@ function Input({
     formState: { errors },
   } = useFormContext();
 
+  const [imgURL, setImgURL] = useState(imageLink);
   const errorMsg = errors[name]; // error value for input
   const className = errorMsg ? `input-border-error ${label}` : "label";
 
@@ -33,7 +35,7 @@ function Input({
               {" "}
               close
             </span>
-            <img src={imageLink} alt="Employee Image" />
+            <img src={imgURL} alt="Employee Image" />
           </div>
         </div>
       )}
@@ -53,21 +55,41 @@ function Input({
         </div>
       ) : (
         <div className="input-field-error">
-          <input
-            type={type}
-            id={label}
-            className={className}
-            accept={imageLink && "image/png, image/gif, image/jpeg"}
-            placeholder={`Enter your ${label}`}
-            {...register(name, {
-              ...validation,
-              required: {
-                value: true,
-                message: "This field is required",
-              },
-            })}
-            max={validation?.max?.value} // for date input
-          />
+          {imageLink ? (
+            <input
+              type={type}
+              id={label}
+              className={className}
+              accept={imageLink && "image/png, image/gif, image/jpeg"}
+              placeholder={`Enter your ${label}`}
+              {...register(name, {
+                ...validation,
+                required: {
+                  value: true,
+                  message: "This field is required",
+                },
+              })}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => { 
+                setImgURL(e.target.files && URL.(e.target.files[0]))
+              }}
+              max={validation?.max?.value} // for date input
+            />
+          ) : (
+            <input
+              type={type}
+              id={label}
+              className={className}
+              placeholder={`Enter your ${label}`}
+              {...register(name, {
+                ...validation,
+                required: {
+                  value: true,
+                  message: "This field is required",
+                },
+              })}
+              max={validation?.max?.value} // for date input
+            />
+          )}
           {errorMsg && <InputError error={errorMsg.message?.toString()} />}
         </div>
       )}

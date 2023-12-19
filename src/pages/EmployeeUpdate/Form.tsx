@@ -140,7 +140,6 @@ function Form() {
     try {
       if (urlType === "add-employee") {
         console.log("posting");
-        console.log(newEmployee);
         await postData(apiURL.employee, newEmployee);
         // Display toast for success state
         toast.success(`Added user ${newEmployee.firstName}`, {
@@ -151,8 +150,6 @@ function Form() {
         if (
           !checkEmployeesEqual(employeeData as IEmployee, methods.getValues())
         ) {
-          console.log("updating");
-          console.log(newEmployee);
           await updateData(apiURL.employee + "/" + employeeId, newEmployee);
           // Display toast for success state
           toast.success(`Edited user ${newEmployee.firstName}`, {

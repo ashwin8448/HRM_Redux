@@ -31,6 +31,34 @@ export function transformArrayToOptionsList(
 export function concatenateNames(firstName: string, lastName: string): string {
   return `${firstName} ${lastName}`;
 }
+
+interface IGetEmployee{
+  id: string;
+  firstName: string;
+  lastName?: string;
+  isActive: boolean;
+  dob?: string;
+  email?: string;
+  phone?: string;
+  designation?: string;
+  salary?: string;
+  dateOfJoining?: string;
+  address?: string;
+  moreDetails?: { [key: string]: string };
+  photoId?:string
+  role?: IRole;
+  department?: IDepartment;
+  skills?: ISkill[];
+}
+
+interface IAppEmployee{
+
+}
+
+interface IPostEmployee{
+
+}
+
 //TODO
 export function convertToFormEmployee(employee: IEmployee): IFormEmployee {
   return {
@@ -52,6 +80,7 @@ export function convertToFormEmployee(employee: IEmployee): IFormEmployee {
     skills: transformArrayToOptionsList(employee.skills),
   };
 }
+
 export function resetFiltersAndSearchBar() {
   const resettedValues = {
     department: null,
@@ -77,6 +106,7 @@ export function defaultFormVal() {
   };
   return resettedVals;
 }
+
 export const handleChange = (
   value: any,
   fieldName: string,
@@ -184,54 +214,6 @@ export const findSortCriteria = (children: React.ReactNode) => {
     sortCriteria = "employment_mode";
   }
   return sortCriteria;
-};
-
-export const sortFn = (x: string, y: string, flag: number) => {
-  if (x > y) {
-    return flag;
-  }
-  if (y > x) {
-    return -1 * flag;
-  }
-  return 0;
-};
-
-export const sortData = (employees: IEmployee[], tableProps: ITableProps) => {
-  let sortedEmployees = employees;
-
-  // if (tableProps && tableProps.sort && tableProps.sort.sortTerm != "") {
-  //   const sortProp = tableProps.sort;
-  //   let flag = sortProp.sortVal === SortDirection.ASC ? -1 : +1;
-
-  //   sortedEmployees = employees.sort((a: IEmployee, b: IEmployee) => {
-  //     if (a && b) {
-  //       let x = a[sortProp.sortTerm as keyof Employee];
-  //       let y = b[sortProp.sortTerm as keyof Employee];
-  //       if (typeof x === "string" && typeof y === "string") {
-  //         return sortFn(x.toLowerCase(), y.toLowerCase(), flag);
-  //       } else {
-  //         return 0;
-  //       }
-  //     }
-  //     return 0;
-  //   });
-  //   employees = sortedEmployees;
-  // }
-  return sortedEmployees;
-};
-
-export const getNewEmpId = (employeesCount: number) => {
-  //Creating the new id
-  if (employeesCount) {
-    const newEmpId = employeesCount + 1;
-    const newEmpIdStr =
-      newEmpId.toString().length <= 2
-        ? "0".concat(newEmpId.toString())
-        : newEmpId.toString();
-    return "EMP".concat(newEmpIdStr);
-  } else {
-    return "EMP001";
-  }
 };
 
 export const getNewEmployeeDetails = (formData: FieldValues): IEmployeePost => {
