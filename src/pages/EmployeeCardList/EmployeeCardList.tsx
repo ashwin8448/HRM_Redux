@@ -26,7 +26,27 @@ function EmployeeCardList({
   loading:boolean
 }) {
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams({
+    page: "1",
+    sortBy: "id",
+    sortDir: "asc",
+    search: "",
+    skillIds: "",
+  });
+
+  const updateSearchParams = (params: {
+    page?: string;
+    sortBy?: string;
+    sortDir?: string;
+    search?: string,
+    skillIds?: string,
+  }) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      ...params,
+    });
+  };
+
   const cardsPerPage = 10;
 
   const [page, setPage] = useState<number>(0);
@@ -43,7 +63,6 @@ function EmployeeCardList({
   };
 
   useEffect(() => {
-    console.log(page)
     if (page <= totalPages) {
 
       // Adding a delay of 500 milliseconds before dispatching the action
@@ -83,12 +102,14 @@ function EmployeeCardList({
   }, []);
 
   useEffect(() => {
-    searchParams.delete("page");
-    setSearchParams(() => searchParams)
+    updateSearchParams({ page: "" })
     store.dispatch(resetEmployeesGrid());
-
   }, []);
 
+  useEffect(() => {
+    setPage(0)
+    store.dispatch(resetEmployeesGrid());
+  }, [searchParams])
   return (
     <>
       <EmployeeCardListWrapper>
