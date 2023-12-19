@@ -64,10 +64,6 @@ function EmployeeCardList({
   useEffect(() => {
     if (page <= totalPages) {
       setInfiniteLoading(true);
-
-      // Adding a delay of 500 milliseconds before dispatching the action
-      const delay = 500;
-      const timeoutId = setTimeout(() => {
       store.dispatch(
         fetchEmployeesData({
           limit: cardsPerPage,
@@ -78,9 +74,6 @@ function EmployeeCardList({
           skillIds: searchParams.get("skillIds") || "",
         }, "Grid")
       );
-      }, delay);
-
-      return () => clearTimeout(timeoutId); // Clear the timeout on component unmount
     }
     setInfiniteLoading(false);
   }, [page, searchParams]);
