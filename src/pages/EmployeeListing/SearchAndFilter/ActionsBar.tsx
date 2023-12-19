@@ -1,5 +1,8 @@
 import Button from "../../../components/Button/Button.tsx";
-import { IData, ISelectOptionProps } from "../../../core/interfaces/interface.ts";
+import {
+  IData,
+  ISelectOptionProps,
+} from "../../../core/interfaces/interface.ts";
 import ActionsWrapper from "./actionsBar.ts";
 import { useSelector } from "react-redux";
 import FilterSelect from "./components/FilterSelect/FilterSelect.tsx";
@@ -10,7 +13,6 @@ import { fetchDropdownData } from "../../../core/store/actions.ts";
 import store from "../../../core/store/configureStore.ts";
 
 function ActionsBar({ onClick }: { onClick: () => void }) {
-
   const skills = useSelector(
     (state: IData) => state.dropdownData.skills.skills
   );
@@ -21,34 +23,34 @@ function ActionsBar({ onClick }: { onClick: () => void }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get("skillIds");
   const skillIdsArray: ISelectOptionProps[] = filter
-    ? filter.split(',').map((value: string) => ({
-      value: Number(value),
-      label: skills?.find((option) => option.value === Number(value))?.label || '',
-    }))
+    ? filter.split(",").map((value: string) => ({
+        value: Number(value),
+        label:
+          skills?.find((option) => option.value === Number(value))?.label || "",
+      }))
     : [];
-  const updateSearchParams = (params: {
-    page?: string;
-    skillIds?: string,
-  }) => {
+  const updateSearchParams = (params: { page?: string; skillIds?: string }) => {
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
       ...params,
     });
   };
 
-  const [skillFilterState, setSkillFilterState] = useState<ISelectOptionProps[]>(skillIdsArray);
-  const skillFilterValue = { skillFilterState, setSkillFilterState }
+  const [skillFilterState, setSkillFilterState] =
+    useState<ISelectOptionProps[]>(skillIdsArray);
+  const skillFilterValue = { skillFilterState, setSkillFilterState };
 
   const applyFilters = () => {
-    const skillFiltersParams = skillFilterState.map((option: ISelectOptionProps) => option.value).join(',');
-    updateSearchParams({ skillIds: skillFiltersParams, page: "1" })
+    const skillFiltersParams = skillFilterState
+      .map((option: ISelectOptionProps) => option.value)
+      .join(",");
+    updateSearchParams({ skillIds: skillFiltersParams, page: "1" });
     onClick();
-  }
+  };
   const resetFilters = () => {
-    setSkillFilterState([])
-    updateSearchParams({ skillIds: "", page: "1" })
+    setSkillFilterState([]);
+    updateSearchParams({ skillIds: "", page: "1" });
     onClick();
-
   };
   useEffect(() => {
     store.dispatch(fetchDropdownData());
@@ -57,17 +59,13 @@ function ActionsBar({ onClick }: { onClick: () => void }) {
   return (
     <>
       <ActionsWrapper>
-        {!skillsLoading ? (
-          <FilterSelect
-            label="Skills"
-            options={skills}
-            placeholder="Select skills"
-            isMulti={true} //employees can have multiple skills
-            value={skillFilterValue}
-          />
-        ) : (
-          <FilterSelectLoader />
-        )}
+        <FilterSelect
+          label="Skills"
+          options={skills}
+          placeholder="Select skills"
+          isMulti={true} //employees can have multiple skills
+          value={skillFilterValue}
+        />
         <div className="common-flex btn-grp">
           <Button icon="" className="filter-all-btn" onClick={applyFilters}>
             Apply Filters

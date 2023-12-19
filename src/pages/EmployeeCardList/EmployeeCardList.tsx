@@ -66,6 +66,8 @@ function EmployeeCardList({
 
   useEffect(() => {
     if (page <= totalPages) {
+      const offset = Math.max(0, (page - 1) * cardsPerPage);
+
       // Adding a delay of 500 milliseconds before dispatching the action
       const delay = 500;
       const timeoutId = setTimeout(() => {
@@ -73,7 +75,7 @@ function EmployeeCardList({
           fetchEmployeesData(
             {
               limit: cardsPerPage,
-              offset: (page - 1) * cardsPerPage,
+              offset,
               sortBy: searchParams.get("sortBy") || "id",
               sortDir: searchParams.get("sortDir") || "asc",
               search: searchParams.get("search") || "",
@@ -92,7 +94,7 @@ function EmployeeCardList({
     bottomObserver.current = new IntersectionObserver(handleIntersection, {
       root: null,
       rootMargin: "0px",
-      threshold: 1.0,
+      threshold: 0.5,
     });
     if (bottomElement.current) {
       bottomObserver.current.observe(bottomElement.current);
@@ -111,8 +113,11 @@ function EmployeeCardList({
   }, []);
 
   useEffect(() => {
+    console.log("search parans changing")
     setPage(0);
     store.dispatch(resetEmployeesGrid());
+
+    
   }, [searchParams]);
 
   return (
@@ -135,7 +140,7 @@ function EmployeeCardList({
           <Loader className="infinite-scroll-loader common-flex" />
         </div>
       )}
-      <div ref={bottomElement} style={{ height: "100px" }} />{" "}
+      <div ref={bottomElement} style={{ height: "10px" }} />{" "}
       {/* This div is observed for intersection */}
     </>
   );
