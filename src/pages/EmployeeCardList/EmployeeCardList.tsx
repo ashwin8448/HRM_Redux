@@ -14,14 +14,16 @@ import { useSearchParams } from "react-router-dom";
 function EmployeeCardList({
   deleteCheckBoxesList,
   employees,
-  employeesCount
+  employeesCount,
+  loading
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
   employees: IEmployee[];
-  employeesCount: number
+  employeesCount: number;
+  loading:boolean
 }) {
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -29,7 +31,6 @@ function EmployeeCardList({
 
   const [page, setPage] = useState<number>(0);
 
-  const [infiniteLoading, setInfiniteLoading] = useState(false);
   const bottomObserver = useRef<IntersectionObserver | null>(null);
   const bottomElement = useRef<HTMLDivElement>(null);
   const totalPages = Math.ceil(employeesCount / cardsPerPage);
@@ -44,7 +45,6 @@ function EmployeeCardList({
   useEffect(() => {
     console.log(page)
     if (page <= totalPages) {
-      setInfiniteLoading(true);
 
       // Adding a delay of 500 milliseconds before dispatching the action
       const delay = 500;
@@ -63,7 +63,6 @@ function EmployeeCardList({
 
       return () => clearTimeout(timeoutId); // Clear the timeout on component unmount
     }
-    setInfiniteLoading(false);
   }, [page]);
 
   useEffect(() => {
@@ -105,7 +104,7 @@ function EmployeeCardList({
           <div className="common-flex">No data Available</div>
         )}
       </EmployeeCardListWrapper>
-      {infiniteLoading && (
+      {loading && (
         <div className="infinite-scroll-loader-div">
           <Loader className="infinite-scroll-loader common-flex" />
         </div>

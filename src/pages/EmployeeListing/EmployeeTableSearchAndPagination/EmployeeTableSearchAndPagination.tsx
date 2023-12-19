@@ -38,8 +38,8 @@ function EmployeeTableSearchAndPagination({
     page?: string;
     sortBy?: string;
     sortDir?: string;
-    search?: "",
-    skillIds?: "",
+    search?: string,
+    skillIds?: string,
   }) => {
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),

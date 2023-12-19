@@ -144,6 +144,7 @@ function EmployeeListing() {
         <EmployeeCardList
           deleteCheckBoxesList={deleteCheckBoxesList}
           employees={employees}
+          loading={loading}
           employeesCount={count}
         />
       )}
