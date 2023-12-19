@@ -383,7 +383,7 @@ function Form() {
                       default:
                         validationStatus = true;
                     }
-                    true && setActiveSection(activeSection + 1);
+                    validationStatus && setActiveSection(activeSection + 1);
                   }}
                 >
                   Next
