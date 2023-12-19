@@ -5,7 +5,6 @@ import { transformArrayToOptionsList } from '../../utils/helper.ts';
 import {
   IDepartment,
   IEmployee,
-  IEmployeeData,
   IRole,
   ISelectOptionProps,
   ISkill,
@@ -68,6 +67,8 @@ export const fetchEmployeesData = (
     offset: number;
     sortBy: string;
     sortDir: string;
+    search: string;
+    skillIds: string;
   },
   state: string
 ) => {

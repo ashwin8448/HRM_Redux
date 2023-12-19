@@ -60,6 +60,8 @@ function EmployeeCardList({
             offset: (page - 1) * cardsPerPage,
             sortBy: searchParams.get("sortBy") || "id",
             sortDir: searchParams.get("sortDir") || "asc",
+            search: searchParams.get("search") || "",
+            skillIds: searchParams.get("skillIds") || "",
           }, "Grid")
         );
       }, delay);

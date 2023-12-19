@@ -7,20 +7,22 @@ import {
 } from "../../../../../core/interfaces/interface.ts";
 import InputWrapper from "../../../../../components/Input/input.ts";
 import selectStyleComponent from "../../../../../components/SelectStyle/selectCustomStyles.ts";
+import { useSearchParams } from "react-router-dom";
 
 function FilterSelect({
     label,
     options,
     placeholder,
     isMulti,
-    fieldName,
+    value,
 }: ISelectDropdownProps) {
+
 
     return (
         <InputWrapper>
             <label className="subheading overflow-ellipsis">{label}</label>
             <Select
-                // value={ItableProps[fieldName] as ISelectOptionProps | ISelectOptionProps[]}
+                value={value?.skillFilterState}
                 isClearable={true}
                 className="label"
                 isSearchable={true}
@@ -31,8 +33,8 @@ function FilterSelect({
                 isMulti={isMulti}
                 styles={selectStyleComponent()}
                 onChange={(selectedOption) => {
-                    //TODO: maintain all table props as it is and change should reflect on the fieldname according to the value
-                    //TODO: fire a change to the table props
+                    const selectedValues = (selectedOption as ISelectOptionProps[]);
+                    value?.setSkillFilterState(selectedValues)
                 }}
             />
         </InputWrapper>

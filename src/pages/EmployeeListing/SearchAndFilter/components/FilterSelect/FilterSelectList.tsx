@@ -31,7 +31,7 @@ function FilterSelectList() {
   }, []);
   return (
     <SelectListWrapper>
-      {!departmentsLoading ? (
+      {/* {!departmentsLoading ? (
         <FilterSelect
           label="Departments"
           options={departments}
@@ -63,7 +63,7 @@ function FilterSelectList() {
         />
       ) : (
         <FilterSelectLoader />
-      )}
+      )} */}
     </SelectListWrapper>
   );
 }

@@ -76,38 +76,38 @@ export function defaultFormVal() {
   };
   return resettedVals;
 }
-export const handleFilterChange = (
-  value: any,
-  fieldName: string,
-  getValues: UseFormGetValues<FieldValues>,
-  setValue: UseFormSetValue<FieldValues>,
-  addTableProps: (tableProps: ITableProps) => void
-) => {
-  const currentFilters: FieldValues = getValues();
-  let currentTableProps: ITableProps = {
-    ...resetFiltersAndSearchBar(),
-  };
-  Object.keys(currentFilters).forEach((key: string) => {
-    if (
-      key === "department" ||
-      key === "skills" ||
-      key === "role" ||
-      key === "search_term"
-    ) {
-      currentTableProps[key] = currentFilters[key];
-    }
-  });
-  const updatedFilters: ITableProps = {
-    ...currentTableProps,
-    [fieldName]: value,
-  };
-  Object.keys(updatedFilters).forEach((key: string) => {
-    const tablePropsKey = key as keyof ITableProps;
-    setValue(key, updatedFilters[tablePropsKey]);
-  });
+// export const handleFilterChange = (
+//   value: any,
+//   fieldName: string,
+//   getValues: UseFormGetValues<FieldValues>,
+//   setValue: UseFormSetValue<FieldValues>,
+//   addTableProps: (tableProps: ITableProps) => void
+// ) => {
+//   const currentFilters: FieldValues = getValues();
+//   let currentTableProps: ITableProps = {
+//     ...resetFiltersAndSearchBar(),
+//   };
+//   Object.keys(currentFilters).forEach((key: string) => {
+//     if (
+//       key === "department" ||
+//       key === "skills" ||
+//       key === "role" ||
+//       key === "search_term"
+//     ) {
+//       currentTableProps[key] = currentFilters[key];
+//     }
+//   });
+//   const updatedFilters: ITableProps = {
+//     ...currentTableProps,
+//     [fieldName]: value,
+//   };
+//   Object.keys(updatedFilters).forEach((key: string) => {
+//     const tablePropsKey = key as keyof ITableProps;
+//     setValue(key, updatedFilters[tablePropsKey]);
+//   });
 
-  addTableProps(updatedFilters);
-};
+//   addTableProps(updatedFilters);
+// };
 
 export const filterData = (employees: IEmployee[], tableProps: ITableProps) => {
   let employeeTableData = employees;

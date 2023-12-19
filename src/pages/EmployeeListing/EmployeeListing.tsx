@@ -65,7 +65,7 @@ function EmployeeListing() {
       {/* <ActionsBar /> */}
       <ButtonGrpWrapper>
         <Button icon="filter_list" onClick={handleButtonClick}>
-          {matches ? "All filters" : ""} <span className="count">02</span>
+          {matches ? "All filters" : ""}
         </Button>
         <StyledLink to="add-employee">
           <Button icon="add_circle">{matches ? "Add New Employee" : ""}</Button>
@@ -74,7 +74,7 @@ function EmployeeListing() {
       {isSideFilterBarVisible && (
         <SideFilterBar
           isVisible={isSideFilterBarVisible}
-          oClick={handleButtonClick}
+          onClick={handleButtonClick}
         />
       )}
       {isSideFilterBarVisible && (

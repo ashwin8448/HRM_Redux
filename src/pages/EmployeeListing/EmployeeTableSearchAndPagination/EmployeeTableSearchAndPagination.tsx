@@ -31,12 +31,16 @@ function EmployeeTableSearchAndPagination({
     page: "1",
     sortBy: "id",
     sortDir: "asc",
+    search: "",
+    skillIds: "",
   });
 
   const updateSearchParams = (params: {
     page?: string;
     sortBy?: string;
     sortDir?: string;
+    search?: "",
+    skillIds?: "",
   }) => {
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
@@ -53,6 +57,8 @@ function EmployeeTableSearchAndPagination({
         offset: (Number(searchParams.get("page") || "1") - 1) * rowsPerPage,
         sortBy: searchParams.get("sortBy") || "id",
         sortDir: searchParams.get("sortDir") || "asc",
+        search: searchParams.get("search") || "",
+        skillIds: searchParams.get("skillIds") || "",
       }, "List")
     );
   }, [searchParams, rowsPerPage]);

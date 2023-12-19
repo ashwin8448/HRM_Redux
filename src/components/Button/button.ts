@@ -58,12 +58,6 @@ const ButtonWrapper = styled.button<{
     ${(props) => !props.$noTransition && 'transform: translateY(-0.125rem);'}
   }
 
-  .count {
-    border-left: 1px solid ${colors.LIGHT_GRAY_COLOR};
-    margin-left: 10px;
-    padding-left: 10px;
-  }
-
   .btn-loader {
     width: 24px;
     height: 24px;

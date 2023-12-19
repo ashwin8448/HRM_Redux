@@ -5,10 +5,10 @@ import ActionsBar from "./../SearchAndFilter/ActionsBar.tsx";
 
 function SideFilterBar({
   isVisible,
-  oClick,
+  onClick,
 }: {
   isVisible: boolean;
-  oClick: () => void;
+  onClick: () => void;
 }) {
   useEffect(() => {
     isVisible
@@ -25,9 +25,9 @@ function SideFilterBar({
     <SideFilterBarWrapper className="translateX" $visible={isVisible}>
       <div className="common-flex">
         <label className="page-title-mobile">Filters</label>
-        <Button className="close-btn" icon="close" onClick={oClick}></Button>
+        <Button className="close-btn" icon="close" onClick={onClick}></Button>
       </div>
-      <ActionsBar />
+      <ActionsBar onClick={onClick} />
     </SideFilterBarWrapper>
   );
 }
