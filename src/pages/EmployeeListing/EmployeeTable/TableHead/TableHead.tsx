@@ -12,10 +12,10 @@ function TableHead({
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
 }) {
-  const employeesList = useSelector(
-    (state: IData) => state.employeesData.employeesForList
+  const employees = useSelector(
+    (state: IData) => state.employeesData.employees
   );
-  const employeesIdList = employeesList.map(
+  const employeesIdList = employees.map(
     (employee: IEmployee) => employee.id
   );
   // const handleCheckboxChange = () => {

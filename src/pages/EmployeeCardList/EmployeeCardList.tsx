@@ -4,7 +4,7 @@ import Button from "../../components/Button/Button.tsx";
 import Checkbox from "../../components/Checkbox/Checkbox.tsx";
 import Loader from "../../components/Loader/loader.ts";
 import { IData, IEmployee } from "../../core/interfaces/interface";
-import { fetchEmployeesData, fetchEmployeesDataForGrid, fetchEmployeesDataForList, resetEmployeesGrid } from "../../core/store/actions.ts";
+import { fetchEmployeesData, resetEmployeesGrid } from "../../core/store/actions.ts";
 import EmployeeCard from "../EmployeeCard/EmployeeCard.tsx";
 import SearchBar from "../EmployeeListing/SearchAndFilter/components/SearchBar/SearchBar";
 import EmployeeCardListWrapper from "./employeeCardList.ts";
@@ -26,7 +26,7 @@ function EmployeeCardList({
   };
 
   const cardsPerPage = 10;
-  const { employeesForGrid, count,loading } = useSelector(
+  const { employees, count,loading } = useSelector(
     (state: IData) => state.employeesData
   );
 
@@ -53,12 +53,12 @@ function EmployeeCardList({
       const delay = 500;
       const timeoutId = setTimeout(() => {
         store.dispatch(
-          fetchEmployeesDataForGrid({
+          fetchEmployeesData({
             limit: cardsPerPage,
             offset: (page-1) * cardsPerPage,
             sortBy: "id",
             sortDir: "asc",
-          })
+          },"Grid")
         );
       }, delay);
 
@@ -97,13 +97,13 @@ function EmployeeCardList({
           {selectAll ? "Select All" : "Unselect All"}
           <Checkbox
             deleteCheckBoxesList={deleteCheckBoxesList}
-            employeesIdList={employeesForGrid.map((employee) => employee.id)}
+            employeesIdList={employees.map((employee) => employee.id)}
           />
         </Button>
       </div>
       <EmployeeCardListWrapper>
-        {employeesForGrid.length > 0 ? (
-          employeesForGrid.map((employee: IEmployee) => (
+        {employees.length > 0 ? (
+          employees.map((employee: IEmployee) => (
             <EmployeeCard
               key={employee.id}
               deleteCheckBoxesList={deleteCheckBoxesList}

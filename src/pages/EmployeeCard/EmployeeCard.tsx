@@ -18,25 +18,25 @@ function EmployeeCard({
   employee: IEmployee;
 }) {
   const [photo, setPhoto] = useState({ loading: true, currentSrc: " " });
-
+console.log(employee.moreDetails)
   const photoId = employee.moreDetails
     ? employee.moreDetails.photoId
       ? employee.moreDetails.photoId
       : null
     : null;
 
-  useEffect(() => {
-    {
-      if (photoId) {
-        const src = photoId;
-        const imageToLoad = new Image();
-        imageToLoad.src = src;
-        imageToLoad.onload = () =>
-          // When image is loaded replace the image's src and set loading to false
-          setPhoto({ currentSrc: src, loading: false });
-      }
-    }
-  }, []);
+  // useEffect(() => {
+  //   {
+  //     if (photoId) {
+  //       const src = photoId;
+  //       const imageToLoad = new Image();
+  //       imageToLoad.src = src;
+  //       imageToLoad.onload = () =>
+  //         // When image is loaded replace the image's src and set loading to false
+  //         setPhoto({ currentSrc: src, loading: false });
+  //     }
+  //   }
+  // }, []);
   return (
     <EmployeeCardWrapper>
       <div className="actions-section common-flex">
@@ -50,7 +50,7 @@ function EmployeeCard({
         {photoId ? (
           <div className="photo-container">
             <img
-              src={photo.currentSrc}
+              src={photoId}
               // style={{
               //   opacity: photo.loading ? 0.7 : 1,
               //   transition: "opacity .15s linear",

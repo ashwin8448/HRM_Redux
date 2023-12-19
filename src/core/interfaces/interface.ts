@@ -20,8 +20,6 @@ export interface IData{
 }
 export interface IEmployeeData {
   employees: IEmployee[];
-  employeesForList: IEmployee[];
-  employeesForGrid: IEmployee[];
   count: number;
   loading: boolean;
 }

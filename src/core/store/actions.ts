@@ -26,14 +26,14 @@ export const setEmployees = (employeesData: {
   payload: employeesData,
 });
 export const setEmployeesForList = (employeesData: {
-  employeesForList: IEmployee[];
+  employees: IEmployee[];
   count: number;
 }) => ({
   type: actionTypes.SET_EMPLOYEES_LIST,
   payload: employeesData,
 });
 export const setEmployeesForGrid = (employeesData: {
-  employeesForGrid: IEmployee[];
+  employees: IEmployee[];
   count: number;
 }) => ({
   type: actionTypes.SET_EMPLOYEES_GRID,
@@ -62,152 +62,88 @@ export const resetEmployeesGrid = () => {
 };
 
 //fetch methods
-export const fetchEmployeesData = (params?: {
-  limit: number;
-  offset: number;
-  sortBy: string;
-  sortDir: string;
-}) => {
+export const fetchEmployeesData = (
+  params: {
+    limit: number;
+    offset: number;
+    sortBy: string;
+    sortDir: string;
+  },
+  state: string
+) => {
   return async function (dispatch: Dispatch) {
     try {
       dispatch(setLoading(actionTypes.SET_LOADING, true));
-      console.log(params)
-      const response = await getData(apiURL.employee,{params:params});
+      console.log(params);
+      const response = await getData(apiURL.employee, { params: params });
       const employeesResponseData = response.data.data;
       const employees = employeesResponseData.employees;
-      dispatch(
-        setEmployees({
-          ...employeesResponseData,
-          employees: employees.map((employee:{
-            id: string;
-            firstName: string;
-            lastName?: string;
-            isActive?: boolean;
-            dob?: string;
-            email?: string;
-            phone?: string;
-            designation?: string;
-            salary?: string;
-            dateOfJoining?: string;
-            address?: string;
-            moreDetails: string;
-            role?: IRole;
-            department?: IDepartment;
-            skills?: ISkill[];
-          }) => {
-            return {
-              ...employee,
-              moreDetails: employee.moreDetails
-                ? JSON.parse(employee.moreDetails)
-                : null,
-            };
-          }),
-        })
-      );
+      if (state === 'List')
+        dispatch(
+          setEmployeesForList({
+            ...employeesResponseData,
+            employees: employees.map(
+              (employee: {
+                id: string;
+                firstName: string;
+                lastName?: string;
+                isActive?: boolean;
+                dob?: string;
+                email?: string;
+                phone?: string;
+                designation?: string;
+                salary?: string;
+                dateOfJoining?: string;
+                address?: string;
+                moreDetails: string;
+                role?: IRole;
+                department?: IDepartment;
+                skills?: ISkill[];
+              }) => {
+                return {
+                  ...employee,
+                  moreDetails: employee.moreDetails
+                    ? JSON.parse(employee.moreDetails)
+                    : null,
+                };
+              }
+            ),
+          })
+        );
+      else
+        dispatch(
+          setEmployeesForGrid({
+            ...employeesResponseData,
+            employees: employees.map(
+              (employee: {
+                id: string;
+                firstName: string;
+                lastName?: string;
+                isActive?: boolean;
+                dob?: string;
+                email?: string;
+                phone?: string;
+                designation?: string;
+                salary?: string;
+                dateOfJoining?: string;
+                address?: string;
+                moreDetails: string;
+                role?: IRole;
+                department?: IDepartment;
+                skills?: ISkill[];
+              }) => {
+                return {
+                  ...employee,
+                  moreDetails: employee.moreDetails
+                    ? JSON.parse(employee.moreDetails)
+                    : null,
+                };
+              }
+            ),
+          })
+        );
     } catch (error) {
-      console.log(error)
-      toast.error('No data is recieved', { toastId: 'no-data' });
-      console.error('Error fetching data:', error);
-    } finally {
-      dispatch(setLoading(actionTypes.SET_LOADING, false));
-    }
-  };
-};
-export const fetchEmployeesDataForList = (params?: {
-  limit: number;
-  offset: number;
-  sortBy: string;
-  sortDir: string;
-}) => {
-  return async function (dispatch: Dispatch) {
-    try {
-      dispatch(setLoading(actionTypes.SET_LOADING, true));
-      console.log(params)
-      const response = await getData(apiURL.employee,{params:params});
-      const employeesResponseData = response.data.data;
-      const employees = employeesResponseData.employees;
-      dispatch(
-        setEmployeesForList({
-          ...employeesResponseData,
-          employeesForList: employees.map((employee:{
-            id: string;
-            firstName: string;
-            lastName?: string;
-            isActive?: boolean;
-            dob?: string;
-            email?: string;
-            phone?: string;
-            designation?: string;
-            salary?: string;
-            dateOfJoining?: string;
-            address?: string;
-            moreDetails: string;
-            role?: IRole;
-            department?: IDepartment;
-            skills?: ISkill[];
-          }) => {
-            return {
-              ...employee,
-              moreDetails: employee.moreDetails
-                ? JSON.parse(employee.moreDetails)
-                : null,
-            };
-          }),
-        })
-      );
-    } catch (error) {
-      console.log(error)
-      toast.error('No data is recieved', { toastId: 'no-data' });
-      console.error('Error fetching data:', error);
-    } finally {
-      dispatch(setLoading(actionTypes.SET_LOADING, false));
-    }
-  };
-};
-export const fetchEmployeesDataForGrid = (params?: {
-  limit: number;
-  offset: number;
-  sortBy: string;
-  sortDir: string;
-}) => {
-  return async function (dispatch: Dispatch) {
-    try {
-      dispatch(setLoading(actionTypes.SET_LOADING, true));
-      console.log(params)
-      const response = await getData(apiURL.employee,{params:params});
-      const employeesResponseData = response.data.data;
-      const employees = employeesResponseData.employees;
-      dispatch(
-        setEmployeesForGrid({
-          ...employeesResponseData,
-          employeesForGrid: employees.map((employee:{
-            id: string;
-            firstName: string;
-            lastName?: string;
-            isActive?: boolean;
-            dob?: string;
-            email?: string;
-            phone?: string;
-            designation?: string;
-            salary?: string;
-            dateOfJoining?: string;
-            address?: string;
-            moreDetails: string;
-            role?: IRole;
-            department?: IDepartment;
-            skills?: ISkill[];
-          }) => {
-            return {
-              ...employee,
-              moreDetails: employee.moreDetails
-                ? JSON.parse(employee.moreDetails)
-                : null,
-            };
-          }),
-        })
-      );
-    } catch (error) {
-      console.log(error)
+      console.log(error);
       toast.error('No data is recieved', { toastId: 'no-data' });
       console.error('Error fetching data:', error);
     } finally {
@@ -247,7 +183,7 @@ export const fetchDropdownData = () => {
     } finally {
       dispatch(setLoading(actionTypes.SET_ROLES_LOADING, false));
     }
-    
+
     try {
       dispatch(setLoading(actionTypes.SET_SKILLS_LOADING, true));
       const skillsResponse = await getData(apiURL.skills);

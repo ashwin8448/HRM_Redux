@@ -7,7 +7,7 @@ import { useSearchParams } from "react-router-dom";
 import Pagination from "../EmployeeTable/Pagination/Pagination.tsx";
 import { IData, IEmployee } from "../../../core/interfaces/interface.ts";
 import { useSelector } from "react-redux";
-import { fetchEmployeesData, fetchEmployeesDataForList } from "../../../core/store/actions.ts";
+import { fetchEmployeesData } from "../../../core/store/actions.ts";
 import store from "../../../core/store/configureStore.ts";
 
 function EmployeeTableSearchAndPagination({
@@ -20,7 +20,7 @@ function EmployeeTableSearchAndPagination({
 }) {
   // Employees data fetching
   const employeesData = useSelector((state: IData) => state.employeesData);
-  const employees: IEmployee[] = employeesData.employeesForList;
+  const employees: IEmployee[] = employeesData.employees;
   const loading: boolean = employeesData.loading;
 
   // Pagination
@@ -41,7 +41,10 @@ function EmployeeTableSearchAndPagination({
       ...params,
     });
   };
-
+  const a = useSelector(
+    (state: IData) => state
+  );
+console.log(a)
   const employeesCount = useSelector(
     (state: IData) => state.employeesData.count
   );
@@ -49,12 +52,12 @@ function EmployeeTableSearchAndPagination({
 
   useEffect(() => {
     store.dispatch(
-      fetchEmployeesDataForList({
+      fetchEmployeesData({
         limit: rowsPerPage,
         offset: (Number(searchParams.get("page") || "1") - 1) * rowsPerPage,
         sortBy: searchParams.get("sortBy") || "id",
         sortDir: searchParams.get("sortDir") || "asc",
-      })
+      },"List")
     );
   }, [searchParams, rowsPerPage]);
 
