@@ -1,98 +1,108 @@
 import { useFormContext } from "react-hook-form";
-import { InputProps } from "../../core/interfaces/interface.ts";
+import {
+  ISelectOptionProps,
+  IInputProps,
+} from "../../core/interfaces/interface.ts";
 import InputError from "../InputError/InputError.tsx";
 import RadioGrp from "../Radio/RadioGrp.tsx";
 import InputWrapper from "./input.ts";
-import { ChangeEvent, useState } from "react";
+import FormSelect from "../../pages/EmployeeUpdate/FormSelect/FormSelect.tsx";
 
-function Input({
-  validation,
-  label,
-  type,
-  options,
-  name,
-  imageLink,
-}: InputProps) {
+function Input({ config }: { config: IInputProps }) {
   const {
     register,
     formState: { errors },
   } = useFormContext();
 
-  const [imgURL, setImgURL] = useState(imageLink);
-  const errorMsg = errors[name]; // error value for input
-  const className = errorMsg ? `input-border-error ${label}` : "label";
-
+  const errorMsg = errors[config.name]; // error value for input
+  const className = errorMsg ? `input-border-error ${config.label}` : "label";
   return (
     <InputWrapper>
-      <label className="subheading">{label}</label>
-      {imageLink && (
-        <div className="employee-img-container">
-          <div className="employee-img">
-            <span
-              className="material-symbols-outlined close-btn"
-              onClick={() => console.log("Hi")}
-            >
-              {" "}
-              close
-            </span>
-            <img src={imgURL} alt="Employee Image" />
-          </div>
-        </div>
-      )}
-      {options ? (
-        <div className="m-30">
-          <div className="common-flex radio-list">
-            {options.map((option: string) => (
-              <RadioGrp
-                key={option}
-                option={option}
-                label={label}
-                name={name}
+      <label className="subheading">{config.label}</label>
+      {(() => {
+        let inputToRender = <></>;
+        switch (config.type) {
+          case "file":
+            inputToRender = (
+              <div className="employee-img-container">
+                <div className="employee-img">
+                  <span
+                    className="material-symbols-outlined close-btn"
+                    onClick={() => console.log("Hi")}
+                  >
+                    {" "}
+                    close
+                  </span>
+                  <img src="" alt="Employee Image" />
+                </div>
+              </div>
+            );
+          case "text":
+          case "date":
+          case "tel":
+          case "email":
+          case "textarea":
+            inputToRender = (
+              <>
+                {inputToRender}
+                <div className="input-field-error">
+                  <input
+                    type={config.type}
+                    id={config.label}
+                    className={className}
+                    accept={config.accept}
+                    placeholder={`Enter your ${config.label}`}
+                    {...register(config.name, {
+                      ...config.validation,
+                      required: {
+                        value: config.isRequired,
+                        message: "This field is required",
+                      },
+                    })}
+                    max={config.validation?.max?.value} // for date input
+                  />
+                  {errorMsg && (
+                    <InputError error={errorMsg.message?.toString()} />
+                  )}
+                </div>
+              </>
+            );
+            break;
+          case "radio":
+            inputToRender = (
+              <div className="m-30">
+                <div className="common-flex radio-list">
+                  {config.options?.map((option) => (
+                    <RadioGrp
+                      key={option as string}
+                      option={option as string}
+                      label={config.label}
+                      name={config.name}
+                      isRequired={config.isRequired}
+                    />
+                  ))}
+                </div>
+                {errorMsg && (
+                  <InputError error={errorMsg.message?.toString()} />
+                )}
+              </div>
+            );
+            break;
+          case "dropdown":
+            inputToRender = (
+              <FormSelect
+                label={config.label}
+                options={config.options as ISelectOptionProps[]}
+                placeholder="Select department"
+                isMulti={config.isMulti}
+                fieldName={config.name}
+                isRequired={config.isRequired}
               />
-            ))}
-          </div>
-          {errorMsg && <InputError error={errorMsg.message?.toString()} />}
-        </div>
-      ) : (
-        <div className="input-field-error">
-          {imageLink ? (
-            <input
-              type={type}
-              id={label}
-              className={className}
-              accept={imageLink && "image/png, image/gif, image/jpeg"}
-              placeholder={`Enter your ${label}`}
-              {...register(name, {
-                ...validation,
-                required: {
-                  value: true,
-                  message: "This field is required",
-                },
-              })}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => { 
-                setImgURL(e.target.files && URL.(e.target.files[0]))
-              }}
-              max={validation?.max?.value} // for date input
-            />
-          ) : (
-            <input
-              type={type}
-              id={label}
-              className={className}
-              placeholder={`Enter your ${label}`}
-              {...register(name, {
-                ...validation,
-                required: {
-                  value: true,
-                  message: "This field is required",
-                },
-              })}
-              max={validation?.max?.value} // for date input
-            />
-          )}
-          {errorMsg && <InputError error={errorMsg.message?.toString()} />}
-        </div>
-      )}
+            );
+            break;
+        }
+        return inputToRender;
+      })()}
     </InputWrapper>
   );
 }

@@ -1,22 +1,22 @@
 import { Control } from "react-hook-form";
 
-export interface IData{
-  employeesData: IEmployeeData,
-  dropdownData:{
-      departments:{
-          loading: boolean,
-          departments: ISelectOptionProps[]
-      },
-      roles:{
-          loading: boolean,
-          roles: ISelectOptionProps[]
-      },
-      skills:{
-          loading: boolean,
-          skills: ISelectOptionProps[]
-      }
-  },
-  filterData:ITableProps
+export interface IData {
+  employeesData: IEmployeeData;
+  dropdownData: {
+    departments: {
+      loading: boolean;
+      departments: ISelectOptionProps[];
+    };
+    roles: {
+      loading: boolean;
+      roles: ISelectOptionProps[];
+    };
+    skills: {
+      loading: boolean;
+      skills: ISelectOptionProps[];
+    };
+  };
+  filterData: ITableProps;
 }
 
 export interface IEmployeeData {
@@ -38,7 +38,7 @@ export interface IEmployee {
   dateOfJoining?: string;
   address?: string;
   moreDetails?: { [key: string]: string };
-  photoId?:string
+  photoId?: string;
   role?: IRole;
   department?: IDepartment;
   skills?: ISkill[];
@@ -60,7 +60,6 @@ export interface IEmployeePost {
   department?: number;
   skills?: [];
 }
-
 
 export interface ISkill {
   id: number;
@@ -114,7 +113,7 @@ export interface IErrorState {
   error: { message: string };
 }
 
-export interface InputProps {
+export interface IInputProps {
   validation?: {
     minLength?: {
       value: number;
@@ -135,10 +134,12 @@ export interface InputProps {
   };
   label: string;
   type: string;
-  options?: string[];
+  options?: string[]|ISelectOptionProps[];
   name: string;
-  value?: string;
-  imageLink?:string;
+  isRequired: boolean;
+  placeholder?: string;
+  isMulti?: boolean;
+  accept?:string;
 }
 export interface ISelectOptionProps {
   value: number;

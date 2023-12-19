@@ -1,9 +1,6 @@
 import { Controller, useFormContext } from "react-hook-form";
 import Select from "react-select";
-import {
-  IEmployee,
-  ISelectOptionProps,
-} from "../../../core/interfaces/interface.ts";
+import { ISelectOptionProps } from "../../../core/interfaces/interface.ts";
 import InputWrapper from "../../../components/Input/input.ts";
 import InputError from "../../../components/InputError/InputError.tsx";
 import selectStyles from "../../../components/SelectStyle/selectCustomStyles.ts";
@@ -13,13 +10,15 @@ function FormSelect({
   options,
   placeholder,
   isMulti,
-  fieldName
+  fieldName,
+  isRequired,
 }: {
   label: string;
   options: ISelectOptionProps[];
   placeholder: string;
   isMulti?: boolean;
-  fieldName: keyof IEmployee;
+  fieldName: string;
+  isRequired: boolean;
 }) {
   const {
     control,
@@ -32,11 +31,12 @@ function FormSelect({
     : "label";
   return (
     <InputWrapper>
-      <label className="subheading overflow-ellipsis">{label}</label>
       <Controller
         name={fieldName}
         control={control}
-        rules={{ required: "This field is required" }}
+        rules={{
+          required: { value: isRequired, message: "This field is required" },
+        }}
         render={({ field }) => (
           <>
             <div className="input-field-error">

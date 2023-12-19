@@ -1,26 +1,3 @@
-// <div>Personal Details
-// fname
-// lname
-// Dob
-// address
-// email
-// phone
-// </div>
-// <div>Professional Details
-//   Is Employed currently?
-//     Date of joining
-//     Salary
-//     designation
-//     role
-//     skills
-//     Department
-// </div>
-// <div>Uploads
-//   Photo
-// </div>
-// <div>Review</div>
-// export default Form
-
 import { FormProvider, useForm } from "react-hook-form";
 import Button from "../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
@@ -32,13 +9,17 @@ import {
   resetFiltersAndSearchBar,
 } from "../../utils/helper.ts";
 import { Fieldset, FormWrapper, InputRow } from "./form.ts";
-import { useContext, useEffect, useState } from "react";
-import { IEmployee, ITableProps } from "../../core/interfaces/interface.ts";
+import { useEffect, useState } from "react";
+import {
+  IData,
+  IEmployee,
+  IInputProps,
+  ITableProps,
+} from "../../core/interfaces/interface.ts";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getData, postData, updateData } from "../../core/api/functions.ts";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader/Loader.tsx";
-import FormSelectList from "./FormSelect/FormSelectList.tsx";
 import ProgressBar from "../../components/ProgressBar/ProgressBar.tsx";
 import {
   nameValidation,
@@ -48,7 +29,7 @@ import {
   dateValidation,
 } from "./constants/validationConfig.ts";
 import { apiURL } from "../../core/config/constants.ts";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { fetchEmployeesData } from "../../core/store/actions.ts";
 import store from "../../core/store/configureStore.ts";
 import EmployeeView from "../EmployeeView/EmployeeView.tsx";
@@ -57,6 +38,11 @@ import EmployeeViewWrapper from "../EmployeeView/employeeView.ts";
 function Form() {
   const { employeeId } = useParams();
   const location = useLocation();
+  const { departments, roles, skills } = useSelector((state: IData) => ({
+    departments: state.dropdownData.departments.departments,
+    roles: state.dropdownData.roles.roles,
+    skills: state.dropdownData.skills.skills,
+  }));
   const [isLoading, setIsLoading] = useState(employeeId ? true : false);
   const [activeSection, setActiveSection] = useState(1);
   const [employeeData, setEmployeeData] = useState<IEmployee>();
@@ -122,7 +108,6 @@ function Form() {
         console.log(employeeData);
         methods.setValue(ObjKey, (employeeData as any)[ObjKey]);
       }
-    console.log(methods.getValues());
   }, [employeeData]);
 
   const onReset = () => {
@@ -175,7 +160,123 @@ function Form() {
     }
   });
   if (isLoading) return <Loader className="center-screen" />;
-
+  const formConfig = [
+    {
+      sectionName: "Personal Details",
+      sectionActiveState: 1,
+      sectionFields: [
+        {
+          validation: nameValidation,
+          label: "First name",
+          type: "text",
+          name: "firstName",
+          isRequired: true,
+        },
+        {
+          validation: nameValidation,
+          label: "Last name",
+          type: "text",
+          name: "lastName",
+          isRequired: true,
+        },
+        {
+          validation: emailValidation,
+          label: "Email",
+          type: "email",
+          name: "email",
+          isRequired: true,
+        },
+        {
+          validation: phoneValidation,
+          label: "Phone number",
+          type: "tel",
+          name: "phone",
+          isRequired: true,
+        },
+        {
+          validation: addressValidation,
+          label: "Address",
+          type: "textarea",
+          name: "address",
+          isRequired: true,
+        },
+        {
+          validation: dateValidation,
+          label: "Date of birth",
+          type: "date",
+          name: "dob",
+          isRequired: true,
+        },
+      ],
+    },
+    {
+      sectionName: "Professional Details",
+      sectionActiveState: 2,
+      sectionFields: [
+        {
+          validation: { dateValidation },
+          label: "Date of joining",
+          type: "date",
+          name: "dateOfJoining",
+          isRequired: true,
+        },
+        {
+          validation: { nameValidation },
+          label: "Deisgnation",
+          type: "text",
+          name: "designation",
+          isRequired: true,
+        },
+        {
+          label: "Currently employed",
+          type: "radio",
+          options: ["Yes", "No"],
+          name: "isActive",
+          isRequired: true,
+        },
+        {
+          label: "Choose department",
+          type: "dropdown",
+          options: departments,
+          name: "department",
+          placeholder: "Select department",
+          isMulti: false,
+          isRequired: true,
+        },
+        {
+          label: "Choose role",
+          type: "dropdown",
+          options: roles,
+          name: "role",
+          placeholder: "Select role",
+          isMulti: false,
+          isRequired: true,
+        },
+        {
+          label: "Choose skills",
+          type: "dropdown",
+          options: skills,
+          name: "skills",
+          placeholder: "Select skills",
+          isMulti: true,
+          isRequired: true,
+        },
+      ],
+    },
+    {
+      sectionName: "Uploads",
+      sectionActiveState: 3,
+      sectionFields: [
+        {
+          label: "Upload employee photograph",
+          type: "file",
+          name: "photoId",
+          accept: "image/*",
+          isRequired: true,
+        },
+      ],
+    },
+  ];
   return (
     <>
       <span
@@ -204,84 +305,26 @@ function Form() {
         ></ProgressBar>
         <FormProvider {...methods}>
           <form onSubmit={(e) => e.preventDefault()} noValidate>
-            {activeSection === 1 && (
-              <Fieldset className="form-details ">
-                <legend className="subheading">Personal Details</legend>
-                <Input
-                  validation={nameValidation}
-                  label="First name"
-                  type="text"
-                  name="firstName"
-                />
-                <Input
-                  validation={nameValidation}
-                  label="Last name"
-                  type="text"
-                  name="lastName"
-                />
-                <Input
-                  validation={emailValidation}
-                  label="Email"
-                  type="email"
-                  name="email"
-                />
-                <Input
-                  validation={phoneValidation}
-                  label="Phone number"
-                  type="tel"
-                  name="phone"
-                />
-                <Input
-                  validation={addressValidation}
-                  label="Address"
-                  type="textarea"
-                  name="address"
-                />
-                <Input
-                  validation={dateValidation}
-                  label="Date of birth"
-                  type="date"
-                  name="dob"
-                />
-              </Fieldset>
-            )}
-            {activeSection === 2 && (
-              <Fieldset className="form-details ">
-                <legend className="subheading">Professional Details</legend>
-                <Input
-                  validation={dateValidation}
-                  label="Date of joining"
-                  type="date"
-                  name="dateOfJoining"
-                />
-                <Input
-                  validation={nameValidation}
-                  label="Deisgnation"
-                  type="text"
-                  name="designation"
-                />
-                <Input
-                  label="Currently employed"
-                  type="radio"
-                  options={["Yes", "No"]}
-                  name="isActive"
-                />
-
-                <FormSelectList />
-              </Fieldset>
-            )}
-            {activeSection === 3 && (
-              <Fieldset className="form-details ">
-                <legend className="subheading">Uploads</legend>
-                <Input
-                  // TODO: validation rule
-                  label="Photo"
-                  type="file"
-                  name="photoId"
-                  imageLink={methods.getValues("photoId")}
-                />
-              </Fieldset>
-            )}
+            {formConfig.map((formSection) => {
+              return (
+                <>
+                  {activeSection === formSection.sectionActiveState && (
+                    <Fieldset key={formSection.sectionActiveState} className="form-details ">
+                      <legend className="subheading">
+                        {formSection.sectionName}
+                      </legend>
+                      <>
+                        {formSection.sectionFields.map(
+                          (sectionField: IInputProps) => (
+                            <Input key={sectionField.name} config={sectionField} />
+                          )
+                        )}
+                      </>
+                    </Fieldset>
+                  )}
+                </>
+              );
+            })}
             {activeSection === 4 && (
               <Fieldset className="form-details ">
                 <legend className="subheading">Review</legend>
@@ -340,7 +383,7 @@ function Form() {
                       default:
                         validationStatus = true;
                     }
-                    validationStatus && setActiveSection(activeSection + 1);
+                    true && setActiveSection(activeSection + 1);
                   }}
                 >
                   Next
