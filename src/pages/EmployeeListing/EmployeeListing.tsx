@@ -14,6 +14,7 @@ import { IData, IEmployee } from '../../core/interfaces/interface.ts';
 import SearchBar from './SearchAndFilter/components/SearchBar/SearchBar.tsx';
 import Checkbox from '../../components/Checkbox/Checkbox.tsx';
 import { useSearchParams } from 'react-router-dom';
+import SelectAllCheckbox from '../../components/Checkbox/SelectAllCheckbox/SelectAllCheckbox.tsx';
 
 function EmployeeListing() {
   const matches = useMediaQuery('(min-width: 768px)');
@@ -57,8 +58,11 @@ function EmployeeListing() {
 
   // Select all
   const [selectAll, setSelectAll] = useState<boolean>(true);
+  const selectAllStatus={selectAll, setSelectAll}
   const changeBtnText = () => {
-    setSelectAll((prevSelectAll) => !prevSelectAll);
+    console.log(checkedBoxesList.length,employees.length)
+    const allSelected = deleteCheckBoxesList.checkedBoxesList.length === employees.length;
+    setSelectAll(!allSelected);
   };
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -125,12 +129,12 @@ function EmployeeListing() {
         )}
         {!loading && listingActive === 'Grid' && (
           <Button className="select-all" onClick={changeBtnText}>
-            {selectAll ? 'Select All' : 'Unselect All'}
-            <Checkbox
+             {selectAll ? 'Select All' : 'Unselect All'}
+            <SelectAllCheckbox
               deleteCheckBoxesList={deleteCheckBoxesList}
               employeesIdList={employees.map((employee) => employee.id)}
             />
-          </Button>
+           </Button>
         )}
       </div>
       {listingActive == 'List' ? (

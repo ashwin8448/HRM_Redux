@@ -58,6 +58,7 @@ function EmployeeCardList({
   const totalPages = Math.ceil(employeesCount / cardsPerPage);
 
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+    console.log("intersecting")
     if (entries[0].isIntersecting) {
       // When user scrolls to the bottom, load more data
       setPage((prevPage) => prevPage + 1);
@@ -105,7 +106,7 @@ function EmployeeCardList({
         bottomObserver.current.disconnect();
       }
     };
-  }, []);
+  }, [searchParams]);
 
   useEffect(() => {
     updateSearchParams({ page: "" });
@@ -115,9 +116,7 @@ function EmployeeCardList({
   useEffect(() => {
     console.log("search parans changing")
     setPage(0);
-    store.dispatch(resetEmployeesGrid());
-
-    
+    store.dispatch(resetEmployeesGrid());    
   }, [searchParams]);
 
   return (
