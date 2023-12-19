@@ -44,12 +44,12 @@ function ActionsBar({ onClick }: { onClick: () => void }) {
 
   const applyFilters = () => {
     const skillFiltersParams = skillFilterState.map((option: ISelectOptionProps) => option.value).join(',');
-    updateSearchParams({ skillIds: skillFiltersParams })
+    updateSearchParams({ skillIds: skillFiltersParams, page: "1" })
     onClick();
   }
   const resetFilters = () => {
     setSkillFilterState([])
-    updateSearchParams({ skillIds: "" })
+    updateSearchParams({ skillIds: "", page: "1" })
     onClick();
 
   };

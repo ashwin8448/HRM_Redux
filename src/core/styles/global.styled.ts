@@ -129,8 +129,7 @@ body {
 
 }
 .table-overflow-scroll{
-  border-top: 1px solid  #D3D3D3;
-  //TODO: missing border on large screens
+  border: 1px solid  #D3D3D3;
 }
 .overflow-ellipsis{
   overflow: hidden;

@@ -23,11 +23,6 @@ function EmployeeCardList({
   employees: IEmployee[];
   employeesCount: number
 }) {
-  // Select all
-  const [selectAll, setSelectAll] = useState<boolean>(true);
-  const changeBtnText = () => {
-    setSelectAll((prevSelectAll) => !prevSelectAll);
-  };
 
   const [searchParams, setSearchParams] = useSearchParams();
   const cardsPerPage = 10;
@@ -97,16 +92,6 @@ function EmployeeCardList({
 
   return (
     <>
-      <div className="common-flex global-padding">
-        <SearchBar placeholder="Search by name" />
-        <Button className="select-all" onClick={changeBtnText}>
-          {selectAll ? "Select All" : "Unselect All"}
-          <Checkbox
-            deleteCheckBoxesList={deleteCheckBoxesList}
-            employeesIdList={employees.map((employee) => employee.id)}
-          />
-        </Button>
-      </div>
       <EmployeeCardListWrapper>
         {employees.length > 0 ? (
           employees.map((employee: IEmployee) => (
