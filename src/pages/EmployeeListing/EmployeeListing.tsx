@@ -9,6 +9,8 @@ import EmployeeTableActions from "./EmployeeTableActions/EmployeeTableActions.ts
 import { useEffect, useState } from "react";
 import SideFilterBar from "./SideFilterBar/SideFilterBar.tsx";
 import EmployeeCardList from "../EmployeeCardList/EmployeeCardList.tsx";
+import { useSelector } from "react-redux";
+import { IData, IEmployee } from "../../core/interfaces/interface.ts";
 
 function EmployeeListing() {
   const matches = useMediaQuery("(min-width: 768px)");
@@ -33,6 +35,10 @@ function EmployeeListing() {
   const handleActiveListing = (buttonTxt: string) => {
     setListingActive(buttonTxt);
   };
+
+  // Employees data fetching
+  const { employees, loading, count } = useSelector((state: IData) => state.employeesData);
+
 
   useEffect(() => {
     deleteModal
@@ -88,10 +94,15 @@ function EmployeeListing() {
       {listingActive == "List" ? (
         <EmployeeTableSearchAndPagination
           deleteCheckBoxesList={deleteCheckBoxesList}
+          employees={employees}
+          loading={loading}
+          employeesCount={count}
         />
       ) : (
         <EmployeeCardList
           deleteCheckBoxesList={deleteCheckBoxesList}
+          employees={employees}
+          employeesCount={count}
         />
       )}
 

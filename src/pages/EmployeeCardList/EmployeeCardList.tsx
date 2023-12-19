@@ -13,11 +13,15 @@ import { useSearchParams } from "react-router-dom";
 
 function EmployeeCardList({
   deleteCheckBoxesList,
+  employees,
+  employeesCount
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
+  employees: IEmployee[];
+  employeesCount: number
 }) {
   // Select all
   const [selectAll, setSelectAll] = useState<boolean>(true);
@@ -25,17 +29,15 @@ function EmployeeCardList({
     setSelectAll((prevSelectAll) => !prevSelectAll);
   };
 
+  const [searchParams, setSearchParams] = useSearchParams();
   const cardsPerPage = 10;
-  const { employees, count,loading } = useSelector(
-    (state: IData) => state.employeesData
-  );
 
   const [page, setPage] = useState<number>(0);
 
   const [infiniteLoading, setInfiniteLoading] = useState(false);
   const bottomObserver = useRef<IntersectionObserver | null>(null);
   const bottomElement = useRef<HTMLDivElement>(null);
-  const totalPages = Math.ceil(count / cardsPerPage);
+  const totalPages = Math.ceil(employeesCount / cardsPerPage);
 
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
     if (entries[0].isIntersecting) {
@@ -55,10 +57,10 @@ function EmployeeCardList({
         store.dispatch(
           fetchEmployeesData({
             limit: cardsPerPage,
-            offset: (page-1) * cardsPerPage,
-            sortBy: "id",
-            sortDir: "asc",
-          },"Grid")
+            offset: (page - 1) * cardsPerPage,
+            sortBy: searchParams.get("sortBy") || "id",
+            sortDir: searchParams.get("sortDir") || "asc",
+          }, "Grid")
         );
       }, delay);
 
@@ -85,9 +87,11 @@ function EmployeeCardList({
   }, []);
 
   useEffect(() => {
+    searchParams.delete("page");
+    setSearchParams(() => searchParams)
     store.dispatch(resetEmployeesGrid());
 
-  }, []); 
+  }, []);
 
   return (
     <>

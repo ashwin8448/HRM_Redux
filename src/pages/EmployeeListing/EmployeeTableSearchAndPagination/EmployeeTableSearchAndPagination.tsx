@@ -12,16 +12,18 @@ import store from "../../../core/store/configureStore.ts";
 
 function EmployeeTableSearchAndPagination({
   deleteCheckBoxesList,
+  employees,
+  loading,
+  employeesCount
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
+  employees: IEmployee[],
+  loading: boolean,
+  employeesCount: number
 }) {
-  // Employees data fetching
-  const employeesData = useSelector((state: IData) => state.employeesData);
-  const employees: IEmployee[] = employeesData.employees;
-  const loading: boolean = employeesData.loading;
 
   // Pagination
   const rowsPerPage = 10;
@@ -41,13 +43,7 @@ function EmployeeTableSearchAndPagination({
       ...params,
     });
   };
-  const a = useSelector(
-    (state: IData) => state
-  );
-console.log(a)
-  const employeesCount = useSelector(
-    (state: IData) => state.employeesData.count
-  );
+
   const totalPages = Math.ceil(employeesCount / rowsPerPage);
 
   useEffect(() => {
@@ -57,7 +53,7 @@ console.log(a)
         offset: (Number(searchParams.get("page") || "1") - 1) * rowsPerPage,
         sortBy: searchParams.get("sortBy") || "id",
         sortDir: searchParams.get("sortDir") || "asc",
-      },"List")
+      }, "List")
     );
   }, [searchParams, rowsPerPage]);
 
@@ -71,7 +67,7 @@ console.log(a)
               updateSearchParams={updateSearchParams}
               totalPages={totalPages}
             ></PaginationResults> */}
-            Showing {rowsPerPage} of {employeesCount} results
+            {!loading && (`Showing ${employees.length} of ${employeesCount} results`)}
           </div>
           <EmployeeTable
             deleteCheckBoxesList={deleteCheckBoxesList}
