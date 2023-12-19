@@ -4,7 +4,10 @@ import Button from "../../components/Button/Button.tsx";
 import Checkbox from "../../components/Checkbox/Checkbox.tsx";
 import Loader from "../../components/Loader/loader.ts";
 import { IData, IEmployee } from "../../core/interfaces/interface";
-import { fetchEmployeesData, resetEmployeesGrid } from "../../core/store/actions.ts";
+import {
+  fetchEmployeesData,
+  resetEmployeesGrid,
+} from "../../core/store/actions.ts";
 import EmployeeCard from "../EmployeeCard/EmployeeCard.tsx";
 import SearchBar from "../EmployeeListing/SearchAndFilter/components/SearchBar/SearchBar";
 import EmployeeCardListWrapper from "./employeeCardList.ts";
@@ -14,22 +17,42 @@ import { useSearchParams } from "react-router-dom";
 function EmployeeCardList({
   deleteCheckBoxesList,
   employees,
-  employeesCount
+  employeesCount,
+  loading,
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
   employees: IEmployee[];
-  employeesCount: number
+  employeesCount: number;
+  loading: boolean;
 }) {
+  const [searchParams, setSearchParams] = useSearchParams({
+    page: "1",
+    sortBy: "id",
+    sortDir: "asc",
+    search: "",
+    skillIds: "",
+  });
 
-  const [searchParams, setSearchParams] = useSearchParams();
+  const updateSearchParams = (params: {
+    page?: string;
+    sortBy?: string;
+    sortDir?: string;
+    search?: string;
+    skillIds?: string;
+  }) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      ...params,
+    });
+  };
+
   const cardsPerPage = 10;
 
   const [page, setPage] = useState<number>(0);
 
-  const [infiniteLoading, setInfiniteLoading] = useState(false);
   const bottomObserver = useRef<IntersectionObserver | null>(null);
   const bottomElement = useRef<HTMLDivElement>(null);
   const totalPages = Math.ceil(employeesCount / cardsPerPage);
@@ -42,28 +65,27 @@ function EmployeeCardList({
   };
 
   useEffect(() => {
-    console.log(page)
     if (page <= totalPages) {
-      setInfiniteLoading(true);
-
       // Adding a delay of 500 milliseconds before dispatching the action
       const delay = 500;
       const timeoutId = setTimeout(() => {
         store.dispatch(
-          fetchEmployeesData({
-            limit: cardsPerPage,
-            offset: (page - 1) * cardsPerPage,
-            sortBy: searchParams.get("sortBy") || "id",
-            sortDir: searchParams.get("sortDir") || "asc",
-            search: searchParams.get("search") || "",
-            skillIds: searchParams.get("skillIds") || "",
-          }, "Grid")
+          fetchEmployeesData(
+            {
+              limit: cardsPerPage,
+              offset: (page - 1) * cardsPerPage,
+              sortBy: searchParams.get("sortBy") || "id",
+              sortDir: searchParams.get("sortDir") || "asc",
+              search: searchParams.get("search") || "",
+              skillIds: searchParams.get("skillIds") || "",
+            },
+            "Grid"
+          )
         );
       }, delay);
 
       return () => clearTimeout(timeoutId); // Clear the timeout on component unmount
     }
-    setInfiniteLoading(false);
   }, [page]);
 
   useEffect(() => {
@@ -84,11 +106,14 @@ function EmployeeCardList({
   }, []);
 
   useEffect(() => {
-    searchParams.delete("page");
-    setSearchParams(() => searchParams)
+    updateSearchParams({ page: "" });
     store.dispatch(resetEmployeesGrid());
-
   }, []);
+
+  useEffect(() => {
+    setPage(0);
+    store.dispatch(resetEmployeesGrid());
+  }, [searchParams]);
 
   return (
     <>
@@ -105,7 +130,7 @@ function EmployeeCardList({
           <div className="common-flex">No data Available</div>
         )}
       </EmployeeCardListWrapper>
-      {infiniteLoading && (
+      {loading && (
         <div className="infinite-scroll-loader-div">
           <Loader className="infinite-scroll-loader common-flex" />
         </div>

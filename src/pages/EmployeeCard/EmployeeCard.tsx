@@ -18,7 +18,6 @@ function EmployeeCard({
   employee: IEmployee;
 }) {
   const [photo, setPhoto] = useState({ loading: true, currentSrc: " " });
-console.log(employee.moreDetails)
   const photoId = employee.moreDetails
     ? employee.moreDetails.photoId
       ? employee.moreDetails.photoId

@@ -146,6 +146,7 @@ body {
     justify-content: center;
   }
   .infinite-scroll-loader-div {
+    margin: 20px;
     width: 100%;
   }
   .infinite-scroll-loader {
