@@ -1,4 +1,4 @@
-import styled from "styled-components";
+import styled from 'styled-components';
 
 const SideFilterBarWrapper = styled.div<{ $visible: boolean }>`
   position: fixed;
@@ -8,10 +8,11 @@ const SideFilterBarWrapper = styled.div<{ $visible: boolean }>`
   z-index: 5;
   top: 0;
   right: 0;
-  ${({ $visible }) => ($visible ? 'transform: translateX(0);' : 'transform: translateX(100%);')}
+  ${({ $visible }) =>
+    $visible ? 'transform: translateX(0);' : 'transform: translateX(100%);'}
   background-color: #fff;
   overflow-x: hidden;
-  transition:  0.5s ease;
+  transition: 0.5s ease;
   display: flex;
   flex-direction: column;
 
@@ -19,6 +20,5 @@ const SideFilterBarWrapper = styled.div<{ $visible: boolean }>`
     padding: 10px;
     cursor: pointer;
   }
-
 `;
 export default SideFilterBarWrapper;

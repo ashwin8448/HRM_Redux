@@ -1,7 +1,7 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout.tsx";
 import EmployeeListing from "./EmployeeListing/EmployeeListing.tsx";
-import EmployeeView from "./EmployeeView/EmployeeView.tsx";
+import ErrorPage from "../components/ErrorPage/ErrorPage.tsx";
 
 const router = createBrowserRouter
 (
@@ -11,13 +11,14 @@ const router = createBrowserRouter
       children: [
         {
           path: "/",
-          element: <EmployeeListing></EmployeeListing>,
-        },      {
-          path: "view-employee/:employeeId",
-          element: <EmployeeView />,
-        }
+          element: <EmployeeListing />,
+        },    
+        {
+          path: "/error?statusCode=:statusCode",
+          element: <ErrorPage />,
+        },
       ],
-      errorElement: <></>,
+      errorElement: <ErrorPage />,
     },
   ],
   { basename: import.meta.env.DEV ? "/" : "/HRM-App-React/" }

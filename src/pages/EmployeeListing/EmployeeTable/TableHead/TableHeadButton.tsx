@@ -1,4 +1,3 @@
-import { findSortCriteria } from "../../../../utils/helper.ts";
 import { TableHeadIconWrapper } from "./tableHead.ts";
 import ButtonWrapper from "../../../../components/Button/button.ts";
 import { SortDirection } from "../../../../core/config/constants.ts";

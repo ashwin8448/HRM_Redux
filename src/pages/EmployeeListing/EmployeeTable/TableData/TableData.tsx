@@ -39,7 +39,7 @@ function TableData({
       className={index % 2 !== 0 ? "alternate-table-row-color" : ""} // alternate colour for each row
     >
       <td className="employee-data">
-        <Checkbox employeeId={employee.id} deleteCheckBoxesList={deleteCheckBoxesList}  />
+        <Checkbox employeeId={employee.id} deleteCheckBoxesList={deleteCheckBoxesList} />
       </td>
 
       <td className="employee-data">{employee.id}</td>

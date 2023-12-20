@@ -6,26 +6,24 @@ import { IData, IEmployee } from "../../../../core/interfaces/interface.ts";
 
 function TableHead({
   deleteCheckBoxesList,
+  employees
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
+  employees: IEmployee[]
 }) {
-  const employees = useSelector(
-    (state: IData) => state.employeesData.employees
-  );
+
   const employeesIdList = employees.map(
     (employee: IEmployee) => employee.id
   );
-  // const handleCheckboxChange = () => {
-  //   deleteCheckBoxesList.setCheckedBoxesList(() => employeesIdList);
-  // };
+
   return (
     <TableHeadWrapper>
       <tr>
         <th>
-        <Checkbox employeesIdList={employeesIdList} deleteCheckBoxesList={deleteCheckBoxesList}  />
+          <Checkbox employeesIdList={employeesIdList} deleteCheckBoxesList={deleteCheckBoxesList} />
         </th>
         <TableHeadButton icon="expand_more" title="id">Id</TableHeadButton>
         <TableHeadButton icon="expand_more" title="firstName">

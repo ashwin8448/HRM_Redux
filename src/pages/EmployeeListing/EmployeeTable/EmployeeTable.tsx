@@ -4,104 +4,97 @@ import TableWrapper from "./employeeTable.ts";
 import TableData from "./TableData/TableData.tsx";
 import TableHead from "./TableHead/TableHead.tsx";
 import Loader from "../../../components/Loader/Loader.tsx";
-import { filterData, searchData, sortData } from "../../../utils/helper.ts";
 import DeleteModal from "../../../components/DeleteModal/DeleteModal.tsx";
 import { fetchEmployeesData } from "../../../core/store/actions.ts";
 import store from "../../../core/store/configureStore.ts";
 import { useSelector } from "react-redux";
 import React from "react";
 import Pagination from "./Pagination/Pagination.tsx";
+import { useSearchParams } from "react-router-dom";
 
 function EmployeeTable({
   deleteCheckBoxesList,
   employees,
-  loading
+  loading,
+  rowsPerPage,
+  totalPages
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  employees:IEmployee[];
-  loading:boolean
+  employees: IEmployee[];
+  loading: boolean;
+  rowsPerPage: number;
+  totalPages: number
 }) {
 
-
-  //TODO: Fetch employees data, loading, filterprops
-
-  // const employeesTableView = useMemo(
-  //   () => {
-  //     //TODO: if employees list is null
-  //     // if (!employees) {
-  //     //     return [];
-  //     // }
-
-  //     //TODO: sorting,filtering and searching
-  //     // const sortedEmployees = sortData(dataEmployees, tableProps);
-  //     // const filteredEmployees = filterData(sortedEmployees, tableProps);
-  //     // const searchedEmployees = searchData(filteredEmployees, tableProps);
-
-  //     const searchedEmployees = employeesData.employees;
-  //     // Update totalCount based on the filtered data length
-  //     // totalCount = searchedEmployees.length;
-
-  //     // // Calculate the total number of pages based on the filtered data length
-  //     // totalPageCount = Math.ceil(totalCount / pageSize);
-
-  //     // // Ensure that the current page is within the valid range
-  //     // const validCurrentPage = Math.min(currentPage, totalPageCount);
-
-  //     // const firstPageIndex = (validCurrentPage - 1) * pageSize;
-  //     // const lastPageIndex = firstPageIndex + pageSize;
-
-  //     return searchedEmployees;
-  //     // .slice(firstPageIndex, lastPageIndex);
-  //   },
-  //   [
-  //     // tableProps, employees,
-  //   ]
-  // );
+  // Employee fetching
+  const [searchParams] = useSearchParams();
+  useEffect(() => {
+    store.dispatch(
+      fetchEmployeesData(
+        {
+          limit: rowsPerPage,
+          offset: (Number(searchParams.get("page") || "1") - 1) * rowsPerPage,
+          sortBy: searchParams.get("sortBy") || "id",
+          sortDir: searchParams.get("sortDir") || "asc",
+          search: searchParams.get("search") || "",
+          skillIds: searchParams.get("skillIds") || "",
+        },
+        "List"
+      )
+    );
+  }, [searchParams, rowsPerPage]);
 
   return (
-    <div className="table-overflow-scroll">
-      <TableWrapper>
-        <TableHead deleteCheckBoxesList={deleteCheckBoxesList} />
-        {loading ? ( //TODO: replace with loading
-          <tbody>
-            <tr className="no-border-row">
-              <td colSpan={5}>
-                {/* This component is rendered when data is fetching from database  */}
-                <div className="loader-container">
-                  <Loader />
-                </div>
-              </td>
-            </tr>
-          </tbody>
-        ) : (
-          <tbody>
-            {employees.length > 0 ? (
-              employees.map((employee: IEmployee, index: number) => {
-                return (
-                  employee && (
-                    <TableData
-                      key={employee.id}
-                      employee={employee}
-                      index={index}
-                      deleteCheckBoxesList={deleteCheckBoxesList}
-                    />
-                  )
-                );
-              })
-            ) : (
-              <tr>
-                <td className="no-data" colSpan={6}>
-                  No data Available
+    <>
+      <div className="table-overflow-scroll">
+        <TableWrapper>
+          <TableHead deleteCheckBoxesList={deleteCheckBoxesList} employees={employees} />
+          {loading ? ( //TODO: replace with loading
+            <tbody>
+              <tr className="no-border-row">
+                <td colSpan={5}>
+                  {/* This component is rendered when data is fetching from database  */}
+                  <div className="loader-container">
+                    <Loader />
+                  </div>
                 </td>
               </tr>
-            )}
-          </tbody>
-        )}
-      </TableWrapper>
-    </div>
+            </tbody>
+          ) : (
+            <tbody>
+              {employees.length > 0 ? (
+                employees.map((employee: IEmployee, index: number) => {
+                  return (
+                    employee && (
+                      <TableData
+                        key={employee.id}
+                        employee={employee}
+                        index={index}
+                        deleteCheckBoxesList={deleteCheckBoxesList}
+                      />
+                    )
+                  );
+                })
+              ) : (
+                <tr>
+                  <td className="no-data" colSpan={6}>
+                    No data Available
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          )}
+        </TableWrapper>
+      </div>
+      <Pagination
+        deleteCheckBoxesList={deleteCheckBoxesList}
+        rowsPerPage={rowsPerPage}
+        totalPages={totalPages}
+      />
+    </>
   );
 }
 export default EmployeeTable;

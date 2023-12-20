@@ -1,6 +1,6 @@
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import EmployeeTableSearchAndPagination from './EmployeeTableSearchAndPagination/EmployeeTableSearchAndPagination.tsx';
+import EmployeeTable from './EmployeeTable/EmployeeTable.tsx';
 import StyledLink from '../../components/StyledLink.ts';
 import Button from '../../components/Button/Button.tsx';
 import { useMediaQuery } from 'usehooks-ts';
@@ -10,43 +10,55 @@ import { useEffect, useState } from 'react';
 import SideFilterBar from './SideFilterBar/SideFilterBar.tsx';
 import EmployeeCardList from '../EmployeeCardList/EmployeeCardList.tsx';
 import { useSelector } from 'react-redux';
-import { IData, IEmployee } from '../../core/interfaces/interface.ts';
+import { IData } from '../../core/interfaces/interface.ts';
 import SearchBar from './SearchAndFilter/components/SearchBar/SearchBar.tsx';
 import Checkbox from '../../components/Checkbox/Checkbox.tsx';
 import { useSearchParams } from 'react-router-dom';
 
 function EmployeeListing() {
+
+
+  //responsive
   const matches = useMediaQuery('(min-width: 768px)');
-  const [isSideFilterBarVisible, setSideFilterBarVisible] = useState(false);
-
-  const handleButtonClick = () => {
-    setSideFilterBarVisible(!isSideFilterBarVisible);
-  };
-  const [checkedBoxesList, setCheckedBoxesList] = useState<string[]>([]);
-  const deleteCheckBoxesList = { checkedBoxesList, setCheckedBoxesList };
-
-  const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
-
-  const changeDltModalOpenStatus = () => {
-    console.log();
-    setDeleteModal(
-      () => deleteCheckBoxesList.checkedBoxesList.length !== 0 && !deleteModal
-    );
-  };
-
-  const [listingActive, setListingActive] = useState('List');
-  const handleActiveListing = (buttonTxt: string) => {
-    deleteCheckBoxesList.setCheckedBoxesList([]);
-    setListingActive(buttonTxt);
-  };
 
   // Employees data fetching
   const { employees, loading, count } = useSelector(
     (state: IData) => state.employeesData
   );
 
+  //Side Filter bar visible on click
+  const [isSideFilterBarVisible, setSideFilterBarVisible] = useState(false);
+  const handleButtonClick = () => {
+    setSideFilterBarVisible(!isSideFilterBarVisible);
+  };
+
+  //checkbox click action
+  const [checkedBoxesList, setCheckedBoxesList] = useState<string[]>([]);
+  const deleteCheckBoxesList = { checkedBoxesList, setCheckedBoxesList };
+  const selectAll = deleteCheckBoxesList.checkedBoxesList.length == 0 || deleteCheckBoxesList.checkedBoxesList.length !== employees.length;
+
+  //delte modal open on click
+  const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
+  const changeDltModalOpenStatus = () => {
+    setDeleteModal(
+      () => deleteCheckBoxesList.checkedBoxesList.length !== 0 && !deleteModal
+    );
+  };
+
+  //toggle between list and grid
+  const [listingActive, setListingActive] = useState('List');
+  const handleActiveListing = (buttonTxt: string) => {
+    deleteCheckBoxesList.setCheckedBoxesList([]);
+    setListingActive(buttonTxt);
+  };
+
+  //pagination/infiinite loading
+  const recordsPerPage = 10;
+  const totalPages = Math.ceil(count / recordsPerPage);
+
+  //body static on delete modal/side filter opening
   useEffect(() => {
-    deleteModal
+    deleteModal || isSideFilterBarVisible
       ? (document.body.style.overflow = 'hidden') // Disable scrolling
       : (document.body.style.overflow = 'auto'); // Enable scrolling
 
@@ -54,24 +66,8 @@ function EmployeeListing() {
     return () => {
       document.body.style.overflow = 'auto';
     };
-  }, [deleteModal]);
+  }, [deleteModal, isSideFilterBarVisible]);
 
-  const selectAll = deleteCheckBoxesList.checkedBoxesList.length !== employees.length;
-
-  const [searchParams, setSearchParams] = useSearchParams();
-  const updateSearchParams = (params: {
-    page?: string;
-    search?: string,
-  }) => {
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      ...params,
-    });
-  };
-
-  const search = searchParams.get("search")??"";
-  const [searchState, setSearchState] = useState(search);
-  const searchValue = { searchState, setSearchState }
 
   return (
     <>
@@ -82,8 +78,6 @@ function EmployeeListing() {
         closeOnClick
         pauseOnFocusLoss={false} // avoid pausing when the window looses the focus
       />
-      {/* include searching filtering techniques */}
-      {/* <ActionsBar /> */}
       <ButtonGrpWrapper>
         <Button icon="filter_list" onClick={handleButtonClick}>
           {matches ? 'All filters' : ''}
@@ -112,11 +106,7 @@ function EmployeeListing() {
         changeDltModalOpenStatus={changeDltModalOpenStatus}
       />
       <div className="common-flex global-padding">
-        <SearchBar placeholder="Search by name" value={searchValue} updateSearchParams={updateSearchParams} />
-        {/* <PaginationResults
-              updateSearchParams={updateSearchParams}
-              totalPages={totalPages}
-            ></PaginationResults> */}
+        <SearchBar />
         {!loading && listingActive === 'List' && (
           `Showing ${employees.length} of ${count} results`
         )}
@@ -131,18 +121,20 @@ function EmployeeListing() {
         )}
       </div>
       {listingActive == 'List' ? (
-        <EmployeeTableSearchAndPagination
+        <EmployeeTable
           deleteCheckBoxesList={deleteCheckBoxesList}
           employees={employees}
           loading={loading}
-          employeesCount={count}
+          rowsPerPage={recordsPerPage}
+          totalPages={totalPages}
         />
       ) : (
         <EmployeeCardList
           deleteCheckBoxesList={deleteCheckBoxesList}
           employees={employees}
           loading={loading}
-          employeesCount={count}
+          cardsPerPage={recordsPerPage}
+          totalPages={totalPages}
         />
       )}
     </>

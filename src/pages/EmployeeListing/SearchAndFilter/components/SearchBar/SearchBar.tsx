@@ -1,32 +1,23 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import SearchWrapper from "./search.ts";
+import { useSearchParams } from "react-router-dom";
 
-function SearchBar({ placeholder, value, updateSearchParams }: {
-    placeholder: string;
-    value: {
-        searchState: string;
-        setSearchState: React.Dispatch<React.SetStateAction<string>>;
-    };
-    updateSearchParams: (params: {
-        page?: string | undefined;
-        search?: string | undefined;
-    }) => void
-}) {
+function SearchBar() {
 
-    // const { addTableProps, tableProps } = useContext(DataContext);
+    const [searchParams, setSearchParams] = useSearchParams();    
+    const [searchState, setSearchState] = useState(searchParams.get("search") ?? "");
     const [focus, setFocus] = useState(false);
 
-    const handleFocus = () => {
-        setFocus(true);
-    };
+    const handleFocus = () => setFocus(true);
+    const handleBlur = () => setFocus(false);
 
-    const handleBlur = () => {
-        setFocus(false);
-    };
 
     const handleChange = ({ searchedTxt }: { searchedTxt: string }) => {
-        value.setSearchState(() => searchedTxt);
-        updateSearchParams({ search: searchedTxt, page: "1" })
+        setSearchState(searchedTxt);
+        setSearchParams({
+            ...Object.fromEntries(searchParams.entries()),
+            ...{ search: searchedTxt, page: "1" },
+        });
     };
 
     return (
@@ -35,10 +26,10 @@ function SearchBar({ placeholder, value, updateSearchParams }: {
                 <span className="material-symbols-outlined search-icon">search</span>
                 <input
                     type="text"
-                    value={value.searchState}
+                    value={searchState}
                     className="search-input overflow-ellipsis"
                     id="search-input"
-                    placeholder={placeholder}
+                    placeholder="Search by first name"
                     onFocus={handleFocus}
                     onChange={(e) => {
                         handleChange({ searchedTxt: e.target.value });

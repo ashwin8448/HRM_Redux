@@ -7,8 +7,6 @@ const dropdownReducer = combineReducers({
   roles: rolesReducer,
   departments: departmentsReducer,
   skills: skillsReducer,
-  //TODO:
-  // empModes: empModesReducer,
 });
 
 export default dropdownReducer;

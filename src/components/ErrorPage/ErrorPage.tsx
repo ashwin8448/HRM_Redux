@@ -2,7 +2,6 @@ import ErrorPageWrapper from "./errorPage.js";
 import StyledLink from "../StyledLink.js";
 import Button from "../Button/Button.tsx";
 import { useSearchParams } from "react-router-dom";
-import React from "react";
 
 function ErrorPage() {
     const [searchParams] = useSearchParams();

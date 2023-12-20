@@ -10,16 +10,6 @@ function SideFilterBar({
   isVisible: boolean;
   onClick: () => void;
 }) {
-  useEffect(() => {
-    isVisible
-      ? (document.body.style.overflow = "hidden") // Disable scrolling
-      : (document.body.style.overflow = "auto"); // Enable scrolling
-
-    // Cleanup function to re-enable scrolling when the component unmounts or when the modal is closed
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isVisible]);
 
   return (
     <SideFilterBarWrapper className="translateX" $visible={isVisible}>

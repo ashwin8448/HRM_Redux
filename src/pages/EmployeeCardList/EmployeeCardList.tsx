@@ -8,26 +8,29 @@ import {
   fetchEmployeesData,
   resetEmployeesGrid,
 } from "../../core/store/actions.ts";
-import EmployeeCard from "../EmployeeCard/EmployeeCard.tsx";
 import SearchBar from "../EmployeeListing/SearchAndFilter/components/SearchBar/SearchBar";
 import EmployeeCardListWrapper from "./employeeCardList.ts";
 import store from "../../core/store/configureStore.ts";
 import { useSearchParams } from "react-router-dom";
+import EmployeeCard from "./EmployeeCard/EmployeeCard.tsx";
 
 function EmployeeCardList({
   deleteCheckBoxesList,
   employees,
-  employeesCount,
   loading,
+  cardsPerPage,
+  totalPages
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
   employees: IEmployee[];
-  employeesCount: number;
   loading: boolean;
+  cardsPerPage: number;
+  totalPages: number
 }) {
+
   const [searchParams, setSearchParams] = useSearchParams({
     page: "1",
     sortBy: "id",
@@ -38,10 +41,6 @@ function EmployeeCardList({
 
   const updateSearchParams = (params: {
     page?: string;
-    sortBy?: string;
-    sortDir?: string;
-    search?: string;
-    skillIds?: string;
   }) => {
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
@@ -49,16 +48,12 @@ function EmployeeCardList({
     });
   };
 
-  const cardsPerPage = 10;
-
   const [page, setPage] = useState<number>(0);
 
   const bottomObserver = useRef<IntersectionObserver | null>(null);
   const bottomElement = useRef<HTMLDivElement>(null);
-  const totalPages = Math.ceil(employeesCount / cardsPerPage);
 
   const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-    console.log("intersecting")
     if (entries[0].isIntersecting) {
       // When user scrolls to the bottom, load more data
       setPage((prevPage) => prevPage + 1);
@@ -116,7 +111,7 @@ function EmployeeCardList({
   useEffect(() => {
     console.log("search parans changing")
     setPage(0);
-    store.dispatch(resetEmployeesGrid());    
+    store.dispatch(resetEmployeesGrid());
   }, [searchParams]);
 
   return (

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import colors from "../../core/constants/colors";
+import colors from "../../../core/constants/colors";
 
 const EmployeeCardWrapper = styled.div`
   background-color: ${colors.WHITE_COLOR};

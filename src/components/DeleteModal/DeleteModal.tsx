@@ -66,6 +66,7 @@ function DeleteModal({
     }
     changeDltModalOpenStatus();
   };
+  
   return (
     <DeleteModalWrapper>
       <Button

@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import colors from "../../../core/constants/colors";
+import styled from 'styled-components';
+import colors from '../../../core/constants/colors';
 
 const EmployeeTableActionsWrapper = styled.div`
   border-top: 1px solid ${colors.LIGHT_GRAY_COLOR};
@@ -21,7 +21,7 @@ const EmployeeTableActionsWrapper = styled.div`
 const DeleteBtnWrapper = styled.div<{ $disabled: boolean }>`
   position: relative;
   gap: 10px;
-  > .delete-btn {
+  > button {
     color: ${(props) =>
       !props.$disabled ? `${colors.RED_COLOR}` : `${colors.LIGHT_GRAY_COLOR}`};
   }
@@ -30,9 +30,8 @@ const DeleteBtnWrapper = styled.div<{ $disabled: boolean }>`
       visibility: visible;
     }
   }
-
   .dlt-btn-tooltip {
-    margin:10px;
+    margin: 10px;
     visibility: hidden;
   }
 `;

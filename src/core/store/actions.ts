@@ -8,7 +8,6 @@ import {
   IRole,
   ISelectOptionProps,
   ISkill,
-  ITableProps,
 } from '../interfaces/interface.ts';
 import { apiURL } from '../config/constants.ts';
 import { Dispatch } from 'redux';
@@ -49,10 +48,6 @@ export const setRoles = (roles: ISelectOptionProps[]) => ({
 export const setSkills = (skills: ISelectOptionProps[]) => ({
   type: actionTypes.SET_SKILLS,
   payload: skills,
-});
-export const setTableProps = (tableProps: ITableProps) => ({
-  type: actionTypes.SET_TABLE_PROPS,
-  payload: tableProps,
 });
 export const resetEmployeesGrid = () => {
   return {

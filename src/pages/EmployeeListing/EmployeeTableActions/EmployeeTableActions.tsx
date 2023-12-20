@@ -59,7 +59,6 @@ function EmployeeTableActions({
             <Button
               icon="delete"
               onClick={changeDltModalOpenStatus}
-              className="delete-btn"
               disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
               $noTransition={deleteCheckBoxesList.checkedBoxesList.length == 0}
             >

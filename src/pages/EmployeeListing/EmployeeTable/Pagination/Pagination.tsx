@@ -7,20 +7,10 @@ import { useSearchParams } from "react-router-dom";
 
 function Pagination({
   rowsPerPage,
-  updateSearchParams,
   totalPages,
   deleteCheckBoxesList
 }: {
   rowsPerPage: number;
-  updateSearchParams: ({
-    page,
-    sortBy,
-    sortDir,
-  }: {
-    page?: string | undefined;
-    sortBy?: string | undefined;
-    sortDir?: string | undefined;
-  }) => void;
   totalPages:number;
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
@@ -28,7 +18,16 @@ function Pagination({
 }
 }) {
 
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
+  const updateSearchParams = (params: {
+    page?: string;
+  }) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      ...params,
+    });
+  };
+
   let currentPageNumber = Number(searchParams.get("page"));
 
   const paginationRange = usePagination({
