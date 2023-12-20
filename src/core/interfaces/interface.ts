@@ -1,3 +1,4 @@
+import { ChangeEvent } from "react";
 import { Control } from "react-hook-form";
 
 export interface IData {
@@ -38,7 +39,7 @@ export interface IEmployee {
   dateOfJoining?: string;
   address?: string;
   moreDetails?: { [key: string]: string };
-  photoId?: string;
+  photoId?: string|object;
   role?: IRole;
   department?: IDepartment;
   skills?: ISkill[];

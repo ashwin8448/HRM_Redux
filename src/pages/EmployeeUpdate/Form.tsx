@@ -9,7 +9,7 @@ import {
   resetFiltersAndSearchBar,
 } from "../../utils/helper.ts";
 import { Fieldset, FormWrapper, InputRow } from "./form.ts";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import {
   IData,
   IEmployee,
@@ -27,6 +27,7 @@ import {
   phoneValidation,
   addressValidation,
   dateValidation,
+  numberValidation,
 } from "./constants/validationConfig.ts";
 import { apiURL } from "../../core/config/constants.ts";
 import { useDispatch, useSelector } from "react-redux";
@@ -105,7 +106,6 @@ function Form() {
   useEffect(() => {
     if (employeeData)
       for (let ObjKey in employeeData) {
-        console.log(employeeData);
         methods.setValue(ObjKey, (employeeData as any)[ObjKey]);
       }
   }, [employeeData]);
@@ -214,17 +214,24 @@ function Form() {
       sectionActiveState: 2,
       sectionFields: [
         {
-          validation: { dateValidation },
+          validation: dateValidation,
           label: "Date of joining",
           type: "date",
           name: "dateOfJoining",
           isRequired: true,
         },
         {
-          validation: { nameValidation },
+          validation: nameValidation,
           label: "Deisgnation",
           type: "text",
           name: "designation",
+          isRequired: true,
+        },
+        {
+          validation: numberValidation,
+          label: "Salary",
+          type: "text",
+          name: "salary",
           isRequired: true,
         },
         {
@@ -272,7 +279,7 @@ function Form() {
           type: "file",
           name: "photoId",
           accept: "image/*",
-          isRequired: true,
+          isRequired: true,  
         },
       ],
     },
@@ -309,14 +316,20 @@ function Form() {
               return (
                 <>
                   {activeSection === formSection.sectionActiveState && (
-                    <Fieldset key={formSection.sectionActiveState} className="form-details ">
+                    <Fieldset
+                      key={formSection.sectionActiveState}
+                      className="form-details "
+                    >
                       <legend className="subheading">
                         {formSection.sectionName}
                       </legend>
                       <>
                         {formSection.sectionFields.map(
                           (sectionField: IInputProps) => (
-                            <Input key={sectionField.name} config={sectionField} />
+                            <Input
+                              key={sectionField.name}
+                              config={sectionField}
+                            />
                           )
                         )}
                       </>
@@ -375,9 +388,11 @@ function Form() {
                         validationStatus = await methods.trigger([
                           "dateOfJoining",
                           "isActive",
+                          "designation",
                           "role",
                           "department",
                           "skills",
+                          "salary",
                         ]);
                         break;
                       default:

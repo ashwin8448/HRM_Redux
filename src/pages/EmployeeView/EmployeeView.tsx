@@ -1,3 +1,4 @@
+import DummyImg from "../../assets/userAvatar.svg";
 import { IEmployee } from "../../core/interfaces/interface";
 import { getDateView, getWorkExp } from "../../utils/helper.ts";
 import DetailsSection from "../../components/Details/Details.tsx";
@@ -9,7 +10,16 @@ const EmployeeView = ({ employee }: { employee: IEmployee | FieldValues }) => {
     <>
       {" "}
       <div className="flex employee-intro-section">
-        <img src={employee.photoId} alt="Employee image" />
+        <img
+          src={
+            employee.photoId === ""
+              ? DummyImg
+              : typeof employee.photoId === "string"
+              ? employee.photoId
+              : URL.createObjectURL(employee.photoId[0])
+          }
+          alt="Employee image"
+        />
         <div className="flex employee-intro">
           <h2>{employee.firstName + " " + employee.lastName}</h2>
           <div className="employee-status">

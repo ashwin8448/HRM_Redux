@@ -7,6 +7,7 @@ import InputError from "../InputError/InputError.tsx";
 import RadioGrp from "../Radio/RadioGrp.tsx";
 import InputWrapper from "./input.ts";
 import FormSelect from "../../pages/EmployeeUpdate/FormSelect/FormSelect.tsx";
+import PhotoInput from "./PhotoInput.tsx";
 
 function Input({ config }: { config: IInputProps }) {
   const {
@@ -23,20 +24,8 @@ function Input({ config }: { config: IInputProps }) {
         let inputToRender = <></>;
         switch (config.type) {
           case "file":
-            inputToRender = (
-              <div className="employee-img-container">
-                <div className="employee-img">
-                  <span
-                    className="material-symbols-outlined close-btn"
-                    onClick={() => console.log("Hi")}
-                  >
-                    {" "}
-                    close
-                  </span>
-                  <img src="" alt="Employee Image" />
-                </div>
-              </div>
-            );
+            inputToRender = <PhotoInput config={config} />;
+            break;
           case "text":
           case "date":
           case "tel":
