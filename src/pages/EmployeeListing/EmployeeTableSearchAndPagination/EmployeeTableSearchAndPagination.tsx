@@ -13,17 +13,16 @@ function EmployeeTableSearchAndPagination({
   deleteCheckBoxesList,
   employees,
   loading,
-  employeesCount
+  employeesCount,
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  employees: IEmployee[],
-  loading: boolean,
-  employeesCount: number
+  employees: IEmployee[];
+  loading: boolean;
+  employeesCount: number;
 }) {
-
   // Pagination
   const rowsPerPage = 10;
   const [searchParams, setSearchParams] = useSearchParams({
@@ -38,8 +37,8 @@ function EmployeeTableSearchAndPagination({
     page?: string;
     sortBy?: string;
     sortDir?: string;
-    search?: string,
-    skillIds?: string,
+    search?: string;
+    skillIds?: string;
   }) => {
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
@@ -51,14 +50,17 @@ function EmployeeTableSearchAndPagination({
 
   useEffect(() => {
     store.dispatch(
-      fetchEmployeesData({
-        limit: rowsPerPage,
-        offset: (Number(searchParams.get("page") || "1") - 1) * rowsPerPage,
-        sortBy: searchParams.get("sortBy") || "id",
-        sortDir: searchParams.get("sortDir") || "asc",
-        search: searchParams.get("search") || "",
-        skillIds: searchParams.get("skillIds") || "",
-      }, "List")
+      fetchEmployeesData(
+        {
+          limit: rowsPerPage,
+          offset: (Number(searchParams.get("page") || "1") - 1) * rowsPerPage,
+          sortBy: searchParams.get("sortBy") || "id",
+          sortDir: searchParams.get("sortDir") || "asc",
+          search: searchParams.get("search") || "",
+          skillIds: searchParams.get("skillIds") || "",
+        },
+        "List"
+      )
     );
   }, [searchParams, rowsPerPage]);
 
@@ -70,6 +72,7 @@ function EmployeeTableSearchAndPagination({
         loading={loading}
       />
       <Pagination
+        deleteCheckBoxesList={deleteCheckBoxesList}
         updateSearchParams={updateSearchParams}
         rowsPerPage={rowsPerPage}
         totalPages={totalPages}

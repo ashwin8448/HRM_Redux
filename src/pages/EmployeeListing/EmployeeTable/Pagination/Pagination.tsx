@@ -8,7 +8,8 @@ import { useSearchParams } from "react-router-dom";
 function Pagination({
   rowsPerPage,
   updateSearchParams,
-  totalPages
+  totalPages,
+  deleteCheckBoxesList
 }: {
   rowsPerPage: number;
   updateSearchParams: ({
@@ -20,7 +21,11 @@ function Pagination({
     sortBy?: string | undefined;
     sortDir?: string | undefined;
   }) => void;
-  totalPages:number
+  totalPages:number;
+  deleteCheckBoxesList: {
+    checkedBoxesList: string[];
+    setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
+}
 }) {
 
   const [searchParams] = useSearchParams();
@@ -36,6 +41,7 @@ function Pagination({
     return newPage > totalPages ? totalPages : newPage < 1 ? 1 : newPage;
   };
   const updateParams = (update: number, mode?: string) => {
+    deleteCheckBoxesList.setCheckedBoxesList([]);
     currentPageNumber =
       mode === "step"
         ? checkPage(currentPageNumber + update)

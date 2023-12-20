@@ -39,9 +39,11 @@ function Checkbox({
       checked={
         employeeId
           ? deleteCheckBoxesList.checkedBoxesList.includes(employeeId)
-          : employeesIdList
-          ? deleteCheckBoxesList.checkedBoxesList.length === employeesIdList.length
-          : false
+          : employeesIdList &&
+            deleteCheckBoxesList.checkedBoxesList.length > 0 &&
+            deleteCheckBoxesList.checkedBoxesList.every((id) =>
+              employeesIdList.includes(id)
+            )
       }
     />
   );

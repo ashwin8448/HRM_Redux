@@ -14,7 +14,6 @@ import { IData, IEmployee } from '../../core/interfaces/interface.ts';
 import SearchBar from './SearchAndFilter/components/SearchBar/SearchBar.tsx';
 import Checkbox from '../../components/Checkbox/Checkbox.tsx';
 import { useSearchParams } from 'react-router-dom';
-import SelectAllCheckbox from '../../components/Checkbox/SelectAllCheckbox/SelectAllCheckbox.tsx';
 
 function EmployeeListing() {
   const matches = useMediaQuery('(min-width: 768px)');
@@ -37,6 +36,7 @@ function EmployeeListing() {
 
   const [listingActive, setListingActive] = useState('List');
   const handleActiveListing = (buttonTxt: string) => {
+    deleteCheckBoxesList.setCheckedBoxesList([]);
     setListingActive(buttonTxt);
   };
 
@@ -56,14 +56,7 @@ function EmployeeListing() {
     };
   }, [deleteModal]);
 
-  // Select all
-  const [selectAll, setSelectAll] = useState<boolean>(true);
-  const selectAllStatus={selectAll, setSelectAll}
-  const changeBtnText = () => {
-    console.log(checkedBoxesList.length,employees.length)
-    const allSelected = deleteCheckBoxesList.checkedBoxesList.length === employees.length;
-    setSelectAll(!allSelected);
-  };
+  const selectAll = deleteCheckBoxesList.checkedBoxesList.length !== employees.length;
 
   const [searchParams, setSearchParams] = useSearchParams();
   const updateSearchParams = (params: {
@@ -128,13 +121,13 @@ function EmployeeListing() {
           `Showing ${employees.length} of ${count} results`
         )}
         {!loading && listingActive === 'Grid' && (
-          <Button className="select-all" onClick={changeBtnText}>
-             {selectAll ? 'Select All' : 'Unselect All'}
-            <SelectAllCheckbox
+          <Button className="select-all" >
+            {selectAll ? 'Select All' : 'Unselect All'}
+            <Checkbox
               deleteCheckBoxesList={deleteCheckBoxesList}
               employeesIdList={employees.map((employee) => employee.id)}
             />
-           </Button>
+          </Button>
         )}
       </div>
       {listingActive == 'List' ? (
