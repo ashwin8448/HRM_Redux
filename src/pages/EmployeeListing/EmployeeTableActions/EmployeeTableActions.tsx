@@ -78,6 +78,7 @@ function EmployeeTableActions({
         <DeleteModal
           changeDltModalOpenStatus={changeDltModalOpenStatus}
           idArrayToDlt={deleteCheckBoxesList.checkedBoxesList}
+          handleActiveListing={handleActiveListing}
         />
       )}
     </>
