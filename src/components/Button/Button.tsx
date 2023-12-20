@@ -1,5 +1,6 @@
 import React from "react";
 import ButtonWrapper from "./button.ts";
+import Loader from "../Loader/Loader.tsx";
 
 function Button({
   children,
@@ -27,7 +28,7 @@ function Button({
       disabled={disabled ?? false}
     >
       {loading ? (
-        <span className="btn-loader" />
+        <Loader className="btn-loader" />
       ) : (
         <>
           {icon && <span className="material-symbols-outlined"> {icon} </span>}

@@ -16,34 +16,16 @@ const DetailsSection = ({
   matches?: boolean;
   newline?: boolean;
 }) => {
-  //check for skills overflowing the scroll width
-  const [skillsOverflow, setSkillsOverflow] = useState(false);
-  const handleSkillsOverflow = (isOverflow: boolean) => {
-    setSkillsOverflow(isOverflow);
-  };
-
   return (
-    <DetailsWrapper
-      $newline={newline}
-      $skill={typeof content != "string"}
-    >
+    <DetailsWrapper $newline={newline} $skill={typeof content != "string"}>
       <div className="description">
         <span className="material-symbols-outlined ">{icon}</span>
         {title && <span className="title">{title}</span>}
       </div>
       {typeof content === "string" ? (
         <p className="content overflow-ellipsis">{content}</p>
-      ) : Array.isArray(content) && content.length > 0 ? (
-        <>
-          <SkillsChip
-            className="overflow-ellipsis"
-            skills={content}
-            handleSkillsOverflow={handleSkillsOverflow}
-          />
-          {skillsOverflow && <Tooltip className="skills-tooltip" message={content} />}
-        </>
       ) : (
-        "-"
+        <SkillsChip skills={content} />
       )}
     </DetailsWrapper>
   );

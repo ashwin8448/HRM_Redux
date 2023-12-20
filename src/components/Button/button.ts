@@ -62,19 +62,7 @@ const ButtonWrapper = styled.button<{
     width: 24px;
     height: 24px;
     margin: auto;
-    border: 5px solid #fff;
     border-bottom-color: ${colors.WHITE_COLOR};
-    border-radius: 100%;
-    animation: rotation 1s linear infinite;
-
-    @keyframes rotation {
-      0% {
-        transform: rotate(0deg);
-      }
-      100% {
-        transform: rotate(360deg);
-      }
-    }
   }
 `;
 export default ButtonWrapper;

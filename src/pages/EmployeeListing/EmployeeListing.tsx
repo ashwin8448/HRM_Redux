@@ -1,25 +1,23 @@
-import { ToastContainer } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import EmployeeTable from './EmployeeTable/EmployeeTable.tsx';
-import StyledLink from '../../components/StyledLink.ts';
-import Button from '../../components/Button/Button.tsx';
-import { useMediaQuery } from 'usehooks-ts';
-import ButtonGrpWrapper from './../../components/Button/buttonGrpWrapper';
-import EmployeeTableActions from './EmployeeTableActions/EmployeeTableActions.tsx';
-import { useEffect, useState } from 'react';
-import SideFilterBar from './SideFilterBar/SideFilterBar.tsx';
-import EmployeeCardList from '../EmployeeCardList/EmployeeCardList.tsx';
-import { useSelector } from 'react-redux';
-import { IData } from '../../core/interfaces/interface.ts';
-import SearchBar from './SearchAndFilter/components/SearchBar/SearchBar.tsx';
-import Checkbox from '../../components/Checkbox/Checkbox.tsx';
-import { useSearchParams } from 'react-router-dom';
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+import EmployeeTable from "./List/EmployeeTable/EmployeeTable.tsx";
+import StyledLink from "../../components/StyledLink.ts";
+import Button from "../../components/Button/Button.tsx";
+import { useMediaQuery } from "usehooks-ts";
+import ButtonGrpWrapper from "./../../components/Button/buttonGrpWrapper";
+import { useEffect, useState } from "react";
+import EmployeeCardList from "./Grid/EmployeeCardList/EmployeeCardList.tsx";
+import { useSelector } from "react-redux";
+import { IData } from "../../core/interfaces/interface.ts";
+import SearchBar from "../../components/SearchBar/SearchBar.tsx";
+import Checkbox from "../../components/Checkbox/Checkbox.tsx";
+import ActionsBar from "./List/components/SideFilterBar/ActionsBar.tsx";
+import SideFilterBarWrapper from "./List/components/SideFilterBar/sideFilterBar.ts";
+import TableActions from "./List/EmployeeTable/TableComponents/TableActions/TableActions.tsx"
 
 function EmployeeListing() {
-
-
   //responsive
-  const matches = useMediaQuery('(min-width: 768px)');
+  const matches = useMediaQuery("(min-width: 768px)");
 
   // Employees data fetching
   const { employees, loading, count } = useSelector(
@@ -35,7 +33,9 @@ function EmployeeListing() {
   //checkbox click action
   const [checkedBoxesList, setCheckedBoxesList] = useState<string[]>([]);
   const deleteCheckBoxesList = { checkedBoxesList, setCheckedBoxesList };
-  const selectAll = deleteCheckBoxesList.checkedBoxesList.length == 0 || deleteCheckBoxesList.checkedBoxesList.length !== employees.length;
+  const selectAll =
+    deleteCheckBoxesList.checkedBoxesList.length == 0 ||
+    deleteCheckBoxesList.checkedBoxesList.length !== employees.length;
 
   //delte modal open on click
   const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
@@ -46,7 +46,7 @@ function EmployeeListing() {
   };
 
   //toggle between list and grid
-  const [listingActive, setListingActive] = useState('List');
+  const [listingActive, setListingActive] = useState("List");
   const handleActiveListing = (buttonTxt: string) => {
     deleteCheckBoxesList.setCheckedBoxesList([]);
     setListingActive(buttonTxt);
@@ -59,15 +59,14 @@ function EmployeeListing() {
   //body static on delete modal/side filter opening
   useEffect(() => {
     deleteModal || isSideFilterBarVisible
-      ? (document.body.style.overflow = 'hidden') // Disable scrolling
-      : (document.body.style.overflow = 'auto'); // Enable scrolling
+      ? (document.body.style.overflow = "hidden") // Disable scrolling
+      : (document.body.style.overflow = "auto"); // Enable scrolling
 
     // Cleanup function to re-enable scrolling when the component unmounts or when the modal is closed
     return () => {
-      document.body.style.overflow = 'auto';
+      document.body.style.overflow = "auto";
     };
   }, [deleteModal, isSideFilterBarVisible]);
-
 
   return (
     <>
@@ -80,17 +79,27 @@ function EmployeeListing() {
       />
       <ButtonGrpWrapper>
         <Button icon="filter_list" onClick={handleButtonClick}>
-          {matches ? 'All filters' : ''}
+          {matches ? "All filters" : ""}
         </Button>
         <StyledLink to="add-employee">
-          <Button icon="add_circle">{matches ? 'Add New Employee' : ''}</Button>
+          <Button icon="add_circle">{matches ? "Add New Employee" : ""}</Button>
         </StyledLink>
       </ButtonGrpWrapper>
       {isSideFilterBarVisible && (
-        <SideFilterBar
-          isVisible={isSideFilterBarVisible}
-          onClick={handleButtonClick}
-        />
+        <SideFilterBarWrapper
+          className="translateX"
+          $visible={isSideFilterBarVisible}
+        >
+          <div className="common-flex">
+            <label className="page-title-mobile">Filters</label>
+            <Button
+              className="close-btn"
+              icon="close"
+              onClick={handleButtonClick}
+            ></Button>
+          </div>
+          <ActionsBar onClick={handleButtonClick} />
+        </SideFilterBarWrapper>
       )}
       {isSideFilterBarVisible && (
         <div
@@ -98,7 +107,7 @@ function EmployeeListing() {
           onClick={() => setSideFilterBarVisible(false)}
         ></div>
       )}
-      <EmployeeTableActions
+      <TableActions
         listingActive={listingActive}
         handleActiveListing={handleActiveListing}
         deleteCheckBoxesList={deleteCheckBoxesList}
@@ -107,12 +116,12 @@ function EmployeeListing() {
       />
       <div className="common-flex global-padding">
         <SearchBar />
-        {!loading && listingActive === 'List' && (
-          `Showing ${employees.length} of ${count} results`
-        )}
-        {!loading && listingActive === 'Grid' && (
-          <Button className="select-all" >
-            {selectAll ? 'Select All' : 'Unselect All'}
+        {!loading &&
+          listingActive === "List" &&
+          `Showing ${employees.length} of ${count} results`}
+        {!loading && listingActive === "Grid" && (
+          <Button className="select-all">
+            {selectAll ? "Select All" : "Unselect All"}
             <Checkbox
               deleteCheckBoxesList={deleteCheckBoxesList}
               employeesIdList={employees.map((employee) => employee.id)}
@@ -120,7 +129,7 @@ function EmployeeListing() {
           </Button>
         )}
       </div>
-      {listingActive == 'List' ? (
+      {listingActive == "List" ? (
         <EmployeeTable
           deleteCheckBoxesList={deleteCheckBoxesList}
           employees={employees}

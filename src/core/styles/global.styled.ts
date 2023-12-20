@@ -33,12 +33,6 @@ body {
   display: flex;
   flex-direction: column;
 }
-.ul-reset {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
 .global-width {
   max-width: 1400px;
 }
@@ -66,25 +60,10 @@ body {
   line-height: 1.5;
   color: ${colors.SECONDARY_COLOR};
 }
-.message-text {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.5;
-  color: ${colors.SECONDARY_COLOR};
-}
 .common-flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.logo-wrap {
-  text-decoration: none;
-}
-.button-decoration {
-  font-weight: 500;
-  text-decoration: none;
-  color: ${colors.WHITE_COLOR};
 }
 .rotate {
   transform: rotate(180deg);
@@ -99,11 +78,7 @@ body {
   opacity: 0.5;
   z-index: 2;
   pointer-events: auto; /* Disable pointer events on the overlay so that clicks pass through */
-  transition: 0.5s ease;  
-
-  body{
-    overflow:hidden;
-  }
+  transition: 0.5s ease; 
 }
 .main-section {
   flex-grow:1;
@@ -111,22 +86,8 @@ body {
   margin-inline: auto;
   width: 100%
 }
-.open{
-  opacity: 0.6;
-  pointer-events: visible;
-}
-.m-30 {
-  margin-bottom: 30px;
-}
 .rotate {
   transform: rotate(180deg);
-}
-.center-screen{
-  top: 50%;
-  left: 50%;
-  position: absolute;
-  margin: auto;  
-
 }
 .table-overflow-scroll{
   border: 1px solid  #D3D3D3;
@@ -136,23 +97,14 @@ body {
   text-overflow: ellipsis;
   white-space: nowrap; 
 }
-.back-btn{
-  color:${colors.SECONDARY_COLOR};
-  cursor:pointer;
-}
-.pagination-bar {
-    width: 100%;
-    display: flex;
-    justify-content: center;
-  }
-  .infinite-scroll-loader-div {
+.infinite-scroll-loader-div {
     margin: 20px;
     width: 100%;
-  }
-  .infinite-scroll-loader {
+}
+.infinite-scroll-loader {
     justify-content: center !important;
     margin: 0 auto;
-  }
+}
 @media screen and (max-width: 1400px) {
   .table-overflow-scroll {
     overflow-x: auto;

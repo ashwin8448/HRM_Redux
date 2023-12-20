@@ -21,7 +21,8 @@ const ErrorPageWrapper = styled.div`
     color: ${colors.DARK_GRAY_COLOR};
   }
   .back-to-home-btn {
-    background-color: blue;
+    background-color: ${colors.DARK_PRIMARY_COLOR};
+    color:${colors.WHITE_COLOR}
   }
 `;
 export default ErrorPageWrapper;

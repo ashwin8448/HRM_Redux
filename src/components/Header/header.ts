@@ -36,8 +36,7 @@ const HeaderWrapper = styled.header`
     color: ${colors.SECONDARY_COLOR};
   }
   .header-tooltip {
-      visibility: hidden;
+    visibility: hidden;
   }
-
 `;
 export default HeaderWrapper;

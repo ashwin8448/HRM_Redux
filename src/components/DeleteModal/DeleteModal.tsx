@@ -12,6 +12,7 @@ import {
 import store from "../../core/store/configureStore.ts";
 import { fetchEmployeesData } from "../../core/store/actions.ts";
 import { useSearchParams } from "react-router-dom";
+import { useState } from "react";
 
 function DeleteModal({
   changeDltModalOpenStatus,
@@ -24,8 +25,10 @@ function DeleteModal({
 }) {
   const rowsPerPage = 10;
   const [searchParams] = useSearchParams();
+  const [confirmDeleteLoader, setConfirmDeleteLoader] = useState(false);
 
   const confirmDlt = async () => {
+    setConfirmDeleteLoader(true);
     try {
       // Use Promise.all to delete all employees concurrently
       await Promise.all(
@@ -48,6 +51,7 @@ function DeleteModal({
       // Error occurred during deletion
       toast.error("Error deleting users", { toastId: "delete-user" });
     } finally {
+      setConfirmDeleteLoader(false);
       // Fetch employee data after all deletions
       store.dispatch(
         fetchEmployeesData(
@@ -66,7 +70,7 @@ function DeleteModal({
     }
     changeDltModalOpenStatus();
   };
-  
+
   return (
     <DeleteModalWrapper>
       <Button
@@ -87,7 +91,12 @@ function DeleteModal({
         <Button className="cancel-btn" onClick={changeDltModalOpenStatus}>
           No, Cancel
         </Button>
-        <Button className="delete-btn" icon="delete" onClick={confirmDlt}>
+        <Button
+          className="delete-btn"
+          icon="delete"
+          onClick={confirmDlt}
+          loading={confirmDeleteLoader}
+        >
           Yes, confirm delete
         </Button>
       </ButtonGrpWrapper>
