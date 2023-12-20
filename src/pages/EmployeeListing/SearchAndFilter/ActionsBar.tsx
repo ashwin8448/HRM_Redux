@@ -6,7 +6,6 @@ import {
 import ActionsWrapper from "./actionsBar.ts";
 import { useSelector } from "react-redux";
 import FilterSelect from "./components/FilterSelect/FilterSelect.tsx";
-import FilterSelectLoader from "./components/FilterSelect/FilterSelectLoader/FilterSelectLoader.tsx";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchDropdownData } from "../../../core/store/actions.ts";
