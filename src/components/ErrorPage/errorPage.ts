@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import colors from "../../core/constants/colors";
+import styled from 'styled-components';
+import colors from '../../core/constants/colors';
 
 const ErrorPageWrapper = styled.div`
   display: flex;
@@ -9,6 +9,9 @@ const ErrorPageWrapper = styled.div`
   height: 100vh;
   gap: 10px;
 
+  .page-title {
+    margin: 0 25px;
+  }
   .error-title {
     margin: 0;
     font-size: 105px;
@@ -22,7 +25,7 @@ const ErrorPageWrapper = styled.div`
   }
   .back-to-home-btn {
     background-color: ${colors.DARK_PRIMARY_COLOR};
-    color:${colors.WHITE_COLOR}
+    color: ${colors.WHITE_COLOR};
   }
 `;
 export default ErrorPageWrapper;

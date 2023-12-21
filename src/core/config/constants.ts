@@ -10,4 +10,5 @@ export const apiURL = {
     skills: "/skills",
     roles: "/roles",
     departments: "/departments",
+    authSignIn: "/auth/sign-in"
   };

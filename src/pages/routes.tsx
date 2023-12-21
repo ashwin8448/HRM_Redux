@@ -2,6 +2,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout.tsx";
 import EmployeeListing from "./EmployeeListing/EmployeeListing.tsx";
 import ErrorPage from "../components/ErrorPage/ErrorPage.tsx";
+import OnboardPage from "./Login/Login.tsx";
 
 const router = createBrowserRouter
 (
@@ -11,7 +12,7 @@ const router = createBrowserRouter
       children: [
         {
           path: "/",
-          element: <EmployeeListing />,
+          element: <OnboardPage />,
         },    
         {
           path: "/error?statusCode=:statusCode",

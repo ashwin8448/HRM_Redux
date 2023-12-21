@@ -2,6 +2,7 @@ import { AxiosError, AxiosResponse } from "axios";
 
 export enum HTTP_STATUS {
   SUCCESS = 200,
+  INFORMATION=300,
   BAD_REQUEST = 400,
   NOT_FOUND = 404,
   FORBIDDEN = 403,
@@ -31,7 +32,10 @@ export function onResponseError(error: AxiosError): Promise<any> {
 }
 
 export function onResponse(response: AxiosResponse): Promise<AxiosResponse> {
-  if (response.status === HTTP_STATUS.SUCCESS) {
+  if (
+    response.status >= HTTP_STATUS.SUCCESS &&
+    response.status <= HTTP_STATUS.INFORMATION
+  ) {
     return Promise.resolve(response);
   }
   return Promise.reject(response);

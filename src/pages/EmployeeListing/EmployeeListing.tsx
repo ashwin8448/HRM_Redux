@@ -70,13 +70,6 @@ function EmployeeListing() {
 
   return (
     <>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        limit={1}
-        closeOnClick
-        pauseOnFocusLoss={false} // avoid pausing when the window looses the focus
-      />
       <ButtonGrpWrapper>
         <Button icon="filter_list" onClick={handleButtonClick}>
           {matches ? "All filters" : ""}
