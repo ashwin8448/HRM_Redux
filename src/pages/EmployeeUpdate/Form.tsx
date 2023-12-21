@@ -107,7 +107,7 @@ function Form() {
   }, [employeeData]);
 
   const onSubmit = methods.handleSubmit(async () => {
-    const newEmployee = getNewEmployeeDetails(methods.getValues());
+    const newEmployee = await getNewEmployeeDetails(methods.getValues());
     setIsLoading(true);
     try {
       if (urlType === "add-employee") {

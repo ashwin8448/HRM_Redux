@@ -2,8 +2,9 @@ import DummyImg from "../../assets/userAvatar.svg";
 import { useFormContext } from "react-hook-form";
 import { IInputProps } from "../../core/interfaces/interface";
 import { ChangeEvent, useState } from "react";
-import InputError from "../InputError/InputError";
-import Button from "../Button/Button";
+import InputError from "../InputError/InputError.tsx";
+import Button from "../Button/Button.tsx";
+import { uploadImage } from "../../utils/firebase.ts";
 
 const PhotoInput = ({ config }: { config: IInputProps }) => {
   console.log("Rendering");
@@ -18,27 +19,28 @@ const PhotoInput = ({ config }: { config: IInputProps }) => {
   );
   const errorMsg = errors[config.name];
   const className = errorMsg ? `input-border-error ${config.label}` : "label";
+  console.log(placeholderImage)
   return (
     <>
       <div className="employee-img-container">
-          <img
-            src={
-              placeholderImage
-                ? typeof placeholderImage === "string"
-                  ? placeholderImage
-                  : URL.createObjectURL(placeholderImage[0])
-                : DummyImg
-            }
-            alt="Employee Image"
-          />
-          <Button
-            onClick={() => {
-              setValue("photoId", "");
-              setPlaceholderImage("");
-            }}
-          >
-            Clear
-          </Button>
+        <img
+          src={
+            placeholderImage
+              ? typeof placeholderImage === "string"
+                ? placeholderImage
+                : URL.createObjectURL(placeholderImage[0])
+              : DummyImg
+          }
+          alt="Employee Image"
+        />
+        <Button
+          onClick={() => {
+            setValue("photoId", "");
+            setPlaceholderImage("");
+          }}
+        >
+          Clear
+        </Button>
       </div>
 
       <div className="input-field-error">

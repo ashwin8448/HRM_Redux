@@ -15,6 +15,7 @@ import {
 } from "../core/interfaces/interface.ts";
 import React from "react";
 import { SortDirection } from "../core/config/constants.ts";
+import { uploadImage } from "./firebase.ts";
 
 export function transformArrayToOptionsList(
   optionsArray: (ISkill | IDepartment | IRole)[]
@@ -32,7 +33,7 @@ export function concatenateNames(firstName: string, lastName: string): string {
   return `${firstName} ${lastName}`;
 }
 
-interface IGetEmployee{
+interface IGetEmployee {
   id: string;
   firstName: string;
   lastName?: string;
@@ -45,19 +46,15 @@ interface IGetEmployee{
   dateOfJoining?: string;
   address?: string;
   moreDetails?: { [key: string]: string };
-  photoId?:string
+  photoId?: string;
   role?: IRole;
   department?: IDepartment;
   skills?: ISkill[];
 }
 
-interface IAppEmployee{
+interface IAppEmployee {}
 
-}
-
-interface IPostEmployee{
-
-}
+interface IPostEmployee {}
 
 //TODO
 export function convertToFormEmployee(employee: IEmployee): IFormEmployee {
@@ -216,18 +213,22 @@ export const findSortCriteria = (children: React.ReactNode) => {
   return sortCriteria;
 };
 
-export const getNewEmployeeDetails = (formData: FieldValues): IEmployeePost => {
-  console.log(formData.department);
+export const getNewEmployeeDetails = async (
+  formData: FieldValues
+): Promise<IEmployeePost> => {
   const { photoId, skills, department, role, isActive, ...rest } = formData;
-
+  console.log(photoId[0]);
   return {
     ...rest,
     skills: skills.map((skill: ISelectOptionProps) => skill.value),
     department: department[0].value,
     role: role[0].value,
     isActive: isActive === "Yes" ? true : false,
+    moreDetails: JSON.stringify({
+      photoId:
+        typeof photoId![0] == "object" ? await uploadImage(photoId![0]) : "",
+    }),
   };
-
 };
 
 export const getDate = (dateVal: string) => {

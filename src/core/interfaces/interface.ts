@@ -56,7 +56,7 @@ export interface IEmployeePost {
   salary?: string;
   dateOfJoining?: string;
   address?: string;
-  moreDetails?: { [key: string]: string };
+  moreDetails?: string;
   role?: number;
   department?: number;
   skills?: [];

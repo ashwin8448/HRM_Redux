@@ -6,13 +6,14 @@ import ActiveChip from "../../components/ActiveChip/ActiveChip.tsx";
 import { FieldValues } from "react-hook-form";
 
 const EmployeeView = ({ employee }: { employee: IEmployee | FieldValues }) => {
+  console.log(employee)
   return (
     <>
       {" "}
       <div className="flex employee-intro-section">
         <img
           src={
-            employee.photoId === ""
+            employee.photoId === ""||employee.photoId === undefined
               ? DummyImg
               : typeof employee.photoId === "string"
               ? employee.photoId
