@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
 
-const TooltipWrapper = styled.div<{ $left: number }>`
+const TooltipWrapper = styled.div`
   position: absolute;
   background-color:  ${colors.WHITE_COLOR};
   color: ${colors.SECONDARY_COLOR};
@@ -10,12 +10,11 @@ const TooltipWrapper = styled.div<{ $left: number }>`
   border-radius: 3px;
   z-index: 1;
   top: 100%;
-  left: ${(props) => `${props.$left}% -50% `}; /* Adjust the offset to center the tooltip around the mouse */
   visibility: visible;
   opacity: 1;
   transition: opacity 0.3s ease-in-out;
   white-space: wrap;
-  max-height:300px;
+  max-height:200px;
   overflow-y:auto;
 
   &:before {
