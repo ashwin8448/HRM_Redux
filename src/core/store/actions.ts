@@ -70,7 +70,6 @@ export const fetchEmployeesData = (
   return async function (dispatch: Dispatch) {
     try {
       dispatch(setLoading(actionTypes.SET_LOADING, true));
-      console.log(params);
       const response = await getData(apiURL.employee, { params: params });
       const employeesResponseData = response.data.data;
       const employees = employeesResponseData.employees;
@@ -139,7 +138,6 @@ export const fetchEmployeesData = (
           })
         );
     } catch (error) {
-      console.log(error);
       toast.error('No data is recieved', { toastId: 'no-data' });
       console.error('Error fetching data:', error);
     } finally {
@@ -183,7 +181,6 @@ export const fetchDropdownData = () => {
     try {
       dispatch(setLoading(actionTypes.SET_SKILLS_LOADING, true));
       const skillsResponse = await getData(apiURL.skills);
-      console.log;
       const skillsResponseData: ISkill[] = skillsResponse.data.data;
       dispatch(setSkills(transformArrayToOptionsList(skillsResponseData)));
     } catch (error) {
