@@ -3,8 +3,10 @@ import { useFormContext } from "react-hook-form";
 import { IInputProps } from "../../core/interfaces/interface";
 import { ChangeEvent, useState } from "react";
 import InputError from "../InputError/InputError";
+import Button from "../Button/Button";
 
 const PhotoInput = ({ config }: { config: IInputProps }) => {
+  console.log("Rendering");
   const {
     getValues,
     setValue,
@@ -16,31 +18,27 @@ const PhotoInput = ({ config }: { config: IInputProps }) => {
   );
   const errorMsg = errors[config.name];
   const className = errorMsg ? `input-border-error ${config.label}` : "label";
-  console.log(placeholderImage);
   return (
     <>
       <div className="employee-img-container">
-        <div className="employee-img">
-          <span
-            className="material-symbols-outlined close-btn"
+          <img
+            src={
+              placeholderImage
+                ? typeof placeholderImage === "string"
+                  ? placeholderImage
+                  : URL.createObjectURL(placeholderImage[0])
+                : DummyImg
+            }
+            alt="Employee Image"
+          />
+          <Button
             onClick={() => {
               setValue("photoId", "");
               setPlaceholderImage("");
             }}
           >
-            close
-          </span>
-          <img
-            src={
-              placeholderImage === ""
-                ? DummyImg
-                : typeof placeholderImage==="string"
-                ? placeholderImage
-                : URL.createObjectURL(placeholderImage[0])
-            }
-            alt="Employee Image"
-          />
-        </div>
+            Clear
+          </Button>
       </div>
 
       <div className="input-field-error">
@@ -58,12 +56,9 @@ const PhotoInput = ({ config }: { config: IInputProps }) => {
             },
           })}
           onChange={(e: ChangeEvent<HTMLInputElement>) => {
-            if (config.type === "file") {
-              const imgURL = e.target.files && e.target.files[0];
-              setPlaceholderImage(imgURL);
-            }
+            const imgFile = e.target.files && e.target.files;
+            setPlaceholderImage(imgFile);
           }}
-          max={config.validation?.max?.value} // for date input
         />
         {errorMsg && <InputError error={errorMsg.message?.toString()} />}
       </div>

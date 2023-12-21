@@ -40,7 +40,7 @@ const EmployeeView = ({ employee }: { employee: IEmployee | FieldValues }) => {
                 icon="person"
                 title="Department"
                 content={
-                  employee.department!.department || employee.department!.label
+                  employee.department!.department || employee.department[0]!.label
                 }
               />
               <DetailsSection

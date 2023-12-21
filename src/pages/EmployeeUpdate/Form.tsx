@@ -6,15 +6,13 @@ import {
   checkEmployeesEqual,
   getNewEmployeeDetails,
   getUrlType,
-  resetFiltersAndSearchBar,
 } from "../../utils/helper.ts";
-import { Fieldset, FormWrapper, InputRow } from "./form.ts";
-import { ChangeEvent, useEffect, useState } from "react";
+import { Fieldset, FormWrapper } from "./form.ts";
+import { useEffect, useState } from "react";
 import {
   IData,
   IEmployee,
   IInputProps,
-  ITableProps,
 } from "../../core/interfaces/interface.ts";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getData, postData, updateData } from "../../core/api/functions.ts";
@@ -47,12 +45,10 @@ function Form() {
   const [isLoading, setIsLoading] = useState(employeeId ? true : false);
   const [activeSection, setActiveSection] = useState(1);
   const [employeeData, setEmployeeData] = useState<IEmployee>();
-  const defaultValues = employeeData;
   const dispatch = useDispatch();
   const methods = useForm({
     mode: "onChange",
   });
-
   const urlType = getUrlType(location.pathname);
   const navigate = useNavigate();
 
@@ -109,15 +105,6 @@ function Form() {
         methods.setValue(ObjKey, (employeeData as any)[ObjKey]);
       }
   }, [employeeData]);
-
-  const onReset = () => {
-    // const resettedTableProps: ITableProps = {
-    //   ...resetFiltersAndSearchBar(),
-    //   sort: tableProps.sort,
-    // };
-    methods.reset(defaultValues);
-    // addTableProps(resettedTableProps);
-  };
 
   const onSubmit = methods.handleSubmit(async () => {
     const newEmployee = getNewEmployeeDetails(methods.getValues());
@@ -275,11 +262,11 @@ function Form() {
       sectionActiveState: 3,
       sectionFields: [
         {
-          label: "Upload employee photograph",
+          label: "Employee Photograph",
           type: "file",
           name: "photoId",
           accept: "image/*",
-          isRequired: true,  
+          isRequired: true,
         },
       ],
     },
@@ -320,9 +307,9 @@ function Form() {
                       key={formSection.sectionActiveState}
                       className="form-details "
                     >
-                      <legend className="subheading">
+                      <h2 className="form-section-heading">
                         {formSection.sectionName}
-                      </legend>
+                      </h2>
                       <>
                         {formSection.sectionFields.map(
                           (sectionField: IInputProps) => (
@@ -339,11 +326,14 @@ function Form() {
               );
             })}
             {activeSection === 4 && (
-              <Fieldset className="form-details ">
-                <legend className="subheading">Review</legend>
-                <EmployeeViewWrapper>
-                  <EmployeeView employee={methods.getValues()}></EmployeeView>
-                </EmployeeViewWrapper>
+              <>
+                {" "}
+                <Fieldset className="form-details ">
+                  <h2 className="form-section-heading">Review</h2>
+                  <EmployeeViewWrapper>
+                    <EmployeeView employee={methods.getValues()}></EmployeeView>
+                  </EmployeeViewWrapper>
+                </Fieldset>
                 <ButtonGrpWrapper>
                   <Button icon="" onClick={() => setActiveSection(1)}>
                     Edit
@@ -352,11 +342,11 @@ function Form() {
                     Submit
                   </Button>
                 </ButtonGrpWrapper>
-              </Fieldset>
+              </>
             )}
             {activeSection === 5 && (
               <Fieldset className="form-details ">
-                <legend className="subheading">Submit</legend>
+                <h2 className="form-section-heading">Submit</h2>
               </Fieldset>
             )}
             {activeSection < 4 && (
@@ -398,21 +388,13 @@ function Form() {
                       default:
                         validationStatus = true;
                     }
-                    validationStatus && setActiveSection(activeSection + 1);
+                    true && setActiveSection(activeSection + 1);
                   }}
                 >
                   Next
                 </Button>
               </ButtonGrpWrapper>
             )}
-            {/* <ButtonGrpWrapper>
-            {urlType !== "add-employee" && (
-              <Button icon="" onClick={onReset}>
-                Clear
-              </Button>
-            )}
-
-          </ButtonGrpWrapper> */}
           </form>
         </FormProvider>
       </FormWrapper>

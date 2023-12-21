@@ -2,14 +2,13 @@ import styled from "styled-components";
 import colors from "../../core/constants/colors";
 
 const FormWrapper = styled.div`
-display: flex;
-align-items: center;
-flex-direction: column;
-form{
-  width: 70%;
-}
-`
-
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  form {
+    width: 70%;
+  }
+`;
 
 const Fieldset = styled.fieldset`
   margin: 30px 0;
@@ -17,9 +16,15 @@ const Fieldset = styled.fieldset`
   border: 1px solid ${colors.DARK_GRAY_COLOR};
   min-width: 0;
   border-radius: 15px;
+  padding: 30px;
 
   .submit-btn {
     margin: 30px;
+  }
+
+  .form-section-heading {
+    margin-top: 0;
+    color: #24262d;
   }
 `;
 const InputRow = styled.div`

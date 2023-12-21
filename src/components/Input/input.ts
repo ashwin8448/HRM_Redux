@@ -2,7 +2,7 @@ import styled from "styled-components";
 import colors from "../../core/constants/colors";
 
 const InputWrapper = styled.div`
-  gap: 10px;
+  gap: 15px;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -10,27 +10,13 @@ const InputWrapper = styled.div`
   .employee-img-container {
     width: 100%;
     display: flex;
-    justify-content: center;
-
-    .employee-img {
-      display: inline-block;
-      position: relative;
-      border: 1px solid #8f8f8f;
-      border-radius: 10px;
-      padding: 10px;
-      width: auto;
-      height: auto;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
       img {
         width: 200px;
         height: 200px;
         border-radius: 50%;
-      }
-      .close-btn {
-        position: absolute;
-        top: 10px;
-        right: 10px;
-        cursor: pointer;
-      }
     }
   }
 
