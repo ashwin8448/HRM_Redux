@@ -102,7 +102,6 @@ function EmployeeCardList({
   }, []);
 
   useEffect(() => {
-    console.log("search parans changing");
     setPage(0);
     store.dispatch(resetEmployeesGrid());
   }, [searchParams]);

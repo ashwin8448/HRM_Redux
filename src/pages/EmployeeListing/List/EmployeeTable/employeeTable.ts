@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import colors from "../../../../core/constants/colors";
+import styled from 'styled-components';
+import colors from '../../../../core/constants/colors';
 
 const TableWrapper = styled.table`
   border-collapse: separate;
@@ -74,9 +74,9 @@ const TableWrapper = styled.table`
 
   .table-loader {
     position: fixed;
-    top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
+    margin: 0;
   }
 
   @media only screen and (max-width: 1200px) {
