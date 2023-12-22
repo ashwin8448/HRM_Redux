@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { IEmployee } from "../../../../core/interfaces/interface";
+import { IReceivingEmployee } from "../../../../core/interfaces/interface";
 import EmployeeCard from "../components/EmployeeCard.tsx";
 import Loader from "../../../../components/Loader/loader.ts";
 import {
@@ -21,7 +21,7 @@ function EmployeeCardList({
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  employees: IEmployee[];
+  employees: IReceivingEmployee[];
   loading: boolean;
   cardsPerPage: number;
   totalPages: number;
@@ -110,7 +110,7 @@ function EmployeeCardList({
     <>
       <EmployeeCardListWrapper>
         {employees.length > 0 ? (
-          employees.map((employee: IEmployee) => (
+          employees.map((employee: IReceivingEmployee) => (
             <EmployeeCard
               key={employee.id}
               deleteCheckBoxesList={deleteCheckBoxesList}

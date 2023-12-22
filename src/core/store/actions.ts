@@ -1,37 +1,37 @@
-import { toast } from 'react-toastify';
-import { getData } from '../api/functions.ts';
-import * as actionTypes from './actionTypes.ts';
-import { transformArrayToOptionsList } from '../../utils/helper.ts';
+import { toast } from "react-toastify";
+import { getData } from "../api/functions.ts";
+import * as actionTypes from "./actionTypes.ts";
+import { transformArrayToOptionsList } from "../../utils/helper.ts";
 import {
   IDepartment,
-  IEmployee,
+  IReceivingEmployee,
   IRole,
   ISelectOptionProps,
   ISkill,
-} from '../interfaces/interface.ts';
-import { apiURL } from '../config/constants.ts';
-import { Dispatch } from 'redux';
+} from "../interfaces/interface.ts";
+import { apiURL } from "../config/constants.ts";
+import { Dispatch } from "redux";
 
 export const setLoading = (actionType: string, loading: boolean) => ({
   type: actionType,
   payload: loading,
 });
 export const setEmployees = (employeesData: {
-  employees: IEmployee[];
+  employees: IReceivingEmployee[];
   count: number;
 }) => ({
   type: actionTypes.SET_EMPLOYEES,
   payload: employeesData,
 });
 export const setEmployeesForList = (employeesData: {
-  employees: IEmployee[];
+  employees: IReceivingEmployee[];
   count: number;
 }) => ({
   type: actionTypes.SET_EMPLOYEES_LIST,
   payload: employeesData,
 });
 export const setEmployeesForGrid = (employeesData: {
-  employees: IEmployee[];
+  employees: IReceivingEmployee[];
   count: number;
 }) => ({
   type: actionTypes.SET_EMPLOYEES_GRID,
@@ -73,7 +73,7 @@ export const fetchEmployeesData = (
       const response = await getData(apiURL.employee, { params: params });
       const employeesResponseData = response.data.data;
       const employees = employeesResponseData.employees;
-      if (state === 'List')
+      if (state === "List")
         dispatch(
           setEmployeesForList({
             ...employeesResponseData,
@@ -138,8 +138,8 @@ export const fetchEmployeesData = (
           })
         );
     } catch (error) {
-      toast.error('No data is recieved', { toastId: 'no-data' });
-      console.error('Error fetching data:', error);
+      toast.error("No data is recieved", { toastId: "no-data" });
+      console.error("Error fetching data:", error);
     } finally {
       dispatch(setLoading(actionTypes.SET_LOADING, false));
     }
@@ -156,10 +156,10 @@ export const fetchDropdownData = () => {
         setDepartments(transformArrayToOptionsList(departmentsResponseData))
       );
     } catch (error) {
-      toast.error('Departments could not be fetched', {
-        toastId: 'no-departments-data',
+      toast.error("Departments could not be fetched", {
+        toastId: "no-departments-data",
       });
-      console.error('Error fetching dropdown data:', error);
+      console.error("Error fetching dropdown data:", error);
     } finally {
       dispatch(setLoading(actionTypes.SET_DEPARTMENTS_LOADING, false));
     }
@@ -170,10 +170,10 @@ export const fetchDropdownData = () => {
       const rolesResponseData: ISkill[] = rolesResponse.data;
       dispatch(setRoles(transformArrayToOptionsList(rolesResponseData)));
     } catch (error) {
-      toast.error('Roles could not be fetched.', {
-        toastId: 'no-roles-data',
+      toast.error("Roles could not be fetched.", {
+        toastId: "no-roles-data",
       });
-      console.error('Error fetching dropdown data:', error);
+      console.error("Error fetching dropdown data:", error);
     } finally {
       dispatch(setLoading(actionTypes.SET_ROLES_LOADING, false));
     }
@@ -184,10 +184,10 @@ export const fetchDropdownData = () => {
       const skillsResponseData: ISkill[] = skillsResponse.data.data;
       dispatch(setSkills(transformArrayToOptionsList(skillsResponseData)));
     } catch (error) {
-      toast.error('Skills could not be fetched.', {
-        toastId: 'no-skills-data',
+      toast.error("Skills could not be fetched.", {
+        toastId: "no-skills-data",
       });
-      console.error('Error fetching dropdown data:', error);
+      console.error("Error fetching dropdown data:", error);
     } finally {
       dispatch(setLoading(actionTypes.SET_SKILLS_LOADING, false));
     }

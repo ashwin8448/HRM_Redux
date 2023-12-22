@@ -1,7 +1,6 @@
-import { Control } from 'react-hook-form';
 
 export interface IData {
-  employeesData: IEmployeeData;
+  employeesData: IReceivingEmployeeData;
   dropdownData: {
     departments: {
       loading: boolean;
@@ -17,12 +16,12 @@ export interface IData {
     };
   };
 }
-export interface IEmployeeData {
-  employees: IEmployee[];
+export interface IReceivingEmployeeData {
+  employees: IReceivingEmployee[];
   count: number;
   loading: boolean;
 }
-export interface IEmployee {
+export interface IReceivingEmployee {
   id: string;
   firstName: string;
   lastName?: string;
@@ -68,10 +67,9 @@ export interface ISelectOptionProps {
 }
 export interface ISelectDropdownProps {
   label: string;
-  options?: ISelectOptionProps[]; //TODO: change to non nullable
+  options?: ISelectOptionProps[];
   placeholder: string;
   isMulti?: boolean;
-  control?: Control<IEmployee, any>;
   value?: {
     skillFilterState: ISelectOptionProps[];
     setSkillFilterState: React.Dispatch<

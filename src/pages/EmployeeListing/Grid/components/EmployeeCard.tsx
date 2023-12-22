@@ -1,4 +1,4 @@
-import { IEmployee } from "../../../../core/interfaces/interface.js";
+import { IReceivingEmployee } from "../../../../core/interfaces/interface.js";
 import EmployeeCardWrapper from "./employeeCard.ts";
 import { concatenateNames } from "../../../../utils/helper.js";
 import ActiveChip from "../../../../components/ActiveChip/ActiveChip.tsx";
@@ -14,7 +14,7 @@ function EmployeeCard({
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  employee: IEmployee;
+  employee: IReceivingEmployee;
 }) {
   const photoId = employee.moreDetails
     ? employee.moreDetails.photoId
