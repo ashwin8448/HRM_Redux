@@ -4,10 +4,12 @@ import {
   UseFormGetValues,
 } from "react-hook-form";
 import {
+  IAppEmployee,
+  ICommonEmployeeFields,
   IDepartment,
-  IEmployee,
-  IEmployeePost,
   IFormEmployee,
+  IGetEmployee,
+  IPostEmployee,
   IRole,
   ISelectOptionProps,
   ISkill,
@@ -32,29 +34,6 @@ export function transformArrayToOptionsList(
 export function concatenateNames(firstName: string, lastName: string): string {
   return `${firstName} ${lastName}`;
 }
-
-interface IGetEmployee {
-  id: string;
-  firstName: string;
-  lastName?: string;
-  isActive: boolean;
-  dob?: string;
-  email?: string;
-  phone?: string;
-  designation?: string;
-  salary?: string;
-  dateOfJoining?: string;
-  address?: string;
-  moreDetails?: { [key: string]: string };
-  photoId?: string;
-  role?: IRole;
-  department?: IDepartment;
-  skills?: ISkill[];
-}
-
-interface IAppEmployee {}
-
-interface IPostEmployee {}
 
 //TODO
 export function convertToFormEmployee(employee: IEmployee): IFormEmployee {
@@ -213,13 +192,12 @@ export const findSortCriteria = (children: React.ReactNode) => {
   return sortCriteria;
 };
 
-export const getNewEmployeeDetails = async (
+export const convertFormDataToIPostEmployees = async (
   formData: FieldValues
-): Promise<IEmployeePost> => {
+): Promise<IPostEmployee> => {
   const { photoId, skills, department, role, isActive, ...rest } = formData;
-  console.log(photoId[0]);
   return {
-    ...rest,
+    ...(rest as ICommonEmployeeFields),
     skills: skills.map((skill: ISelectOptionProps) => skill.value),
     department: department[0].value,
     role: role[0].value,
@@ -268,13 +246,13 @@ export const getUrlType = (pathName: string) => {
 };
 
 export const checkEmployeesEqual = (
-  originalEmployee: IEmployee,
-  editedEmployee: FieldValues
+  originalEmployee: IAppEmployee,
+  formEmployee: FieldValues
 ) => {
+  const editedEmployee = {...formEmployee, isActive: formEmployee.isActive==="Yes"?true:false}
   const originalEmpKeys = Object.keys(originalEmployee);
-
   for (let key of originalEmpKeys) {
-    const keyProp = key as keyof IEmployee;
+    const keyProp = key as keyof IAppEmployee;
     if (originalEmployee[keyProp] != editedEmployee[keyProp]) {
       if (keyProp === "skills" && originalEmployee.skills) {
         const skillsEqual = checkSkillsEqual(
@@ -314,10 +292,15 @@ export const checkSkillsEqual = (
   return true;
 };
 
-export const removeNullEmployees = (employees: IEmployee[]) => {
-  return employees.filter((employee) => {
-    if (employee) {
-      return employee;
-    }
-  });
+export const convertIGetEmployeeToIAppEmployee = (employee: IGetEmployee):IAppEmployee => {
+  const { moreDetails, ...rest } = employee;
+  return {
+    ...rest,
+    skills: rest.skills ? transformArrayToOptionsList(rest.skills) : [],
+    department: rest.department
+      ? transformArrayToOptionsList([rest.department])[0]
+      : {},
+    role: rest.role ? transformArrayToOptionsList([rest.role])[0] : {},
+    photoId: moreDetails ? JSON.parse(moreDetails).photoId : "",
+  };
 };

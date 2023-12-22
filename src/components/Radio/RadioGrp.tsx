@@ -24,7 +24,7 @@ function RadioGrp({
                 {...register(name, {
                     required: {
                         value: isRequired,
-                        message: "This field is required", // validation fpr radio input
+                        message: "This field is required", // validation for radio input
                     },
                 })}
             />

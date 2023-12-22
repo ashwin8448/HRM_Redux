@@ -1,4 +1,3 @@
-import { ChangeEvent } from "react";
 import { Control } from "react-hook-form";
 
 export interface IData {
@@ -21,45 +20,45 @@ export interface IData {
 }
 
 export interface IEmployeeData {
-  employees: IEmployee[];
+  employees: IAppEmployee[];
   count: number;
   loading: boolean;
 }
 
-export interface IEmployee {
-  id: string;
+interface ICommonEmployeeFields {
   firstName: string;
-  lastName?: string;
   isActive: boolean;
-  dob?: string;
-  email?: string;
-  phone?: string;
-  designation?: string;
-  salary?: string;
-  dateOfJoining?: string;
-  address?: string;
-  moreDetails?: { [key: string]: string };
-  photoId?: string|object;
-  role?: IRole;
-  department?: IDepartment;
-  skills?: ISkill[];
+  dob: string;
+  dateOfJoining: string;
+  lastName: string | null;
+  email: string | null;
+  phone: string | null;
+  designation: string | null;
+  salary: string | null;
+  address: string | null;
 }
 
-export interface IEmployeePost {
-  firstName?: string;
-  lastName?: string;
-  isActive?: boolean;
-  dob?: string;
-  email?: string;
-  phone?: string;
-  designation?: string;
-  salary?: string;
-  dateOfJoining?: string;
-  address?: string;
+export interface IGetEmployee extends ICommonEmployeeFields {
+  id: string;
+  moreDetails: string | null;
+  role: IRole;
+  department: IDepartment | null;
+  skills: ISkill[] | null;
+}
+
+export interface IAppEmployee extends ICommonEmployeeFields {
+  id: string;
+  photoId: string;
+  role: ISelectOptionProps;
+  department: ISelectOptionProps;
+  skills: ISelectOptionProps[];
+}
+
+export interface IPostEmployee extends ICommonEmployeeFields {
   moreDetails?: string;
-  role?: number;
+  role: number;
   department?: number;
-  skills?: [];
+  skills?: number[];
 }
 
 export interface ISkill {
@@ -75,23 +74,6 @@ export interface IDepartment {
   department: string;
 }
 
-//TODO:
-export interface IFormEmployee {
-  id: string;
-  firstName: string | null;
-  lastName: string | null;
-  dob: string | null;
-  email: string | null;
-  phone: string | null;
-  designation: string | null;
-  salary?: string | null;
-  dateOfJoining: string | null;
-  address: string | null;
-  role: ISelectOptionProps | null;
-  department: ISelectOptionProps | null;
-  skills: ISelectOptionProps[] | null;
-}
-
 export interface IDepartment {
   id: number;
   department: string;
@@ -102,10 +84,6 @@ export interface IRole {
   role: string;
 }
 
-export interface IEmpMode {
-  id: number;
-  mode: string;
-}
 export interface IErrorBoundaryProps {
   children: React.ReactNode;
 }
@@ -135,16 +113,16 @@ export interface IInputProps {
   };
   label: string;
   type: string;
-  options?: string[]|ISelectOptionProps[];
+  options?: string[] | ISelectOptionProps[];
   name: string;
   isRequired: boolean;
   placeholder?: string;
   isMulti?: boolean;
-  accept?:string;
+  accept?: string;
 }
 export interface ISelectOptionProps {
-  value: number;
-  label: string;
+  value?: number;
+  label?: string;
 }
 
 export interface ISelectDropdownProps {
@@ -152,7 +130,7 @@ export interface ISelectDropdownProps {
   options?: ISelectOptionProps[]; //TODO: change to non nullable
   placeholder: string;
   isMulti?: boolean;
-  control?: Control<IEmployee, any>;
+  control?: Control<IAppEmployee, any>;
   fieldName: keyof ITableProps;
   value?: ISelectOptionProps | ISelectOptionProps[] | null;
 }

@@ -4,7 +4,6 @@ import { IInputProps } from "../../core/interfaces/interface";
 import { ChangeEvent, useState } from "react";
 import InputError from "../InputError/InputError.tsx";
 import Button from "../Button/Button.tsx";
-import { uploadImage } from "../../utils/firebase.ts";
 
 const PhotoInput = ({ config }: { config: IInputProps }) => {
   console.log("Rendering");

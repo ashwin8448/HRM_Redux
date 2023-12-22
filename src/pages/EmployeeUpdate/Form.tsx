@@ -4,14 +4,15 @@ import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import Input from "../../components/Input/Input.tsx";
 import {
   checkEmployeesEqual,
-  getNewEmployeeDetails,
+  convertIGetEmployeeToIAppEmployee,
+  convertFormDataToIPostEmployees,
   getUrlType,
 } from "../../utils/helper.ts";
 import { Fieldset, FormWrapper } from "./form.ts";
 import { useEffect, useState } from "react";
 import {
+  IAppEmployee,
   IData,
-  IEmployee,
   IInputProps,
 } from "../../core/interfaces/interface.ts";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
@@ -44,7 +45,7 @@ function Form() {
   }));
   const [isLoading, setIsLoading] = useState(employeeId ? true : false);
   const [activeSection, setActiveSection] = useState(1);
-  const [employeeData, setEmployeeData] = useState<IEmployee>();
+  const [employeeData, setEmployeeData] = useState<IAppEmployee>();
   const dispatch = useDispatch();
   const methods = useForm({
     mode: "onChange",
@@ -67,29 +68,9 @@ function Form() {
               //TODO: Handling errors
               throw new Response("Employee Not Found", { status: 404 });
             } else
-              setEmployeeData({
-                ...response.data.data,
-                isActive: response.data.data.isActive ? "Yes" : "No",
-                department: [
-                  {
-                    value: response.data.data.department.id,
-                    label: response.data.data.department.department,
-                  },
-                ],
-                role: [
-                  {
-                    value: response.data.data.role.id,
-                    label: response.data.data.role.role,
-                  },
-                ],
-                skills: response.data.data.skills.map(
-                  (skill: { id: number; skill: string }) => ({
-                    value: skill.id,
-                    label: skill.skill,
-                  })
-                ),
-                photoId: JSON.parse(response.data.data.moreDetails).photoId,
-              });
+              setEmployeeData(
+                convertIGetEmployeeToIAppEmployee(response.data.data)
+              );
           })
           .catch((error) => {
             console.log(error);
@@ -102,16 +83,25 @@ function Form() {
   useEffect(() => {
     if (employeeData)
       for (let ObjKey in employeeData) {
-        methods.setValue(ObjKey, (employeeData as any)[ObjKey]);
+        methods.setValue(
+          ObjKey,
+          (
+            {
+              ...employeeData,
+              isActive: employeeData.isActive === true ? "Yes" : "No",
+            } as any
+          )[ObjKey]
+        );
       }
   }, [employeeData]);
 
   const onSubmit = methods.handleSubmit(async () => {
-    const newEmployee = await getNewEmployeeDetails(methods.getValues());
+    const newEmployee = await convertFormDataToIPostEmployees(
+      methods.getValues()
+    );
     setIsLoading(true);
     try {
       if (urlType === "add-employee") {
-        console.log("posting");
         await postData(apiURL.employee, newEmployee);
         // Display toast for success state
         toast.success(`Added user ${newEmployee.firstName}`, {
@@ -120,30 +110,34 @@ function Form() {
       } else {
         //TODO: newEmployee skill is array of numbers. this won't function properly
         if (
-          !checkEmployeesEqual(employeeData as IEmployee, methods.getValues())
+          !checkEmployeesEqual(
+            employeeData as IAppEmployee,
+            methods.getValues()
+          )
         ) {
           await updateData(apiURL.employee + "/" + employeeId, newEmployee);
           // Display toast for success state
-          toast.success(`Edited user ${newEmployee.firstName}`, {
+          toast.success(`Edited employee ${newEmployee.firstName}`, {
             toastId: "edit-toast-id",
           });
         } else {
+          //TODO:
           // Display info toast
           toast.info(`No edit has been made to ${newEmployee.firstName}`, {
             toastId: "no-edit-toast-id",
           });
-          navigate(`/`);
         }
+        navigate(`/`);
+        store.dispatch(fetchEmployeesData());
       }
     } catch (error) {
       // Display error toast
       urlType === "add-employee"
         ? toast.error("Error adding new user", { toastId: "error-add-user" })
         : toast.error("Error editing user", { toastId: "error-edit-user" });
+      setActiveSection(4);
     } finally {
       setIsLoading(false);
-      navigate(`/`);
-      store.dispatch(fetchEmployeesData());
     }
   });
   if (isLoading) return <Loader className="center-screen" />;
@@ -325,6 +319,7 @@ function Form() {
                 </>
               );
             })}
+
             {activeSection === 4 && (
               <>
                 {" "}
