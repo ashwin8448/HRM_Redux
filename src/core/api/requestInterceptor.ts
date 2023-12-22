@@ -1,8 +1,11 @@
 import { AxiosError, AxiosRequestConfig } from "axios";
+import { getCookie } from "../../utils/helper";
 
 export const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
+  const token = getCookie("accessToken")
+  
   const headers = {
-    Authorization: `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`,
+    Authorization: `Bearer ${token}`,
   };
 
     config.headers = {
@@ -13,6 +16,3 @@ export const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
     return config;
 };
 export const onRequestError = (error: AxiosError) => Promise.reject(error);
-
-
-

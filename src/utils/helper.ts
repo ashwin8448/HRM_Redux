@@ -19,3 +19,11 @@ export function transformArrayToOptionsList(
 export function concatenateNames(firstName: string, lastName: string): string {
   return `${firstName} ${lastName}`;
 }
+
+export function getCookie(name:string) {
+  const value = `; ${document.cookie}`;
+  const parts:string[] = value?.split(`; ${name}=`) ?? [];
+  if (parts && parts.length === 2) 
+      return parts?.pop()?.split(';')?.shift();
+  return null;
+}

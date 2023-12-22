@@ -1,8 +1,9 @@
 import { AxiosError, AxiosResponse } from "axios";
+import { useNavigate } from "react-router-dom";
 
 export enum HTTP_STATUS {
   SUCCESS = 200,
-  INFORMATION=300,
+  INFORMATION = 300,
   BAD_REQUEST = 400,
   NOT_FOUND = 404,
   FORBIDDEN = 403,
@@ -16,16 +17,21 @@ interface ErrorResponse {
 }
 
 export function onResponseError(error: AxiosError): Promise<any> {
-
   if (
     (error.response?.status === HTTP_STATUS.SERVER_ERROR ||
-      error.response?.status === HTTP_STATUS.UNAUTHORIZED ||
       error.response?.status === HTTP_STATUS.FORBIDDEN ||
       error.response?.status === HTTP_STATUS.NOT_FOUND ||
       error.response?.status === HTTP_STATUS.BAD_REQUEST) &&
     window.location.pathname !== "/error"
   ) {
     window.location.href = `/error?statusCode=${error.response?.status}`;
+    return Promise.reject(error.response.data as ErrorResponse);
+  }
+  if (
+    error.response?.status === HTTP_STATUS.UNAUTHORIZED &&
+    window.location.pathname !== "/error"
+  ) {
+    window.location.href = `/login`;
     return Promise.reject(error.response.data as ErrorResponse);
   }
   return Promise.reject(error.response);

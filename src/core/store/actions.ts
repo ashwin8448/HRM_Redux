@@ -8,6 +8,7 @@ import {
   IRole,
   ISelectOptionProps,
   ISkill,
+  IUser,
 } from "../interfaces/interface.ts";
 import { apiURL } from "../config/constants.ts";
 import { Dispatch } from "redux";
@@ -54,6 +55,13 @@ export const resetEmployeesGrid = () => {
     type: actionTypes.RESET_EMPLOYEES_GRID,
   };
 };
+export const setlogin = (user: IUser) => ({
+  type: actionTypes.LOGIN,
+  payload: user,
+});
+export const setlogout = () => ({
+  type: actionTypes.LOGOUT,
+});
 
 //fetch methods
 export const fetchEmployeesData = (

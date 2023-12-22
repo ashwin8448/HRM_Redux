@@ -15,6 +15,7 @@ export interface IData {
       skills: ISelectOptionProps[];
     };
   };
+  userData:IUser
 }
 export interface IReceivingEmployeeData {
   employees: IReceivingEmployee[];
@@ -53,6 +54,11 @@ export interface IDepartment {
 export interface IEmpMode {
   id: number;
   mode: string;
+}
+export interface IUser {
+  name: string;
+  isAuthenticated: boolean;
+  token:string
 }
 export interface IErrorBoundaryProps {
   children: React.ReactNode;
