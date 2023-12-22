@@ -1,4 +1,4 @@
-import { IEmployee } from "../../../../../../core/interfaces/interface.ts";
+import { IReceivingEmployee } from "../../../../../../core/interfaces/interface.ts";
 import TableDataWrapper from "./tableData.ts";
 import Button from "../../../../../../components/Button/Button.tsx";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ function TableData({
   index,
   deleteCheckBoxesList,
 }: {
-  employee: IEmployee;
+  employee: IReceivingEmployee;
   index: number;
   deleteCheckBoxesList: {
     checkedBoxesList: string[];

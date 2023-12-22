@@ -24,7 +24,7 @@ function DeleteModal({
   handleActiveListing: (button: string) => void;
 }) {
   const rowsPerPage = 10;
-  const [searchParams] = useSearchParams();
+  const [searchParams,setSearchParams] = useSearchParams({page:"1"});
   const [confirmDeleteLoader, setConfirmDeleteLoader] = useState(false);
 
   const confirmDlt = async () => {
@@ -52,6 +52,7 @@ function DeleteModal({
       toast.error("Error deleting users", { toastId: "delete-user" });
     } finally {
       setConfirmDeleteLoader(false);
+      setSearchParams({ page: "1" });
       // Fetch employee data after all deletions
       store.dispatch(
         fetchEmployeesData(
