@@ -3,7 +3,7 @@ import Button from "../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import Input from "../../components/Input/Input.tsx";
 import {
-  checkEmployeesEqual,
+  // checkEmployeesEqual,
   convertIGetEmployeeToIAppEmployee,
   convertFormDataToIPostEmployees,
   getUrlType,
@@ -46,6 +46,7 @@ function Form() {
   const [isLoading, setIsLoading] = useState(employeeId ? true : false);
   const [activeSection, setActiveSection] = useState(1);
   const [employeeData, setEmployeeData] = useState<IAppEmployee>();
+  //TODO: try to use dispatch
   const dispatch = useDispatch();
   const methods = useForm({
     mode: "onChange",
@@ -73,7 +74,7 @@ function Form() {
               );
           })
           .catch((error) => {
-            console.log(error);
+            console.error(error);
           })
           .finally(() => setIsLoading(!isLoading));
       }
@@ -83,47 +84,35 @@ function Form() {
   useEffect(() => {
     if (employeeData)
       for (let ObjKey in employeeData) {
-        methods.setValue(
-          ObjKey,
-          (
-            {
-              ...employeeData,
-              isActive: employeeData.isActive === true ? "Yes" : "No",
-            } as any
-          )[ObjKey]
-        );
+        methods.setValue(ObjKey, employeeData[ObjKey as keyof IAppEmployee]);
       }
   }, [employeeData]);
 
   const onSubmit = methods.handleSubmit(async () => {
-    const newEmployee = await convertFormDataToIPostEmployees(
-      methods.getValues()
-    );
     setIsLoading(true);
+    const formValues = methods.getValues();
     try {
       if (urlType === "add-employee") {
+        const newEmployee = await convertFormDataToIPostEmployees(formValues);
         await postData(apiURL.employee, newEmployee);
         // Display toast for success state
         toast.success(`Added user ${newEmployee.firstName}`, {
           toastId: "add-toast-id",
         });
       } else {
-        //TODO: newEmployee skill is array of numbers. this won't function properly
-        if (
-          !checkEmployeesEqual(
-            employeeData as IAppEmployee,
-            methods.getValues()
-          )
-        ) {
-          await updateData(apiURL.employee + "/" + employeeId, newEmployee);
+        if (methods.formState.isDirty) {
+          const editedEmployee = await convertFormDataToIPostEmployees(
+            formValues
+          );
+          await updateData(apiURL.employee + "/" + employeeId, editedEmployee);
           // Display toast for success state
-          toast.success(`Edited employee ${newEmployee.firstName}`, {
+          toast.success(`Edited employee ${formValues.firstName}`, {
             toastId: "edit-toast-id",
           });
         } else {
           //TODO:
           // Display info toast
-          toast.info(`No edit has been made to ${newEmployee.firstName}`, {
+          toast.info(`No edit has been made to ${formValues.firstName}`, {
             toastId: "no-edit-toast-id",
           });
         }
@@ -132,6 +121,7 @@ function Form() {
       }
     } catch (error) {
       // Display error toast
+      console.error(error);
       urlType === "add-employee"
         ? toast.error("Error adding new user", { toastId: "error-add-user" })
         : toast.error("Error editing user", { toastId: "error-edit-user" });
@@ -383,7 +373,7 @@ function Form() {
                       default:
                         validationStatus = true;
                     }
-                    true && setActiveSection(activeSection + 1);
+                    validationStatus && setActiveSection(activeSection + 1);
                   }}
                 >
                   Next

@@ -1,9 +1,7 @@
-import { IEmployee } from "../../../../core/interfaces/interface.ts";
 import TableDataWrapper from "./tableData.ts";
 import Button from "../../../../components/Button/Button.tsx";
 import { useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { concatenateNames } from "../../../../utils/helper.ts";
 import StyledLink from "../../../../components/StyledLink.ts";
 import Tooltip from "../../../../components/Tooltip/Tooltip.tsx";
 import SkillsChip from "../../../../components/Skills/SkillsChip.tsx"

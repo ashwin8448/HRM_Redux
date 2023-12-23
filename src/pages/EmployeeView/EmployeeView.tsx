@@ -1,19 +1,22 @@
 import DummyImg from "../../assets/userAvatar.svg";
-import { IEmployee } from "../../core/interfaces/interface";
+import { IAppEmployee } from "../../core/interfaces/interface";
 import { getDateView, getWorkExp } from "../../utils/helper.ts";
 import DetailsSection from "../../components/Details/Details.tsx";
 import ActiveChip from "../../components/ActiveChip/ActiveChip.tsx";
 import { FieldValues } from "react-hook-form";
 
-const EmployeeView = ({ employee }: { employee: IEmployee | FieldValues }) => {
-  console.log(employee)
+const EmployeeView = ({
+  employee,
+}: {
+  employee: IAppEmployee | FieldValues;
+}) => {
   return (
     <>
       {" "}
       <div className="flex employee-intro-section">
         <img
           src={
-            employee.photoId === ""||employee.photoId === undefined
+            employee.photoId === "" || employee.photoId === undefined
               ? DummyImg
               : typeof employee.photoId === "string"
               ? employee.photoId
@@ -24,25 +27,15 @@ const EmployeeView = ({ employee }: { employee: IEmployee | FieldValues }) => {
         <div className="flex employee-intro">
           <h2>{employee.firstName + " " + employee.lastName}</h2>
           <div className="employee-status">
-            <ActiveChip
-              isActive={
-                typeof employee.isActive === "boolean"
-                  ? employee.isActive
-                  : employee.isActive === "Yes"
-                  ? true
-                  : false
-              }
-            />
-            <span>{employee.role?.role}</span>
+            <ActiveChip isActive={employee.isActive === "Yes" ? true : false} />
+            <span>{employee.role.label}</span>
           </div>
           <div className="flex">
             <div className="employee-info">
               <DetailsSection
                 icon="person"
                 title="Department"
-                content={
-                  employee.department!.department || employee.department[0]!.label
-                }
+                content={employee.department.label}
               />
               <DetailsSection
                 icon="person"
@@ -67,20 +60,6 @@ const EmployeeView = ({ employee }: { employee: IEmployee | FieldValues }) => {
             matches
             newline={true}
           />
-          {/* <DetailsSection
-        icon="mail"
-        title="Email"
-        content={employee.email!}
-        matches
-        newline={true}
-      />
-      <DetailsSection
-        icon="phone_iphone"
-        title="Phone No"
-        content={employee.phone!}
-        matches
-        newline={true}
-      /> */}
           <DetailsSection
             icon="calendar_month"
             title="Date of Birth"
@@ -114,26 +93,6 @@ const EmployeeView = ({ employee }: { employee: IEmployee | FieldValues }) => {
             matches
             newline={true}
           />
-          {/* <DetailsSection
-        icon="mail"
-        title="Department"
-        content={employee.department!.department}
-        matches
-        newline={true}
-      /> */}
-          {/* <DetailsSection
-        icon="phone_iphone"
-        title={matches ? "Employment Mode" : ""}
-        content={employee.employment_mode!}
-        matches
-      /> */}
-          {/* <DetailsSection
-        icon="calendar_month"
-        title="Date of Joining"
-        content={getDateView(employee.dateOfJoining!)}
-        matches
-        newline={true}
-      /> */}
           <DetailsSection
             icon="home"
             title="Work Experience"

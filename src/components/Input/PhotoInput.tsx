@@ -6,7 +6,6 @@ import InputError from "../InputError/InputError.tsx";
 import Button from "../Button/Button.tsx";
 
 const PhotoInput = ({ config }: { config: IInputProps }) => {
-  console.log("Rendering");
   const {
     getValues,
     setValue,
@@ -18,7 +17,6 @@ const PhotoInput = ({ config }: { config: IInputProps }) => {
   );
   const errorMsg = errors[config.name];
   const className = errorMsg ? `input-border-error ${config.label}` : "label";
-  console.log(placeholderImage)
   return (
     <>
       <div className="employee-img-container">

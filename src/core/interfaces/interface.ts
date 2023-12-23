@@ -27,9 +27,17 @@ export interface IEmployeeData {
 
 interface ICommonEmployeeFields {
   firstName: string;
-  isActive: boolean;
   dob: string;
   dateOfJoining: string;
+}
+
+export interface IGetEmployee extends ICommonEmployeeFields {
+  id: string;
+  isActive: boolean;
+  role: IRole;
+  skills: ISkill[];
+  department: IDepartment | null;
+  moreDetails: string | null;
   lastName: string | null;
   email: string | null;
   phone: string | null;
@@ -38,27 +46,33 @@ interface ICommonEmployeeFields {
   address: string | null;
 }
 
-export interface IGetEmployee extends ICommonEmployeeFields {
-  id: string;
-  moreDetails: string | null;
-  role: IRole;
-  department: IDepartment | null;
-  skills: ISkill[] | null;
-}
-
 export interface IAppEmployee extends ICommonEmployeeFields {
   id: string;
+  isActive: string;
   photoId: string;
-  role: ISelectOptionProps;
-  department: ISelectOptionProps;
-  skills: ISelectOptionProps[];
+  role: ISelectOptionProps|string;
+  department: ISelectOptionProps|string;
+  skills: ISelectOptionProps[]|string;
+  lastName: string;
+  email: string;
+  phone: string;
+  designation: string;
+  salary: string;
+  address: string;
 }
 
 export interface IPostEmployee extends ICommonEmployeeFields {
-  moreDetails?: string;
+  moreDetails: string;
   role: number;
-  department?: number;
-  skills?: number[];
+  isActive: boolean;
+  department: number;
+  skills: number[];
+  lastName: string;
+  email: string;
+  phone: string;
+  designation: string;
+  salary: string;
+  address: string;
 }
 
 export interface ISkill {
@@ -120,6 +134,7 @@ export interface IInputProps {
   isMulti?: boolean;
   accept?: string;
 }
+
 export interface ISelectOptionProps {
   value?: number;
   label?: string;

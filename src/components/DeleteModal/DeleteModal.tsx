@@ -22,7 +22,6 @@ function DeleteModal({
         // TODO: Deleting employee
         // TODO: Toast on sucess and error
         // TODO: Fetch again after deleting
-
         changeDltModalOpenStatus();
     };
 

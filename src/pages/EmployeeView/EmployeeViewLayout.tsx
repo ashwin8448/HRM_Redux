@@ -8,6 +8,7 @@ import { toast } from "react-toastify";
 import { getData } from "../../core/api/functions.ts";
 import EmployeeView from "./EmployeeView.tsx";
 import { IAppEmployee } from "../../core/interfaces/interface.ts";
+import { convertIGetEmployeeToIAppEmployee } from "../../utils/helper.ts";
 
 function EmployeeViewLayout() {
   const { employeeId } = useParams();
@@ -36,10 +37,7 @@ function EmployeeViewLayout() {
           } else
             setEmployeeData((prev) => ({
               ...prev,
-              employee: {
-                ...response.data.data,
-                photoId: JSON.parse(response.data.data.moreDetails).photoId
-              },
+              employee: convertIGetEmployeeToIAppEmployee(response.data.data),
             }));
         })
         .catch((error) => {
@@ -89,4 +87,3 @@ function EmployeeViewLayout() {
 }
 
 export default EmployeeViewLayout;
-
