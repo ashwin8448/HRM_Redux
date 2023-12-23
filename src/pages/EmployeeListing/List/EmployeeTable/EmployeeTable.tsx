@@ -27,7 +27,14 @@ function EmployeeTable({
   totalPages: number;
 }) {
   // Employee fetching
-  const [searchParams] = useSearchParams();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const updateSearchParams = (params: { page?: string }) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      ...params,
+    });
+  };
+
   useEffect(() => {
     store.dispatch(
       fetchEmployeesData(
@@ -43,6 +50,10 @@ function EmployeeTable({
       )
     );
   }, [searchParams, rowsPerPage]);
+
+  useEffect(() => {
+    updateSearchParams({ page: "1" });
+  }, []);
 
   return (
     <>

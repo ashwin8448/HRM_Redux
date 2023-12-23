@@ -13,7 +13,8 @@ import SearchBar from "../../components/SearchBar/SearchBar.tsx";
 import Checkbox from "../../components/Checkbox/Checkbox.tsx";
 import ActionsBar from "./List/components/SideFilterBar/ActionsBar.tsx";
 import SideFilterBarWrapper from "./List/components/SideFilterBar/sideFilterBar.ts";
-import TableActions from "./List/EmployeeTable/TableComponents/TableActions/TableActions.tsx"
+import TableActions from "./List/EmployeeTable/TableComponents/TableActions/TableActions.tsx";
+import { useSearchParams } from "react-router-dom";
 
 function EmployeeListing() {
   //responsive
@@ -45,9 +46,21 @@ function EmployeeListing() {
     );
   };
 
+  //search params for display
+  const [searchParams, setSearchParams] = useSearchParams();
+  const updateSearchParams = (params: { display?: string }) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      ...params,
+    });
+  };
+
   //toggle between list and grid
-  const [listingActive, setListingActive] = useState("List");
+  const [listingActive, setListingActive] = useState(
+    searchParams.get("display") || "List"
+  );
   const handleActiveListing = (buttonTxt: string) => {
+    updateSearchParams({ display: buttonTxt });
     deleteCheckBoxesList.setCheckedBoxesList([]);
     setListingActive(buttonTxt);
   };
@@ -67,6 +80,10 @@ function EmployeeListing() {
       document.body.style.overflow = "auto";
     };
   }, [deleteModal, isSideFilterBarVisible]);
+
+  useEffect(() => {
+    updateSearchParams({ display: searchParams.get("display") || "List" });
+  }, [listingActive]);
 
   return (
     <>
