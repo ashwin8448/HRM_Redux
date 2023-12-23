@@ -3,14 +3,14 @@ import SkillsChip from "../Skills/SkillsChip.tsx";
 import DetailsWrapper from "./details.ts";
 
 const DetailsSection = ({
+  content,
   icon,
   title,
-  content,
   newline,
 }: {
-  icon: string;
-  title?: string;
   content: string | ISkill[] | ISelectOptionProps[];
+  icon?: string;
+  title?: string;
   matches?: boolean;
   newline?: boolean;
 }) => {

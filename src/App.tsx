@@ -4,6 +4,9 @@ import GlobalStyle from "./core/styles/global.styled.ts";
 import { Provider } from "react-redux";
 import store from "./core/store/configureStore.ts";
 import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
+
+
 
 function App() {
   return (

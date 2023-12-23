@@ -12,7 +12,6 @@ function SkillsChip({
   className?: string;
 }) {
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
-
   useEffect(() => {
     if (handleSkillsOverflow) {
       const skillsContainer = skillsContainerRef.current;

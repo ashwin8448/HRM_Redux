@@ -54,21 +54,18 @@ const EmployeeView = ({
         <h2>Personal Details</h2>
         <div className="detail-element">
           <DetailsSection
-            icon="person"
             title="Full Name"
             content={employee.firstName + " " + employee.lastName}
             matches
             newline={true}
           />
           <DetailsSection
-            icon="calendar_month"
             title="Date of Birth"
             content={getDateView(employee.dob!)}
             matches
             newline={true}
           />
           <DetailsSection
-            icon="home"
             title="Address"
             content={employee.address!}
             matches
@@ -80,28 +77,30 @@ const EmployeeView = ({
         <h2>Professional Details</h2>
         <div className="detail-element">
           <DetailsSection
-            icon="mail"
-            title="Employee ID"
-            content={String(employee.id)}
+            title="Role"
+            content={employee.role.label}
             matches
             newline={true}
           />
           <DetailsSection
-            icon="person"
             title="Designation"
             content={employee.designation!}
             matches
             newline={true}
           />
           <DetailsSection
-            icon="home"
             title="Work Experience"
             content={getWorkExp(employee.dateOfJoining!)}
             matches
             newline={true}
           />
           <DetailsSection
-            icon="home"
+            title="Salary"
+            content={employee.salary}
+            matches
+            newline={true}
+          />
+          <DetailsSection
             title="Skills"
             content={employee.skills!}
             matches
