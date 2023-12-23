@@ -46,6 +46,12 @@ function EmployeeListing() {
     );
   };
 
+  //sort dropdown open on click
+  const [sortCriteriaList, setSortCriteriaList] = useState(false); // determines whether the modal is open or close
+  const changeSortCriteria = () => {
+    setSortCriteriaList(() => !sortCriteriaList);
+  };
+
   //search params for display
   const [searchParams, setSearchParams] = useSearchParams();
   const updateSearchParams = (params: { display?: string }) => {
@@ -145,6 +151,7 @@ function EmployeeListing() {
             />
           </Button>
         )}
+        {!loading && <Button onClick={changeSortCriteria} $noTransition>Sort By</Button>}
       </div>
       {listingActive == "List" ? (
         <EmployeeTable
