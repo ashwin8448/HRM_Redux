@@ -1,6 +1,5 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout.tsx";
-import EmployeeListing from "./EmployeeListing/EmployeeListing.tsx";
 import EmployeeViewLayout from "./EmployeeView/EmployeeViewLayout.tsx";
 import Form from "./EmployeeUpdate/Form.tsx";
 
@@ -9,10 +8,6 @@ const router = createBrowserRouter(
     {
       element: <Layout></Layout>,
       children: [
-        {
-          path: "/",
-          element: <EmployeeListing></EmployeeListing>,
-        },
         {
           path: "view-employee/:employeeId",
           element: <EmployeeViewLayout />,

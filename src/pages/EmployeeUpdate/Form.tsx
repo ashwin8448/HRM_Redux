@@ -9,7 +9,7 @@ import {
   getUrlType,
 } from "../../utils/helper.ts";
 import { Fieldset, FormWrapper } from "./form.ts";
-import { useEffect, useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   IAppEmployee,
   IData,
@@ -100,7 +100,7 @@ function Form() {
           toastId: "add-toast-id",
         });
       } else {
-        if (methods.formState.isDirty) {
+        if (!methods.formState.isDirty) {
           const editedEmployee = await convertFormDataToIPostEmployees(
             formValues
           );
@@ -283,32 +283,37 @@ function Form() {
         ></ProgressBar>
         <FormProvider {...methods}>
           <form onSubmit={(e) => e.preventDefault()} noValidate>
-            {formConfig.map((formSection) => {
-              return (
-                <>
-                  {activeSection === formSection.sectionActiveState && (
-                    <Fieldset
-                      key={formSection.sectionActiveState}
-                      className="form-details "
-                    >
-                      <h2 className="form-section-heading">
-                        {formSection.sectionName}
-                      </h2>
-                      <>
-                        {formSection.sectionFields.map(
-                          (sectionField: IInputProps) => (
-                            <Input
-                              key={sectionField.name}
-                              config={sectionField}
-                            />
-                          )
-                        )}
-                      </>
-                    </Fieldset>
-                  )}
-                </>
-              );
-            })}
+            {activeSection<=3 && [formConfig
+              .find(
+                (formSection) =>
+                  activeSection === formSection.sectionActiveState
+              )!]
+              .map((formSection) => {
+                return (
+                  <React.Fragment key={formSection.sectionActiveState}>
+                    {activeSection === formSection.sectionActiveState && (
+                      <Fieldset
+                        key={formSection.sectionActiveState}
+                        className="form-details "
+                      >
+                        <h2 className="form-section-heading">
+                          {formSection.sectionName}
+                        </h2>
+                        <>
+                          {formSection.sectionFields.map(
+                            (sectionField: IInputProps) => (
+                              <Input
+                                key={sectionField.name}
+                                config={sectionField}
+                              />
+                            )
+                          )}
+                        </>
+                      </Fieldset>
+                    )}
+                  </React.Fragment>
+                );
+              })}
 
             {activeSection === 4 && (
               <>

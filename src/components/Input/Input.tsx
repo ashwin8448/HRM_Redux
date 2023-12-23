@@ -82,7 +82,7 @@ function Input({ config }: { config: IInputProps }) {
               <FormSelect
                 label={config.label}
                 options={config.options as ISelectOptionProps[]}
-                placeholder="Select department"
+                placeholder={config.placeholder!}
                 isMulti={config.isMulti}
                 fieldName={config.name}
                 isRequired={config.isRequired}
