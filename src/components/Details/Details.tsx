@@ -8,7 +8,7 @@ const DetailsSection = ({
   content,
   newline,
 }: {
-  icon: string;
+  icon?: string;
   title?: string;
   content: string | ISkill[];
   matches?: boolean;

@@ -2,28 +2,50 @@ import styled from "styled-components";
 import colors from "../../core/constants/colors";
 
 const ButtonWrapper = styled.button<{ $isChildren: boolean }>`
-  border: none;
+  border: ${(props) =>
+    props.$isChildren ? `1px solid ${colors.LIGHT_GRAY_COLOR};` : `none`};
   background: ${(props) =>
-        props.$isChildren ? `${colors.PRIMARY_COLOR}` : `transparent`};
+    props.$isChildren ? `${colors.WHITE_COLOR}` : `transparent`};
   cursor: pointer;
-  color: ${colors.WHITE_COLOR};
+  color: ${colors.SECONDARY_COLOR};
   padding: ${(props) => (props.$isChildren ? `16px 20px` : `0`)};
-  border-radius: 10px;
+  border-radius: 5px;
   text-decoration: none;
   gap: 5px;
 
-  span {
+  // for the transition
+  backface-visibility: hidden; // hide the element's back face on rotation
+
+  // a smooth transition effect over a duration of 0.2 sec
+  transform: translateZ(0) scale(1);
+  transition: transform 0.2s;
+
+  // disables text selection by the user
+  user-select: none;
+  -webkit-user-select: none;
+
+  // hint for the user agent to prioritize the processing of touch events
+  touch-action: manipulation;
+
+  //TODO: if a different color needs to be added for the icon if there is no text
+  /* span {
     color: ${(props) =>
-        props.$isChildren
-            ? `${colors.WHITE_COLOR}`
-            : `${colors.SECONDARY_COLOR}`};
-  }
+    props.$isChildren ? `${colors.WHITE_COLOR}` : `${colors.SECONDARY_COLOR}`};
+  } */
   > label {
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
   }
+
+  &:hover {
+    transform: scale(0.95); //scales the button larger when hovered
+  }
+  &:not(:disabled):active {
+    transform: translateY(-0.125rem);
+  }
+
   .btn-loader {
     width: 24px;
     height: 24px;
