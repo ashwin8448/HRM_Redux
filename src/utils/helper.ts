@@ -1,8 +1,4 @@
-import {
-  FieldValues,
-  UseFormSetValue,
-  UseFormGetValues
-} from "react-hook-form";
+import { FieldValues } from "react-hook-form";
 import {
   IAppEmployee,
   IDepartment,
@@ -11,7 +7,6 @@ import {
   IRole,
   ISelectOptionProps,
   ISkill,
-  ITableProps,
 } from "../core/interfaces/interface.ts";
 import { uploadImage } from "./firebase.ts";
 
@@ -26,49 +21,6 @@ export function transformArrayToOptionsList(
       (option as IRole)?.role,
   }));
 }
-
-export function resetFiltersAndSearchBar() {
-  const resettedValues = {
-    department: null,
-    role: null,
-    skills: null,
-    search_term: "",
-  };
-  return resettedValues;
-}
-
-export const handleChange = (
-  value: any,
-  fieldName: string,
-  getValues: UseFormGetValues<FieldValues>,
-  setValue: UseFormSetValue<FieldValues>,
-  addTableProps: (tableProps: ITableProps) => void
-) => {
-  const currentFilters: FieldValues = getValues();
-  let currentTableProps: ITableProps = {
-    ...resetFiltersAndSearchBar(),
-  };
-  Object.keys(currentFilters).forEach((key: string) => {
-    if (
-      key === "department" ||
-      key === "skills" ||
-      key === "role" ||
-      key === "search_term"
-    ) {
-      currentTableProps[key] = currentFilters[key];
-    }
-  });
-  const updatedFilters: ITableProps = {
-    ...currentTableProps,
-    [fieldName]: value,
-  };
-  Object.keys(updatedFilters).forEach((key: string) => {
-    const tablePropsKey = key as keyof ITableProps;
-    setValue(key, updatedFilters[tablePropsKey]);
-  });
-
-  addTableProps(updatedFilters);
-};
 
 export const getDate = (dateVal: string) => {
   const [year, month, day] = dateVal.split("-");

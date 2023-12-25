@@ -24,7 +24,7 @@ const router = createBrowserRouter(
       errorElement: <></>,
     },
   ],
-  { basename: import.meta.env.DEV ? "/" : "/HRM-App-React/" }
+  { basename: import.meta.env.DEV ? "/" : "/HRM_Redux/" }
 );
 
 export default router;

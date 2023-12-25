@@ -98,14 +98,6 @@ export interface IRole {
   role: string;
 }
 
-export interface IErrorBoundaryProps {
-  children: React.ReactNode;
-}
-export interface IErrorState {
-  hasError: boolean;
-  error: { message: string };
-}
-
 export interface IInputProps {
   validation?: {
     minLength?: {
