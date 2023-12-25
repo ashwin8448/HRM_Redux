@@ -1,14 +1,10 @@
-import { FieldValues } from "react-hook-form";
 import {
   IAppEmployee,
   IDepartment,
   IGetEmployee,
-  IPostEmployee,
   IRole,
-  ISelectOptionProps,
   ISkill,
 } from "../core/interfaces/interface.ts";
-import { uploadImage } from "./firebase.ts";
 
 export function transformArrayToOptionsList(
   optionsArray: (ISkill | IDepartment | IRole)[]
@@ -48,12 +44,6 @@ export const getDateView = (dateVal: string) => {
   return dateFormatted;
 };
 
-export const getUrlType = (pathName: string) => {
-  const pathParts = pathName.split("/");
-  const secondPartOfPath = pathParts[1];
-  return secondPartOfPath;
-};
-
 export const convertIGetEmployeeToIAppEmployee = (
   employee: IGetEmployee
 ): IAppEmployee => {
@@ -89,19 +79,3 @@ export const convertIGetEmployeeToIAppEmployee = (
   };
 };
 
-export const convertFormDataToIPostEmployees = async (
-  formData: FieldValues
-): Promise<IPostEmployee> => {
-  const { photoId, skills, department, role, isActive, ...rest } = formData;
-  return {
-    ...(rest as IPostEmployee),
-    skills: skills.map((skill: ISelectOptionProps) => skill.value),
-    department: department.value,
-    role: role.value,
-    isActive: isActive === "Yes" ? true : false,
-    moreDetails: JSON.stringify({
-      photoId:
-        typeof photoId![0] == "object" ? await uploadImage(photoId![0]) : "",
-    }),
-  };
-};
