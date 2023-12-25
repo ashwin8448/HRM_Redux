@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { ISkill } from "../../core/interfaces/interface";
+import { ISelectOptionProps, ISkill } from "../../core/interfaces/interface";
 import { SkillsChipWrapper, SkillsListWrapper } from "./skillsChip";
 
 function SkillsChip({
@@ -7,12 +7,11 @@ function SkillsChip({
   handleSkillsOverflow,
   className,
 }: {
-  skills: ISkill[];
+  skills: ISkill[] | ISelectOptionProps[];
   handleSkillsOverflow?: (isOverflow: boolean) => void;
   className?: string;
 }) {
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
-
   useEffect(() => {
     if (handleSkillsOverflow) {
       const skillsContainer = skillsContainerRef.current;
@@ -41,11 +40,13 @@ function SkillsChip({
     // TODO: Remove dependencies
   }, [skills, skillsContainerRef]);
 
-  return (
+  return (skills && 
     <SkillsListWrapper className={` ${className}`} ref={skillsContainerRef}>
-      {skills.map((skill: ISkill) => {
+      {skills.map((skill: ISkill | ISelectOptionProps) => {
         return (
-          <SkillsChipWrapper key={skill.id}>{skill.skill}</SkillsChipWrapper>
+          <SkillsChipWrapper key={"id" in skill ? skill.id : skill.value}>
+            {"skill" in skill ? skill.skill : skill.label}
+          </SkillsChipWrapper>
         );
       })}
     </SkillsListWrapper>

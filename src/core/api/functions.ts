@@ -14,7 +14,7 @@ export const updateData = (
     payload: any,
     config?: AxiosRequestConfig
 ) => {
-    return makeRequest('put', url, payload, config);
+    return makeRequest('patch', url, payload, config);
 };
 
 export const deleteData =  (url: string, config?: AxiosRequestConfig)=> {

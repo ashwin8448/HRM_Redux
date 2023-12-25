@@ -39,3 +39,9 @@ export const nameValidation = {
     },
   };
   
+  export const numberValidation = {
+    pattern: {
+      value: /^\d+$/,
+      message: "Please enter a valid number.",
+    },
+  };

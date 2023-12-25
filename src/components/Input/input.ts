@@ -2,10 +2,23 @@ import styled from "styled-components";
 import colors from "../../core/constants/colors";
 
 const InputWrapper = styled.div`
-  gap: 10px;
+  gap: 15px;
   display: flex;
   flex-direction: column;
   flex: 1;
+
+  .employee-img-container {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+      img {
+        width: 200px;
+        height: 200px;
+        border-radius: 50%;
+    }
+  }
 
   .subheading {
     white-space: nowrap;
@@ -13,7 +26,7 @@ const InputWrapper = styled.div`
 
   input {
     padding: 10px;
-    font-weight:500;
+    font-weight: 500;
     outline: none;
     color: ${colors.SECONDARY_COLOR};
     background-color: white;

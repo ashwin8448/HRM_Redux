@@ -24,7 +24,7 @@ export function onResponseError(error: AxiosError): Promise<any> {
       error.response?.status === HTTP_STATUS.BAD_REQUEST) &&
     window.location.pathname !== "/error"
   ) {
-    window.location.href = `/error?statusCode=${error.response?.status}`;
+    // window.location.href = `/error?statusCode=${error.response?.status}`;
     return Promise.reject(error.response.data as ErrorResponse);
   }
   return Promise.reject(error.response);
