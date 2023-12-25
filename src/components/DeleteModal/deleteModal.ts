@@ -13,7 +13,7 @@ const DeleteModalWrapper = styled.div`
   align-items: center;
   justify-content: center;
   padding: 15px;
-  z-index: 2;
+  z-index: 3;
   margin: 0 auto;
   max-width: calc(100% - 30px); /* Adjusts the maximum width of the modal */
   max-height: calc(100% - 30px); /* Adjusts the maximum height of the modal */
@@ -24,6 +24,9 @@ const DeleteModalWrapper = styled.div`
     font-size: 22px;
     line-height: 1.5;
     color: ${colors.SECONDARY_COLOR};
+  }
+  .confirm-delete{
+    width: 100%;
   }
   .warning-container {
     display: flex;
@@ -52,7 +55,8 @@ const DeleteModalWrapper = styled.div`
   }
   .delete-btn {
     background-color: #e02424 !important;
-
+    color:${colors.WHITE_COLOR};
+    
     &:hover {
       background-color: rgba(200, 30, 30, 1) !important;
     }

@@ -9,6 +9,7 @@ import { getData } from "../../core/api/functions.ts";
 import EmployeeView from "./EmployeeView.tsx";
 import { IAppEmployee } from "../../core/interfaces/interface.ts";
 import { convertIGetEmployeeToIAppEmployee } from "../../utils/helper.ts";
+import DeleteModal from "../../components/DeleteModal/DeleteModal.tsx";
 
 function EmployeeViewLayout() {
   const { employeeId } = useParams();
@@ -19,6 +20,7 @@ function EmployeeViewLayout() {
     loading: true,
     employee: null,
   });
+  const [deleteModal, setDeleteModal] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     if (!employeeId) {
@@ -48,7 +50,9 @@ function EmployeeViewLayout() {
         );
     }
   }, []);
-
+  const handleDeleteButtonClick = () => {
+    setDeleteModal(true);
+  };
   if (employeeData.loading) return <Loader className="center-screen" />;
   return (
     employeeData.employee && (
@@ -73,14 +77,24 @@ function EmployeeViewLayout() {
                 />
                 <Button
                   icon="delete"
-                  //TODO:
-                  // onClick={() => handleButtonClick("work")}
+                  onClick={() => handleDeleteButtonClick()}
                 />
               </ButtonGrpWrapper>
             </div>
           </div>
           <EmployeeView employee={employeeData.employee}></EmployeeView>
         </EmployeeViewWrapper>
+        {/* TODO:Delete employee from view page */}
+        {/* {deleteModal && (
+        <div className="overlay" onClick={handleDeleteButtonClick}></div>
+      )}
+      {deleteModal && (
+        <DeleteModal
+          changeDltModalOpenStatus={handleDeleteButtonClick}
+          idArrayToDlt={[employeeData.employee.id]}
+          handleActiveListing={handleActiveListing}
+        />
+      )} */}
       </>
     )
   );
