@@ -1,4 +1,4 @@
-import { Control } from "react-hook-form";
+
 
 export interface IData {
   employeesData: IEmployeeData;
@@ -79,14 +79,6 @@ export interface ISkill {
   id: number;
   skill: string;
 }
-export interface IRole {
-  id: number;
-  role: string;
-}
-export interface IDepartment {
-  id: number;
-  department: string;
-}
 
 export interface IDepartment {
   id: number;
@@ -130,16 +122,6 @@ export interface IInputProps {
 export interface ISelectOptionProps {
   value?: number;
   label?: string;
-}
-
-export interface ISelectDropdownProps {
-  label: string;
-  options?: ISelectOptionProps[]; //TODO: change to non nullable
-  placeholder: string;
-  isMulti?: boolean;
-  control?: Control<IAppEmployee, any>;
-  fieldName: keyof ITableProps;
-  value?: ISelectOptionProps | ISelectOptionProps[] | null;
 }
 
 export interface ITableProps {

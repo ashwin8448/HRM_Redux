@@ -1,4 +1,4 @@
-import { IEmployee } from "../../interfaces/interface.ts";
+import { IAppEmployee } from "../../interfaces/interface.ts";
 import * as actionTypes from "../actionTypes.ts";
 
 const initialState = {
@@ -11,7 +11,7 @@ function employeeReducer(
   state = initialState,
   action: {
     type: string;
-    payload: { employees: IEmployee[]; count: number } | boolean;
+    payload: { employees: IAppEmployee[]; count: number } | boolean;
   }
 ) {
   switch (action.type) {

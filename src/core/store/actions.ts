@@ -1,10 +1,13 @@
 import { toast } from "react-toastify";
 import { getData } from "../api/functions.ts";
 import * as actionTypes from "./actionTypes.ts";
-import { transformArrayToOptionsList } from "../../utils/helper.ts";
 import {
-  IEmployee,
-  IEmployeeData,
+  convertIGetEmployeeToIAppEmployee,
+  transformArrayToOptionsList,
+} from "../../utils/helper.ts";
+import {
+  IAppEmployee,
+  IGetEmployee,
   ISelectOptionProps,
   ITableProps,
 } from "../interfaces/interface.ts";
@@ -16,7 +19,7 @@ export const setLoading = (loading: boolean) => ({
   payload: loading,
 });
 export const setEmployees = (employeesData: {
-  employees: IEmployee[];
+  employees: IAppEmployee[];
   count: number;
 }) => ({
   type: actionTypes.SET_EMPLOYEES,
@@ -45,8 +48,20 @@ export const fetchEmployeesData = () => {
     try {
       dispatch(setLoading(true));
       const response = await getData(apiURL.employee);
-      const employeesResponseData: IEmployeeData = response.data.data;
-      dispatch(setEmployees(employeesResponseData));
+      const employeesResponseData = response.data.data;
+      employees: employeesResponseData.employees.map(
+        (employeeData: IGetEmployee) =>
+          convertIGetEmployeeToIAppEmployee(employeeData)
+      );
+      dispatch(
+        setEmployees({
+          ...employeesResponseData,
+          employees: employeesResponseData.employees.map(
+            (employeeData: IGetEmployee) =>
+              convertIGetEmployeeToIAppEmployee(employeeData)
+          ),
+        })
+      );
       // return dataResponse; // Resolve the promise with the data
     } catch (error) {
       toast.error("No data is recieved", { toastId: "no-data" });
@@ -60,24 +75,24 @@ export const fetchEmployeesData = () => {
 export const fetchDropdownData = () => {
   return function (dispatch: Dispatch) {
     getData(apiURL.departments)
-      .then((reponse) =>
-        dispatch(setDepartments(transformArrayToOptionsList(reponse.data)))
+      .then((response) =>
+        dispatch(setDepartments(transformArrayToOptionsList(response.data)))
       )
       .catch((error) => {
         toast.error("Departments could not be fetched.");
         console.error("Error fetching dropdown data:", error);
       });
     getData(apiURL.skills)
-      .then((reponse) =>
-        dispatch(setSkills(transformArrayToOptionsList(reponse.data.data)))
+      .then((response) =>
+        dispatch(setSkills(transformArrayToOptionsList(response.data.data)))
       )
       .catch((error) => {
         toast.error("Skills could not be fetched.");
         console.error("Error fetching dropdown data:", error);
       });
     getData(apiURL.roles)
-      .then((reponse) =>
-        dispatch(setRoles(transformArrayToOptionsList(reponse.data)))
+      .then((response) =>
+        dispatch(setRoles(transformArrayToOptionsList(response.data)))
       )
       .catch((error) => {
         toast.error("Roles could not be fetched.");
