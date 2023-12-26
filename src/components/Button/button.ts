@@ -16,9 +16,6 @@ const ButtonWrapper = styled.button<{
   text-decoration: none;
   gap: 5px;
 
-  // for the transition
-  backface-visibility: hidden; // hide the element's back face on rotation
-
   // a smooth transition effect over a duration of 0.2 sec
   ${(props) => !props.$noTransition && 'transform: translateZ(0) scale(1);'}
   transition: ${(props) => !props.$noTransition && 'transform 0.2s'};
