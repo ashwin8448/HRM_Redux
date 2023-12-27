@@ -1,4 +1,3 @@
-
 export interface IData {
   employeesData: IReceivingEmployeeData;
   dropdownData: {

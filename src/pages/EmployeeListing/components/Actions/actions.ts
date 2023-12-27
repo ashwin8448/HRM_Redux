@@ -2,7 +2,8 @@ import styled from "styled-components";
 import colors from "../../../../core/constants/colors";
 
 const ActionsWrapper = styled.div`
-  border-top: 1px solid ${colors.LIGHT_GRAY_COLOR};
+  padding: 10px 0;
+  gap: 10px;
 
   .message-text {
     margin: 0;
@@ -26,22 +27,13 @@ const ActionsWrapper = styled.div`
       }
     }
   }
-`;
-const DeleteBtnWrapper = styled.div<{ $disabled: boolean }>`
-  position: relative;
-  gap: 10px;
-  > button {
-    color: ${(props) =>
-      !props.$disabled ? `${colors.RED_COLOR}` : `${colors.LIGHT_GRAY_COLOR}`};
+
+  .action-grp{
+    gap: 5px;
   }
-  &:hover {
-    .dlt-btn-tooltip {
-      visibility: visible;
-    }
-  }
-  .dlt-btn-tooltip {
-    margin: 10px;
-    visibility: hidden;
+  
+  @media only screen and (max-width: 500px) {
+    flex-direction: column;
   }
 `;
-export { ActionsWrapper, DeleteBtnWrapper };
+export { ActionsWrapper };

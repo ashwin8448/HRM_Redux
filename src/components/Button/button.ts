@@ -11,7 +11,7 @@ const ButtonWrapper = styled.button<{
     props.$isChildren ? `${colors.WHITE_COLOR}` : `transparent`};
   cursor: pointer;
   color: ${colors.SECONDARY_COLOR};
-  padding: ${(props) => (props.$isChildren ? `10px` : `0`)};
+  padding: ${(props) => (props.$isChildren ? `5px 10px` : `0`)};
   border-radius: 5px;
   text-decoration: none;
   gap: 5px;
@@ -43,6 +43,10 @@ const ButtonWrapper = styled.button<{
     }
   }
 
+  .material-symbols-outlined{
+    font-size:20px;
+  }
+  
   &:hover {
     ${(props) => !props.$noTransition && 'transform: scale(0.95);'} // scales the button larger when hovered
   }
