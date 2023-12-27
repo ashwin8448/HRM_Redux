@@ -1,14 +1,11 @@
 import React from "react";
-import Button from "../../../../../../components/Button/Button.tsx";
-import ButtonGrpWrapper from "../../../../../../components/Button/buttonGrpWrapper.ts";
-import {
-  TableActionsWrapper,
-  DeleteBtnWrapper,
-} from "./tableActions.ts";
-import DeleteModal from "../../../../../../components/DeleteModal/DeleteModal.tsx";
-import Tooltip from "../../../../../../components/Tooltip/Tooltip.tsx";
+import Button from "../../../../components/Button/Button.tsx";
+import ButtonGrpWrapper from "../../../../components/Button/buttonGrpWrapper.ts";
+import DeleteModal from "../../../../components/DeleteModal/DeleteModal.tsx";
+import Tooltip from "../../../../components/Tooltip/Tooltip.tsx";
+import { ActionsWrapper, DeleteBtnWrapper } from "./actions.ts";
 
-function TableActions({
+function Actions({
   deleteCheckBoxesList,
   deleteModal,
   changeDltModalOpenStatus,
@@ -26,24 +23,20 @@ function TableActions({
 }) {
   return (
     <>
-      <TableActionsWrapper className="common-flex global-padding">
+      <ActionsWrapper className="common-flex global-padding">
         <ButtonGrpWrapper className=" btn-grp-view">
           <Button
             icon="format_list_bulleted"
             className={listingActive === "List" ? "active" : ""}
             onClick={() => handleActiveListing("List")}
             $noTransition={true}
-          >
-            List
-          </Button>
+          ></Button>
           <Button
             icon="grid_on"
             className={listingActive === "Grid" ? "active" : ""}
             onClick={() => handleActiveListing("Grid")}
             $noTransition={true}
-          >
-            Grid
-          </Button>
+          ></Button>
         </ButtonGrpWrapper>
         <DeleteBtnWrapper
           className="common-flex"
@@ -64,12 +57,15 @@ function TableActions({
             >
               Delete
             </Button>{" "}
-            {deleteCheckBoxesList.checkedBoxesList.length == 0  &&(
-              <Tooltip className="dlt-btn-tooltip" message=" Do select the employees to delete the necessary ones" />
+            {deleteCheckBoxesList.checkedBoxesList.length == 0 && (
+              <Tooltip
+                className="dlt-btn-tooltip"
+                message=" Do select the employees to delete the necessary ones"
+              />
             )}
           </>
         </DeleteBtnWrapper>
-      </TableActionsWrapper>
+      </ActionsWrapper>
       {deleteModal && (
         <div className="overlay" onClick={changeDltModalOpenStatus}></div>
       )}
@@ -83,4 +79,4 @@ function TableActions({
     </>
   );
 }
-export default TableActions;
+export default Actions;

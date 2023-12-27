@@ -13,8 +13,8 @@ import SearchBar from "../../components/SearchBar/SearchBar.tsx";
 import Checkbox from "../../components/Checkbox/Checkbox.tsx";
 import ActionsBar from "./List/components/SideFilterBar/ActionsBar.tsx";
 import SideFilterBarWrapper from "./List/components/SideFilterBar/sideFilterBar.ts";
-import TableActions from "./List/EmployeeTable/TableComponents/TableActions/TableActions.tsx";
 import { useSearchParams } from "react-router-dom";
+import Actions from "./components/Actions/Actions.tsx";
 
 function EmployeeListing() {
   //responsive
@@ -130,7 +130,7 @@ function EmployeeListing() {
           onClick={() => setSideFilterBarVisible(false)}
         ></div>
       )}
-      <TableActions
+      <Actions
         listingActive={listingActive}
         handleActiveListing={handleActiveListing}
         deleteCheckBoxesList={deleteCheckBoxesList}
@@ -151,7 +151,11 @@ function EmployeeListing() {
             />
           </Button>
         )}
-        {!loading && <Button onClick={changeSortCriteria} $noTransition>Sort By</Button>}
+        {!loading && (
+          <Button onClick={changeSortCriteria} $noTransition>
+            Sort By
+          </Button>
+        )}
       </div>
       {listingActive == "List" ? (
         <EmployeeTable

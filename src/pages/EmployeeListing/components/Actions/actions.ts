@@ -1,7 +1,7 @@
 import styled from "styled-components";
-import colors from "../../../../../../core/constants/colors";
+import colors from "../../../../core/constants/colors";
 
-const TableActionsWrapper = styled.div`
+const ActionsWrapper = styled.div`
   border-top: 1px solid ${colors.LIGHT_GRAY_COLOR};
 
   .message-text {
@@ -13,12 +13,14 @@ const TableActionsWrapper = styled.div`
   }
   .btn-grp-view {
     justify-content: flex-start;
-    padding: 1px;
+    padding: 2px;
     border-radius: 5px;
     background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR};
+    gap: 5px;
     > button {
       background-color: transparent;
       border: none;
+      padding: 5px;
       &.active {
         background-color: ${colors.WHITE_COLOR};
       }
@@ -42,4 +44,4 @@ const DeleteBtnWrapper = styled.div<{ $disabled: boolean }>`
     visibility: hidden;
   }
 `;
-export { TableActionsWrapper, DeleteBtnWrapper };
+export { ActionsWrapper, DeleteBtnWrapper };
