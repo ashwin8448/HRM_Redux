@@ -22,13 +22,13 @@ function userReducer(
           token: action.payload.token,
         },
       };
-    case "LOGOUT":
+    case actionTypes.LOGOUT:
       return {
         ...state,
         user: {
-          name: "",
+          name: '',
           isAuthenticated: false,
-          token: "",
+          token: '',
         },
       };
 
