@@ -26,7 +26,10 @@ function ActionsBar({ onClick }: { onClick: () => void }) {
           skills?.find((option) => option.value === Number(value))?.label || "",
       }))
     : [];
-  const updateSearchParams = (params: { page?: string; skillIds?: string }) => {
+  const updateSearchParams = (params?: {
+    page?: string;
+    skillIds?: string;
+  }) => {
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
       ...params,
@@ -41,12 +44,17 @@ function ActionsBar({ onClick }: { onClick: () => void }) {
     const skillFiltersParams = skillFilterState
       .map((option: ISelectOptionProps) => option.value)
       .join(",");
-    updateSearchParams({ skillIds: skillFiltersParams, page: "1" });
+    updateSearchParams({ skillIds: skillFiltersParams });
+    const displayValue = searchParams.get("display");
+    if (displayValue === "List") updateSearchParams({ page: "1" });
     onClick();
   };
   const resetFilters = () => {
     setSkillFilterState([]);
-    updateSearchParams({ skillIds: "", page: "1" });
+    searchParams.delete("skillIds");
+    const displayValue = searchParams.get("display");
+    if (displayValue === "List") updateSearchParams({ page: "1" });
+    else updateSearchParams();
     onClick();
   };
   useEffect(() => {

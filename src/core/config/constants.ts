@@ -1,4 +1,3 @@
-// TODO: Delete
 export enum SortDirection {
     ASC = "asc",
     DESC = "desc",

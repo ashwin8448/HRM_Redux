@@ -2,7 +2,7 @@ const colors = {
   // light theme
   PRIMARY_COLOR: "#8843CF",
   SECONDARY_COLOR: "#24262d",
-  BACKGROUND_COLOR: "#F3F5FA",
+  BACKGROUND_COLOR: "#F7F7F7",
   WHITE_COLOR: "#FFFEFF",
 
   //dark theme

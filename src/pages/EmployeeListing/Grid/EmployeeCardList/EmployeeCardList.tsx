@@ -26,20 +26,7 @@ function EmployeeCardList({
   cardsPerPage: number;
   totalPages: number;
 }) {
-  const [searchParams, setSearchParams] = useSearchParams({
-    page: "1",
-    sortBy: "id",
-    sortDir: "asc",
-    search: "",
-    skillIds: "",
-  });
-
-  const updateSearchParams = (params: { page?: string }) => {
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      ...params,
-    });
-  };
+  const [searchParams, setSearchParams] = useSearchParams();
 
   const [page, setPage] = useState<number>(0);
 
@@ -97,7 +84,8 @@ function EmployeeCardList({
   }, [searchParams]);
 
   useEffect(() => {
-    updateSearchParams({ page: "" });
+    searchParams.delete("page");
+    setSearchParams(() => searchParams)
     store.dispatch(resetEmployeesGrid());
   }, []);
 

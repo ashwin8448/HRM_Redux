@@ -13,9 +13,8 @@ import SearchBar from "../../components/SearchBar/SearchBar.tsx";
 import Checkbox from "../../components/Checkbox/Checkbox.tsx";
 import ActionsBar from "./List/components/SideFilterBar/ActionsBar.tsx";
 import SideFilterBarWrapper from "./List/components/SideFilterBar/sideFilterBar.ts";
-import TableActions from "./List/EmployeeTable/TableComponents/TableActions/TableActions.tsx"
-import { getCookie } from "../../utils/helper.ts";
-import { useNavigate } from "react-router-dom";
+import TableActions from "./List/EmployeeTable/TableComponents/TableActions/TableActions.tsx";
+import { useSearchParams } from "react-router-dom";
 
 function EmployeeListing() {
   //responsive
@@ -47,9 +46,27 @@ function EmployeeListing() {
     );
   };
 
+  //sort dropdown open on click
+  const [sortCriteriaList, setSortCriteriaList] = useState(false); // determines whether the modal is open or close
+  const changeSortCriteria = () => {
+    setSortCriteriaList(() => !sortCriteriaList);
+  };
+
+  //search params for display
+  const [searchParams, setSearchParams] = useSearchParams();
+  const updateSearchParams = (params: { display?: string }) => {
+    setSearchParams({
+      ...Object.fromEntries(searchParams.entries()),
+      ...params,
+    });
+  };
+
   //toggle between list and grid
-  const [listingActive, setListingActive] = useState("List");
+  const [listingActive, setListingActive] = useState(
+    searchParams.get("display") || "List"
+  );
   const handleActiveListing = (buttonTxt: string) => {
+    updateSearchParams({ display: buttonTxt });
     deleteCheckBoxesList.setCheckedBoxesList([]);
     setListingActive(buttonTxt);
   };
@@ -69,6 +86,10 @@ function EmployeeListing() {
       document.body.style.overflow = "auto";
     };
   }, [deleteModal, isSideFilterBarVisible]);
+
+  useEffect(() => {
+    updateSearchParams({ display: searchParams.get("display") || "List" });
+  }, [listingActive]);
 
   return (
     <>
@@ -123,6 +144,7 @@ function EmployeeListing() {
             />
           </Button>
         )}
+        {!loading && <Button onClick={changeSortCriteria} $noTransition>Sort By</Button>}
       </div>
       {listingActive == "List" ? (
         <EmployeeTable
