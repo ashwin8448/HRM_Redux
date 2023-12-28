@@ -9,7 +9,7 @@ function Header() {
 
     return (
         <HeaderWrapper>
-            <div className="header-content">
+            <div className="header-content global-width">
                 <StyledLink to="/">
                     <span className="logo">
                     <h1 className={matches ? `page-title` : `page-title-mobile`}>Employee Management</h1>

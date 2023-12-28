@@ -29,7 +29,7 @@ function SearchBar() {
           value={searchState}
           className="search-input overflow-ellipsis"
           id="search-input"
-          placeholder="Search by first name"
+          placeholder="Search by First Name"
           onFocus={handleFocus}
           onChange={(e) => {
             handleChange({ searchedTxt: e.target.value });

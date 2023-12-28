@@ -1,17 +1,13 @@
 import styled from "styled-components";
 import colors from "../../../../../core/constants/colors";
 
-const ActionsWrapper = styled.div`
+const FilterActionsWrapper = styled.div`
   margin-top: 20px;
   border-radius: 10px;
   background-color: ${colors.WHITE_COLOR};
   height: 100vh;
   display: flex;
   flex-direction: column;
-
-  > * {
-    width: 100%;
-  }
 
   .filter-all-btn {
     background-color: ${colors.DARK_PRIMARY_COLOR};
@@ -29,4 +25,4 @@ const ActionsWrapper = styled.div`
     }
   }
 `;
-export default ActionsWrapper;
+export default FilterActionsWrapper;

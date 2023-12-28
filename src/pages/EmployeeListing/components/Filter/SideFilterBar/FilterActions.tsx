@@ -9,16 +9,19 @@ import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchDropdownData } from "../../../../../core/store/actions.ts";
 import store from "../../../../../core/store/configureStore.ts";
-import ActionsWrapper from "./actionsBar.ts";
 import ButtonGrpWrapper from "../../../../../components/Button/buttonGrpWrapper.ts";
+import FilterActionsWrapper from "./filterActions.ts";
+import Loader from "../../../../../components/Loader/Loader.tsx";
 
-function ActionsBar({ onClick }: { onClick: () => void }) {
-  const skills = useSelector(
-    (state: IData) => state.dropdownData.skills.skills
+function FilterActions({ onClick }: { onClick: () => void }) {
+  const { skills, loading } = useSelector(
+    (state: IData) => state.dropdownData.skills
   );
 
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get("skillIds");
+  const display = searchParams.get("display");
+
   const skillIdsArray: ISelectOptionProps[] = filter
     ? filter.split(",").map((value: string) => ({
         value: Number(value),
@@ -26,6 +29,7 @@ function ActionsBar({ onClick }: { onClick: () => void }) {
           skills?.find((option) => option.value === Number(value))?.label || "",
       }))
     : [];
+
   const updateSearchParams = (params?: {
     page?: string;
     skillIds?: string;
@@ -42,28 +46,40 @@ function ActionsBar({ onClick }: { onClick: () => void }) {
 
   const applyFilters = () => {
     const skillFiltersParams = skillFilterState
-      .map((option: ISelectOptionProps) => option.value)
+      .map((option) => option.value)
       .join(",");
-    updateSearchParams({ skillIds: skillFiltersParams });
-    const displayValue = searchParams.get("display");
-    if (displayValue === "List") updateSearchParams({ page: "1" });
-    onClick();
+    if (skillFiltersParams) {
+      if (display === "List") {
+        updateSearchParams({ page: "1", skillIds: skillFiltersParams });
+      } else {
+        updateSearchParams({ skillIds: skillFiltersParams });
+      }
+      onClick();
+    } else {
+      resetFilters();
+    }
   };
+
   const resetFilters = () => {
     setSkillFilterState([]);
     searchParams.delete("skillIds");
-    const displayValue = searchParams.get("display");
-    if (displayValue === "List") updateSearchParams({ page: "1" });
-    else updateSearchParams();
+
+    if (display === "List") {
+      updateSearchParams({ page: "1" });
+    } else {
+      updateSearchParams();
+    }
+
     onClick();
   };
+
   useEffect(() => {
     store.dispatch(fetchDropdownData());
   }, []);
 
   return (
-    <>
-      <ActionsWrapper>
+    <FilterActionsWrapper>
+      {!loading ? (
         <FilterSelect
           label="Skills"
           options={skills}
@@ -71,16 +87,18 @@ function ActionsBar({ onClick }: { onClick: () => void }) {
           isMulti={true} //employees can have multiple skills
           value={skillFilterValue}
         />
-        <ButtonGrpWrapper className=" btn-grp">
-          <Button icon="" className="filter-all-btn" onClick={applyFilters}>
-            Apply Filters
-          </Button>
-          <Button icon="" onClick={resetFilters}>
-            Clear
-          </Button>
-        </ButtonGrpWrapper>
-      </ActionsWrapper>
-    </>
+      ) : (
+        <Loader className="center-screen" />
+      )}
+      <ButtonGrpWrapper className=" btn-grp">
+        <Button icon="" className="filter-all-btn" onClick={applyFilters}>
+          Apply Filters
+        </Button>
+        <Button icon="" onClick={resetFilters}>
+          Clear
+        </Button>
+      </ButtonGrpWrapper>
+    </FilterActionsWrapper>
   );
 }
-export default ActionsBar;
+export default FilterActions;

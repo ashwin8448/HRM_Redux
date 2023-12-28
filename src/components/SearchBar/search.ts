@@ -3,8 +3,9 @@ import colors from "../../core/constants/colors";
 
 const SearchWrapper = styled.div<{ $focus: boolean }>`
   background-color: ${colors.WHITE_COLOR};
-  border-radius: 4px;
+  border-radius: 10px;
   padding: 6px;
+  min-width: 300px;
   border: ${(props) =>
     props.$focus
       ? `1px solid  ${colors.DARK_GRAY_COLOR}`
