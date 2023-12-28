@@ -17,7 +17,18 @@ const DeleteModalWrapper = styled.div`
   margin: 0 auto;
   max-width: calc(100% - 30px); /* Adjusts the maximum width of the modal */
   max-height: calc(100% - 30px); /* Adjusts the maximum height of the modal */
+  overflow: auto;
 
+  .close-btn {
+    align-self: end;
+    background-color: transparent;
+    > span {
+      color: ${colors.DARK_GRAY_COLOR};
+    }
+    &:hover {
+      background-color: ${colors.LIGHT_GRAY_COLOR};
+    }
+  }
   .delete-modal-heading {
     margin: 0;
     font-weight: 900;
@@ -25,8 +36,17 @@ const DeleteModalWrapper = styled.div`
     line-height: 1.5;
     color: ${colors.SECONDARY_COLOR};
   }
-  .confirm-delete{
+  .confirm-delete {
     width: 100%;
+  }
+  .employees-name-list {
+    width: 100%;
+    align-self: flex-start;
+    max-height: 300px;
+    overflow: auto;
+    > * {
+      padding: 4px;
+    }
   }
   .warning-container {
     display: flex;
@@ -55,8 +75,8 @@ const DeleteModalWrapper = styled.div`
   }
   .delete-btn {
     background-color: #e02424 !important;
-    color:${colors.WHITE_COLOR};
-    
+    color: ${colors.WHITE_COLOR};
+
     &:hover {
       background-color: rgba(200, 30, 30, 1) !important;
     }
@@ -70,14 +90,9 @@ const DeleteModalWrapper = styled.div`
       background-color: rgba(243, 244, 246, 1) !important;
     }
   }
-  .close-btn {
-    align-self: end;
-    background-color: transparent;
-    > span {
-      color: ${colors.DARK_GRAY_COLOR};
-    }
-    &:hover {
-      background-color: ${colors.LIGHT_GRAY_COLOR};
+  @media only screen and (max-width: 728px) {
+    .btn-grp {
+      flex-direction: column-reverse;
     }
   }
 `;
