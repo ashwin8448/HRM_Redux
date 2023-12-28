@@ -8,12 +8,18 @@ import ProtectedRoute from "./Login/ProtectedRoute.tsx";
 const router = createBrowserRouter(
   [
     {
-      element: <Layout></Layout>,
+      element: <ProtectedRoute />,
       children: [
         {
-          path: "/",
-          element: <ProtectedRoute element={<EmployeeListing />} />,
+          path: "/login",
+          element: <Login />,
         },
+      ],
+    },
+
+    {
+      element: <Layout></Layout>,
+      children: [
         {
           path: "/",
           element: <EmployeeListing />,
@@ -21,10 +27,6 @@ const router = createBrowserRouter(
         {
           path: "/error?statusCode=:statusCode",
           element: <ErrorPage />,
-        },
-        {
-          path: "/login",
-          element: <Login />,
         },
       ],
       errorElement: <ErrorPage />,

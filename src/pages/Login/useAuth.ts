@@ -76,7 +76,7 @@ const useAuth = () => {
   };
 
   const logout = () => {
-    removeCookie("accessToken", { path: "/" });
+    removeCookie("accessToken", { path: "/login" });
     dispatch(setlogout());
   };
 
