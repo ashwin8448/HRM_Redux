@@ -149,47 +149,34 @@ export const fetchEmployeesData = (
 export const fetchDropdownData = () => {
   return async function (dispatch: Dispatch) {
     try {
-      dispatch(setLoading(actionTypes.SET_DEPARTMENTS_LOADING, true));
-      const departmentsResponse = await getData(apiURL.departments);
+      // Use Promise.all to fetch data concurrently
+      const [departmentsResponse, rolesResponse, skillsResponse] = await Promise.all([
+        getData(apiURL.departments),
+        getData(apiURL.roles),
+        getData(apiURL.skills),
+      ]);
+
+      // Extract data from responses
       const departmentsResponseData: IDepartment[] = departmentsResponse.data;
-      dispatch(
-        setDepartments(transformArrayToOptionsList(departmentsResponseData))
-      );
-    } catch (error) {
-      toast.error("Departments could not be fetched", {
-        toastId: "no-departments-data",
-      });
-      console.error("Error fetching dropdown data:", error);
-    } finally {
-      dispatch(setLoading(actionTypes.SET_DEPARTMENTS_LOADING, false));
-    }
-
-    try {
-      dispatch(setLoading(actionTypes.SET_ROLES_LOADING, true));
-      const rolesResponse = await getData(apiURL.roles);
       const rolesResponseData: ISkill[] = rolesResponse.data;
-      dispatch(setRoles(transformArrayToOptionsList(rolesResponseData)));
-    } catch (error) {
-      toast.error("Roles could not be fetched.", {
-        toastId: "no-roles-data",
-      });
-      console.error("Error fetching dropdown data:", error);
-    } finally {
-      dispatch(setLoading(actionTypes.SET_ROLES_LOADING, false));
-    }
-
-    try {
-      dispatch(setLoading(actionTypes.SET_SKILLS_LOADING, true));
-      const skillsResponse = await getData(apiURL.skills);
       const skillsResponseData: ISkill[] = skillsResponse.data.data;
+
+      // Dispatch actions
+      dispatch(setDepartments(transformArrayToOptionsList(departmentsResponseData)));
+      dispatch(setRoles(transformArrayToOptionsList(rolesResponseData)));
       dispatch(setSkills(transformArrayToOptionsList(skillsResponseData)));
+
     } catch (error) {
-      toast.error("Skills could not be fetched.", {
-        toastId: "no-skills-data",
+      toast.error("Dropdown data could not be fetched.", {
+        toastId: "no-dropdown-data",
       });
       console.error("Error fetching dropdown data:", error);
     } finally {
+      // Set loading to false for all dropdowns
+      dispatch(setLoading(actionTypes.SET_DEPARTMENTS_LOADING, false));
+      dispatch(setLoading(actionTypes.SET_ROLES_LOADING, false));
       dispatch(setLoading(actionTypes.SET_SKILLS_LOADING, false));
     }
   };
 };
+

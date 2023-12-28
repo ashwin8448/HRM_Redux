@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import colors from "../../../../core/constants/colors";
 
-const ActionsWrapper = styled.div`
+const ListingActionsWrapper = styled.div`
   padding: 10px 0;
   gap: 10px;
 
@@ -36,4 +36,4 @@ const ActionsWrapper = styled.div`
     flex-direction: column;
   }
 `;
-export { ActionsWrapper };
+export default ListingActionsWrapper;

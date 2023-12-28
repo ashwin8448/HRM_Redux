@@ -6,7 +6,7 @@ import EmployeeCardList from "./Grid/EmployeeCardList/EmployeeCardList.tsx";
 import { useSelector } from "react-redux";
 import { IData } from "../../core/interfaces/interface.ts";
 import { useSearchParams } from "react-router-dom";
-import Actions from "./components/Actions/Actions.tsx";
+import ListingActions from "./components/ListingActions/ListingActions.tsx";
 import EmployeeListingWrapper from "./employeeListing.ts";
 
 function EmployeeListing() {
@@ -56,7 +56,7 @@ function EmployeeListing() {
         closeOnClick
         pauseOnFocusLoss={false} // avoid pausing when the window looses the focus
       />
-      <Actions
+      <ListingActions
         listingActive={listingActive}
         handleActiveListing={handleActiveListing}
         deleteCheckBoxesList={deleteCheckBoxesList}

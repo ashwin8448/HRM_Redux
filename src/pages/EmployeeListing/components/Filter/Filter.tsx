@@ -1,10 +1,10 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import Button from "../../../../components/Button/Button.tsx";
-import ActionsBar from "../..//List/components/SideFilterBar/ActionsBar.tsx";
-import SideFilterBarWrapper from "../../List/components/SideFilterBar/sideFilterBar.ts";
+import SideFilterBarWrapper from "./SideFilterBar/sideFilterBar.ts";
 import { useSelector } from "react-redux";
 import { IData } from "../../../../core/interfaces/interface.ts";
+import FilterActions from "./SideFilterBar/FilterActions.tsx";
 
 const Filter = () => {
   //responsive
@@ -49,7 +49,7 @@ const Filter = () => {
               onClick={handleButtonClick}
             ></Button>
           </div>
-          <ActionsBar onClick={handleButtonClick} />
+          <FilterActions onClick={handleButtonClick} />
         </SideFilterBarWrapper>
       )}
       {!loading && isSideFilterBarVisible && (

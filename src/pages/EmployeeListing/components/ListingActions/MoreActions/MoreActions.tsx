@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "../../../../../components/Button/Button.tsx";
 import { useSelector } from "react-redux";
 import { IData } from "../../../../../core/interfaces/interface.ts";
@@ -30,6 +30,15 @@ function MoreActions({
   const changeMoreActionsDropdownOpenStatus = () => {
     setMoreActionsDropdown(() => !moreActionsDropdown);
   };
+  const moreActionsRef = useRef<HTMLDivElement | null>(null); // Set the type explicitly
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      moreActionsRef.current &&
+      !moreActionsRef.current.contains(event.target as Node)
+    ) {
+      setMoreActionsDropdown(false);
+    }
+  };
 
   const { employees, loading } = useSelector(
     (state: IData) => state.employeesData
@@ -46,7 +55,10 @@ function MoreActions({
       () => deleteCheckBoxesList.checkedBoxesList.length !== 0 && !deleteModal
     );
   };
-
+  const dltBtnClick = () => {
+    changeDltModalOpenStatus();
+    changeMoreActionsDropdownOpenStatus();
+  };
   //body static on delete modal/side filter opening
   useEffect(() => {
     deleteModal
@@ -59,8 +71,18 @@ function MoreActions({
     };
   }, [deleteModal]);
 
+  useEffect(() => {
+    // Attach the event listener when the component mounts
+    document.addEventListener("click", handleOutsideClick);
+
+    // Detach the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []); // Empty dependency array ensures that the effect runs only once
+
   return (
-    <div className="dropdown-container">
+    <div className="dropdown-container" ref={moreActionsRef}>
       <Button
         className=""
         onClick={changeMoreActionsDropdownOpenStatus}
@@ -82,7 +104,7 @@ function MoreActions({
             <>
               <Button
                 className="item"
-                onClick={changeDltModalOpenStatus}
+                onClick={dltBtnClick}
                 disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
                 $noTransition
               >
@@ -103,12 +125,10 @@ function MoreActions({
           </DeleteBtnWrapper>
         </DropdownWrapper>
       )}
-      {deleteModal && (
-        <div className="overlay" onClick={changeDltModalOpenStatus}></div>
-      )}
+      {deleteModal && <div className="overlay" onClick={dltBtnClick}></div>}
       {deleteModal && (
         <DeleteModal
-          changeDltModalOpenStatus={changeDltModalOpenStatus}
+          changeDltModalOpenStatus={dltBtnClick}
           idArrayToDlt={deleteCheckBoxesList.checkedBoxesList}
           handleActiveListing={handleActiveListing}
         />

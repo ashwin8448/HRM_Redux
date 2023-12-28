@@ -1,6 +1,6 @@
 import { useSelector } from "react-redux";
 import { IData } from "../../../../core/interfaces/interface.ts";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "../../../../components/Button/Button.tsx";
 import {
   SortByDropdownItem,
@@ -25,6 +25,12 @@ function Sort() {
   const [sortDropdown, setSortDropdown] = useState(false); // determines whether the modal is open or close
   const changeSortDropdownOpenStatus = () => {
     setSortDropdown(() => !sortDropdown);
+  };
+  const dropdownRef = useRef<HTMLDivElement | null>(null); // Set the type explicitly
+  const handleOutsideClick = (event:MouseEvent) => {
+    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+      setSortDropdown(false);
+    }
   };
 
   const sortOptions = [
@@ -76,8 +82,18 @@ function Sort() {
     updateSearchParams();
   }, [sortBySelection, sortOrderSelection]);
 
+  useEffect(() => {
+    // Attach the event listener when the component mounts
+    document.addEventListener("click", handleOutsideClick);
+
+    // Detach the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, []); // Empty dependency array ensures that the effect runs only once
+
   return (
-    <div className="dropdown-container">
+    <div className="dropdown-container" ref={dropdownRef}>
       <Button onClick={changeSortDropdownOpenStatus} icon="swap_vert">
         {matches && "Sort By"}
       </Button>
@@ -98,23 +114,27 @@ function Sort() {
           ))}
           <hr />
           <SortOrderDropdownItemWrapper
-            className="common-flex"
+            className="item common-flex"
             onClick={() => handleOrderSelection(SortDirection.ASC)}
             $sortOrderSelection={sortOrderSelection === SortDirection.ASC}
           >
-            Ascending
-            <span className="material-symbols-outlined">arrow_downward</span>
+            <span className="order">
+              <span className="material-symbols-outlined">arrow_downward</span>
+              Ascending
+            </span>
             <span className="material-symbols-outlined sort-enable-icon">
               done
             </span>
           </SortOrderDropdownItemWrapper>
           <SortOrderDropdownItemWrapper
-            className="common-flex"
+            className="item common-flex"
             onClick={() => handleOrderSelection(SortDirection.DESC)}
             $sortOrderSelection={sortOrderSelection === SortDirection.DESC}
           >
-            Descending
-            <span className="material-symbols-outlined">arrow_upward</span>
+            <span className="order">
+              <span className="material-symbols-outlined">arrow_upward</span>
+              Descending
+            </span>
             <span className="material-symbols-outlined sort-enable-icon">
               done
             </span>
