@@ -51,7 +51,13 @@ const SortOrderDropdownItemWrapper = styled.span<{
 }>`
   cursor: pointer;
   padding: 5px;
-
+  &:hover {
+    background-color: #f5f5f5;
+  }
+  
+  .order{
+    gap: 4px;
+  }
   .sort-enable-icon {
     visibility: ${(props) =>
       props.$sortOrderSelection ? `visible` : `hidden`};

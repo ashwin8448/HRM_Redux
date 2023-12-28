@@ -27,8 +27,11 @@ function Sort() {
     setSortDropdown(() => !sortDropdown);
   };
   const dropdownRef = useRef<HTMLDivElement | null>(null); // Set the type explicitly
-  const handleOutsideClick = (event:MouseEvent) => {
-    if (dropdownRef.current && !dropdownRef.current.contains(event.target as Node)) {
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      dropdownRef.current &&
+      !dropdownRef.current.contains(event.target as Node)
+    ) {
       setSortDropdown(false);
     }
   };
@@ -114,11 +117,11 @@ function Sort() {
           ))}
           <hr />
           <SortOrderDropdownItemWrapper
-            className="item common-flex"
+            className="common-flex"
             onClick={() => handleOrderSelection(SortDirection.ASC)}
             $sortOrderSelection={sortOrderSelection === SortDirection.ASC}
           >
-            <span className="order">
+            <span className="order common-flex">
               <span className="material-symbols-outlined">arrow_downward</span>
               Ascending
             </span>
@@ -127,11 +130,11 @@ function Sort() {
             </span>
           </SortOrderDropdownItemWrapper>
           <SortOrderDropdownItemWrapper
-            className="item common-flex"
+            className="common-flex"
             onClick={() => handleOrderSelection(SortDirection.DESC)}
             $sortOrderSelection={sortOrderSelection === SortDirection.DESC}
           >
-            <span className="order">
+            <span className="order common-flex">
               <span className="material-symbols-outlined">arrow_upward</span>
               Descending
             </span>
