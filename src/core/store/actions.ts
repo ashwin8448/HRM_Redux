@@ -18,6 +18,7 @@ export const setLoading = (loading: boolean) => ({
   type: actionTypes.SET_LOADING,
   payload: loading,
 });
+
 export const setEmployees = (employeesData: {
   employees: IAppEmployee[];
   count: number;
@@ -25,21 +26,34 @@ export const setEmployees = (employeesData: {
   type: actionTypes.SET_EMPLOYEES,
   payload: employeesData,
 });
+
 export const setDepartments = (departments: ISelectOptionProps[]) => ({
   type: actionTypes.SET_DEPARTMENTS,
   payload: departments,
 });
+
 export const setRoles = (roles: ISelectOptionProps[]) => ({
   type: actionTypes.SET_ROLES,
   payload: roles,
 });
+
 export const setSkills = (skills: ISelectOptionProps[]) => ({
   type: actionTypes.SET_SKILLS,
   payload: skills,
 });
+
 export const setTableProps = (tableProps: ITableProps) => ({
   type: actionTypes.SET_TABLE_PROPS,
   payload: tableProps,
+});
+
+export const setLogin = (userName: string) => ({
+  type: actionTypes.LOGIN,
+  payload: userName,
+});
+
+export const setLogout = () => ({
+  type: actionTypes.LOGOUT
 });
 
 //fetch methods

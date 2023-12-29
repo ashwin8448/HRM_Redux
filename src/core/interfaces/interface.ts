@@ -1,5 +1,3 @@
-
-
 export interface IData {
   employeesData: IEmployeeData;
   dropdownData: {
@@ -17,6 +15,7 @@ export interface IData {
     };
   };
   filterData: ITableProps;
+  userData: { isAuthenticated: boolean; userName: string };
 }
 
 export interface IEmployeeData {
@@ -50,9 +49,9 @@ export interface IAppEmployee extends ICommonEmployeeFields {
   id: string;
   isActive: string;
   photoId: string;
-  role: ISelectOptionProps|string;
-  department: ISelectOptionProps|string;
-  skills: ISelectOptionProps[]|string;
+  role: ISelectOptionProps | string;
+  department: ISelectOptionProps | string;
+  skills: ISelectOptionProps[] | string;
   lastName: string;
   email: string;
   phone: string;

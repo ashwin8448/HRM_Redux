@@ -1,19 +1,25 @@
 import { createBrowserRouter } from "react-router-dom";
 import Layout from "../../pages/Layout.tsx";
-import EmployeeViewLayout from "../../pages/EmployeeView/EmployeeViewLayout.tsx";
-import Form from "../../pages/EmployeeUpdate/Form.tsx";
-import { publicRoute } from "./publicRoutes.ts";
+import routerConfig from "./routerConfig.ts";
+import RequireAuth from "./RequireAuth.tsx";
 
 const router = createBrowserRouter(
   [
     {
       element: <Layout></Layout>,
       children: [
-        ...publicRoute,
-        {
-          path: "edit-employee/:employeeId",
-          element: <Form />,
-        },
+        ...routerConfig.public.map((route) => ({
+          path: route.path,
+          element: <route.element />,
+        })),
+        ...routerConfig.private.map((route) => ({
+          path: route.path,
+          element: (
+            <RequireAuth>
+              <route.element />
+            </RequireAuth>
+          ),
+        })),
       ],
       errorElement: <></>,
     },
