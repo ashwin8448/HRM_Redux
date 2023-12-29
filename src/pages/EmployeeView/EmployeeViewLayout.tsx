@@ -84,17 +84,16 @@ function EmployeeViewLayout() {
           </div>
           <EmployeeView employee={employeeData.employee}></EmployeeView>
         </EmployeeViewWrapper>
-        {/* TODO:Delete employee from view page */}
         {/* {deleteModal && (
-        <div className="overlay" onClick={handleDeleteButtonClick}></div>
-      )}
-      {deleteModal && (
-        <DeleteModal
-          changeDltModalOpenStatus={handleDeleteButtonClick}
-          idArrayToDlt={[employeeData.employee.id]}
-          handleActiveListing={handleActiveListing}
-        />
-      )} */}
+          <>
+            <div className="overlay" onClick={handleDeleteButtonClick}></div>
+            <DeleteModal
+              changeDltModalOpenStatus={handleDeleteButtonClick}
+              idArrayToDlt={[employeeData.employee.id]}
+              handleActiveListing={handleActiveListing}
+            />
+          </>
+        )} */}
       </>
     )
   );

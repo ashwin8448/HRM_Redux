@@ -2,13 +2,16 @@ import { Outlet } from "react-router-dom";
 import Header from "../components/Header/Header.tsx";
 import Footer from "../components/Footer/Footer.tsx";
 import { useEffect } from "react";
-import store from "../core/store/configureStore.ts";
 import { fetchDropdownData } from "../core/store/actions.ts";
+import { useAppDispatch } from "../hooks/reduxHooks.ts";
+import { useDispatch, useSelector } from "react-redux";
 
 function Layout() {
-
+    useDispatch
+    useSelector
+    const dispatch = useAppDispatch()
     useEffect(() => {
-       store.dispatch(fetchDropdownData()) 
+       dispatch(fetchDropdownData()) 
     },[])
     return (
         <>

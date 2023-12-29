@@ -46,7 +46,6 @@ const PhotoInput = ({ config }: { config: IInputProps }) => {
           id={config.label}
           className={className}
           accept={config.accept}
-          placeholder={`Enter your ${config.label}`}
           {...register(config.name, {
             ...config.validation,
             required: {

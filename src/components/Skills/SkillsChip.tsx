@@ -36,8 +36,6 @@ function SkillsChip({
         window.removeEventListener("resize", handleResize);
       };
     }
-
-    // TODO: Remove dependencies
   }, [skills, skillsContainerRef]);
 
   return (skills && 

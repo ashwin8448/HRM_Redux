@@ -3,7 +3,6 @@ import Button from "../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import Input from "../../components/Input/Input.tsx";
 import {
-  // checkEmployeesEqual,
   convertIGetEmployeeToIAppEmployee,
   convertFormDataToIPostEmployees,
   getUrlType,
@@ -12,42 +11,31 @@ import { Fieldset, FormWrapper } from "./form.ts";
 import React, { useEffect, useState } from "react";
 import {
   IAppEmployee,
-  IData,
   IInputProps,
+  ISelectOptionProps,
 } from "../../core/interfaces/interface.ts";
 import { useLocation, useNavigate, useParams } from "react-router-dom";
 import { getData, postData, updateData } from "../../core/api/functions.ts";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader/Loader.tsx";
 import ProgressBar from "../../components/ProgressBar/ProgressBar.tsx";
-import {
-  nameValidation,
-  emailValidation,
-  phoneValidation,
-  addressValidation,
-  dateValidation,
-  numberValidation,
-} from "./constants/validationConfig.ts";
 import { apiURL } from "../../core/config/constants.ts";
-import { useDispatch, useSelector } from "react-redux";
-import { fetchEmployeesData } from "../../core/store/actions.ts";
-import store from "../../core/store/configureStore.ts";
 import EmployeeView from "../EmployeeView/EmployeeView.tsx";
 import EmployeeViewWrapper from "../EmployeeView/employeeView.ts";
+import getFormConfig from "./formConfig.ts";
+import { useAppSelector } from "../../hooks/reduxHooks.ts";
 
-function Form() {
+const Form = () => {
   const { employeeId } = useParams();
   const location = useLocation();
-  const { departments, roles, skills } = useSelector((state: IData) => ({
-    departments: state.dropdownData.departments.departments,
-    roles: state.dropdownData.roles.roles,
-    skills: state.dropdownData.skills.skills,
-  }));
+  const departments = useAppSelector(
+    (state) => state.dropdownData.departments.departments
+  );
+  const roles = useAppSelector((state) => state.dropdownData.roles.roles);
+  const skills = useAppSelector((state) => state.dropdownData.skills.skills);
   const [isLoading, setIsLoading] = useState(employeeId ? true : false);
   const [activeSection, setActiveSection] = useState(1);
   const [employeeData, setEmployeeData] = useState<IAppEmployee>();
-  //TODO: try to use dispatch
-  const dispatch = useDispatch();
   const methods = useForm({
     mode: "onChange",
   });
@@ -66,7 +54,6 @@ function Form() {
         getData("/employee/" + employeeId)
           .then((response) => {
             if (!response.data) {
-              //TODO: Handling errors
               throw new Response("Employee Not Found", { status: 404 });
             } else
               setEmployeeData(
@@ -83,8 +70,8 @@ function Form() {
 
   useEffect(() => {
     if (employeeData)
-      for (let ObjKey in employeeData) {
-        methods.setValue(ObjKey, employeeData[ObjKey as keyof IAppEmployee]);
+      for (let employeeProperty in employeeData) {
+        methods.setValue(employeeProperty, employeeData[employeeProperty as keyof IAppEmployee]);
       }
   }, [employeeData]);
 
@@ -100,6 +87,7 @@ function Form() {
           toastId: "add-toast-id",
         });
       } else {
+        //TODO: Photo update is not dirty.
         if (!methods.formState.isDirty) {
           const editedEmployee = await convertFormDataToIPostEmployees(
             formValues
@@ -110,14 +98,12 @@ function Form() {
             toastId: "edit-toast-id",
           });
         } else {
-          //TODO:
           // Display info toast
           toast.info(`No edit has been made to ${formValues.firstName}`, {
             toastId: "no-edit-toast-id",
           });
         }
         navigate(`/`);
-        store.dispatch(fetchEmployeesData());
       }
     } catch (error) {
       // Display error toast
@@ -130,131 +116,14 @@ function Form() {
       setIsLoading(false);
     }
   });
+
+  const formConfig = getFormConfig({
+    departments: departments as ISelectOptionProps[],
+    skills: skills as ISelectOptionProps[],
+    roles: roles as ISelectOptionProps[],
+  });
+
   if (isLoading) return <Loader className="center-screen" />;
-  const formConfig = [
-    {
-      sectionName: "Personal Details",
-      sectionActiveState: 1,
-      sectionFields: [
-        {
-          validation: nameValidation,
-          label: "First name",
-          type: "text",
-          name: "firstName",
-          isRequired: true,
-        },
-        {
-          validation: nameValidation,
-          label: "Last name",
-          type: "text",
-          name: "lastName",
-          isRequired: true,
-        },
-        {
-          validation: emailValidation,
-          label: "Email",
-          type: "email",
-          name: "email",
-          isRequired: true,
-        },
-        {
-          validation: phoneValidation,
-          label: "Phone number",
-          type: "tel",
-          name: "phone",
-          isRequired: true,
-        },
-        {
-          validation: addressValidation,
-          label: "Address",
-          type: "textarea",
-          name: "address",
-          isRequired: true,
-        },
-        {
-          validation: dateValidation,
-          label: "Date of birth",
-          type: "date",
-          name: "dob",
-          isRequired: true,
-        },
-      ],
-    },
-    {
-      sectionName: "Professional Details",
-      sectionActiveState: 2,
-      sectionFields: [
-        {
-          validation: dateValidation,
-          label: "Date of joining",
-          type: "date",
-          name: "dateOfJoining",
-          isRequired: true,
-        },
-        {
-          validation: nameValidation,
-          label: "Deisgnation",
-          type: "text",
-          name: "designation",
-          isRequired: true,
-        },
-        {
-          validation: numberValidation,
-          label: "Salary",
-          type: "text",
-          name: "salary",
-          isRequired: true,
-        },
-        {
-          label: "Currently employed",
-          type: "radio",
-          options: ["Yes", "No"],
-          name: "isActive",
-          isRequired: true,
-        },
-        {
-          label: "Choose department",
-          type: "dropdown",
-          options: departments,
-          name: "department",
-          placeholder: "Select department",
-          isMulti: false,
-          isRequired: true,
-        },
-        {
-          label: "Choose role",
-          type: "dropdown",
-          options: roles,
-          name: "role",
-          placeholder: "Select role",
-          isMulti: false,
-          isRequired: true,
-        },
-        {
-          label: "Choose skills",
-          type: "dropdown",
-          options: skills,
-          name: "skills",
-          placeholder: "Select skills",
-          isMulti: true,
-          isRequired: true,
-        },
-      ],
-    },
-    {
-      sectionName: "Uploads",
-      sectionActiveState: 3,
-      sectionFields: [
-        {
-          label: "Employee Photograph",
-          type: "file",
-          name: "photoId",
-          accept: "image/*",
-          isRequired: true,
-        },
-      ],
-    },
-  ];
   return (
     <>
       <span
@@ -278,17 +147,17 @@ function Form() {
             "Professional Details",
             "Uploads",
             "Review",
-            "Submit",
           ]}
         ></ProgressBar>
         <FormProvider {...methods}>
           <form onSubmit={(e) => e.preventDefault()} noValidate>
-            {activeSection<=3 && [formConfig
-              .find(
-                (formSection) =>
-                  activeSection === formSection.sectionActiveState
-              )!]
-              .map((formSection) => {
+            {activeSection <= 3 &&
+              [
+                formConfig.find(
+                  (formSection) =>
+                    activeSection === formSection.sectionActiveState
+                )!,
+              ].map((formSection) => {
                 return (
                   <React.Fragment key={formSection.sectionActiveState}>
                     {activeSection === formSection.sectionActiveState && (
@@ -334,14 +203,8 @@ function Form() {
                 </ButtonGrpWrapper>
               </>
             )}
-            {activeSection === 5 && (
-              <Fieldset className="form-details ">
-                <h2 className="form-section-heading">Submit</h2>
-              </Fieldset>
-            )}
             {activeSection < 4 && (
               <ButtonGrpWrapper>
-                {/* TODO: disabled button */}
                 <Button
                   icon=""
                   disabled={!(activeSection > 1)}
@@ -390,5 +253,5 @@ function Form() {
       </FormWrapper>
     </>
   );
-}
+};
 export default Form;

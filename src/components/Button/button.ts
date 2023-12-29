@@ -27,7 +27,6 @@ const ButtonWrapper = styled.button<{ $isChildren: boolean }>`
   // hint for the user agent to prioritize the processing of touch events
   touch-action: manipulation;
 
-  //TODO: if a different color needs to be added for the icon if there is no text
   /* span {
     color: ${(props) =>
     props.$isChildren ? `${colors.WHITE_COLOR}` : `${colors.SECONDARY_COLOR}`};

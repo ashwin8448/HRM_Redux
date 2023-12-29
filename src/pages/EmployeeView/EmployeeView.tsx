@@ -33,19 +33,27 @@ const EmployeeView = ({
           <div className="flex">
             <div className="employee-info">
               <DetailsSection
-                icon="person"
+                icon="work"
                 title="Department"
                 content={employee.department.label}
               />
               <DetailsSection
-                icon="person"
+                icon="calendar_month"
                 title="Date hired"
                 content={getDateView(employee.dateOfJoining!)}
               />
             </div>
             <div className="employee-info">
-              <DetailsSection icon="mail" content={employee.email!} />
-              <DetailsSection icon="phone_iphone" content={employee.phone!} />
+              <DetailsSection
+                icon="mail"
+                title="Email"
+                content={employee.email!}
+              />
+              <DetailsSection
+                icon="phone_iphone"
+                title="Phone"
+                content={employee.phone!}
+              />
             </div>
           </div>
         </div>

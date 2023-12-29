@@ -36,6 +36,7 @@ export const getWorkExp = (dateOfJoining: string) => {
   const workExp: number = Math.floor(
     (now.getTime() - DOJ.getTime()) / (1000 * 60 * 60 * 24 * 30)
   );
+  if (workExp <= 1) return "Less than a month";
   return workExp.toString() + "  months";
 };
 

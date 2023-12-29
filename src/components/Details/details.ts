@@ -14,7 +14,6 @@ const DetailsWrapper = styled.div<{ $newline?: boolean; $skill?: boolean }>`
   }
 
   .title {
-    margin-left: 10px;
     font-size: 14px;
     color: ${colors.DARK_GRAY_COLOR};
   }
