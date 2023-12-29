@@ -1,5 +1,8 @@
 import { AxiosError, AxiosResponse } from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { postData } from './functions';
+import { getNewRefreshToken, setCookie } from '../../utils/helper';
+import { API } from '.';
 
 export enum HTTP_STATUS {
   SUCCESS = 200,
@@ -11,12 +14,13 @@ export enum HTTP_STATUS {
   UNAUTHORIZED = 401,
 }
 
-interface ErrorResponse {
+interface IErrorResponse {
   status: number;
   message: string;
 }
 
-export function onResponseError(error: AxiosError): Promise<any> {
+export async function onResponseError(error: AxiosError): Promise<AxiosError> {
+  const { config } = error;
   if (
     (error.response?.status === HTTP_STATUS.SERVER_ERROR ||
       error.response?.status === HTTP_STATUS.FORBIDDEN ||
@@ -25,13 +29,20 @@ export function onResponseError(error: AxiosError): Promise<any> {
     window.location.pathname !== '/error'
   ) {
     window.location.href = `/error?statusCode=${error.response?.status}`;
-    return Promise.reject(error.response.data as ErrorResponse);
+    return Promise.reject(error.response.data as IErrorResponse);
   } else if (
     error.response?.status === HTTP_STATUS.UNAUTHORIZED &&
-    window.location.pathname !== "/error"
+    window.location.pathname !== '/error'
   ) {
-    window.location.href = `/login`;
-    return Promise.reject(error.response.data as ErrorResponse);
+    const refreshResponse = await getNewRefreshToken();
+    console.log(refreshResponse)
+    if (refreshResponse) {
+      setCookie('accessToken', refreshResponse.access_token);
+      setCookie('refreshToken', refreshResponse.refresh_token);
+      return API(config!);
+    } else {
+      return Promise.reject(error.response.data as IErrorResponse);
+    }
   }
   return Promise.reject(error.response);
 }

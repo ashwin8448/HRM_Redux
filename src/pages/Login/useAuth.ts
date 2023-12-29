@@ -1,24 +1,69 @@
-import { useDispatch, useSelector } from "react-redux";
-import { IData } from "./../../core/interfaces/interface";
-import { useCookies } from "react-cookie";
-import { useNavigate } from "react-router-dom";
-import { apiURL } from "../../core/config/constants";
-import { postData } from "../../core/api/functions";
-import { jwtDecode } from "jwt-decode";
-import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
-import { setlogin, setlogout } from "../../core/store/actions";
-import * as actionTypes from "../../core/store/actionTypes";
+import { useDispatch, useSelector } from 'react-redux';
+import { IData } from './../../core/interfaces/interface';
+import { useCookies } from 'react-cookie';
+import { useNavigate } from 'react-router-dom';
+import { apiURL } from '../../core/config/constants';
+import { postData } from '../../core/api/functions';
+import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { toast } from 'react-toastify';
+import { useEffect, useState } from 'react';
+import { setlogin, setlogout } from '../../core/store/actions';
+import * as actionTypes from '../../core/store/actionTypes';
+import { setCookie, deleteCookie, getCookie } from '../../utils/helper';
+
+interface IJwtPayload extends JwtPayload {
+  username?: string;
+}
+const invalidLoginMsg = 'Invalid Credentials';
 
 const useAuth = () => {
-  const [loading, setLoading] = useState(false);
   const dispatch = useDispatch();
-  const [cookies, setCookie, removeCookie] = useCookies(["accessToken"]);
-  const navigate = useNavigate();
+  const user = useSelector((state: IData) => state.userData.user);
+
+  const login = async ({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }) => {
+    try {
+      const authResponse = await postData(apiURL.authSignIn, {
+        username: email,
+        password,
+      });
+      if (authResponse) {
+        const responseData: { access_token: string; refresh_token: string } =
+          authResponse.data;
+        const accessToken = responseData.access_token;
+        const refreshToken = responseData.refresh_token;
+        console.log(accessToken);
+        setCookie('accessToken', accessToken);
+        setCookie('refreshToken', refreshToken);
+        dispatch(setlogin());
+        //TODO: Add name
+        toast.success('Welcome. You are succesfully logged in.');
+      }
+      else {
+        //TODO: error msg
+      }
+    } catch (error: any) {
+      toast.error('An error occurred during login.', {
+        toastId: 'login-error',
+      });
+    }
+  };
+
+  const logout = () => {
+    deleteCookie('accessToken');
+    deleteCookie('refreshToken');
+    dispatch(setlogout());
+  };
 
   useEffect(() => {
-    const authToken = cookies.accessToken;
+    const authToken = getCookie('accessToken');
     if (authToken) {
+      dispatch(setlogin());
       const decodedToken = jwtDecode(authToken); // jwt-decode npm package
       const currentTime = Math.floor(Date.now() / 1000);
 
@@ -26,61 +71,11 @@ const useAuth = () => {
       if (decodedToken && decodedToken.exp! < currentTime) {
         logout();
       }
-    } else {
-      logout();
-      navigate("/login");
     }
-  }, [cookies.accessToken, dispatch, navigate]);
-
-  const login = async ({
-    username,
-    password,
-  }: {
-    username: string;
-    password: string;
-  }) => {
-    setLoading(true);
-    try {
-      const authResponse = await postData(apiURL.authSignIn, {
-        username,
-        password,
-      });
-      if (authResponse.status === 201) {
-        const responseData: { access_token: string } = authResponse.data;
-        const accessToken = responseData["access_token"];
-
-        dispatch(
-          setlogin({
-            name: username,
-            isAuthenticated: true,
-          })
-        );
-        setCookie("accessToken", accessToken, { path: "/" });
-        toast.success("Welcome. You are succesfully logged in.");
-
-        navigate("/");
-      } else {
-        toast.error("Invalid username or password.", {
-          toastId: "invalid-login",
-        });
-      }
-    } catch (error: any) {
-      toast.error("An error occurred during login.", {
-        toastId: "login-error",
-      });
-      navigate("/login");
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const logout = () => {
-    removeCookie("accessToken", { path: "/login" });
-    dispatch(setlogout());
-  };
+  }, [dispatch]);
 
   return {
-    loading,
+    user,
     login,
     logout,
   };

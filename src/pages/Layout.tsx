@@ -1,9 +1,13 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Header from "../components/Header/Header.tsx";
 import Footer from "../components/Footer/Footer.tsx";
 import { ToastContainer } from "react-toastify";
+import useAuth from "./Login/useAuth.ts";
 
 function Layout() {
+
+  const { user } = useAuth();
+
   return (
     <>
       <Header />
@@ -15,13 +19,13 @@ function Layout() {
           closeOnClick
           pauseOnFocusLoss={false} // avoid pausing when the window looses the focus
         />
-            {/* This element will render either 
+        {/* This element will render either 
                     <EmployeeListing /> when URL is '/'
                     <Form /> when URL is 'edit-employee' or 'add-employee'
                     <EmployeeView /> when URL is 'view-employee' 
                 */}
 
-        <Outlet />
+        {user.isAuthenticated ? <Outlet /> : <Navigate to={"/login"} replace={true} />}
       </main>
       <Footer />
     </>

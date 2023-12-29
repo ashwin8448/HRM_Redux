@@ -1,7 +1,7 @@
-import { toast } from "react-toastify";
-import { getData } from "../api/functions.ts";
-import * as actionTypes from "./actionTypes.ts";
-import { transformArrayToOptionsList } from "../../utils/helper.ts";
+import { toast } from 'react-toastify';
+import { getData } from '../api/functions.ts';
+import * as actionTypes from './actionTypes.ts';
+import { transformArrayToOptionsList } from '../../utils/helper.ts';
 import {
   IDepartment,
   IReceivingEmployee,
@@ -9,9 +9,9 @@ import {
   ISelectOptionProps,
   ISkill,
   IUser,
-} from "../interfaces/interface.ts";
-import { apiURL } from "../config/constants.ts";
-import { Dispatch } from "redux";
+} from '../interfaces/interface.ts';
+import { apiURL } from '../config/constants.ts';
+import { Dispatch } from 'redux';
 
 export const setLoading = (actionType: string, loading: boolean) => ({
   type: actionType,
@@ -55,9 +55,8 @@ export const resetEmployeesGrid = () => {
     type: actionTypes.RESET_EMPLOYEES_GRID,
   };
 };
-export const setlogin = (user: IUser) => ({
+export const setlogin = () => ({
   type: actionTypes.LOGIN,
-  payload: user,
 });
 export const setlogout = () => ({
   type: actionTypes.LOGOUT,
@@ -81,7 +80,7 @@ export const fetchEmployeesData = (
       const response = await getData(apiURL.employee, { params: params });
       const employeesResponseData = response.data.data;
       const employees = employeesResponseData.employees;
-      if (state === "List")
+      if (state === 'List')
         dispatch(
           setEmployeesForList({
             ...employeesResponseData,
@@ -146,8 +145,8 @@ export const fetchEmployeesData = (
           })
         );
     } catch (error) {
-      toast.error("No data is recieved", { toastId: "no-data" });
-      console.error("Error fetching data:", error);
+      toast.error('No data is recieved', { toastId: 'no-data' });
+      console.error('Error fetching data:', error);
     } finally {
       dispatch(setLoading(actionTypes.SET_LOADING, false));
     }
@@ -158,11 +157,12 @@ export const fetchDropdownData = () => {
   return async function (dispatch: Dispatch) {
     try {
       // Use Promise.all to fetch data concurrently
-      const [departmentsResponse, rolesResponse, skillsResponse] = await Promise.all([
-        getData(apiURL.departments),
-        getData(apiURL.roles),
-        getData(apiURL.skills),
-      ]);
+      const [departmentsResponse, rolesResponse, skillsResponse] =
+        await Promise.all([
+          getData(apiURL.departments),
+          getData(apiURL.roles),
+          getData(apiURL.skills),
+        ]);
 
       // Extract data from responses
       const departmentsResponseData: IDepartment[] = departmentsResponse.data;
@@ -170,15 +170,16 @@ export const fetchDropdownData = () => {
       const skillsResponseData: ISkill[] = skillsResponse.data.data;
 
       // Dispatch actions
-      dispatch(setDepartments(transformArrayToOptionsList(departmentsResponseData)));
+      dispatch(
+        setDepartments(transformArrayToOptionsList(departmentsResponseData))
+      );
       dispatch(setRoles(transformArrayToOptionsList(rolesResponseData)));
       dispatch(setSkills(transformArrayToOptionsList(skillsResponseData)));
-
     } catch (error) {
-      toast.error("Dropdown data could not be fetched.", {
-        toastId: "no-dropdown-data",
+      toast.error('Dropdown data could not be fetched.', {
+        toastId: 'no-dropdown-data',
       });
-      console.error("Error fetching dropdown data:", error);
+      console.error('Error fetching dropdown data:', error);
     } finally {
       // Set loading to false for all dropdowns
       dispatch(setLoading(actionTypes.SET_DEPARTMENTS_LOADING, false));
@@ -187,4 +188,3 @@ export const fetchDropdownData = () => {
     }
   };
 };
-

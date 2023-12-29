@@ -1,17 +1,16 @@
 import { FormEvent, useState } from "react";
-import { CookiesProvider } from "react-cookie";
 import useAuth from "./useAuth";
 
 function Login() {
-  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const { login } = useAuth();
 
-  async function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
-    await login({
-      username,
+    login({
+      email,
       password,
     });
   }
@@ -19,11 +18,11 @@ function Login() {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Username:
+        Email:
         <input
           type="text"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
       </label>
       <br />
