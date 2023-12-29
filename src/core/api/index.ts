@@ -4,7 +4,7 @@ import { onResponse, onResponseError } from './responseInterceptor';
 
 
 const API = axios.create({
-    baseURL: import.meta.env.VITE_DATABASE_URL,
+    baseURL: import.meta.env.VITE_API_ENDPOINT,
     timeout: 120000,
 });
 
@@ -14,7 +14,6 @@ API.interceptors.request.use(onRequest as unknown as (
 API.interceptors.response.use(onResponse as unknown as (
     value: AxiosResponse<any, any>) => AxiosResponse<any, any> | Promise<AxiosResponse<any, any>>, 
     onResponseError);
-
 
 export const makeRequest = (
     method: string,

@@ -1,7 +1,9 @@
 export const DELETE_MODAL_HEADING = "Confirm user removal";
 
-export const CONFIRM_DELETE_TEXT = (employeeId: string) =>
-  `Are you sure you want to delete the employee ${employeeId}?`;
+export const CONFIRM_DELETE_TEXT = (employeeIdList: string[]) =>
+  `Are you sure you want to delete the employee${
+    employeeIdList.length > 1 ? "s" : ""
+  } ${employeeIdList.join(", ")} ?`;
 
 export const WARNING_HEADING = "Warning";
 
