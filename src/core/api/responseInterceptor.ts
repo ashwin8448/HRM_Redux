@@ -1,5 +1,5 @@
-import { AxiosError, AxiosResponse } from "axios";
-import { useNavigate } from "react-router-dom";
+import { AxiosError, AxiosResponse } from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 export enum HTTP_STATUS {
   SUCCESS = 200,
@@ -22,12 +22,11 @@ export function onResponseError(error: AxiosError): Promise<any> {
       error.response?.status === HTTP_STATUS.FORBIDDEN ||
       error.response?.status === HTTP_STATUS.NOT_FOUND ||
       error.response?.status === HTTP_STATUS.BAD_REQUEST) &&
-    window.location.pathname !== "/error"
+    window.location.pathname !== '/error'
   ) {
     window.location.href = `/error?statusCode=${error.response?.status}`;
     return Promise.reject(error.response.data as ErrorResponse);
-  }
-  if (
+  } else if (
     error.response?.status === HTTP_STATUS.UNAUTHORIZED &&
     window.location.pathname !== "/error"
   ) {

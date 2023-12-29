@@ -1,8 +1,8 @@
-import { IUser } from "../../interfaces/interface.ts";
-import * as actionTypes from "../actionTypes.ts";
+import { IUser } from '../../interfaces/interface.ts';
+import * as actionTypes from '../actionTypes.ts';
 
 const initialState = {
-  user: { name: "", isAuthenticated: "false", token: "" },
+  user: { name: '', isAuthenticated: 'false' },
 };
 
 function userReducer(
@@ -19,7 +19,6 @@ function userReducer(
         user: {
           name: action.payload.name,
           isAuthenticated: true,
-          token: action.payload.token,
         },
       };
     case actionTypes.LOGOUT:
@@ -28,7 +27,6 @@ function userReducer(
         user: {
           name: '',
           isAuthenticated: false,
-          token: '',
         },
       };
 

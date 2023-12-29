@@ -53,7 +53,6 @@ const useAuth = () => {
           setlogin({
             name: username,
             isAuthenticated: true,
-            token: accessToken,
           })
         );
         setCookie("accessToken", accessToken, { path: "/" });

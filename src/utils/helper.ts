@@ -27,3 +27,4 @@ export function getCookie(name:string) {
       return parts?.pop()?.split(';')?.shift();
   return null;
 }
+

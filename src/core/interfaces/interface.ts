@@ -57,7 +57,6 @@ export interface IEmpMode {
 export interface IUser {
   name: string;
   isAuthenticated: boolean;
-  token:string
 }
 export interface IErrorBoundaryProps {
   children: React.ReactNode;
