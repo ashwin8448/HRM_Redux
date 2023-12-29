@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import { ISelectOptionProps, ISkill } from "../../core/interfaces/interface.ts";
+import { ISelectOptionProps } from "../../core/interfaces/interface.ts";
 import TooltipWrapper from "./tooltip";
 
 function Tooltip({

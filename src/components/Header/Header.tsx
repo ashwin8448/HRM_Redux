@@ -1,6 +1,5 @@
 import HeaderWrapper from "./header.ts";
 import StyledLink from "./../StyledLink";
-import { useState } from "react";
 import Tooltip from "../Tooltip/Tooltip.tsx";
 import { useMediaQuery } from "usehooks-ts";
 

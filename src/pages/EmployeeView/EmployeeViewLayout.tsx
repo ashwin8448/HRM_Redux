@@ -19,7 +19,7 @@ function EmployeeViewLayout() {
     loading: true,
     employee: null,
   });
-  const [deleteModal, setDeleteModal] = useState(false);
+  // const [deleteModal, setDeleteModal] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     if (!employeeId) {
@@ -50,7 +50,7 @@ function EmployeeViewLayout() {
     }
   }, []);
   const handleDeleteButtonClick = () => {
-    setDeleteModal(true);
+    // setDeleteModal(true);
   };
   if (employeeData.loading) return <Loader className="center-screen" />;
   return (
