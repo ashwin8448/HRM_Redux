@@ -41,7 +41,7 @@ function EmployeeCardList({
   };
 
   useEffect(() => {
-    if (page <= totalPages) {
+    if (page <= totalPages || totalPages === 0) {
       const offset = Math.max(0, (page - 1) * cardsPerPage);
 
       // Adding a delay of 500 milliseconds before dispatching the action
