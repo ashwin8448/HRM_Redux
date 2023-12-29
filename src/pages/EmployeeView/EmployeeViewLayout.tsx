@@ -9,12 +9,11 @@ import { getData } from "../../core/api/functions.ts";
 import EmployeeView from "./EmployeeView.tsx";
 import { IAppEmployee } from "../../core/interfaces/interface.ts";
 import { convertIGetEmployeeToIAppEmployee } from "../../utils/helper.ts";
-import DeleteModal from "../../components/DeleteModal/DeleteModal.tsx";
 
 function EmployeeViewLayout() {
   const { employeeId } = useParams();
   const [employeeData, setEmployeeData] = useState<{
-    loading: Boolean;
+    loading: boolean;
     employee: IAppEmployee | null;
   }>({
     loading: true,
@@ -65,22 +64,17 @@ function EmployeeViewLayout() {
           reply
         </span>
         <EmployeeViewWrapper>
-          <div>
-            <div className="buttons">
-              {" "}
-              <ButtonGrpWrapper className="details-section common-flex">
-                <Button
-                  icon="edit"
-                  onClick={() =>
-                    navigate(`/edit-employee/${employeeData.employee!.id}`)
-                  }
-                />
-                <Button
-                  icon="delete"
-                  onClick={() => handleDeleteButtonClick()}
-                />
-              </ButtonGrpWrapper>
-            </div>
+          <div className="buttons">
+            {" "}
+            <ButtonGrpWrapper className="details-section common-flex">
+              <Button
+                icon="edit"
+                onClick={() =>
+                  navigate(`/edit-employee/${employeeData.employee!.id}`)
+                }
+              />
+              <Button icon="delete" onClick={() => handleDeleteButtonClick()} />
+            </ButtonGrpWrapper>
           </div>
           <EmployeeView employee={employeeData.employee}></EmployeeView>
         </EmployeeViewWrapper>

@@ -1,25 +1,27 @@
-import { toast } from 'react-toastify';
-import { getData } from '../api/functions.ts';
-import * as actionTypes from './actionTypes.ts';
+import { toast } from "react-toastify";
+import { getData } from "../api/functions.ts";
+import * as actionTypes from "./actionTypes.ts";
 import {
   convertIGetEmployeeToIAppEmployee,
   transformArrayToOptionsList,
-} from '../../utils/helper.ts';
+} from "../../utils/helper.ts";
 import {
   IDepartment,
   IGetEmployee,
-  IAppEmployee,
   IRole,
   ISelectOptionProps,
   ISkill,
   IActionEmployeeData,
-} from '../interfaces/interface.ts';
-import { apiURL } from '../config/constants.ts';
-import { Dispatch } from 'redux';
-import { AppDispatch } from './configureStore.ts';
+} from "../interfaces/interface.ts";
+import { apiURL } from "../config/constants.ts";
+import { AppDispatch } from "./configureStore.ts";
 
 interface ISET_LOADING {
-  type: string;
+  type:
+    | "SET_LOADING"
+    | "SET_SKILLS_LOADING"
+    | "SET_DEPARTMENTS_LOADING"
+    | "SET_ROLES_LOADING";
   payload: {
     loading: boolean;
   };
@@ -53,7 +55,11 @@ interface IRESET_EMPLOYEES {
 }
 
 export const setLoading = (
-  actionType: string,
+  actionType:
+    | "SET_LOADING"
+    | "SET_SKILLS_LOADING"
+    | "SET_DEPARTMENTS_LOADING"
+    | "SET_ROLES_LOADING",
   payload: { loading: boolean }
 ): ISET_LOADING => ({
   type: actionType,
@@ -124,8 +130,9 @@ export const fetchEmployeesData = (
       dispatch(setLoading(actionTypes.SET_LOADING, { loading: true }));
       const response = await getData(apiURL.employee, { params: params });
       const employeesResponseData = response.data.data;
-      const employees = employeesResponseData.employees;
-      if (state === 'List')
+      const employees:IGetEmployee[] = employeesResponseData.employees;
+
+      if (state === "List")
         dispatch(
           setEmployeesForList({
             ...employeesResponseData,

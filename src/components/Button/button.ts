@@ -53,6 +53,9 @@ const ButtonWrapper = styled.button<{
   &:not(:disabled):active {
     ${(props) => !props.$noTransition && 'transform: translateY(-0.125rem);'}
   }
+  &:disabled{
+    color:${colors.LIGHT_GRAY_COLOR}
+  }
 
   .btn-loader {
     width: 24px;

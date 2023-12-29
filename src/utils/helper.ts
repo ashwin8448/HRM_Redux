@@ -1,4 +1,4 @@
-import { FieldValues } from 'react-hook-form';
+import { FieldValues } from "react-hook-form";
 import {
   IAppEmployee,
   IDepartment,
@@ -23,13 +23,13 @@ export function transformArrayToOptionsList(
 }
 
 export const getDate = (dateVal: string) => {
-  const [year, month, day] = dateVal.split('-');
+  const [year, month, day] = dateVal.split("-");
   const newDate = new Date(`${year}-${month}-${day}`);
-  return newDate.toISOString().split('T')[0];
+  return newDate.toISOString().split("T")[0];
 };
 
 export const getWorkExp = (dateOfJoining: string) => {
-  const [year, month, day] = dateOfJoining.split('-').map(Number);
+  const [year, month, day] = dateOfJoining.split("-").map(Number);
   const dateInNewFormat = new Date(year, month - 1, day);
   const DOJ = new Date(dateInNewFormat);
   const now = new Date();
@@ -50,7 +50,7 @@ export const getDateView = (dateVal: string) => {
 };
 
 export const getUrlType = (pathName: string) => {
-  const pathParts = pathName.split('/');
+  const pathParts = pathName.split("/");
   const secondPartOfPath = pathParts[1];
   return secondPartOfPath;
 };
@@ -84,9 +84,11 @@ export const convertIGetEmployeeToIAppEmployee = (
     skills: transformArrayToOptionsList(skills),
     department: department
       ? transformArrayToOptionsList([department])[0]
-      : { value: 0, label: '' }, //TODO: null condition
-    role: transformArrayToOptionsList([role])[0],
-    photoId: moreDetails ? JSON.parse(moreDetails).photoId : '',
+      : { value: 0, label: "" }, //TODO: null condition
+    role: role
+      ? transformArrayToOptionsList([role])[0]
+      : { value: 0, label: "" }, //TODO: null condition
+    photoId: moreDetails ? JSON.parse(moreDetails).photoId : "",
   };
 };
 

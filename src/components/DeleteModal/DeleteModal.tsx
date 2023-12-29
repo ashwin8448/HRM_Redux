@@ -9,9 +9,7 @@ import {
   WARNING_HEADING,
   WARNING_TEXT,
 } from "./constants/constants.ts";
-import store from "../../core/store/configureStore.ts";
-import { fetchEmployeesData } from "../../core/store/actions.ts";
-import { Link, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { useAppSelector } from "../../hooks/reduxHooks.ts";
 
@@ -76,7 +74,7 @@ function DeleteModal({
       <p className="confirm-delete">{CONFIRM_DELETE_TEXT(idArrayToDlt)}</p>
       <ul className="employees-name-list">
         {employeesNameList.map((employeesName) => (
-          <li>{employeesName}</li>
+          <li key={employeesName}>{employeesName}</li>
         ))}
       </ul>
       <div className="warning-container">

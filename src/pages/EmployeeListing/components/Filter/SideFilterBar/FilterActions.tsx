@@ -2,18 +2,18 @@ import Button from "../../../../../components/Button/Button.tsx";
 import {
   ISelectOptionProps,
 } from "../../../../../core/interfaces/interface.ts";
-import { useSelector } from "react-redux";
 import FilterSelect from "../../../../../components/FilterSelect/FilterSelect.tsx";
 import { useSearchParams } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { fetchDropdownData } from "../../../../../core/store/actions.ts";
-import store from "../../../../../core/store/configureStore.ts";
 import ButtonGrpWrapper from "../../../../../components/Button/buttonGrpWrapper.ts";
 import FilterActionsWrapper from "./filterActions.ts";
 import Loader from "../../../../../components/Loader/Loader.tsx";
-import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../../../hooks/reduxHooks.ts";
 
 function FilterActions({ onClick }: { onClick: () => void }) {
+  const dispatch = useAppDispatch()
+ 
   const { skills, loading } = useAppSelector(
     (state) => state.dropdownData.skills
   );
@@ -74,7 +74,7 @@ function FilterActions({ onClick }: { onClick: () => void }) {
   };
 
   useEffect(() => {
-    store.dispatch(fetchDropdownData());
+    dispatch(fetchDropdownData());
   }, []);
 
   return (

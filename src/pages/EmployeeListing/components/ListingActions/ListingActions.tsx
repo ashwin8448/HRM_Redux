@@ -1,8 +1,6 @@
 import React from "react";
 import Button from "../../../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../../../components/Button/buttonGrpWrapper.ts";
-import DeleteModal from "../../../../components/DeleteModal/DeleteModal.tsx";
-import Tooltip from "../../../../components/Tooltip/Tooltip.tsx";
 import ListingActionsWrapper from "./listingActions.ts";
 import SearchBar from "../../../../components/SearchBar/SearchBar.tsx";
 import Sort from "../Sort/Sort.tsx";
@@ -50,7 +48,6 @@ function ListingActions({
       <div className="common-flex action-grp">
         <MoreActions
           deleteCheckBoxesList={deleteCheckBoxesList}
-          handleActiveListing={handleActiveListing}
         />
         <StyledLink to="add-employee">
           <Button icon="add_circle">{matches ? "Add New" : ""}</Button>

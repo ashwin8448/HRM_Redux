@@ -7,6 +7,18 @@ export interface IActionEmployeeData {
 export interface IEmployeeData extends IActionEmployeeData {
   loading: boolean;
 }
+export interface ISkillsData {
+  skills: ISelectOptionProps[];
+  loading: boolean;
+}
+export interface IDepartmentsData {
+  departments: ISelectOptionProps[];
+  loading: boolean;
+}
+export interface IRolesData {
+  roles: ISelectOptionProps[];
+  loading: boolean;
+}
 interface ICommonEmployeeFields {
   firstName: string;
   dob: string;

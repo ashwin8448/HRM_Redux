@@ -70,7 +70,7 @@ const Form = () => {
 
   useEffect(() => {
     if (employeeData)
-      for (let employeeProperty in employeeData) {
+      for (const employeeProperty in employeeData) {
         methods.setValue(employeeProperty, employeeData[employeeProperty as keyof IAppEmployee]);
       }
   }, [employeeData]);
@@ -114,6 +114,7 @@ const Form = () => {
       setActiveSection(4);
     } finally {
       setIsLoading(false);
+      navigate("/")
     }
   });
 

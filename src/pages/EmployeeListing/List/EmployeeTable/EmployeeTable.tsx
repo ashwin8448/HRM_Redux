@@ -4,11 +4,11 @@ import TableWrapper from "./employeeTable.ts";
 import TableHead from "../EmployeeTable/TableComponents/TableHead/TableHead.tsx";
 import Loader from "../../../../components/Loader/Loader.tsx";
 import { fetchEmployeesData } from "../../../../core/store/actions.ts";
-import store from "../../../../core/store/configureStore.ts";
 import React from "react";
 import Pagination from "../../../../components/Pagination/Pagination.tsx";
 import { useSearchParams } from "react-router-dom";
 import TableData from "./TableComponents/TableData/TableData.tsx";
+import { useAppDispatch } from "../../../../hooks/reduxHooks.ts";
 
 function EmployeeTable({
   deleteCheckBoxesList,
@@ -26,6 +26,8 @@ function EmployeeTable({
   rowsPerPage: number;
   totalPages: number;
 }) {
+  const dispatch = useAppDispatch();
+
   // Employee fetching
   const [searchParams, setSearchParams] = useSearchParams();
   const updateSearchParams = (params: { page?: string }) => {
@@ -36,7 +38,7 @@ function EmployeeTable({
   };
 
   useEffect(() => {
-    store.dispatch(
+    dispatch(
       fetchEmployeesData(
         {
           limit: rowsPerPage,

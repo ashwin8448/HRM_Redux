@@ -20,14 +20,9 @@ const EmployeeViewWrapper = styled.div`
     right: 25px;
     button {
       padding: 0;
-      border-radius: 5px;
-      border: 1px solid black;
       span {
         font-size: 30px;
       }
-    }
-    button:hover {
-      transform: scale(0.95);
     }
   }
 

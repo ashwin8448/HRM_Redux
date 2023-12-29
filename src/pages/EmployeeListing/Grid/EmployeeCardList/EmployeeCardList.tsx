@@ -6,9 +6,9 @@ import {
   resetEmployeesGrid,
 } from "../../../../core/store/actions.ts";
 import EmployeeCardListWrapper from "./employeeCardList.ts";
-import store from "../../../../core/store/configureStore.ts";
 import { useSearchParams } from "react-router-dom";
 import { IAppEmployee } from "../../../../core/interfaces/interface.ts";
+import { useAppDispatch } from "../../../../hooks/reduxHooks.ts";
 
 function EmployeeCardList({
   deleteCheckBoxesList,
@@ -26,6 +26,8 @@ function EmployeeCardList({
   cardsPerPage: number;
   totalPages: number;
 }) {
+  const dispatch = useAppDispatch()
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [page, setPage] = useState<number>(0);
@@ -47,7 +49,7 @@ function EmployeeCardList({
       // Adding a delay of 500 milliseconds before dispatching the action
       const delay = 500;
       const timeoutId = setTimeout(() => {
-        store.dispatch(
+        dispatch(
           fetchEmployeesData(
             {
               limit: cardsPerPage,
@@ -86,12 +88,12 @@ function EmployeeCardList({
   useEffect(() => {
     searchParams.delete("page");
     setSearchParams(() => searchParams)
-    store.dispatch(resetEmployeesGrid());
+    dispatch(resetEmployeesGrid());
   }, []);
 
   useEffect(() => {
     setPage(0);
-    store.dispatch(resetEmployeesGrid());
+    dispatch(resetEmployeesGrid());
   }, [searchParams]);
 
   return (
