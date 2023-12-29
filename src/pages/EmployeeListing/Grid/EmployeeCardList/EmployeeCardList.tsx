@@ -99,6 +99,7 @@ function EmployeeCardList({
       <EmployeeCardListWrapper>
         {employees.length > 0 ? (
           employees.map((employee: IReceivingEmployee) => (
+            employee &&
             <EmployeeCard
               key={employee.id}
               deleteCheckBoxesList={deleteCheckBoxesList}

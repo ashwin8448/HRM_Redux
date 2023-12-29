@@ -35,6 +35,7 @@ function Checkbox({
     <input
       className="checkbox"
       type="checkbox"
+      onClick={(e)=>e.stopPropagation()}
       onChange={handleCheckboxChange}
       checked={
         employeeId

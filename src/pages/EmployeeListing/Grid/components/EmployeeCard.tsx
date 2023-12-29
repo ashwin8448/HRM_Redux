@@ -5,6 +5,7 @@ import ActiveChip from "../../../../components/ActiveChip/ActiveChip.tsx";
 import Checkbox from "../../../../components/Checkbox/Checkbox.tsx";
 import DetailsSection from "../../../../components/Details/Details.tsx";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function EmployeeCard({
   deleteCheckBoxesList,
@@ -16,6 +17,7 @@ function EmployeeCard({
   };
   employee: IReceivingEmployee;
 }) {
+  const navigate = useNavigate();
   const photoId = employee.moreDetails
     ? employee.moreDetails.photoId
       ? employee.moreDetails.photoId
@@ -23,7 +25,9 @@ function EmployeeCard({
     : null;
 
   return (
-    <EmployeeCardWrapper>
+    <EmployeeCardWrapper
+      onClick={() => navigate(`/view-employee/${employee.id}`)}
+    >
       <div className="actions-section common-flex">
         <Checkbox
           employeeId={employee.id}
