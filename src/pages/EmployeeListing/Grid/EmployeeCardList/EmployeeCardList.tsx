@@ -41,7 +41,7 @@ function EmployeeCardList({
   };
 
   useEffect(() => {
-    if (page <= totalPages) {
+    if (page <= totalPages || !totalPages) {
       const offset = Math.max(0, (page - 1) * cardsPerPage);
 
       // Adding a delay of 500 milliseconds before dispatching the action
@@ -86,12 +86,11 @@ function EmployeeCardList({
   useEffect(() => {
     searchParams.delete("page");
     setSearchParams(() => searchParams)
-    store.dispatch(resetEmployeesGrid());
   }, []);
 
   useEffect(() => {
-    setPage(0);
     store.dispatch(resetEmployeesGrid());
+    setPage(0);
   }, [searchParams]);
 
   return (
