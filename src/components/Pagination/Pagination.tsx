@@ -1,10 +1,8 @@
-import { useSelector } from "react-redux";
 import usePagination, {
   DOTS,
 } from "./hook/usePagination.ts";
 import PaginationWrapper from "./pagination.ts";
-import { IData } from "../../core/interfaces/interface.ts";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import React from "react";
 

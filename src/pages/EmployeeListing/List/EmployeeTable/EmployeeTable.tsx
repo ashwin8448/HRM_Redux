@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { IReceivingEmployee } from "../../../../core/interfaces/interface.ts";
+import { IAppEmployee } from "../../../../core/interfaces/interface.ts";
 import TableWrapper from "./employeeTable.ts";
 import TableHead from "../EmployeeTable/TableComponents/TableHead/TableHead.tsx";
 import Loader from "../../../../components/Loader/Loader.tsx";
@@ -21,7 +21,7 @@ function EmployeeTable({
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  employees: IReceivingEmployee[];
+  employees: IAppEmployee[];
   loading: boolean;
   rowsPerPage: number;
   totalPages: number;
@@ -77,7 +77,7 @@ function EmployeeTable({
           ) : (
             <tbody>
               {employees.length > 0 ? (
-                employees.map((employee: IReceivingEmployee, index: number) => {
+                employees.map((employee: IAppEmployee, index: number) => {
                   return (
                     employee && (
                       <TableData

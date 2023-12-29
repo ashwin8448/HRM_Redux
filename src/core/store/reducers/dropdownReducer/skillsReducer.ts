@@ -1,18 +1,13 @@
 import { ISelectOptionProps } from "../../../interfaces/interface.ts";
 import * as actionTypes from "../../actionTypes.ts";
+import { ActionInterface } from "../../actions.ts";
 
 const initialState = {
   loading: true,
   skills: [],
 };
 
-function skillsReducer(
-  state = initialState,
-  action: {
-    type: string;
-    payload: ISelectOptionProps[] | boolean;
-  }
-) {
+function skillsReducer(state = initialState, action: ActionInterface) {
   switch (action.type) {
     case actionTypes.SET_SKILLS:
       return { ...state, skills: action.payload };

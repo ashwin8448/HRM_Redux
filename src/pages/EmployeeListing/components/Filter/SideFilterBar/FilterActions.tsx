@@ -1,6 +1,5 @@
 import Button from "../../../../../components/Button/Button.tsx";
 import {
-  IData,
   ISelectOptionProps,
 } from "../../../../../core/interfaces/interface.ts";
 import { useSelector } from "react-redux";
@@ -12,10 +11,11 @@ import store from "../../../../../core/store/configureStore.ts";
 import ButtonGrpWrapper from "../../../../../components/Button/buttonGrpWrapper.ts";
 import FilterActionsWrapper from "./filterActions.ts";
 import Loader from "../../../../../components/Loader/Loader.tsx";
+import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
 
 function FilterActions({ onClick }: { onClick: () => void }) {
-  const { skills, loading } = useSelector(
-    (state: IData) => state.dropdownData.skills
+  const { skills, loading } = useAppSelector(
+    (state) => state.dropdownData.skills
   );
 
   const [searchParams, setSearchParams] = useSearchParams();

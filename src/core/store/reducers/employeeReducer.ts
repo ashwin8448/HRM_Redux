@@ -1,7 +1,8 @@
-import { IAppEmployee } from "../../interfaces/interface.ts";
-import * as actionTypes from "../actionTypes.ts";
+import { IActionEmployeeData, IAppEmployee, IEmployeeData } from '../../interfaces/interface.ts';
+import * as actionTypes from '../actionTypes.ts';
+import { ActionInterface } from '../actions.ts';
 
-const initialState = {
+const initialState:IEmployeeData = {
   employees: [],
   loading: true,
   count: 0,
@@ -9,36 +10,32 @@ const initialState = {
 
 function employeeReducer(
   state = initialState,
-  action: {
-    type: string;
-    payload: { employees: IAppEmployee[]; count: number } | boolean;
-  }
-) {
+  action: ActionInterface
+): IEmployeeData {
   switch (action.type) {
     case actionTypes.SET_EMPLOYEES:
       return {
         ...state,
-        employees:
-          typeof action.payload != "boolean" && action.payload.employees,
-        count: typeof action.payload != "boolean" && action.payload.count,
+        employees: (action.payload as IActionEmployeeData).employees,
+        count: (action.payload as IActionEmployeeData).count,
       };
     case actionTypes.SET_EMPLOYEES_LIST:
       return {
         ...state,
-        employees:
-          typeof action.payload != "boolean" && action.payload.employees,
-        count: typeof action.payload != "boolean" && action.payload.count,
+        employees: (action.payload as IActionEmployeeData).employees,
+        count: (action.payload as IActionEmployeeData).count,
       };
     case actionTypes.SET_EMPLOYEES_GRID:
       return {
         ...state,
         employees:
-          typeof action.payload != "boolean"
-            ? Array.from(
-                new Set([...state.employees, ...action.payload.employees])
+          // typeof action.payload != 'boolean'
+          //   ?
+            Array.from(
+                new Set([...state.employees, ...action.payload.]),
               )
-            : state.employees,
-        count: typeof action.payload != "boolean" && action.payload.count,
+            // : state.employees,
+        count: (action.payload as IActionEmployeeData).count,
       };
     case actionTypes.RESET_EMPLOYEES_GRID:
       return {
@@ -46,7 +43,7 @@ function employeeReducer(
         employees: [],
       };
     case actionTypes.SET_LOADING:
-      return { ...state, loading: action.payload };
+      return { ...state, loading: action.payload.loading };
     default:
       return state;
   }

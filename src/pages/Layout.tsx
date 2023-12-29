@@ -4,15 +4,14 @@ import Footer from "../components/Footer/Footer.tsx";
 import { useEffect } from "react";
 import { fetchDropdownData } from "../core/store/actions.ts";
 import { useAppDispatch } from "../hooks/reduxHooks.ts";
-import { useDispatch, useSelector } from "react-redux";
 
 function Layout() {
-    useDispatch
-    useSelector
+
     const dispatch = useAppDispatch()
     useEffect(() => {
-       dispatch(fetchDropdownData()) 
-    },[])
+        dispatch(fetchDropdownData())
+    }, [])
+
     return (
         <>
             <Header />

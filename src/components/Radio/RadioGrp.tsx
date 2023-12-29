@@ -1,5 +1,5 @@
 import { useFormContext } from "react-hook-form";
-import RadioWrapper from "./radioGrp.ts";
+import RadioWrapper from "./radioGrp";
 
 function RadioGrp({
     option,

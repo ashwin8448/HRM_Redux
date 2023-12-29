@@ -3,17 +3,16 @@ import "react-toastify/dist/ReactToastify.css";
 import EmployeeTable from "./List/EmployeeTable/EmployeeTable.tsx";
 import { useEffect, useState } from "react";
 import EmployeeCardList from "./Grid/EmployeeCardList/EmployeeCardList.tsx";
-import { useSelector } from "react-redux";
-import { IData } from "../../core/interfaces/interface.ts";
 import { useSearchParams } from "react-router-dom";
 import ListingActions from "./components/ListingActions/ListingActions.tsx";
 import EmployeeListingWrapper from "./employeeListing.ts";
+import { useAppSelector } from "../../hooks/reduxHooks.ts";
 
 function EmployeeListing() {
 
   // Employees data fetching
-  const { employees, loading, count } = useSelector(
-    (state: IData) => state.employeesData
+  const { employees, loading, count } = useAppSelector(
+    (state) => state.employeesData
   );
 
   //checkbox click action
@@ -41,7 +40,7 @@ function EmployeeListing() {
 
   //pagination/infiinite loading
   const recordsPerPage = 10;
-  const totalPages = Math.ceil(count / recordsPerPage);
+  const totalPages = Math.ceil(Number(count) / recordsPerPage);
 
   useEffect(() => {
     updateSearchParams({ display: searchParams.get("display") || "List" });

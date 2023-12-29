@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { IReceivingEmployee } from "../../../../core/interfaces/interface";
 import EmployeeCard from "../components/EmployeeCard.tsx";
 import Loader from "../../../../components/Loader/loader.ts";
 import {
@@ -9,6 +8,7 @@ import {
 import EmployeeCardListWrapper from "./employeeCardList.ts";
 import store from "../../../../core/store/configureStore.ts";
 import { useSearchParams } from "react-router-dom";
+import { IAppEmployee } from "../../../../core/interfaces/interface.ts";
 
 function EmployeeCardList({
   deleteCheckBoxesList,
@@ -21,7 +21,7 @@ function EmployeeCardList({
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  employees: IReceivingEmployee[];
+  employees: IAppEmployee[];
   loading: boolean;
   cardsPerPage: number;
   totalPages: number;
@@ -98,7 +98,7 @@ function EmployeeCardList({
     <>
       <EmployeeCardListWrapper>
         {employees.length > 0 ? (
-          employees.map((employee: IReceivingEmployee) => (
+          employees.map((employee: IAppEmployee) => (
             employee &&
             <EmployeeCard
               key={employee.id}

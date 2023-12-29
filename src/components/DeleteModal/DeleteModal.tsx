@@ -13,8 +13,7 @@ import store from "../../core/store/configureStore.ts";
 import { fetchEmployeesData } from "../../core/store/actions.ts";
 import { Link, useSearchParams } from "react-router-dom";
 import { useState } from "react";
-import { IData } from "../../core/interfaces/interface.ts";
-import { useSelector } from "react-redux";
+import { useAppSelector } from "../../hooks/reduxHooks.ts";
 
 function DeleteModal({
   changeDltModalOpenStatus,
@@ -61,7 +60,7 @@ function DeleteModal({
     changeDltModalOpenStatus();
   };
 
-  const { employees } = useSelector((state: IData) => state.employeesData);
+  const { employees } = useAppSelector((state) => state.employeesData);
   const employeesNameList = employees
     .filter((employee) => idArrayToDlt.includes(employee.id))
     .map((employee) => employee.firstName);
