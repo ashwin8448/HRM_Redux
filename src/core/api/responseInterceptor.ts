@@ -1,6 +1,4 @@
 import { AxiosError, AxiosResponse } from 'axios';
-import { useNavigate } from 'react-router-dom';
-import { postData } from './functions';
 import { getNewRefreshToken, setCookie } from '../../utils/helper';
 import { API } from '.';
 

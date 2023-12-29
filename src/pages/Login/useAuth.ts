@@ -1,24 +1,20 @@
-import { useDispatch, useSelector } from 'react-redux';
-import { IData } from './../../core/interfaces/interface';
-import { useCookies } from 'react-cookie';
-import { useNavigate } from 'react-router-dom';
 import { apiURL } from '../../core/config/constants';
 import { postData } from '../../core/api/functions';
-import { jwtDecode, JwtPayload } from 'jwt-decode';
+import { jwtDecode } from 'jwt-decode';
 import { toast } from 'react-toastify';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { setlogin, setlogout } from '../../core/store/actions';
-import * as actionTypes from '../../core/store/actionTypes';
 import { setCookie, deleteCookie, getCookie } from '../../utils/helper';
+import { useAppDispatch, useAppSelector } from '../../hooks/reduxHooks';
 
-interface IJwtPayload extends JwtPayload {
-  username?: string;
-}
-const invalidLoginMsg = 'Invalid Credentials';
+// interface IJwtPayload extends JwtPayload {
+//   username?: string;
+// }
+// const invalidLoginMsg = 'Invalid Credentials';
 
 const useAuth = () => {
-  const dispatch = useDispatch();
-  const user = useSelector((state: IData) => state.userData.user);
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.userData.user);
 
   const login = async ({
     email,
@@ -47,7 +43,7 @@ const useAuth = () => {
       else {
         //TODO: error msg
       }
-    } catch (error: any) {
+    } catch (error) {
       toast.error('An error occurred during login.', {
         toastId: 'login-error',
       });
