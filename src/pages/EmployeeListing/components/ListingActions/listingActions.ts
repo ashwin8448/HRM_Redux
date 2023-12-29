@@ -4,6 +4,7 @@ import colors from "../../../../core/constants/colors";
 const ListingActionsWrapper = styled.div`
   padding: 10px 0;
   gap: 10px;
+  margin-bottom: 20px;
 
   .message-text {
     margin: 0;

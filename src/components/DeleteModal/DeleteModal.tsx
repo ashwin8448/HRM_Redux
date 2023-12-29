@@ -19,11 +19,9 @@ import { useSelector } from "react-redux";
 function DeleteModal({
   changeDltModalOpenStatus,
   idArrayToDlt,
-  handleActiveListing,
 }: {
   changeDltModalOpenStatus: () => void;
   idArrayToDlt: string[];
-  handleActiveListing: (button: string) => void;
 }) {
   const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
   const [confirmDeleteLoader, setConfirmDeleteLoader] = useState(false);
@@ -53,8 +51,12 @@ function DeleteModal({
       toast.error("Error deleting users", { toastId: "delete-user" });
     } finally {
       setConfirmDeleteLoader(false);
-      setSearchParams({ page: "1" });
-      handleActiveListing("List");
+      const isdisplayList = searchParams.get("display") === "List";
+      const pageValue = isdisplayList && { page: "1" };
+      setSearchParams({
+        ...Object.fromEntries(searchParams.entries()),
+        ...pageValue,
+      });
     }
     changeDltModalOpenStatus();
   };
