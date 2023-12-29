@@ -25,7 +25,6 @@ function DeleteModal({
   idArrayToDlt: string[];
   handleActiveListing: (button: string) => void;
 }) {
-  const rowsPerPage = 10;
   const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
   const [confirmDeleteLoader, setConfirmDeleteLoader] = useState(false);
 
@@ -55,20 +54,6 @@ function DeleteModal({
     } finally {
       setConfirmDeleteLoader(false);
       setSearchParams({ page: "1" });
-      // Fetch employee data after all deletions
-      store.dispatch(
-        fetchEmployeesData(
-          {
-            limit: rowsPerPage,
-            offset: 0,
-            sortBy: searchParams.get("sortBy") || "id",
-            sortDir: searchParams.get("sortDir") || "asc",
-            search: searchParams.get("search") || "",
-            skillIds: searchParams.get("skillIds") || "",
-          },
-          "List"
-        )
-      );
       handleActiveListing("List");
     }
     changeDltModalOpenStatus();
