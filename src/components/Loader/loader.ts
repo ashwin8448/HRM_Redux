@@ -2,14 +2,12 @@ import styled from "styled-components";
 import colors from "../../core/constants/colors";
 
 const LoaderWrapper = styled.span`
-    position: absolute;
-    width: 48px;
-    height: 48px;
-    margin: auto;  
-    border: 5px solid #FFF;
-    border-bottom-color: ${colors.PRIMARY_COLOR};
-    border-radius: 100%;
-    animation: rotation 1s linear infinite;
+  width: 48px;
+  height: 48px;
+  border: 5px solid #fff;
+  border-bottom-color: ${colors.PRIMARY_COLOR};
+  border-radius: 100%;
+  animation: rotation 1s linear infinite;
 
     @keyframes rotation {
     0% {

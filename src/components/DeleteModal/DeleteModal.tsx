@@ -11,25 +11,21 @@ import {
 } from "./constants/constants.ts";
 import store from "../../core/store/configureStore.ts";
 import { fetchEmployeesData } from "../../core/store/actions.ts";
-import { useSearchParams } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { IData } from "../../core/interfaces/interface.ts";
 import { useSelector } from "react-redux";
-import { useAppDispatch } from "../../hooks/reduxHooks.ts";
 
 function DeleteModal({
   changeDltModalOpenStatus,
   idArrayToDlt,
-  handleActiveListing,
 }: {
   changeDltModalOpenStatus: () => void;
   idArrayToDlt: string[];
-  handleActiveListing: (button: string) => void;
 }) {
-  const rowsPerPage = 10;
   const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
   const [confirmDeleteLoader, setConfirmDeleteLoader] = useState(false);
-  const dispatch = useAppDispatch();
+
   const confirmDlt = async () => {
     setConfirmDeleteLoader(true);
     try {
@@ -55,22 +51,12 @@ function DeleteModal({
       toast.error("Error deleting users", { toastId: "delete-user" });
     } finally {
       setConfirmDeleteLoader(false);
-      setSearchParams({ page: "1" });
-      // Fetch employee data after all deletions
-      dispatch(
-        fetchEmployeesData(
-          {
-            limit: rowsPerPage,
-            offset: 0,
-            sortBy: searchParams.get("sortBy") || "id",
-            sortDir: searchParams.get("sortDir") || "asc",
-            search: searchParams.get("search") || "",
-            skillIds: searchParams.get("skillIds") || "",
-          },
-          "List"
-        )
-      );
-      handleActiveListing("List");
+      const isdisplayList = searchParams.get("display") === "List";
+      const pageValue = isdisplayList && { page: "1" };
+      setSearchParams({
+        ...Object.fromEntries(searchParams.entries()),
+        ...pageValue,
+      });
     }
     changeDltModalOpenStatus();
   };

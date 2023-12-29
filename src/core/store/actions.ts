@@ -44,7 +44,6 @@ export const setEmployeesForGrid = (employeesData: {
   type: actionTypes.SET_EMPLOYEES_GRID,
   payload: employeesData,
 });
-
 export const setDepartments = (departments: ISelectOptionProps[]) => ({
   type: actionTypes.SET_DEPARTMENTS,
   payload: departments,
@@ -59,7 +58,6 @@ export const setSkills = (skills: ISelectOptionProps[]) => ({
   type: actionTypes.SET_SKILLS,
   payload: skills,
 });
-
 export const resetEmployeesGrid = () => {
   return {
     type: actionTypes.RESET_EMPLOYEES_GRID,
@@ -115,12 +113,11 @@ export const fetchDropdownData = () => {
   return async function (dispatch: Dispatch) {
     try {
       // Use Promise.all to fetch data concurrently
-      const [departmentsResponse, rolesResponse, skillsResponse] =
-        await Promise.all([
-          getData(apiURL.departments),
-          getData(apiURL.roles),
-          getData(apiURL.skills),
-        ]);
+      const [departmentsResponse, rolesResponse, skillsResponse] = await Promise.all([
+        getData(apiURL.departments),
+        getData(apiURL.roles),
+        getData(apiURL.skills),
+      ]);
 
       // Extract data from responses
       const departmentsResponseData: IDepartment[] = departmentsResponse.data;
@@ -146,3 +143,4 @@ export const fetchDropdownData = () => {
     }
   };
 };
+

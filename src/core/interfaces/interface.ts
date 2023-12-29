@@ -1,24 +1,4 @@
 
-
-export interface IData {
-  employeesData: IEmployeeData;
-  dropdownData: {
-    departments: {
-      loading: boolean;
-      departments: ISelectOptionProps[];
-    };
-    roles: {
-      loading: boolean;
-      roles: ISelectOptionProps[];
-    };
-    skills: {
-      loading: boolean;
-      skills: ISelectOptionProps[];
-    };
-  };
-  filterData: ITableProps;
-}
-
 export interface IEmployeeData {
   employees: IAppEmployee[];
   count: number;
@@ -124,9 +104,24 @@ export interface ISelectOptionProps {
   label?: string;
 }
 
-export interface ITableProps {
-  department: ISelectOptionProps | null;
-  skills: ISelectOptionProps[] | null;
-  role: ISelectOptionProps | null;
-  search_term: string | null;
+
+export interface IErrorBoundaryProps {
+  children: React.ReactNode;
+}
+export interface IErrorState {
+  hasError: boolean;
+  error: { message: string };
+}
+
+export interface ISelectDropdownProps {
+  label: string;
+  options?: ISelectOptionProps[];
+  placeholder: string;
+  isMulti?: boolean;
+  value?: {
+    skillFilterState: ISelectOptionProps[];
+    setSkillFilterState: React.Dispatch<
+      React.SetStateAction<ISelectOptionProps[]>
+    >;
+  } | null;
 }

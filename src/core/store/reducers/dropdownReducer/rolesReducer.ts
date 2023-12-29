@@ -16,7 +16,7 @@ function rolesReducer(
   switch (action.type) {
     case actionTypes.SET_ROLES:
       return { ...state, roles: action.payload };
-    case actionTypes.SET_LOADING:
+    case actionTypes.SET_ROLES_LOADING:
       return { ...state, loading: action.payload };
     default:
       return state;

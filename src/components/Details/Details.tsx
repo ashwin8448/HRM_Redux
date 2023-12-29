@@ -1,5 +1,6 @@
 import { ISelectOptionProps, ISkill } from "../../core/interfaces/interface";
 import SkillsChip from "../Skills/SkillsChip.tsx";
+import Tooltip from "../Tooltip/Tooltip.tsx";
 import DetailsWrapper from "./details.ts";
 
 const DetailsSection = ({
@@ -23,7 +24,7 @@ const DetailsSection = ({
       {typeof content === "string" ? (
         <p className="content overflow-ellipsis">{content}</p>
       ) : (
-        <SkillsChip className="content" skills={content} />
+        <SkillsChip skills={content} />
       )}
     </DetailsWrapper>
   );

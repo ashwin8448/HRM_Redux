@@ -1,14 +1,9 @@
-import { FieldValues } from "react-hook-form";
 import {
   IAppEmployee,
   IDepartment,
-  IGetEmployee,
-  IPostEmployee,
   IRole,
-  ISelectOptionProps,
   ISkill,
 } from "../core/interfaces/interface.ts";
-import { uploadImage } from "./firebase.ts";
 
 export function transformArrayToOptionsList(
   optionsArray: (ISkill | IDepartment | IRole)[]
@@ -106,3 +101,6 @@ export const convertFormDataToIPostEmployees = async (
     }),
   };
 };
+export function concatenateNames(firstName: string, lastName: string): string {
+  return `${firstName} ${lastName}`;
+}
