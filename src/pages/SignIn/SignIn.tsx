@@ -3,6 +3,7 @@ import useAuth from "../../hooks/useAuth";
 
 const SignIn = () => {
   const { login } = useAuth();
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData(e.currentTarget);
@@ -18,8 +19,8 @@ const SignIn = () => {
       <div>SignIn</div>
       <form onSubmit={handleSubmit}>
         <div>
-          <label htmlFor="user-name">Username: </label>
-          <input id="user-name" type="text" name="user-name" />
+          <label htmlFor="username">Username: </label>
+          <input id="username" type="text" name="username" />
         </div>
         <div>
           <label htmlFor="password">Password: </label>

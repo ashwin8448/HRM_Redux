@@ -1,6 +1,6 @@
 const EmployeeListing = () => {
   return (
-    <div>Lsiting Employees</div>
+    <div>Listing Employees</div>
   )
 }
 

@@ -7,8 +7,8 @@ const useAuth = () => {
   const isAuthenticated = useSelector(
     (state: IData) => state.userData.isAuthenticated
   );
-  const login = (userCredentials: { username: string; password: string }) => {
-    console.log(userCredentials);
+  const login = async (userCredentials: { username: string; password: string }) => {
+    // const response  = await 
   };
   
   const logout = () => {
