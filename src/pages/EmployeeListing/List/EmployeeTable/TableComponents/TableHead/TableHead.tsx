@@ -1,5 +1,5 @@
 import Checkbox from "../../../../../../components/Checkbox/Checkbox.tsx";
-import { IReceivingEmployee } from "../../../../../../core/interfaces/interface.ts";
+import { IAppEmployee } from "../../../../../../core/interfaces/interface.ts";
 import TableHeadButton from "./TableHeadButton.tsx";
 import { TableHeadWrapper } from "./tableHead.ts";
 
@@ -11,11 +11,11 @@ function TableHead({
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  employees: IReceivingEmployee[]
+    employees: IAppEmployee[]
 }) {
 
   const employeesIdList = employees.map(
-    (employee: IReceivingEmployee) => employee.id
+    (employee: IAppEmployee) => employee.id
   );
 
   return (

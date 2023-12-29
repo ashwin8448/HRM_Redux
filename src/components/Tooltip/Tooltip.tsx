@@ -1,17 +1,16 @@
-import { useState, useEffect } from "react";
-import { ISkill } from "../../core/interfaces/interface.ts";
+import { ISelectOptionProps } from "../../core/interfaces/interface.ts";
 import TooltipWrapper from "./tooltip";
 
 function Tooltip({
   message,
   className,
 }: {
-  message: ISkill[] | string;
+  message: ISelectOptionProps[] | string;
   className?: string;
 }) {
   let tooltipMsg = "";
   if (Array.isArray(message))
-    tooltipMsg = message.map((msg) => msg.skill).join(", ");
+    tooltipMsg = message.map((msg) => msg.value).join(", ");
   else tooltipMsg = message;
   return <TooltipWrapper className={className}>{tooltipMsg}</TooltipWrapper>;
 }

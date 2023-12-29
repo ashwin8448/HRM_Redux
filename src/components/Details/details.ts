@@ -16,15 +16,12 @@ const DetailsWrapper = styled.div<{ $newline?: boolean; $skill?: boolean }>`
   .content {
     width: 100%;
     font-size: 14px;
-    font-weight:  ${(props) => props.$newline ? `500`:`600`};
-    color: ${(props) => !props.$newline ? `${colors.SECONDARY_COLOR}`:`${colors.DARK_GRAY_COLOR}`};
-    padding: 5px 0 10px 0;
-    margin: ${(props) => props.$newline && '0'};
-    text-align: ${(props) => props.$newline && 'center'};
+    font-weight: 500;
+    padding-left: 10px;
   }
 
   .title {
-    margin-left: ${(props) => !props.$newline && '10px'};
+    margin-left: 10px;
     font-size: 14px;
     color: ${(props) => props.$newline ? `${colors.SECONDARY_COLOR}`:`${colors.DARK_GRAY_COLOR}`};
     font-weight:  ${(props) => props.$newline ? `700`:`500`};
@@ -37,6 +34,11 @@ const DetailsWrapper = styled.div<{ $newline?: boolean; $skill?: boolean }>`
 
   .skills-tooltip{
     visibility:hidden;
+  }
+
+  .description {
+    display: flex;
+    align-items: center;
   }
 `;
 export default DetailsWrapper;

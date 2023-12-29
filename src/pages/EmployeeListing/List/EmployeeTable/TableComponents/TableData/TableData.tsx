@@ -1,4 +1,4 @@
-import { IReceivingEmployee } from "../../../../../../core/interfaces/interface.ts";
+import { IAppEmployee } from "../../../../../../core/interfaces/interface.ts";
 import TableDataWrapper from "./tableData.ts";
 import Button from "../../../../../../components/Button/Button.tsx";
 import { useNavigate } from "react-router-dom";
@@ -13,7 +13,7 @@ function TableData({
   index,
   deleteCheckBoxesList,
 }: {
-  employee: IReceivingEmployee;
+  employee: IAppEmployee;
   index: number;
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
@@ -50,16 +50,16 @@ function TableData({
       </td>
       <td className="employee-data">{employee.designation || "-"}</td>
       <td className="employee-data">
-        {employee.department?.department || "-"}
+        {employee.department.label || "-"}
       </td>
-      <td className="employee-data">{employee.role?.role || "-"}</td>
+      <td className="employee-data">{employee.role.label || "-"}</td>
       <td className="employee-data skills-data">
         <SkillsChip skills={employee.skills} />
       </td>
       <td className="employee-data">
         <div className=" actions-list common-flex">
           {/* navigating to edit employee page */}
-          <StyledLink to={`/edit-employee?employeeId=${employee.id}`}>
+          <StyledLink to={`/edit-employee/${employee.id}`}>
             <Button icon="edit"></Button>
           </StyledLink>
         </div>

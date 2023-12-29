@@ -1,5 +1,4 @@
 import React, { useEffect, useState, useRef } from "react";
-import { IReceivingEmployee } from "../../../../core/interfaces/interface";
 import EmployeeCard from "../components/EmployeeCard.tsx";
 import Loader from "../../../../components/Loader/loader.ts";
 import {
@@ -7,8 +6,9 @@ import {
   resetEmployeesGrid,
 } from "../../../../core/store/actions.ts";
 import EmployeeCardListWrapper from "./employeeCardList.ts";
-import store from "../../../../core/store/configureStore.ts";
 import { useSearchParams } from "react-router-dom";
+import { IAppEmployee } from "../../../../core/interfaces/interface.ts";
+import { useAppDispatch } from "../../../../hooks/reduxHooks.ts";
 
 function EmployeeCardList({
   deleteCheckBoxesList,
@@ -21,11 +21,13 @@ function EmployeeCardList({
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  employees: IReceivingEmployee[];
+  employees: IAppEmployee[];
   loading: boolean;
   cardsPerPage: number;
   totalPages: number;
 }) {
+  const dispatch = useAppDispatch()
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const [page, setPage] = useState<number>(0);
@@ -41,13 +43,13 @@ function EmployeeCardList({
   };
 
   useEffect(() => {
-    if (page <= totalPages || !totalPages) {
+    if (page <= totalPages || totalPages === 0) {
       const offset = Math.max(0, (page - 1) * cardsPerPage);
 
       // Adding a delay of 500 milliseconds before dispatching the action
       const delay = 500;
       const timeoutId = setTimeout(() => {
-        store.dispatch(
+        dispatch(
           fetchEmployeesData(
             {
               limit: cardsPerPage,
@@ -89,15 +91,16 @@ function EmployeeCardList({
   }, []);
 
   useEffect(() => {
-    store.dispatch(resetEmployeesGrid());
     setPage(0);
+    dispatch(resetEmployeesGrid());
   }, [searchParams]);
 
   return (
     <>
       <EmployeeCardListWrapper>
         {employees.length > 0 ? (
-          employees.map((employee: IReceivingEmployee) => (
+          employees.map((employee: IAppEmployee) => (
+            employee &&
             <EmployeeCard
               key={employee.id}
               deleteCheckBoxesList={deleteCheckBoxesList}

@@ -1,29 +1,21 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "../../../../../components/Button/Button.tsx";
-import { useSelector } from "react-redux";
-import { IData } from "../../../../../core/interfaces/interface.ts";
 import {
-  SortByDropdownItem,
   DropdownWrapper,
-  SortOrderDropdownItemWrapper,
 } from "../../Sort/sort.ts";
-import { useSearchParams } from "react-router-dom";
-import { useMediaQuery } from "usehooks-ts";
 import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
-import SelectAllWrapper from "./moreActions.ts";
 import DeleteBtnWrapper from "./moreActions.ts";
 import DeleteModal from "../../../../../components/DeleteModal/DeleteModal.tsx";
 import Tooltip from "../../../../../components/Tooltip/Tooltip.tsx";
+import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
 
 function MoreActions({
   deleteCheckBoxesList,
-  handleActiveListing,
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  handleActiveListing: (button: string) => void;
 }) {
   //more actions dropdown open on click
   const [moreActionsDropdown, setMoreActionsDropdown] = useState(false); // determines whether the modal is open or close
@@ -40,8 +32,8 @@ function MoreActions({
     }
   };
 
-  const { employees, loading } = useSelector(
-    (state: IData) => state.employeesData
+  const { employees, loading } = useAppSelector(
+    (state) => state.employeesData
   );
 
   const selectAll =
@@ -130,7 +122,6 @@ function MoreActions({
         <DeleteModal
           changeDltModalOpenStatus={dltBtnClick}
           idArrayToDlt={deleteCheckBoxesList.checkedBoxesList}
-          handleActiveListing={handleActiveListing}
         />
       )}
     </div>

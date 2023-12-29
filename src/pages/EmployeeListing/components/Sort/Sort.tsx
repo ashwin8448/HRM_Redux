@@ -1,6 +1,4 @@
-import { useSelector } from "react-redux";
-import { IData } from "../../../../core/interfaces/interface.ts";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import Button from "../../../../components/Button/Button.tsx";
 import {
   SortByDropdownItem,
@@ -10,6 +8,7 @@ import {
 import { SortDirection } from "../../../../core/config/constants.ts";
 import { useSearchParams } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
+import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 
 function Sort() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -19,7 +18,7 @@ function Sort() {
   //responsive
   const matches = useMediaQuery("(min-width: 768px)");
 
-  const { loading } = useSelector((state: IData) => state.employeesData);
+  const { loading } = useAppSelector((state) => state.employeesData);
 
   //sort dropdown open on click
   const [sortDropdown, setSortDropdown] = useState(false); // determines whether the modal is open or close

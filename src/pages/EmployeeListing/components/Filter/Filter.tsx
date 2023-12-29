@@ -2,15 +2,14 @@ import { useEffect, useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import Button from "../../../../components/Button/Button.tsx";
 import SideFilterBarWrapper from "./SideFilterBar/sideFilterBar.ts";
-import { useSelector } from "react-redux";
-import { IData } from "../../../../core/interfaces/interface.ts";
 import FilterActions from "./SideFilterBar/FilterActions.tsx";
+import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 
 const Filter = () => {
   //responsive
   const matches = useMediaQuery("(min-width: 768px)");
 
-  const { loading } = useSelector((state: IData) => state.employeesData);
+  const { loading } = useAppSelector((state) => state.employeesData);
 
   //Side Filter bar visible on click
   const [isSideFilterBarVisible, setSideFilterBarVisible] = useState(false);

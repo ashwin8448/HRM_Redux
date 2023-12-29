@@ -1,5 +1,5 @@
-import styled from "styled-components";
-import colors from "../../../../core/constants/colors";
+import styled from 'styled-components';
+import colors from '../../../../core/constants/colors';
 
 const EmployeeCardWrapper = styled.div`
   background-color: ${colors.WHITE_COLOR};
@@ -8,6 +8,14 @@ const EmployeeCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+
+  &:hover {
+    cursor: pointer;
+  }
+  input[type='checkbox'] {
+    width: 20px;
+    height: 20px;
+  }
 
   .title-section {
     display: flex;
@@ -44,7 +52,7 @@ const EmployeeCardWrapper = styled.div`
       flex-direction: column;
     }
   }
-  .photo-container{
+  .photo-container {
     width: 100px;
     height: 100px;
     border-radius: 50%;

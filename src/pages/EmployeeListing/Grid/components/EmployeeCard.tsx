@@ -1,10 +1,11 @@
-import { IReceivingEmployee } from "../../../../core/interfaces/interface.js";
+import { IAppEmployee } from "../../../../core/interfaces/interface.js";
 import EmployeeCardWrapper from "./employeeCard.ts";
 import { concatenateNames } from "../../../../utils/helper.js";
 import ActiveChip from "../../../../components/ActiveChip/ActiveChip.tsx";
 import Checkbox from "../../../../components/Checkbox/Checkbox.tsx";
 import DetailsSection from "../../../../components/Details/Details.tsx";
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function EmployeeCard({
   deleteCheckBoxesList,
@@ -14,22 +15,21 @@ function EmployeeCard({
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  employee: IReceivingEmployee;
+  employee: IAppEmployee;
 }) {
-  const photoId = employee.moreDetails
-    ? employee.moreDetails.photoId
-      ? employee.moreDetails.photoId
-      : null
-    : null;
+  const navigate = useNavigate();
+  const photoId = employee.photoId
 
   return (
-    <EmployeeCardWrapper>
+    <EmployeeCardWrapper
+      onClick={() => navigate(`/view-employee/${employee.id}`)}
+    >
       <div className="actions-section common-flex">
         <Checkbox
           employeeId={employee.id}
           deleteCheckBoxesList={deleteCheckBoxesList}
         />
-        <ActiveChip isActive={employee.isActive ?? true}></ActiveChip>
+        <ActiveChip isActive={employee.isActive === "Yes" ? true : false}></ActiveChip>
       </div>
       <div className="title-section">
         {photoId ? (
@@ -52,7 +52,7 @@ function EmployeeCard({
         <div className="company-details common-flex">
           <DetailsSection
             title="Department"
-            content={employee.department?.department.toString() ?? "-"}
+            content={employee.department.label ?? "-"}
             newline
           />
           <DetailsSection

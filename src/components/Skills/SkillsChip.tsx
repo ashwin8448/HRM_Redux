@@ -1,9 +1,9 @@
 import { useEffect, useRef, useState } from "react";
-import { ISkill } from "../../core/interfaces/interface";
+import { ISelectOptionProps } from "../../core/interfaces/interface";
 import { SkillsChipWrapper, SkillsListWrapper } from "./skillsChip";
 import Tooltip from "../Tooltip/Tooltip.tsx";
 
-function SkillsChip({ skills }: { skills: ISkill[] | undefined }) {
+function SkillsChip({ skills }: { skills:  ISelectOptionProps[]| undefined }) {
   //check for skills overflowing the scroll width
   const [skillsOverflow, setSkillsOverflow] = useState(false);
   const handleSkillsOverflow = (isOverflow: boolean) => {
@@ -42,9 +42,9 @@ function SkillsChip({ skills }: { skills: ISkill[] | undefined }) {
   return Array.isArray(skills) && skills.length > 0 ? (
     <>
       <SkillsListWrapper className="overflow-ellipsis" ref={skillsContainerRef}>
-        {skills.map((skill: ISkill) => {
+        {skills.map((skill: ISelectOptionProps)  => {
           return (
-            <SkillsChipWrapper key={skill.id}>{skill.skill}</SkillsChipWrapper>
+            <SkillsChipWrapper key={skill.value}>{skill.label}</SkillsChipWrapper>
           );
         })}
       </SkillsListWrapper>

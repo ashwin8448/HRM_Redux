@@ -1,14 +1,14 @@
 import { useEffect } from "react";
-import { IReceivingEmployee } from "../../../../core/interfaces/interface.ts";
+import { IAppEmployee } from "../../../../core/interfaces/interface.ts";
 import TableWrapper from "./employeeTable.ts";
 import TableHead from "../EmployeeTable/TableComponents/TableHead/TableHead.tsx";
 import Loader from "../../../../components/Loader/Loader.tsx";
 import { fetchEmployeesData } from "../../../../core/store/actions.ts";
-import store from "../../../../core/store/configureStore.ts";
 import React from "react";
 import Pagination from "../../../../components/Pagination/Pagination.tsx";
 import { useSearchParams } from "react-router-dom";
 import TableData from "./TableComponents/TableData/TableData.tsx";
+import { useAppDispatch } from "../../../../hooks/reduxHooks.ts";
 
 function EmployeeTable({
   deleteCheckBoxesList,
@@ -21,11 +21,13 @@ function EmployeeTable({
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  employees: IReceivingEmployee[];
+  employees: IAppEmployee[];
   loading: boolean;
   rowsPerPage: number;
   totalPages: number;
 }) {
+  const dispatch = useAppDispatch();
+
   // Employee fetching
   const [searchParams, setSearchParams] = useSearchParams();
   const updateSearchParams = (params: { page?: string }) => {
@@ -36,7 +38,7 @@ function EmployeeTable({
   };
 
   useEffect(() => {
-    store.dispatch(
+    dispatch(
       fetchEmployeesData(
         {
           limit: rowsPerPage,
@@ -77,7 +79,7 @@ function EmployeeTable({
           ) : (
             <tbody>
               {employees.length > 0 ? (
-                employees.map((employee: IReceivingEmployee, index: number) => {
+                employees.map((employee: IAppEmployee, index: number) => {
                   return (
                     employee && (
                       <TableData

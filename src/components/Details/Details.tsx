@@ -1,18 +1,16 @@
-import { useState } from "react";
-import { ISkill } from "../../core/interfaces/interface";
+import { ISelectOptionProps } from "../../core/interfaces/interface";
 import SkillsChip from "../Skills/SkillsChip.tsx";
-import Tooltip from "../Tooltip/Tooltip.tsx";
 import DetailsWrapper from "./details.ts";
 
 const DetailsSection = ({
+  content,
   icon,
   title,
-  content,
   newline,
 }: {
+  content: string | ISelectOptionProps[];
   icon?: string;
   title?: string;
-  content: string | ISkill[];
   matches?: boolean;
   newline?: boolean;
 }) => {
