@@ -12,7 +12,7 @@ import {
   ISelectOptionProps,
   ISkill,
   IActionEmployeeData,
-} from '../interfaces/interface.ts';
+} from "../interfaces/interface.ts";
 import { apiURL } from "../config/constants.ts";
 import { AppDispatch } from "./configureStore.ts";
 
@@ -27,37 +27,37 @@ interface ISET_LOADING {
   };
 }
 interface ISET_EMPLOYEES {
-  type: 'SET_EMPLOYEES';
+  type: "SET_EMPLOYEES";
   payload: IActionEmployeeData;
 }
 
 interface ISET_EMPLOYEES_LIST {
-  type: 'SET_EMPLOYEES_LIST';
+  type: "SET_EMPLOYEES_LIST";
   payload: IActionEmployeeData;
 }
 
 interface ISET_EMPLOYEES_GRID {
-  type: 'SET_EMPLOYEES_GRID';
+  type: "SET_EMPLOYEES_GRID";
   payload: IActionEmployeeData;
 }
 
 interface ISET_DEPARTMENTS {
-  type: 'SET_DEPARTMENTS';
+  type: "SET_DEPARTMENTS";
   payload: ISelectOptionProps[];
 }
 
 interface ISET_ROLES {
-  type: 'SET_ROLES';
+  type: "SET_ROLES";
   payload: ISelectOptionProps[];
 }
 
 interface ISET_SKILLS {
-  type: 'SET_SKILLS';
+  type: "SET_SKILLS";
   payload: ISelectOptionProps[];
 }
 
 interface IRESET_EMPLOYEES {
-  type: 'RESET_EMPLOYEES_GRID';
+  type: "RESET_EMPLOYEES_GRID";
 }
 
 export const setLoading = (
@@ -142,7 +142,7 @@ export const fetchEmployeesData = (
       dispatch(setLoading(actionTypes.SET_LOADING, { loading: true }));
       const response = await getData(apiURL.employee, { params: params });
       const employeesResponseData = response.data.data;
-      const employees:IGetEmployee[] = employeesResponseData.employees;
+      const employees: IGetEmployee[] = employeesResponseData.employees;
 
       if (state === "List")
         dispatch(
@@ -163,47 +163,83 @@ export const fetchEmployeesData = (
           })
         );
     } catch (error) {
-      toast.error('No data is recieved', { toastId: 'no-data' });
-      console.error('Error fetching data:', error);
+      toast.error("No data is recieved", { toastId: "no-data" });
+      console.error("Error fetching data:", error);
     } finally {
       dispatch(setLoading(actionTypes.SET_LOADING, { loading: false }));
     }
   };
 };
 
-export const fetchDropdownData = () => {
+export const fetchDepartmentsData = () => {
   return async function (dispatch: AppDispatch) {
     try {
       // Use Promise.all to fetch data concurrently
-      const [departmentsResponse, rolesResponse, skillsResponse] =
-        await Promise.all([
-          getData(apiURL.departments),
-          getData(apiURL.roles),
-          getData(apiURL.skills),
-        ]);
+      const departmentsResponse = await getData(apiURL.departments);
 
       // Extract data from responses
       const departmentsResponseData: IDepartment[] = departmentsResponse.data;
-      const rolesResponseData: IRole[] = rolesResponse.data;
-      const skillsResponseData: ISkill[] = skillsResponse.data.data;
 
       // Dispatch actions
       dispatch(
         setDepartments(transformArrayToOptionsList(departmentsResponseData))
       );
-      dispatch(setRoles(transformArrayToOptionsList(rolesResponseData)));
-      dispatch(setSkills(transformArrayToOptionsList(skillsResponseData)));
     } catch (error) {
-      toast.error('Dropdown data could not be fetched.', {
-        toastId: 'no-dropdown-data',
+      toast.error("Departments data could not be fetched.", {
+        toastId: "no-departments-data",
       });
-      console.error('Error fetching dropdown data:', error);
+      console.error("Error fetching dropdown data:", error);
     } finally {
       // Set loading to false for all dropdowns
       dispatch(
         setLoading(actionTypes.SET_DEPARTMENTS_LOADING, { loading: false })
       );
+    }
+  };
+};
+
+export const fetchRolesData = () => {
+  return async function (dispatch: AppDispatch) {
+    try {
+      // Use Promise.all to fetch data concurrently
+      const rolesResponse = await getData(apiURL.roles);
+
+      // Extract data from responses
+      const rolesResponseData: IRole[] = rolesResponse.data;
+
+      // Dispatch actions
+
+      dispatch(setRoles(transformArrayToOptionsList(rolesResponseData)));
+    } catch (error) {
+      toast.error("Roles data could not be fetched.", {
+        toastId: "no-roles-data",
+      });
+      console.error("Error fetching dropdown data:", error);
+    } finally {
+      // Set loading to false for all dropdowns
       dispatch(setLoading(actionTypes.SET_ROLES_LOADING, { loading: false }));
+    }
+  };
+};
+
+export const fetchSkillsData = () => {
+  return async function (dispatch: AppDispatch) {
+    try {
+      // Use Promise.all to fetch data concurrently
+      const skillsResponse = await getData(apiURL.skills);
+
+      // Extract data from responses
+      const skillsResponseData: ISkill[] = skillsResponse.data.data;
+
+      // Dispatch actions
+      dispatch(setSkills(transformArrayToOptionsList(skillsResponseData)));
+    } catch (error) {
+      toast.error("Skills data could not be fetched.", {
+        toastId: "no-skills-data",
+      });
+      console.error("Error fetching skills data:", error);
+    } finally {
+      // Set loading to false for all dropdowns
       dispatch(setLoading(actionTypes.SET_SKILLS_LOADING, { loading: false }));
     }
   };

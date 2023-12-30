@@ -1,4 +1,4 @@
-import { FormProvider, useForm, useFormContext } from "react-hook-form";
+import { FormProvider, useForm } from "react-hook-form";
 import Button from "../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import Input from "../../components/Input/Input.tsx";
@@ -23,7 +23,12 @@ import { apiURL } from "../../core/config/constants.ts";
 import EmployeeView from "../EmployeeView/EmployeeView.tsx";
 import EmployeeViewWrapper from "../EmployeeView/employeeView.ts";
 import getFormConfig from "./formConfig.ts";
-import { useAppSelector } from "../../hooks/reduxHooks.ts";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks.ts";
+import {
+  fetchDepartmentsData,
+  fetchRolesData,
+  fetchSkillsData,
+} from "../../core/store/actions.ts";
 
 const Form = () => {
   const { employeeId } = useParams();
@@ -41,8 +46,13 @@ const Form = () => {
   });
   const urlType = getUrlType(location.pathname);
   const navigate = useNavigate();
-
+  const dispatch = useAppDispatch();
   useEffect(() => {
+    console.log(roles, departments, skills);
+    if (!roles.length) dispatch(fetchRolesData());
+    if (!departments.length) dispatch(fetchDepartmentsData());
+    if (!skills.length) dispatch(fetchSkillsData());
+
     if (urlType === "edit-employee") {
       if (!employeeId) {
         // Display error toast after initial render
