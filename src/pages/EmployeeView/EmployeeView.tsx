@@ -16,7 +16,9 @@ const EmployeeView = ({
       <div className="flex employee-intro-section">
         <img
           src={
-            employee.photoId === "" || employee.photoId === undefined
+            employee.photoId === "" ||
+            employee.photoId === undefined ||
+            (typeof employee.photoId === "object" && !employee.photoId.length)
               ? DummyImg
               : typeof employee.photoId === "string"
               ? employee.photoId
@@ -27,7 +29,7 @@ const EmployeeView = ({
         <div className="flex employee-intro">
           <h2>{employee.firstName + " " + employee.lastName}</h2>
           <div className="employee-status">
-            <ActiveChip isActive={employee.isActive === "Yes" ? true : false} />
+            <ActiveChip isActive={employee.isActive} />
             <span>{employee.role.label}</span>
           </div>
           <div className="flex">

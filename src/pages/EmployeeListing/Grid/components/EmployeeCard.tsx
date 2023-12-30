@@ -6,6 +6,7 @@ import Checkbox from "../../../../components/Checkbox/Checkbox.tsx";
 import DetailsSection from "../../../../components/Details/Details.tsx";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import dummyImage from "../../../../assets/userAvatar.svg";
 
 function EmployeeCard({
   deleteCheckBoxesList,
@@ -18,7 +19,6 @@ function EmployeeCard({
   employee: IAppEmployee;
 }) {
   const navigate = useNavigate();
-  const photoId = employee.photoId
 
   return (
     <EmployeeCardWrapper
@@ -29,16 +29,20 @@ function EmployeeCard({
           employeeId={employee.id}
           deleteCheckBoxesList={deleteCheckBoxesList}
         />
-        <ActiveChip isActive={employee.isActive === "Yes" ? true : false}></ActiveChip>
+        <ActiveChip isActive={employee.isActive}></ActiveChip>
       </div>
       <div className="title-section">
-        {photoId ? (
-          <div className="photo-container">
-            <img src={photoId} alt="" className="photo" />
-          </div>
-        ) : (
-          <div className="photo-container"></div>
-        )}
+        <div className="photo-container">
+          <img
+            src={
+              employee.photoId === "" || employee.photoId === undefined
+                ? dummyImage
+                : employee.photoId
+            }
+            alt=""
+            className="photo"
+          />
+        </div>
         <DetailsSection
           title={concatenateNames(
             employee.firstName,

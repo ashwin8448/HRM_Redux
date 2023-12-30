@@ -73,10 +73,6 @@ function FilterActions({ onClick }: { onClick: () => void }) {
     onClick();
   };
 
-  useEffect(() => {
-    dispatch(fetchDropdownData());
-  }, []);
-
   return (
     <FilterActionsWrapper>
       {!loading ? (

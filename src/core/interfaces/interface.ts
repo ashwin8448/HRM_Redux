@@ -42,7 +42,7 @@ export interface IGetEmployee extends ICommonEmployeeFields {
 
 export interface IAppEmployee extends ICommonEmployeeFields {
   id: string;
-  isActive: string;
+  isActive: boolean;
   photoId: string;
   role: ISelectOptionProps;
   department: ISelectOptionProps;

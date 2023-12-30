@@ -33,7 +33,6 @@ function EmployeeViewLayout() {
       getData("/employee/" + employeeId)
         .then((response) => {
           if (!response.data) {
-            //TODO: Handling errors
             throw new Response("Employee Not Found", { status: 404 });
           } else
             setEmployeeData((prev) => ({

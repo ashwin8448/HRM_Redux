@@ -33,7 +33,6 @@ export async function onResponseError(error: AxiosError): Promise<AxiosError> {
     window.location.pathname !== '/error'
   ) {
     const refreshResponse = await getNewRefreshToken();
-    console.log(refreshResponse)
     if (refreshResponse) {
       setCookie('accessToken', refreshResponse.access_token);
       setCookie('refreshToken', refreshResponse.refresh_token);

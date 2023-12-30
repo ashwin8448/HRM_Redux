@@ -59,7 +59,7 @@ function Input({ config }: { config: IInputProps }) {
             break;
           case "radio":
             inputToRender = (
-              <div className="m-30">
+              <div className="input-field-error">
                 <div className="common-flex radio-list">
                   {config.options?.map((option) => (
                     <RadioGrp

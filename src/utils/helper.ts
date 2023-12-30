@@ -7,11 +7,11 @@ import {
   IRole,
   ISelectOptionProps,
   ISkill,
-} from '../core/interfaces/interface.ts';
-import { uploadImage } from './firebase.ts';
-import { postData } from '../core/api/functions.ts';
-import { apiURL } from '../core/config/constants.ts';
-import { jwtDecode } from 'jwt-decode';
+} from "../core/interfaces/interface.ts";
+import { uploadImage } from "./firebase.ts";
+import { postData } from "../core/api/functions.ts";
+import { apiURL } from "../core/config/constants.ts";
+import { jwtDecode } from "jwt-decode";
 
 export function transformArrayToOptionsList(
   optionsArray: (ISkill | IDepartment | IRole)[]
@@ -39,16 +39,23 @@ export const getWorkExp = (dateOfJoining: string) => {
   const workExp: number = Math.floor(
     (now.getTime() - DOJ.getTime()) / (1000 * 60 * 60 * 24 * 30)
   );
-  if (workExp <= 1) return 'Less than a month';
-  return workExp.toString() + '  months';
+  if (workExp <= 1) return "Less than a month";
+  else if (workExp <= 12) return workExp.toString() + "  months";
+  else
+    return (
+      Math.floor(workExp / 12).toString() +
+      " years " +
+      (workExp % 12).toString() +
+      "  months"
+    );
 };
 
 export const getDateView = (dateVal: string) => {
-  const [year, month, day] = dateVal.split('-').map(Number);
-  const monthName = new Date(year, month - 1, 1).toLocaleString('default', {
-    month: 'long',
+  const [year, month, day] = dateVal.split("-").map(Number);
+  const monthName = new Date(year, month - 1, 1).toLocaleString("default", {
+    month: "long",
   });
-  const dateFormatted = day + ' ' + monthName + ' ' + year;
+  const dateFormatted = day + " " + monthName + " " + year;
   return dateFormatted;
 };
 
@@ -77,20 +84,20 @@ export const convertIGetEmployeeToIAppEmployee = (
   } = employee;
   return {
     ...rest,
-    isActive: isActive ? 'Yes' : 'No', // TODO: maintain it as true or false
-    lastName: lastName ?? '',
-    email: email ?? '',
-    phone: phone ?? '',
-    designation: designation ?? '',
-    salary: salary ?? '',
-    address: address ?? '',
+    isActive: isActive,
+    lastName: lastName ?? "",
+    email: email ?? "",
+    phone: phone ?? "",
+    designation: designation ?? "",
+    salary: salary ?? "",
+    address: address ?? "",
     skills: transformArrayToOptionsList(skills),
     department: department
       ? transformArrayToOptionsList([department])[0]
-      : { value: 0, label: "" }, //TODO: null condition
+      : { value: 0, label: "" },
     role: role
       ? transformArrayToOptionsList([role])[0]
-      : { value: 0, label: "" }, //TODO: null condition
+      : { value: 0, label: "" },
     photoId: moreDetails ? JSON.parse(moreDetails).photoId : "",
   };
 };
@@ -104,10 +111,12 @@ export const convertFormDataToIPostEmployees = async (
     skills: skills.map((skill: ISelectOptionProps) => skill.value),
     department: department.value,
     role: role.value,
-    isActive: isActive === 'Yes' ? true : false,
+    isActive: isActive === "Yes" ? true : false,
     moreDetails: JSON.stringify({
       photoId:
-        typeof photoId![0] == 'object' ? await uploadImage(photoId![0]) : '',
+        typeof photoId![0] == "object"
+          ? await uploadImage(photoId![0])
+          : photoId,
     }),
   };
 };
@@ -151,7 +160,7 @@ export const getNewRefreshToken = async () => {
         response.data;
       return responseData;
     } catch (err) {
-      console.log("try again, couldnt renew refresh token");
+      console.error(err);
       return;
     }
   } else return;

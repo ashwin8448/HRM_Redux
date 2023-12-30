@@ -1,4 +1,4 @@
-import { FormProvider, useForm } from "react-hook-form";
+import { FormProvider, useForm, useFormContext } from "react-hook-form";
 import Button from "../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import Input from "../../components/Input/Input.tsx";
@@ -71,7 +71,22 @@ const Form = () => {
   useEffect(() => {
     if (employeeData)
       for (const employeeProperty in employeeData) {
-        methods.setValue(employeeProperty, employeeData[employeeProperty as keyof IAppEmployee]);
+        if (
+          (employeeProperty === "department" || employeeProperty === "role") &&
+          employeeData[employeeProperty].value === 0
+        ) {
+          methods.setValue(employeeProperty, null);
+        } else if (employeeProperty === "isActive") {
+          methods.setValue(
+            employeeProperty,
+            employeeData[employeeProperty] ? "Yes" : "No"
+          );
+        } else {
+          methods.setValue(
+            employeeProperty,
+            employeeData[employeeProperty as keyof IAppEmployee]
+          );
+        }
       }
   }, [employeeData]);
 
@@ -87,8 +102,10 @@ const Form = () => {
           toastId: "add-toast-id",
         });
       } else {
-        //TODO: Photo update is not dirty.
-        if (!methods.formState.isDirty) {
+        if (
+          Object.keys(methods.formState.dirtyFields).length ||
+          formValues.photoId != employeeData?.photoId
+        ) {
           const editedEmployee = await convertFormDataToIPostEmployees(
             formValues
           );
@@ -114,10 +131,9 @@ const Form = () => {
       setActiveSection(4);
     } finally {
       setIsLoading(false);
-      navigate("/")
+      navigate("/");
     }
   });
-
   const formConfig = getFormConfig({
     departments: departments as ISelectOptionProps[],
     skills: skills as ISelectOptionProps[],

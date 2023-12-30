@@ -33,7 +33,6 @@ const useAuth = () => {
           authResponse.data;
         const accessToken = responseData.access_token;
         const refreshToken = responseData.refresh_token;
-        console.log(accessToken);
         setCookie('accessToken', accessToken);
         setCookie('refreshToken', refreshToken);
         dispatch(setlogin());
