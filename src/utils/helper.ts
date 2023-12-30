@@ -165,3 +165,34 @@ export const getNewRefreshToken = async () => {
     }
   } else return;
 };
+
+export const handleCheckboxChange = ({
+  employeeId,
+  deleteCheckBoxesList,
+  employeesIdList,
+}: {
+  employeeId?: string;
+  deleteCheckBoxesList: {
+    checkedBoxesList: string[];
+    setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
+  };
+  employeesIdList?: string[];
+}) => {
+  
+  deleteCheckBoxesList.setCheckedBoxesList((prevList) => {
+    if (employeeId) {
+      // Toggle the checkbox for individual employee
+      return prevList.includes(employeeId)
+        ? prevList.filter((id) => id !== employeeId)
+        : [...prevList, employeeId];
+    } else if (employeesIdList) {
+      // Toggle the checkbox for all employees
+      return prevList.length === employeesIdList.length
+        ? [] // Uncheck all if all are checked
+        : employeesIdList; // Check all if not all are checked
+    }
+
+    return prevList;
+  });
+
+};

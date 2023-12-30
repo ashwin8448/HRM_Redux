@@ -10,7 +10,7 @@ function Tooltip({
 }) {
   let tooltipMsg = "";
   if (Array.isArray(message))
-    tooltipMsg = message.map((msg) => msg.value).join(", ");
+    tooltipMsg = message.map((msg) => msg.label).join(", ");
   else tooltipMsg = message;
   return <TooltipWrapper className={className}>{tooltipMsg}</TooltipWrapper>;
 }

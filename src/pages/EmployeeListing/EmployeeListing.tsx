@@ -7,9 +7,9 @@ import { useSearchParams } from "react-router-dom";
 import ListingActions from "./components/ListingActions/ListingActions.tsx";
 import EmployeeListingWrapper from "./employeeListing.ts";
 import { useAppSelector } from "../../hooks/reduxHooks.ts";
+import Snackbar from "../../components/Snackbar/Snackbar.tsx";
 
 function EmployeeListing() {
-
   // Employees data fetching
   const { employees, loading, count } = useAppSelector(
     (state) => state.employeesData
@@ -27,11 +27,10 @@ function EmployeeListing() {
       ...params,
     });
   };
+  const displayValue = searchParams.get("display");
 
   //toggle between list and grid
-  const [listingActive, setListingActive] = useState(
-    searchParams.get("display") || "List"
-  );
+  const [listingActive, setListingActive] = useState(displayValue ?? "List");
   const handleActiveListing = (buttonTxt: string) => {
     updateSearchParams({ display: buttonTxt });
     deleteCheckBoxesList.setCheckedBoxesList([]);
@@ -43,7 +42,7 @@ function EmployeeListing() {
   const totalPages = Math.ceil(Number(count) / recordsPerPage);
 
   useEffect(() => {
-    updateSearchParams({ display: searchParams.get("display") || "List" });
+    updateSearchParams({ display: displayValue ?? "List" });
   }, [listingActive]);
 
   return (
@@ -60,6 +59,7 @@ function EmployeeListing() {
         handleActiveListing={handleActiveListing}
         deleteCheckBoxesList={deleteCheckBoxesList}
       />
+      <Snackbar deleteCheckBoxesList={deleteCheckBoxesList} />
       {listingActive == "List" ? (
         <EmployeeTable
           deleteCheckBoxesList={deleteCheckBoxesList}

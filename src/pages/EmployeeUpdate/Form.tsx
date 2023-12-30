@@ -150,7 +150,12 @@ const Form = () => {
     roles: roles as ISelectOptionProps[],
   });
 
-  if (isLoading) return <Loader className="center-screen" />;
+  if (isLoading)
+    return (
+      <div className="center-loader">
+        <Loader />
+      </div>
+    );
   return (
     <>
       <span
