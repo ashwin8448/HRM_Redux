@@ -1,7 +1,10 @@
-import { AxiosError, AxiosResponse } from "axios";
+import { AxiosError, AxiosResponse } from 'axios';
+import { getNewRefreshToken, setCookie } from '../../utils/helper';
+import { API } from '.';
 
 export enum HTTP_STATUS {
   SUCCESS = 200,
+  INFORMATION = 300,
   BAD_REQUEST = 400,
   NOT_FOUND = 404,
   FORBIDDEN = 403,
@@ -9,29 +12,43 @@ export enum HTTP_STATUS {
   UNAUTHORIZED = 401,
 }
 
-interface ErrorResponse {
+interface IErrorResponse {
   status: number;
   message: string;
 }
 
-export function onResponseError(error: AxiosError): Promise<any> {
-
+export async function onResponseError(error: AxiosError): Promise<AxiosError> {
+  const { config } = error;
   if (
     (error.response?.status === HTTP_STATUS.SERVER_ERROR ||
-      error.response?.status === HTTP_STATUS.UNAUTHORIZED ||
       error.response?.status === HTTP_STATUS.FORBIDDEN ||
       error.response?.status === HTTP_STATUS.NOT_FOUND ||
       error.response?.status === HTTP_STATUS.BAD_REQUEST) &&
-    window.location.pathname !== "/error"
+    window.location.pathname !== '/error'
   ) {
-    // window.location.href = `/error?statusCode=${error.response?.status}`;
-    return Promise.reject(error.response.data as ErrorResponse);
+    window.location.href = `/error?statusCode=${error.response?.status}`;
+    return Promise.reject(error.response.data as IErrorResponse);
+  } else if (
+    error.response?.status === HTTP_STATUS.UNAUTHORIZED &&
+    window.location.pathname !== '/error'
+  ) {
+    const refreshResponse = await getNewRefreshToken();
+    if (refreshResponse) {
+      setCookie('accessToken', refreshResponse.access_token);
+      setCookie('refreshToken', refreshResponse.refresh_token);
+      return API(config!);
+    } else {
+      return Promise.reject(error.response.data as IErrorResponse);
+    }
   }
   return Promise.reject(error.response);
 }
 
 export function onResponse(response: AxiosResponse): Promise<AxiosResponse> {
-  if (response.status === HTTP_STATUS.SUCCESS) {
+  if (
+    response.status >= HTTP_STATUS.SUCCESS &&
+    response.status <= HTTP_STATUS.INFORMATION
+  ) {
     return Promise.resolve(response);
   }
   return Promise.reject(response);

@@ -1,4 +1,5 @@
-import { AxiosError, AxiosRequestConfig } from "axios";
+import { AxiosError, AxiosRequestConfig } from 'axios';
+import { getCookie } from '../../utils/helper';
 
 export const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
   const authToken = localStorage.getItem("authToken");

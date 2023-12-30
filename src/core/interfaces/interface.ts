@@ -1,29 +1,24 @@
-export interface IData {
-  employeesData: IEmployeeData;
-  dropdownData: {
-    departments: {
-      loading: boolean;
-      departments: ISelectOptionProps[];
-    };
-    roles: {
-      loading: boolean;
-      roles: ISelectOptionProps[];
-    };
-    skills: {
-      loading: boolean;
-      skills: ISelectOptionProps[];
-    };
-  };
-  filterData: ITableProps;
-  userData: { isAuthenticated: boolean; userName: string };
-}
 
-export interface IEmployeeData {
+
+export interface IActionEmployeeData {
   employees: IAppEmployee[];
   count: number;
+}
+export interface IEmployeeData extends IActionEmployeeData {
   loading: boolean;
 }
-
+export interface ISkillsData {
+  skills: ISelectOptionProps[];
+  loading: boolean;
+}
+export interface IDepartmentsData {
+  departments: ISelectOptionProps[];
+  loading: boolean;
+}
+export interface IRolesData {
+  roles: ISelectOptionProps[];
+  loading: boolean;
+}
 interface ICommonEmployeeFields {
   firstName: string;
   dob: string;
@@ -47,11 +42,11 @@ export interface IGetEmployee extends ICommonEmployeeFields {
 
 export interface IAppEmployee extends ICommonEmployeeFields {
   id: string;
-  isActive: string;
+  isActive: boolean;
   photoId: string;
-  role: ISelectOptionProps | string;
-  department: ISelectOptionProps | string;
-  skills: ISelectOptionProps[] | string;
+  role: ISelectOptionProps;
+  department: ISelectOptionProps;
+  skills: ISelectOptionProps[];
   lastName: string;
   email: string;
   phone: string;
@@ -117,15 +112,34 @@ export interface IInputProps {
   isMulti?: boolean;
   accept?: string;
 }
+export interface IUser {
+  user: {
+    isAuthenticated: boolean;
+  };
+}
 
 export interface ISelectOptionProps {
   value?: number;
   label?: string;
 }
 
-export interface ITableProps {
-  department: ISelectOptionProps | null;
-  skills: ISelectOptionProps[] | null;
-  role: ISelectOptionProps | null;
-  search_term: string | null;
+export interface IErrorBoundaryProps {
+  children: React.ReactNode;
+}
+export interface IErrorState {
+  hasError: boolean;
+  error: { message: string };
+}
+
+export interface ISelectDropdownProps {
+  label: string;
+  options?: ISelectOptionProps[];
+  placeholder: string;
+  isMulti?: boolean;
+  value?: {
+    skillFilterState: ISelectOptionProps[];
+    setSkillFilterState: React.Dispatch<
+      React.SetStateAction<ISelectOptionProps[]>
+    >;
+  } | null;
 }

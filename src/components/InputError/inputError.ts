@@ -1,6 +1,5 @@
-
-import styled from "styled-components";
-import colors from "../../core/constants/colors";
+import styled from 'styled-components';
+import colors from '../../core/constants/colors';
 
 const InputErrorWrapper = styled.div`
   display: flex;

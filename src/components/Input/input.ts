@@ -63,6 +63,7 @@ const InputWrapper = styled.div`
     justify-content: flex-start;
     flex-wrap: wrap;
   }
+  
   .select-border-radius {
     border-radius: 4px;
   }

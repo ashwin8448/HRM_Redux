@@ -6,111 +6,199 @@ import {
   transformArrayToOptionsList,
 } from "../../utils/helper.ts";
 import {
-  IAppEmployee,
+  IDepartment,
   IGetEmployee,
+  IRole,
   ISelectOptionProps,
-  ITableProps,
-} from "../interfaces/interface.ts";
+  ISkill,
+  IActionEmployeeData,
+} from '../interfaces/interface.ts';
 import { apiURL } from "../config/constants.ts";
-import { Dispatch } from "redux";
+import { AppDispatch } from "./configureStore.ts";
 
-export const setLoading = (loading: boolean) => ({
-  type: actionTypes.SET_LOADING,
-  payload: loading,
+interface ISET_LOADING {
+  type:
+    | "SET_LOADING"
+    | "SET_SKILLS_LOADING"
+    | "SET_DEPARTMENTS_LOADING"
+    | "SET_ROLES_LOADING";
+  payload: {
+    loading: boolean;
+  };
+}
+interface ISET_EMPLOYEES {
+  type: 'SET_EMPLOYEES';
+  payload: IActionEmployeeData;
+}
+interface ISET_EMPLOYEES_LIST {
+  type: 'SET_EMPLOYEES_LIST';
+  payload: IActionEmployeeData;
+}
+interface ISET_EMPLOYEES_GRID {
+  type: 'SET_EMPLOYEES_GRID';
+  payload: IActionEmployeeData;
+}
+interface ISET_DEPARTMENTS {
+  type: 'SET_DEPARTMENTS';
+  payload: ISelectOptionProps[];
+}
+interface ISET_ROLES {
+  type: 'SET_ROLES';
+  payload: ISelectOptionProps[];
+}
+interface ISET_SKILLS {
+  type: 'SET_SKILLS';
+  payload: ISelectOptionProps[];
+}
+interface IRESET_EMPLOYEES {
+  type: 'RESET_EMPLOYEES_GRID';
+}
+
+export const setLoading = (
+  actionType:
+    | "SET_LOADING"
+    | "SET_SKILLS_LOADING"
+    | "SET_DEPARTMENTS_LOADING"
+    | "SET_ROLES_LOADING",
+  payload: { loading: boolean }
+): ISET_LOADING => ({
+  type: actionType,
+  payload: payload,
 });
-
-export const setEmployees = (employeesData: {
-  employees: IAppEmployee[];
-  count: number;
-}) => ({
+export const setEmployees = (
+  employeesData: IActionEmployeeData
+): ISET_EMPLOYEES => ({
   type: actionTypes.SET_EMPLOYEES,
   payload: employeesData,
 });
-
-export const setDepartments = (departments: ISelectOptionProps[]) => ({
+export const setEmployeesForList = (
+  employeesData: IActionEmployeeData
+): ISET_EMPLOYEES_LIST => ({
+  type: actionTypes.SET_EMPLOYEES_LIST,
+  payload: employeesData,
+});
+export const setEmployeesForGrid = (
+  employeesData: IActionEmployeeData
+): ISET_EMPLOYEES_GRID => ({
+  type: actionTypes.SET_EMPLOYEES_GRID,
+  payload: employeesData,
+});
+export const setDepartments = (
+  departments: ISelectOptionProps[]
+): ISET_DEPARTMENTS => ({
   type: actionTypes.SET_DEPARTMENTS,
   payload: departments,
 });
-
-export const setRoles = (roles: ISelectOptionProps[]) => ({
+export const setRoles = (roles: ISelectOptionProps[]): ISET_ROLES => ({
   type: actionTypes.SET_ROLES,
   payload: roles,
 });
-
-export const setSkills = (skills: ISelectOptionProps[]) => ({
+export const setSkills = (skills: ISelectOptionProps[]): ISET_SKILLS => ({
   type: actionTypes.SET_SKILLS,
   payload: skills,
 });
-
-export const setTableProps = (tableProps: ITableProps) => ({
-  type: actionTypes.SET_TABLE_PROPS,
-  payload: tableProps,
-});
-
-export const setLogin = (userName: string) => ({
+export const resetEmployeesGrid = (): IRESET_EMPLOYEES => {
+  return {
+    type: actionTypes.RESET_EMPLOYEES_GRID,
+  };
+};
+export const setlogin = () => ({
   type: actionTypes.LOGIN,
-  payload: userName,
+});
+export const setlogout = () => ({
+  type: actionTypes.LOGOUT,
 });
 
-export const setLogout = () => ({
-  type: actionTypes.LOGOUT
-});
+export type ActionInterface =
+  | ISET_DEPARTMENTS
+  | ISET_SKILLS
+  | ISET_ROLES
+  | ISET_EMPLOYEES
+  | ISET_EMPLOYEES_GRID
+  | ISET_EMPLOYEES_LIST
+  | ISET_LOADING
+  | IRESET_EMPLOYEES;
 
 //fetch methods
-export const fetchEmployeesData = () => {
-  return async function (dispatch: Dispatch) {
+export const fetchEmployeesData = (
+  params: {
+    limit: number;
+    offset: number;
+    sortBy: string;
+    sortDir: string;
+    search: string;
+    skillIds: string;
+  },
+  state: string
+) => {
+  return async function (dispatch: AppDispatch) {
     try {
-      dispatch(setLoading(true));
-      const response = await getData(apiURL.employee);
+      dispatch(setLoading(actionTypes.SET_LOADING, { loading: true }));
+      const response = await getData(apiURL.employee, { params: params });
       const employeesResponseData = response.data.data;
-      employees: employeesResponseData.employees.map(
-        (employeeData: IGetEmployee) =>
-          convertIGetEmployeeToIAppEmployee(employeeData)
-      );
-      dispatch(
-        setEmployees({
-          ...employeesResponseData,
-          employees: employeesResponseData.employees.map(
-            (employeeData: IGetEmployee) =>
-              convertIGetEmployeeToIAppEmployee(employeeData)
-          ),
-        })
-      );
-      // return dataResponse; // Resolve the promise with the data
+      const employees:IGetEmployee[] = employeesResponseData.employees;
+
+      if (state === "List")
+        dispatch(
+          setEmployeesForList({
+            ...employeesResponseData,
+            employees: employees.map((employee: IGetEmployee) => {
+              return convertIGetEmployeeToIAppEmployee(employee);
+            }),
+          })
+        );
+      else
+        dispatch(
+          setEmployeesForGrid({
+            ...employeesResponseData,
+            employees: employees.map((employee: IGetEmployee) => {
+              return convertIGetEmployeeToIAppEmployee(employee);
+            }),
+          })
+        );
     } catch (error) {
-      toast.error("No data is recieved", { toastId: "no-data" });
-      console.error("Error fetching data:", error);
+      toast.error('No data is recieved', { toastId: 'no-data' });
+      console.error('Error fetching data:', error);
     } finally {
-      dispatch(setLoading(false));
+      dispatch(setLoading(actionTypes.SET_LOADING, { loading: false }));
     }
   };
 };
 
 export const fetchDropdownData = () => {
-  return function (dispatch: Dispatch) {
-    getData(apiURL.departments)
-      .then((response) =>
-        dispatch(setDepartments(transformArrayToOptionsList(response.data)))
-      )
-      .catch((error) => {
-        toast.error("Departments could not be fetched.");
-        console.error("Error fetching dropdown data:", error);
+  return async function (dispatch: AppDispatch) {
+    try {
+      // Use Promise.all to fetch data concurrently
+      const [departmentsResponse, rolesResponse, skillsResponse] =
+        await Promise.all([
+          getData(apiURL.departments),
+          getData(apiURL.roles),
+          getData(apiURL.skills),
+        ]);
+
+      // Extract data from responses
+      const departmentsResponseData: IDepartment[] = departmentsResponse.data;
+      const rolesResponseData: IRole[] = rolesResponse.data;
+      const skillsResponseData: ISkill[] = skillsResponse.data.data;
+
+      // Dispatch actions
+      dispatch(
+        setDepartments(transformArrayToOptionsList(departmentsResponseData))
+      );
+      dispatch(setRoles(transformArrayToOptionsList(rolesResponseData)));
+      dispatch(setSkills(transformArrayToOptionsList(skillsResponseData)));
+    } catch (error) {
+      toast.error('Dropdown data could not be fetched.', {
+        toastId: 'no-dropdown-data',
       });
-    getData(apiURL.skills)
-      .then((response) =>
-        dispatch(setSkills(transformArrayToOptionsList(response.data.data)))
-      )
-      .catch((error) => {
-        toast.error("Skills could not be fetched.");
-        console.error("Error fetching dropdown data:", error);
-      });
-    getData(apiURL.roles)
-      .then((response) =>
-        dispatch(setRoles(transformArrayToOptionsList(response.data)))
-      )
-      .catch((error) => {
-        toast.error("Roles could not be fetched.");
-        console.error("Error fetching dropdown data:", error);
-      });
+      console.error('Error fetching dropdown data:', error);
+    } finally {
+      // Set loading to false for all dropdowns
+      dispatch(
+        setLoading(actionTypes.SET_DEPARTMENTS_LOADING, { loading: false })
+      );
+      dispatch(setLoading(actionTypes.SET_ROLES_LOADING, { loading: false }));
+      dispatch(setLoading(actionTypes.SET_SKILLS_LOADING, { loading: false }));
+    }
   };
 };

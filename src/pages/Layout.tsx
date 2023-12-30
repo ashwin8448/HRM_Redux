@@ -1,8 +1,8 @@
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Header from "../components/Header/Header.tsx";
 import Footer from "../components/Footer/Footer.tsx";
-import { useEffect } from "react";
-import store from "../core/store/configureStore.ts";
+import { ToastContainer } from "react-toastify";
+import useAuth from "./Login/useAuth.ts";
 import { fetchDropdownData } from "../core/store/actions.ts";
 import useAuth from "../hooks/useAuth.ts";
 
@@ -22,11 +22,15 @@ function Layout() {
                     <EmployeeView /> when URL is 'view-employee' 
                 */}
 
-                <Outlet />
-            </main>
-            <Footer />
-        </>
-    );
+        {user.isAuthenticated ? (
+          <Outlet />
+        ) : (
+          <Navigate to={"/login"} replace={true} />
+        )}
+      </main>
+      <Footer />
+    </>
+  );
 }
 
 export default Layout;

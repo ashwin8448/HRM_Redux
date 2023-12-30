@@ -9,22 +9,18 @@ import {
   WARNING_HEADING,
   WARNING_TEXT,
 } from "./constants/constants.ts";
-import store from "../../core/store/configureStore.ts";
-import { fetchEmployeesData } from "../../core/store/actions.ts";
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
+import { useAppSelector } from "../../hooks/reduxHooks.ts";
 
 function DeleteModal({
   changeDltModalOpenStatus,
   idArrayToDlt,
-  handleActiveListing,
 }: {
   changeDltModalOpenStatus: () => void;
   idArrayToDlt: string[];
-  handleActiveListing: (button: string) => void;
 }) {
-  const rowsPerPage = 10;
-  const [searchParams,setSearchParams] = useSearchParams({page:"1"});
+  const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
   const [confirmDeleteLoader, setConfirmDeleteLoader] = useState(false);
 
   const confirmDlt = async () => {
@@ -52,25 +48,20 @@ function DeleteModal({
       toast.error("Error deleting users", { toastId: "delete-user" });
     } finally {
       setConfirmDeleteLoader(false);
-      setSearchParams({ page: "1" });
-      // Fetch employee data after all deletions
-    //   store.dispatch(
-    //     fetchEmployeesData(
-    //       {
-    //         limit: rowsPerPage,
-    //         offset: 0,
-    //         sortBy: searchParams.get("sortBy") || "id",
-    //         sortDir: searchParams.get("sortDir") || "asc",
-    //         search: searchParams.get("search") || "",
-    //         skillIds: searchParams.get("skillIds") || "",
-    //       },
-    //       "List"
-    //     )
-    //   );
-      handleActiveListing("List");
+      const isdisplayList = searchParams.get("display") === "List";
+      const pageValue = isdisplayList && { page: "1" };
+      setSearchParams({
+        ...Object.fromEntries(searchParams.entries()),
+        ...pageValue,
+      });
     }
     changeDltModalOpenStatus();
   };
+
+  const { employees } = useAppSelector((state) => state.employeesData);
+  const employeesNameList = employees
+    .filter((employee) => idArrayToDlt.includes(employee.id))
+    .map((employee) => employee.firstName);
 
   return (
     <DeleteModalWrapper>
@@ -81,6 +72,11 @@ function DeleteModal({
       ></Button>
       <h2 className="delete-modal-heading">{DELETE_MODAL_HEADING}</h2>
       <p className="confirm-delete">{CONFIRM_DELETE_TEXT(idArrayToDlt)}</p>
+      <ul className="employees-name-list">
+        {employeesNameList.map((employeesName) => (
+          <li key={employeesName}>{employeesName}</li>
+        ))}
+      </ul>
       <div className="warning-container">
         <div className="warning-heading common-flex">
           <span className="material-icons-round">warning</span>
@@ -88,7 +84,7 @@ function DeleteModal({
         </div>
         <p className="warning-text">{WARNING_TEXT}</p>
       </div>
-      <ButtonGrpWrapper>
+      <ButtonGrpWrapper className="btn-grp">
         <Button className="cancel-btn" onClick={changeDltModalOpenStatus}>
           No, Cancel
         </Button>

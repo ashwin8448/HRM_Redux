@@ -1,55 +1,59 @@
-import { useEffect, useRef } from "react";
-import { ISelectOptionProps, ISkill } from "../../core/interfaces/interface";
+import { useEffect, useRef, useState } from "react";
+import { ISelectOptionProps } from "../../core/interfaces/interface";
 import { SkillsChipWrapper, SkillsListWrapper } from "./skillsChip";
+import Tooltip from "../Tooltip/Tooltip.tsx";
 
-function SkillsChip({
-  skills,
-  handleSkillsOverflow,
-  className,
-}: {
-  skills: ISkill[] | ISelectOptionProps[];
-  handleSkillsOverflow?: (isOverflow: boolean) => void;
-  className?: string;
-}) {
+function SkillsChip({ skills }: { skills:  ISelectOptionProps[]| undefined }) {
+  //check for skills overflowing the scroll width
+  const [skillsOverflow, setSkillsOverflow] = useState(false);
+  const handleSkillsOverflow = (isOverflow: boolean) => {
+    setSkillsOverflow(isOverflow);
+  };
+
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
-  useEffect(() => {
-    if (handleSkillsOverflow) {
-      const skillsContainer = skillsContainerRef.current;
+  const handleResize = () => {
+    const skillsContainer = skillsContainerRef.current;
+    if (skillsContainer) {
+      const isOverflowing =
+        skillsContainer.scrollWidth > skillsContainer.clientWidth;
 
-      const handleResize = () => {
-        if (skillsContainer) {
-          const isOverflowing =
-            skillsContainer.scrollWidth > skillsContainer.clientWidth;
-
-          handleSkillsOverflow(isOverflowing);
-        }
-      };
-
-      // Initial check
-      handleResize();
-
-      // Add event listener
-      window.addEventListener("resize", handleResize); // calculate the scrollwidth whenever the window gets resized
-
-      // Cleanup function to remove the event listener
-      return () => {
-        window.removeEventListener("resize", handleResize);
-      };
+      handleSkillsOverflow?.(isOverflowing);
     }
+  };
 
-    // TODO: Remove dependencies
+  useEffect(() => {
+    // Initial check
+    handleResize();
+
+    // Add event listener
+    window.addEventListener("resize", handleResize); // calculate the scrollwidth whenever the window gets resized
+
+    // Cleanup function to remove the event listener
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
   }, [skills, skillsContainerRef]);
 
-  return (skills && 
-    <SkillsListWrapper className={` ${className}`} ref={skillsContainerRef}>
-      {skills.map((skill: ISkill | ISelectOptionProps) => {
-        return (
-          <SkillsChipWrapper key={"id" in skill ? skill.id : skill.value}>
-            {"skill" in skill ? skill.skill : skill.label}
-          </SkillsChipWrapper>
-        );
-      })}
-    </SkillsListWrapper>
+  if (skills && !skills.length) {
+    // No skills, nothing to render
+    return null;
+  }
+
+  return Array.isArray(skills) && skills.length > 0 ? (
+    <>
+      <SkillsListWrapper className="overflow-ellipsis" ref={skillsContainerRef}>
+        {skills.map((skill: ISelectOptionProps)  => {
+          return (
+            <SkillsChipWrapper key={skill.value}>{skill.label}</SkillsChipWrapper>
+          );
+        })}
+      </SkillsListWrapper>
+      {skillsOverflow && (
+        <Tooltip className="skills-tooltip" message={skills} />
+      )}
+    </>
+  ) : (
+    "-"
   );
 }
 export default SkillsChip;

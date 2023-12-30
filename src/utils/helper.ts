@@ -9,6 +9,9 @@ import {
   ISkill,
 } from "../core/interfaces/interface.ts";
 import { uploadImage } from "./firebase.ts";
+import { postData } from "../core/api/functions.ts";
+import { apiURL } from "../core/config/constants.ts";
+import { jwtDecode } from "jwt-decode";
 
 export function transformArrayToOptionsList(
   optionsArray: (ISkill | IDepartment | IRole)[]
@@ -36,7 +39,15 @@ export const getWorkExp = (dateOfJoining: string) => {
   const workExp: number = Math.floor(
     (now.getTime() - DOJ.getTime()) / (1000 * 60 * 60 * 24 * 30)
   );
-  return workExp.toString() + "  months";
+  if (workExp <= 1) return "Less than a month";
+  else if (workExp <= 12) return workExp.toString() + "  months";
+  else
+    return (
+      Math.floor(workExp / 12).toString() +
+      " years " +
+      (workExp % 12).toString() +
+      "  months"
+    );
 };
 
 export const getDateView = (dateVal: string) => {
@@ -73,18 +84,20 @@ export const convertIGetEmployeeToIAppEmployee = (
   } = employee;
   return {
     ...rest,
-    isActive: isActive ? "Yes" : "No",
-    lastName: lastName ? lastName : "",
-    email: email ? email : "N/A",
-    phone: phone ? phone : "N/A",
-    designation: designation ? designation : "N/A",
-    salary: salary ? salary : "N/A",
-    address: address ? address : "N/A",
-    skills: skills.length ? transformArrayToOptionsList(skills) : "N/A",
+    isActive: isActive,
+    lastName: lastName ?? "",
+    email: email ?? "",
+    phone: phone ?? "",
+    designation: designation ?? "",
+    salary: salary ?? "",
+    address: address ?? "",
+    skills: transformArrayToOptionsList(skills),
     department: department
       ? transformArrayToOptionsList([department])[0]
-      : "N/A",
-    role: role ? transformArrayToOptionsList([role])[0] : "N/A",
+      : { value: 0, label: "" },
+    role: role
+      ? transformArrayToOptionsList([role])[0]
+      : { value: 0, label: "" },
     photoId: moreDetails ? JSON.parse(moreDetails).photoId : "",
   };
 };
@@ -101,7 +114,54 @@ export const convertFormDataToIPostEmployees = async (
     isActive: isActive === "Yes" ? true : false,
     moreDetails: JSON.stringify({
       photoId:
-        typeof photoId![0] == "object" ? await uploadImage(photoId![0]) : "",
+        typeof photoId![0] == "object"
+          ? await uploadImage(photoId![0])
+          : photoId,
     }),
   };
+};
+export function concatenateNames(firstName: string, lastName: string): string {
+  return `${firstName} ${lastName}`;
+}
+
+export function getCookie(name: string) {
+  const value = `; ${document.cookie}`;
+  const parts: string[] = value?.split(`; ${name}=`) ?? [];
+  if (parts && parts.length === 2) return parts?.pop()?.split(";")?.shift();
+  return null;
+}
+export function setCookie(name: string, value: string) {
+  const decodedToken = jwtDecode(value); //getting the payload of the token
+  const expiration = new Date(0); // Start with Unix epoch
+
+  if (decodedToken && decodedToken.exp) {
+    expiration.setUTCSeconds(decodedToken.exp); //set expiration time of cookie with the expiration time of token
+  }
+
+  const cookieValue =
+    encodeURIComponent(value) +
+    (decodedToken.exp ? `; expires=${expiration.toUTCString()}` : ""); //convert expiration time to string
+
+  document.cookie = `${name}=${cookieValue}; path=/`;
+}
+
+export function deleteCookie(name: string) {
+  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`; //setting expiration time to epoch
+}
+
+export const getNewRefreshToken = async () => {
+  const refreshToken = getCookie("refreshToken");
+  if (refreshToken) {
+    try {
+      const response = await postData(apiURL.authRenew, {
+        refreshToken,
+      });
+      const responseData: { access_token: string; refresh_token: string } =
+        response.data;
+      return responseData;
+    } catch (err) {
+      console.error(err);
+      return;
+    }
+  } else return;
 };

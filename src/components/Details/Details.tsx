@@ -1,4 +1,4 @@
-import { ISelectOptionProps, ISkill } from "../../core/interfaces/interface";
+import { ISelectOptionProps } from "../../core/interfaces/interface";
 import SkillsChip from "../Skills/SkillsChip.tsx";
 import DetailsWrapper from "./details.ts";
 
@@ -8,7 +8,7 @@ const DetailsSection = ({
   title,
   newline,
 }: {
-  content: string | ISkill[] | ISelectOptionProps[];
+  content: string | ISelectOptionProps[];
   icon?: string;
   title?: string;
   matches?: boolean;
@@ -23,7 +23,7 @@ const DetailsSection = ({
       {typeof content === "string" ? (
         <p className="content overflow-ellipsis">{content}</p>
       ) : (
-        <SkillsChip className="content" skills={content} />
+        <SkillsChip skills={content} />
       )}
     </DetailsWrapper>
   );

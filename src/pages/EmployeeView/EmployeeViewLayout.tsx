@@ -9,18 +9,17 @@ import { getData } from "../../core/api/functions.ts";
 import EmployeeView from "./EmployeeView.tsx";
 import { IAppEmployee } from "../../core/interfaces/interface.ts";
 import { convertIGetEmployeeToIAppEmployee } from "../../utils/helper.ts";
-import DeleteModal from "../../components/DeleteModal/DeleteModal.tsx";
 
 function EmployeeViewLayout() {
   const { employeeId } = useParams();
   const [employeeData, setEmployeeData] = useState<{
-    loading: Boolean;
+    loading: boolean;
     employee: IAppEmployee | null;
   }>({
     loading: true,
     employee: null,
   });
-  const [deleteModal, setDeleteModal] = useState(false);
+  // const [deleteModal, setDeleteModal] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     if (!employeeId) {
@@ -34,7 +33,6 @@ function EmployeeViewLayout() {
       getData("/employee/" + employeeId)
         .then((response) => {
           if (!response.data) {
-            //TODO: Handling errors
             throw new Response("Employee Not Found", { status: 404 });
           } else
             setEmployeeData((prev) => ({
@@ -51,7 +49,7 @@ function EmployeeViewLayout() {
     }
   }, []);
   const handleDeleteButtonClick = () => {
-    setDeleteModal(true);
+    // setDeleteModal(true);
   };
   if (employeeData.loading) return <Loader className="center-screen" />;
   return (
@@ -65,36 +63,30 @@ function EmployeeViewLayout() {
           reply
         </span>
         <EmployeeViewWrapper>
-          <div>
-            <div className="buttons">
-              {" "}
-              <ButtonGrpWrapper className="details-section common-flex">
-                <Button
-                  icon="edit"
-                  onClick={() =>
-                    navigate(`/edit-employee/${employeeData.employee!.id}`)
-                  }
-                />
-                <Button
-                  icon="delete"
-                  onClick={() => handleDeleteButtonClick()}
-                />
-              </ButtonGrpWrapper>
-            </div>
+          <div className="buttons">
+            {" "}
+            <ButtonGrpWrapper className="details-section common-flex">
+              <Button
+                icon="edit"
+                onClick={() =>
+                  navigate(`/edit-employee/${employeeData.employee!.id}`)
+                }
+              />
+              <Button icon="delete" onClick={() => handleDeleteButtonClick()} />
+            </ButtonGrpWrapper>
           </div>
           <EmployeeView employee={employeeData.employee}></EmployeeView>
         </EmployeeViewWrapper>
-        {/* TODO:Delete employee from view page */}
         {/* {deleteModal && (
-        <div className="overlay" onClick={handleDeleteButtonClick}></div>
-      )}
-      {deleteModal && (
-        <DeleteModal
-          changeDltModalOpenStatus={handleDeleteButtonClick}
-          idArrayToDlt={[employeeData.employee.id]}
-          handleActiveListing={handleActiveListing}
-        />
-      )} */}
+          <>
+            <div className="overlay" onClick={handleDeleteButtonClick}></div>
+            <DeleteModal
+              changeDltModalOpenStatus={handleDeleteButtonClick}
+              idArrayToDlt={[employeeData.employee.id]}
+              handleActiveListing={handleActiveListing}
+            />
+          </>
+        )} */}
       </>
     )
   );

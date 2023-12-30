@@ -1,38 +1,42 @@
 import React from "react";
 import ButtonWrapper from "./button.ts";
+import Loader from "../Loader/Loader.tsx";
 
 function Button({
-    children,
-    icon,
-    className,
-    onClick,
-    loading,
-    disabled
+  children,
+  icon,
+  className,
+  onClick,
+  loading,
+  $noTransition,
+  disabled,
 }: {
-    children?: React.ReactNode;
-    icon?: string;
-    className?: string | undefined;
-    onClick?: () => void;
-    loading?: boolean;
-    disabled?:boolean
+  children?: React.ReactNode;
+  icon?: string;
+  className?: string | undefined;
+  onClick?: () => void;
+  loading?: boolean;
+  $noTransition?: boolean;
+  disabled?: boolean;
 }) {
-    return (
-        <ButtonWrapper
-            $isChildren={children ? true : false}
-            className={`common-flex ${className ?? ""}`}
-            onClick={onClick!}
-            disabled={disabled}
-        >
-            {loading ? (
-                <span className="btn-loader" />
-            ) : (
-                <>
-                    {icon && <span className="material-symbols-outlined"> {icon} </span>}
-                    {children && <label>{children}</label>}
-                </>
-            )}
-        </ButtonWrapper>
-    );
+  return (
+    <ButtonWrapper
+      $isChildren={children ? true : false}
+      className={`common-flex ${className ?? ""}`}
+      onClick={onClick!}
+      $noTransition={$noTransition}
+      disabled={disabled ?? false}
+    >
+      {loading ? (
+        <Loader className="btn-loader" />
+      ) : (
+        <>
+          {icon && <span className="material-symbols-outlined"> {icon} </span>}
+          {children && <label>{children}</label>}
+        </>
+      )}
+    </ButtonWrapper>
+  );
 }
 
 export default Button;
