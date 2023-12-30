@@ -3,17 +3,9 @@ import Header from "../components/Header/Header.tsx";
 import Footer from "../components/Footer/Footer.tsx";
 import { ToastContainer } from "react-toastify";
 import useAuth from "./Login/useAuth.ts";
-import { fetchDropdownData } from "../core/store/actions.ts";
-import { useEffect } from "react";
-import { useAppDispatch } from "../hooks/reduxHooks.ts";
 
 function Layout() {
   const { user } = useAuth();
-  const dispatch = useAppDispatch();
-  useEffect(() => {
-    if (user.isAuthenticated) dispatch(fetchDropdownData());
-  }, []);
-
   return (
     <>
       <Header />
