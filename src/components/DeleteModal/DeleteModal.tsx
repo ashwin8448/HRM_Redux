@@ -9,9 +9,10 @@ import {
   WARNING_HEADING,
   WARNING_TEXT,
 } from "./constants/constants.ts";
-import { useSearchParams } from "react-router-dom";
+import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { useAppSelector } from "../../hooks/reduxHooks.ts";
+import { getUrlType } from "../../utils/helper.ts";
 
 function DeleteModal({
   changeDltModalOpenStatus,
@@ -22,6 +23,8 @@ function DeleteModal({
 }) {
   const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
   const [confirmDeleteLoader, setConfirmDeleteLoader] = useState(false);
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const confirmDlt = async () => {
     setConfirmDeleteLoader(true);
@@ -34,6 +37,7 @@ function DeleteModal({
         })
       );
 
+      if (getUrlType(location.pathname) === "view-employee") navigate("/");
       // All deletions successful, display toast with all IDs
       toast.success(
         `Deleted user${idArrayToDlt.length > 1 ? "s" : ""} ${idArrayToDlt.join(
