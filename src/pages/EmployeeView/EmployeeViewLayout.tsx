@@ -9,6 +9,7 @@ import { getData } from "../../core/api/functions.ts";
 import EmployeeView from "./EmployeeView.tsx";
 import { IAppEmployee } from "../../core/interfaces/interface.ts";
 import { convertIGetEmployeeToIAppEmployee } from "../../utils/helper.ts";
+import DeleteModal from "../../components/DeleteModal/DeleteModal.tsx";
 
 function EmployeeViewLayout() {
   const { employeeId } = useParams();
@@ -19,7 +20,7 @@ function EmployeeViewLayout() {
     loading: true,
     employee: null,
   });
-  // const [deleteModal, setDeleteModal] = useState(false);
+  const [deleteModal, setDeleteModal] = useState(false);
   const navigate = useNavigate();
   useEffect(() => {
     if (!employeeId) {
@@ -49,7 +50,7 @@ function EmployeeViewLayout() {
     }
   }, []);
   const handleDeleteButtonClick = () => {
-    // setDeleteModal(true);
+    setDeleteModal((prev) => !prev);
   };
   if (employeeData.loading) return <Loader className="center-screen" />;
   return (
@@ -77,16 +78,15 @@ function EmployeeViewLayout() {
           </div>
           <EmployeeView employee={employeeData.employee}></EmployeeView>
         </EmployeeViewWrapper>
-        {/* {deleteModal && (
+        {deleteModal && (
           <>
             <div className="overlay" onClick={handleDeleteButtonClick}></div>
             <DeleteModal
               changeDltModalOpenStatus={handleDeleteButtonClick}
               idArrayToDlt={[employeeData.employee.id]}
-              handleActiveListing={handleActiveListing}
             />
           </>
-        )} */}
+        )}
       </>
     )
   );
