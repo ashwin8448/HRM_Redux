@@ -6,7 +6,6 @@ import SearchBar from "../../../../components/SearchBar/SearchBar.tsx";
 import Sort from "../Sort/Sort.tsx";
 import Filter from "../Filter/Filter.tsx";
 import StyledLink from "../../../../components/StyledLink.ts";
-import { useMediaQuery } from "usehooks-ts";
 import MoreActions from "./MoreActions/MoreActions.tsx";
 
 function ListingActions({
@@ -21,11 +20,8 @@ function ListingActions({
   handleActiveListing: (button: string) => void;
   listingActive: string;
 }) {
-  //responsive
-  const matches = useMediaQuery("(min-width: 768px)");
-
   return (
-    <ListingActionsWrapper className="common-flex">
+    <ListingActionsWrapper className="">
       <ButtonGrpWrapper className=" btn-grp-view">
         <Button
           icon="format_list_bulleted"
@@ -40,18 +36,18 @@ function ListingActions({
           $noTransition={true}
         ></Button>
       </ButtonGrpWrapper>
-      <div className="common-flex action-grp">
-        <SearchBar />
-        <Filter />
-        <Sort />
-      </div>
-      <div className="common-flex action-grp">
-        <MoreActions
-          deleteCheckBoxesList={deleteCheckBoxesList}
-        />
-        <StyledLink to="add-employee">
-          <Button icon="add_circle">{matches ? "Add New" : ""}</Button>
-        </StyledLink>
+      <div className="common-flex main-actions">
+        <div className="common-flex action-grp">
+          <SearchBar />
+          <Filter />
+          <Sort />
+        </div>
+        <div className="common-flex action-grp">
+          <MoreActions deleteCheckBoxesList={deleteCheckBoxesList} />
+          <StyledLink to="add-employee">
+            <Button icon="add" className="add-new-btn">New</Button>
+          </StyledLink>
+        </div>
       </div>
     </ListingActionsWrapper>
   );

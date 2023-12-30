@@ -114,7 +114,7 @@ const Form = () => {
       setActiveSection(4);
     } finally {
       setIsLoading(false);
-      navigate("/")
+      navigate("/");
     }
   });
 
@@ -124,7 +124,12 @@ const Form = () => {
     roles: roles as ISelectOptionProps[],
   });
 
-  if (isLoading) return <Loader className="center-screen" />;
+  if (isLoading)
+    return (
+      <div className="center-loader">
+        <Loader />
+      </div>
+    );
   return (
     <>
       <span

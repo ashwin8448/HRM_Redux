@@ -105,6 +105,14 @@ body {
     justify-content: center !important;
     margin: 0 auto;
 }
+
+//for loading
+.center-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
 @media screen and (max-width: 1400px) {
   .table-overflow-scroll {
     overflow-x: auto;

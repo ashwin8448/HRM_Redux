@@ -52,7 +52,12 @@ function EmployeeViewLayout() {
   const handleDeleteButtonClick = () => {
     // setDeleteModal(true);
   };
-  if (employeeData.loading) return <Loader className="center-screen" />;
+  if (employeeData.loading)
+    return (
+      <div className="center-loader">
+        <Loader/>
+      </div>
+    );
   return (
     employeeData.employee && (
       <>

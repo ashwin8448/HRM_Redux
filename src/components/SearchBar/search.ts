@@ -5,7 +5,7 @@ const SearchWrapper = styled.div<{ $focus: boolean }>`
   background-color: ${colors.WHITE_COLOR};
   border-radius: 10px;
   padding: 6px;
-  min-width: 300px;
+  width: 100%;
   border: ${(props) =>
     props.$focus
       ? `1px solid  ${colors.DARK_GRAY_COLOR}`
@@ -23,6 +23,7 @@ const SearchWrapper = styled.div<{ $focus: boolean }>`
   .search-form {
     flex: 1;
     gap: 10px;
+    width: 100%;
   }
 
   .search-input {
