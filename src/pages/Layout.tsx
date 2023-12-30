@@ -1,15 +1,16 @@
 import { Navigate, Outlet } from "react-router-dom";
 import Header from "../components/Header/Header.tsx";
 import Footer from "../components/Footer/Footer.tsx";
-import { ToastContainer } from "react-toastify";
-import useAuth from "./Login/useAuth.ts";
 import { fetchDropdownData } from "../core/store/actions.ts";
 import useAuth from "../hooks/useAuth.ts";
+import { useAppDispatch } from "../hooks/reduxHooks.ts";
+import { useEffect } from "react";
 
 function Layout() {
     const {isAuthenticated} = useAuth()
+    const dispatch = useAppDispatch();
     useEffect(() => {
-       if(isAuthenticated) store.dispatch(fetchDropdownData()) 
+       if(isAuthenticated) dispatch(fetchDropdownData()) 
     },[isAuthenticated])
     return (
         <>
@@ -22,7 +23,7 @@ function Layout() {
                     <EmployeeView /> when URL is 'view-employee' 
                 */}
 
-        {user.isAuthenticated ? (
+        {isAuthenticated ? (
           <Outlet />
         ) : (
           <Navigate to={"/login"} replace={true} />
