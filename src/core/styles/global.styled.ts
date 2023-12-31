@@ -40,14 +40,13 @@ body {
   padding:15px;
 }
 .page-title {
-  margin: 0;
+  margin: 0 0 20px 0;
   font-size: 35px;
   font-weight: 700;
   line-height: 1.5;
   color: ${colors.SECONDARY_COLOR};
 }
 .page-title-mobile {
-    margin: 0;
     font-size: 25px;
     font-weight: 700;
     line-height: 1.5;
