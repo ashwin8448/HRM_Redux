@@ -1,8 +1,11 @@
 import HeaderWrapper from "./header.ts";
 import StyledLink from "./../StyledLink";
 import Tooltip from "../Tooltip/Tooltip.tsx";
+import Button from "../Button/Button.tsx";
+import useAuth from "../../pages/Login/useAuth.ts";
 
 function Header() {
+  const { user, logout } = useAuth();
 
   return (
     <HeaderWrapper>
@@ -13,6 +16,15 @@ function Header() {
             <Tooltip className="header-tooltip" message="Go to homepage" />
           </span>
         </StyledLink>
+        {user.isAuthenticated && (
+          <Button
+            onClick={() => {
+              logout();
+            }}
+          >
+            Logout
+          </Button>
+        )}
       </div>
     </HeaderWrapper>
   );
