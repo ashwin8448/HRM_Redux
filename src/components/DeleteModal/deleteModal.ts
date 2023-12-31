@@ -44,6 +44,7 @@ const DeleteModalWrapper = styled.div`
     align-self: flex-start;
     max-height: 300px;
     overflow: auto;
+    margin: 0 0 10px 0;
     > * {
       padding: 4px;
     }
@@ -54,6 +55,7 @@ const DeleteModalWrapper = styled.div`
     background-color: ${colors.WARNING_COLOR};
     border-radius: 10px;
     padding: 10px;
+    margin-bottom: 20px;
   }
   .warning-heading {
     justify-content: flex-start;
@@ -66,6 +68,9 @@ const DeleteModalWrapper = styled.div`
   .warning-text {
     margin: 0 0 10px 0;
     color: ${colors.WARNING_TEXT_COLOR};
+  }
+  .btn-grp{
+    gap: 10px;
   }
   button {
     gap: 5px;

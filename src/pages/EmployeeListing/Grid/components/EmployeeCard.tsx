@@ -6,7 +6,7 @@ import Checkbox from "../../../../components/Checkbox/Checkbox.tsx";
 import DetailsSection from "../../../../components/Details/Details.tsx";
 import React from "react";
 import { useNavigate } from "react-router-dom";
-import dummyImage from "../../../../assets/userAvatar.svg";
+import DummyImg from "../../../../assets/userAvatar.svg";
 
 function EmployeeCard({
   deleteCheckBoxesList,
@@ -36,7 +36,7 @@ function EmployeeCard({
           <img
             src={
               employee.photoId === "" || employee.photoId === undefined
-                ? dummyImage
+                ? DummyImg
                 : employee.photoId
             }
             alt=""

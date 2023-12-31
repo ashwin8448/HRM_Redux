@@ -14,27 +14,19 @@ const HeaderWrapper = styled.header`
     justify-content: space-between;
     align-items: center;
   }
-  .logo {
+  .logo-wrapper {
     position: relative;
+    .logo{
+      width:50px;
+      height: auto;
+    }
     &:hover {
       .header-tooltip {
         visibility: visible;
       }
     }
   }
-  .page-title {
-    margin: 0;
-    font-size: 25px;
-    font-weight: 700;
-    color: ${colors.SECONDARY_COLOR};
-  }
-  .page-title-mobile {
-    margin: 0;
-    font-size: 25px;
-    font-weight: 700;
-    line-height: 1.5;
-    color: ${colors.SECONDARY_COLOR};
-  }
+
   .header-tooltip {
     visibility: hidden;
   }

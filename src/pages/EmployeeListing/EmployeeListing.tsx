@@ -7,8 +7,11 @@ import { useSearchParams } from "react-router-dom";
 import ListingActions from "./components/ListingActions/ListingActions.tsx";
 import EmployeeListingWrapper from "./employeeListing.ts";
 import { useAppSelector } from "../../hooks/reduxHooks.ts";
+import Snackbar from "../../components/Snackbar/Snackbar.tsx";
+import { useMediaQuery } from "usehooks-ts";
 
 function EmployeeListing() {
+  const matches = useMediaQuery("(min-width: 768px)");
 
   // Employees data fetching
   const { employees, loading, count } = useAppSelector(
@@ -21,17 +24,16 @@ function EmployeeListing() {
 
   //search params for display
   const [searchParams, setSearchParams] = useSearchParams();
-  const updateSearchParams = (params: { display?: string }) => {
+  const updateSearchParams = (params: { display?: string; page?: string }) => {
     setSearchParams({
       ...Object.fromEntries(searchParams.entries()),
       ...params,
     });
   };
+  const displayValue = searchParams.get("display");
 
   //toggle between list and grid
-  const [listingActive, setListingActive] = useState(
-    searchParams.get("display") || "List"
-  );
+  const [listingActive, setListingActive] = useState(displayValue ?? "List");
   const handleActiveListing = (buttonTxt: string) => {
     updateSearchParams({ display: buttonTxt });
     deleteCheckBoxesList.setCheckedBoxesList([]);
@@ -43,7 +45,7 @@ function EmployeeListing() {
   const totalPages = Math.ceil(Number(count) / recordsPerPage);
 
   useEffect(() => {
-    updateSearchParams({ display: searchParams.get("display") || "List" });
+    updateSearchParams({ display: displayValue ?? "List", page: "1" });
   }, [listingActive]);
 
   return (
@@ -55,11 +57,16 @@ function EmployeeListing() {
         closeOnClick
         pauseOnFocusLoss={false} // avoid pausing when the window looses the focus
       />
+      <h1 className={matches ? `page-title` : `page-title-mobile`}>
+        Employee Management
+      </h1>
+
       <ListingActions
         listingActive={listingActive}
         handleActiveListing={handleActiveListing}
         deleteCheckBoxesList={deleteCheckBoxesList}
       />
+      <Snackbar deleteCheckBoxesList={deleteCheckBoxesList} />
       {listingActive == "List" ? (
         <EmployeeTable
           deleteCheckBoxesList={deleteCheckBoxesList}

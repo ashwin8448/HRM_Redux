@@ -40,14 +40,13 @@ body {
   padding:15px;
 }
 .page-title {
-  margin: 0;
+  margin: 0 0 20px 0;
   font-size: 35px;
   font-weight: 700;
   line-height: 1.5;
   color: ${colors.SECONDARY_COLOR};
 }
 .page-title-mobile {
-    margin: 0;
     font-size: 25px;
     font-weight: 700;
     line-height: 1.5;
@@ -104,6 +103,14 @@ body {
 .infinite-scroll-loader {
     justify-content: center !important;
     margin: 0 auto;
+}
+
+//for loading
+.center-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 }
 @media screen and (max-width: 1400px) {
   .table-overflow-scroll {

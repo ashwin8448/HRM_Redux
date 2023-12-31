@@ -34,12 +34,14 @@ export async function onResponseError(error: AxiosError): Promise<AxiosError> {
     window.location.pathname !== "/error" &&
     config!.url != apiURL.authRenew
   ) {
+    console.log("error status hiii")
     const refreshResponse = await getNewRefreshToken();
     if (refreshResponse) {
       setCookie("accessToken", refreshResponse.access_token);
       setCookie("refreshToken", refreshResponse.refresh_token);
       return API(config!);
     } else {
+      console.log("error reject hiii")
       return Promise.reject(error.response.data as IErrorResponse);
     }
   }

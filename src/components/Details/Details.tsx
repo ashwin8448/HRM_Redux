@@ -17,13 +17,13 @@ const DetailsSection = ({
   return (
     <DetailsWrapper $newline={newline} $skill={typeof content != "string"}>
       <div className="description">
-        <span className="material-symbols-outlined ">{icon}</span>
+        {icon && <span className="material-symbols-outlined ">{icon}</span>}
         {title && <span className="title">{title}</span>}
       </div>
       {typeof content === "string" ? (
         <p className="content overflow-ellipsis">{content}</p>
       ) : (
-        <SkillsChip skills={content} />
+        <SkillsChip skills={content}/>
       )}
     </DetailsWrapper>
   );

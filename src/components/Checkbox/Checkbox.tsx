@@ -1,4 +1,5 @@
 import React from "react";
+import { handleCheckboxChange } from "../../utils/helper";
 
 function Checkbox({
   employeeId,
@@ -12,31 +13,18 @@ function Checkbox({
   };
   employeesIdList?: string[];
 }) {
-  // handle checkbox
-  const handleCheckboxChange = () => {
-    deleteCheckBoxesList.setCheckedBoxesList((prevList) => {
-      if (employeeId) {
-        // Toggle the checkbox for individual employee
-        return prevList.includes(employeeId)
-          ? prevList.filter((id) => id !== employeeId)
-          : [...prevList, employeeId];
-      } else if (employeesIdList) {
-        // Toggle the checkbox for all employees
-        return prevList.length === employeesIdList.length
-          ? [] // Uncheck all if all are checked
-          : employeesIdList; // Check all if not all are checked
-      }
-
-      return prevList;
-    });
-  };
-
   return (
     <input
       className="checkbox"
       type="checkbox"
-      onClick={(e)=>e.stopPropagation()}
-      onChange={handleCheckboxChange}
+      onClick={(e) => e.stopPropagation()}
+      onChange={() =>
+        handleCheckboxChange({
+          employeeId,
+          deleteCheckBoxesList,
+          employeesIdList,
+        })
+      }
       checked={
         employeeId
           ? deleteCheckBoxesList.checkedBoxesList.includes(employeeId)
