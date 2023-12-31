@@ -4,9 +4,7 @@ import useAuth from "./useAuth";
 function Login() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
   const { login } = useAuth();
-
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     login({

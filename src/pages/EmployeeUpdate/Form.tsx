@@ -48,7 +48,6 @@ const Form = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    console.log(roles, departments, skills);
     if (!roles.length) dispatch(fetchRolesData());
     if (!departments.length) dispatch(fetchDepartmentsData());
     if (!skills.length) dispatch(fetchSkillsData());

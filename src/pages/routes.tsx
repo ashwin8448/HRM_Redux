@@ -10,33 +10,43 @@ import ProtectedRoute from "./Login/ProtectedRoute.tsx";
 const router = createBrowserRouter(
   [
     {
-      element: <ProtectedRoute />,
+      element: <Layout></Layout>,
       children: [
         {
           path: "/login",
           element: <Login />,
         },
-      ],
-    },
-
-    {
-      element: <Layout></Layout>,
-      children: [
         {
           path: "view-employee/:employeeId",
-          element: <EmployeeViewLayout />,
+          element: (
+            <ProtectedRoute>
+              <EmployeeViewLayout />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "add-employee",
-          element: <Form />,
+          element: (
+            <ProtectedRoute>
+              <Form />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "edit-employee/:employeeId",
-          element: <Form />,
+          element: (
+            <ProtectedRoute>
+              <Form />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/",
-          element: <EmployeeListing />,
+          element: (
+            <ProtectedRoute>
+              <EmployeeListing />
+            </ProtectedRoute>
+          ),
         },
         {
           path: "/error?statusCode=:statusCode",

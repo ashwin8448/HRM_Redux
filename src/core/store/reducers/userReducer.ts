@@ -1,8 +1,9 @@
-import { IUser } from '../../interfaces/interface.ts';
-import * as actionTypes from '../actionTypes.ts';
+import { getCookie } from "../../../utils/helper.ts";
+import { IUser } from "../../interfaces/interface.ts";
+import * as actionTypes from "../actionTypes.ts";
 
 const initialState = {
-  user: { isAuthenticated: false },
+  user: { isAuthenticated: Boolean(getCookie("accessToken")) },
 };
 
 function userReducer(
