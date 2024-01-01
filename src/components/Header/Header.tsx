@@ -12,7 +12,7 @@ function Header() {
       <div className="header-content global-width">
         <StyledLink to="/">
           <span className="logo-wrapper">
-            <img className="logo" src="/favicon.png" alt="" />
+            <img className="logo" src="../../assets/favicon.png" alt="" />
             <Tooltip className="header-tooltip" message="Go to homepage" />
           </span>
         </StyledLink>
