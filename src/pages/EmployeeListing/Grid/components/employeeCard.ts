@@ -26,6 +26,7 @@ const EmployeeCardWrapper = styled.div`
     .title {
       font-size: 20px;
       font-weight: bold;
+      text-align: center;
     }
     .content {
       font-size: 15px;

@@ -2,13 +2,13 @@ import { FormEvent, useState } from "react";
 import useAuth from "./useAuth";
 
 function Login() {
-  const [email, setEmail] = useState("");
+  const [username, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
   function handleSubmit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     login({
-      email,
+      username,
       password,
     });
   }
@@ -16,11 +16,11 @@ function Login() {
   return (
     <form onSubmit={handleSubmit}>
       <label>
-        Email:
+        Name:
         <input
           type="text"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
+          value={username}
+          onChange={(e) => setUserName(e.target.value)}
         />
       </label>
       <br />

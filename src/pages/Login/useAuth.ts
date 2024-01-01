@@ -19,15 +19,15 @@ const useAuth = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const login = async ({
-    email,
+    username,
     password,
   }: {
-    email: string;
+    username: string;
     password: string;
   }) => {
     try {
       const authResponse = await postData(apiURL.authSignIn, {
-        username: email,
+        username,
         password,
       });
       if (authResponse) {
