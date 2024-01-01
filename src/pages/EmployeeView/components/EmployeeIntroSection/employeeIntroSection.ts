@@ -7,10 +7,7 @@ const EmployeeIntroSectionWrapper = styled.div`
   .btn-grp {
     align-self: flex-start;
   }
-  .profile-img {
-    width: 100px;
-    height: auto;
-  }
+
   .employee-intro {
     flex-grow: 1;
     flex-direction: column;

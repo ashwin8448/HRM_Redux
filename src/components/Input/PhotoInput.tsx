@@ -21,18 +21,21 @@ const PhotoInput = ({ config }: { config: IInputProps }) => {
   return (
     <>
       <div className="employee-img-container">
-        <img
-          src={
-            placeholderImage === "" ||
-            placeholderImage === undefined ||
-            (typeof placeholderImage === "object" && !placeholderImage.length)
-              ? DummyImg
-              : typeof placeholderImage === "string"
-              ? placeholderImage
-              : URL.createObjectURL(placeholderImage[0])
-          }
-          alt="Employee Image"
-        />
+        <div className="photo-container">
+          <img
+            src={
+              placeholderImage === "" ||
+              placeholderImage === undefined ||
+              (typeof placeholderImage === "object" && !placeholderImage.length)
+                ? DummyImg
+                : typeof placeholderImage === "string"
+                ? placeholderImage
+                : URL.createObjectURL(placeholderImage[0])
+            }
+            className="photo"
+            alt="Employee Image"
+          />
+        </div>
         <Button
           onClick={() => {
             setValue("photoId", "");

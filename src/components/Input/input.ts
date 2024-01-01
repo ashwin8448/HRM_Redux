@@ -14,12 +14,6 @@ const InputWrapper = styled.div`
     align-items: center;
     gap: 15px;
 
-    img {
-      width: 50%;
-      height: auto;
-      min-width: 100px;
-      border-radius: 50%;
-    }
   }
 
   input {

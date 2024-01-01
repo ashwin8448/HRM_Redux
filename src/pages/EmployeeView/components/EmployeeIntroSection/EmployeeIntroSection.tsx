@@ -28,19 +28,21 @@ function EmployeeIntroSection({
   return (
     <>
       <EmployeeIntroSectionWrapper className="common-flex ">
-        <img
-          src={
-            employee.photoId === "" ||
-            employee.photoId === undefined ||
-            (typeof employee.photoId === "object" && !employee.photoId.length)
-              ? DummyImg
-              : typeof employee.photoId === "string"
-              ? employee.photoId
-              : URL.createObjectURL(employee.photoId[0])
-          }
-          alt="Employee image"
-          className="profile-img"
-        />
+        <div className="photo-container">
+          <img
+            src={
+              employee.photoId === "" ||
+              employee.photoId === undefined ||
+              (typeof employee.photoId === "object" && !employee.photoId.length)
+                ? DummyImg
+                : typeof employee.photoId === "string"
+                ? employee.photoId
+                : URL.createObjectURL(employee.photoId[0])
+            }
+            alt="Employee image"
+            className=" photo"
+          />
+        </div>
         <div className="common-flex employee-intro">
           <h2>{employee.firstName + " " + employee.lastName}</h2>
           <p className="subheading">{employee.role.label}</p>

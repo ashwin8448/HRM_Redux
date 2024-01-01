@@ -7,11 +7,14 @@ const FormWrapper = styled.div`
   flex-direction: column;
   form {
     width: 80%;
+
+    .section{
+      margin: 30px 0;
+    }
   }
 `;
 
 const Fieldset = styled.fieldset`
-  margin: 30px 0;
   background-color: ${colors.WHITE_COLOR};
   border: 1px solid ${colors.DARK_GRAY_COLOR};
   min-width: 0;

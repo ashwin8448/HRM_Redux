@@ -112,6 +112,20 @@ body {
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
+.photo-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-width: 100%;
+  }
+  
 @media screen and (max-width: 1400px) {
   .table-overflow-scroll {
     overflow-x: auto;

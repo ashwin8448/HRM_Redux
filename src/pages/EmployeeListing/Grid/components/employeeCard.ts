@@ -34,6 +34,10 @@ const EmployeeCardWrapper = styled.div`
       font-weight: 500;
       text-align: center;
     }
+
+    .description {
+      justify-content: center;
+    }
   }
   .details-section {
     background-color: ${colors.BACKGROUND_COLOR};
@@ -53,21 +57,6 @@ const EmployeeCardWrapper = styled.div`
     @media only screen and (min-width: 728px) and (max-width: 860px) {
       flex-direction: column;
     }
-  }
-  .photo-container {
-    width: 100px;
-    height: 100px;
-    border-radius: 50%;
-    overflow: hidden;
-  }
-  .photo {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-    max-width: 100%;
-  }
-  .description {
-    justify-content: center;
   }
 `;
 export default EmployeeCardWrapper;
