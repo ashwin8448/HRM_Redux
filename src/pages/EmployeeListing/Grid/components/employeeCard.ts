@@ -27,6 +27,7 @@ const EmployeeCardWrapper = styled.div`
       font-size: 20px;
       font-weight: bold;
       text-align: center;
+      color: ${colors.SECONDARY_COLOR};
     }
     .content {
       font-size: 15px;
@@ -64,6 +65,9 @@ const EmployeeCardWrapper = styled.div`
     height: 100%;
     object-fit: cover;
     max-width: 100%;
+  }
+  .description {
+    justify-content: center;
   }
 `;
 export default EmployeeCardWrapper;
