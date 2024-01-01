@@ -13,15 +13,13 @@ const InputWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 15px;
-      img {
-        width: 200px;
-        height: 200px;
-        border-radius: 50%;
-    }
-  }
 
-  .subheading {
-    white-space: nowrap;
+    img {
+      width: 50%;
+      height: auto;
+      min-width: 100px;
+      border-radius: 50%;
+    }
   }
 
   input {
@@ -61,18 +59,17 @@ const InputWrapper = styled.div`
   .radio-list {
     gap: 15px;
     justify-content: flex-start;
-    flex-wrap: wrap;
   }
-  
+
   .select-border-radius {
     border-radius: 4px;
   }
 
-  @media only screen and (max-width: 728px) {
-    .input-field-error {
-      input {
-        min-width: 100px;
-      }
+
+  @media only screen and (max-width: 400px) {
+    .radio-list {
+      flex-direction: column;
+      align-items: flex-start;
     }
   }
 `;

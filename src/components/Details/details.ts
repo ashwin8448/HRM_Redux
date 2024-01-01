@@ -1,10 +1,10 @@
 import { styled } from "styled-components";
 import colors from "../../core/constants/colors";
 
-const DetailsWrapper = styled.div<{ $newline?: boolean; $skill?: boolean }>`
+const DetailsWrapper = styled.div<{ $newline?: boolean }>`
   display: flex;
   flex-direction: ${(props) => props.$newline && 'column'};
-  width: ${(props) => ((props.$skill || !props.$newline) && '100%' )};
+  width: 100%;
   position: relative;
 
   &:hover{
@@ -23,8 +23,8 @@ const DetailsWrapper = styled.div<{ $newline?: boolean; $skill?: boolean }>`
   .title {
     margin-left: 10px;
     font-size: 14px;
-    color: ${(props) => props.$newline ? `${colors.SECONDARY_COLOR}`:`${colors.DARK_GRAY_COLOR}`};
-    font-weight:  ${(props) => props.$newline ? `700`:`500`};
+    color: ${colors.DARK_GRAY_COLOR};
+    font-weight:  500;
   }
 
   .description {

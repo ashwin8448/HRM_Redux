@@ -218,12 +218,12 @@ const Form = () => {
             {activeSection === 4 && (
               <>
                 {" "}
-                <Fieldset className="form-details ">
+                {/* <Fieldset className="form-details "> */}
                   <h2 className="form-section-heading">Review</h2>
                   <EmployeeViewWrapper>
                     <EmployeeView employee={methods.getValues()}></EmployeeView>
                   </EmployeeViewWrapper>
-                </Fieldset>
+                {/* </Fieldset> */}
                 <ButtonGrpWrapper>
                   <Button icon="" onClick={() => setActiveSection(1)}>
                     Edit

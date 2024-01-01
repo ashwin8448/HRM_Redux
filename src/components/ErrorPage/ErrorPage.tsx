@@ -2,8 +2,12 @@ import ErrorPageWrapper from "./errorPage.js";
 import StyledLink from "../StyledLink.js";
 import Button from "../Button/Button.tsx";
 import { useSearchParams } from "react-router-dom";
+import { useMediaQuery } from "usehooks-ts";
 
 function ErrorPage() {
+
+    const matches = useMediaQuery("(min-width: 768px)");
+
     const [searchParams] = useSearchParams();
 
     const statusCode: string | null = searchParams.get("statusCode");
@@ -34,9 +38,9 @@ function ErrorPage() {
     }
 
     return (
-        <ErrorPageWrapper>
+        <ErrorPageWrapper className="global-width global-padding">
             <p className="error-title">{statusCode ? statusCode : 404}</p>
-            <p className="page-title">
+            <p className={matches ? `error-subtitle page-title` : `error-subtitle page-title-mobile`}>
                 {statusCode ? errorMessage : "Sorry. we couldn't find this page"}
             </p>
             {!statusCode && (

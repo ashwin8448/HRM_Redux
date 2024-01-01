@@ -15,7 +15,7 @@ const DetailsSection = ({
   newline?: boolean;
 }) => {
   return (
-    <DetailsWrapper $newline={newline} $skill={typeof content != "string"}>
+    <DetailsWrapper $newline={newline}>
       <div className="description">
         {icon && <span className="material-symbols-outlined ">{icon}</span>}
         {title && <span className="title">{title}</span>}
@@ -23,7 +23,7 @@ const DetailsSection = ({
       {typeof content === "string" ? (
         <p className="content overflow-ellipsis">{content}</p>
       ) : (
-        <SkillsChip skills={content}/>
+        <SkillsChip skills={content} />
       )}
     </DetailsWrapper>
   );

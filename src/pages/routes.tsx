@@ -60,7 +60,7 @@ const router = createBrowserRouter(
       ],
       errorElement: <ErrorPage />,
     },
-    { path: "*", element: <Navigate to="/login" replace /> },
+    // { path: "*", element: <Navigate to="/login" replace /> },
   ],
   { basename: import.meta.env.DEV ? "/" : "/HRM_Redux/" }
 );

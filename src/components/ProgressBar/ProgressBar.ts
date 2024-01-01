@@ -5,16 +5,25 @@ const ProgressBarWrapper = styled.div<{
   $stepsNumber: number;
 }>`
   text-align: center;
+  width: 100%;
+
   .progress-bar-container {
     display: inline-flex;
     justify-content: center;
     position: relative;
+    width: 100%;
+    gap: 10px;
   }
   .step {
-    width: 100px;
+    width: calc(
+      (100% - 30px) / 4
+    ); 
     display: flex;
     flex-direction: column;
     align-items: center;
+    flex: 0 0 auto;
+    text-align: center;
+
     .completed {
       background-color: #00d100;
       border: 4px solid #00d100;
@@ -28,7 +37,7 @@ const ProgressBarWrapper = styled.div<{
     .incomplete {
       background-color: #fffeff;
       border: 4px solid #d1c5c5;
-      transition: all 0.3s ;
+      transition: all 0.3s;
     }
     .step-number {
       display: flex;
@@ -49,6 +58,7 @@ const ProgressBarWrapper = styled.div<{
     position: absolute;
     top: 13px;
     z-index: -1;
+
     .link-progress {
       background-color: #00d100;
       height: inherit;
@@ -56,6 +66,12 @@ const ProgressBarWrapper = styled.div<{
         String((props.$activeSection - 1) * (100 / (props.$stepsNumber - 1))) +
         "%"};
       transition: all 0.5s;
+    }
+  }
+
+  @media only screen and (max-width: 500px) {
+    .step-name {
+      font-size: 10px;
     }
   }
 `;
