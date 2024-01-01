@@ -50,7 +50,7 @@ const EmployeeView = ({
           details={[
             {
               title: "Employee ID",
-              content: employee.id.toString(),
+              content: employee.id? employee.id.toString():"-",
             },
             {
               title: "Date hired",
