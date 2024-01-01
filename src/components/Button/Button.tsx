@@ -10,6 +10,7 @@ function Button({
   loading,
   $noTransition,
   disabled,
+  type,
 }: {
   children?: React.ReactNode;
   icon?: string;
@@ -18,6 +19,7 @@ function Button({
   loading?: boolean;
   $noTransition?: boolean;
   disabled?: boolean;
+  type?: "button" | "submit" | "reset";
 }) {
   return (
     <ButtonWrapper
@@ -26,6 +28,7 @@ function Button({
       onClick={onClick!}
       $noTransition={$noTransition}
       disabled={disabled ?? false}
+      type={type ? type : "button"}
     >
       {loading ? (
         <Loader className="btn-loader" />

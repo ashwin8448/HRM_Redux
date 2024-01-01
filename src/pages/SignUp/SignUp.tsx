@@ -1,30 +1,22 @@
-import { useEffect, useState } from "react";
-import useAuth from "./useAuth";
-import LoginWrapper from "./login";
+import { useState } from "react";
+import useAuth from "../Login/useAuth.ts";
+import LoginWrapper from "./signUp.ts";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button.tsx";
 import Loader from "../../components/Loader/Loader.tsx";
-import { getCookie } from "../../utils/helper.ts";
 
-function Login() {
+function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const { login, authError, authLoading } = useAuth();
+  const { signUp, authLoading } = useAuth();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (getCookie("accessToken")) navigate("/", { replace: true });
-  }, []);
 
   function handleSubmit() {
     if (username === "") setErrorMsg("Please enter a username.");
     else if (password === "") setErrorMsg("Please enter a password.");
     else {
-      login({
-        username,
-        password,
-      });
+      signUp({ username, password });
     }
   }
 
@@ -32,11 +24,10 @@ function Login() {
     <Loader />
   ) : (
     <LoginWrapper>
-      <div className="login-container">
-        <h2>Login</h2>
+      <div className="signup-container">
+        <h2>Sign Up</h2>
         <form onSubmit={handleSubmit}>
-          {(errorMsg != "" && <p className="error">{errorMsg}</p>) ||
-            (authError != "" && <p className="error">{authError}</p>)}
+          {errorMsg != "" && <p className="error">{errorMsg}</p>}
           <label>Username:</label>
           <input
             type="text"
@@ -54,10 +45,10 @@ function Login() {
             <Button
               type={"button"}
               onClick={() => {
-                navigate("/sign-up");
+                navigate("/login");
               }}
             >
-              Create new account
+              Already registered
             </Button>
             <Button type={"button"} onClick={handleSubmit}>
               Submit
@@ -69,4 +60,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;

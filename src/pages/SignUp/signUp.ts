@@ -6,7 +6,7 @@ const LoginWrapper = styled.div`
   justify-content: center;
   margin-top: 30px;
 
-  .login-container {
+  .signup-container {
     display: flex;
     flex-direction: column;
     background-color: ${`${colors.WHITE_COLOR}`};

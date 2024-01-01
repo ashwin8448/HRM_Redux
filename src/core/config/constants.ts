@@ -10,5 +10,6 @@ export const apiURL = {
   roles: "/roles",
   departments: "/departments",
   authSignIn: "/auth/sign-in",
+  authSignUp: "/auth/sign-up",
   authRenew: "/auth/renew-token",
 };

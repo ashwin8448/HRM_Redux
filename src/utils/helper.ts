@@ -150,7 +150,6 @@ export function deleteCookie(name: string) {
 }
 
 export const getNewRefreshToken = async () => {
-  console.log("getNewRefreshToken hiii")
   const refreshToken = getCookie("refreshToken");
   if (refreshToken) {
     try {
