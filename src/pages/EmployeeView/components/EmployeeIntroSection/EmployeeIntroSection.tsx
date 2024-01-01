@@ -1,13 +1,14 @@
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import { useMediaQuery } from "usehooks-ts";
 import Button from "../../../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../../../components/Button/buttonGrpWrapper.ts";
 import DummyImg from "../../../../assets/userAvatar.svg";
-import React, { useState } from "react";
+import { useState } from "react";
 import { IAppEmployee } from "../../../../core/interfaces/interface.ts";
 import { FieldValues } from "react-hook-form";
 import DeleteModal from "../../../../components/DeleteModal/DeleteModal.tsx";
 import EmployeeIntroSectionWrapper from "./employeeIntroSection.ts";
+import { getUrlType } from "../../../../utils/helper.ts";
 
 function EmployeeIntroSection({
   employee,
@@ -17,6 +18,7 @@ function EmployeeIntroSection({
   const matches = useMediaQuery("(min-width: 768px)");
 
   const navigate = useNavigate();
+  const location = useLocation();
   const [deleteModal, setDeleteModal] = useState(false);
 
   const handleDeleteButtonClick = () => {
@@ -43,17 +45,19 @@ function EmployeeIntroSection({
           <h2>{employee.firstName + " " + employee.lastName}</h2>
           <p className="subheading">{employee.role.label}</p>
         </div>
-        <ButtonGrpWrapper className="btn-grp common-flex">
-          <Button
-            icon="edit"
-            onClick={() => navigate(`/edit-employee/${employee!.id}`)}
-          >
-            {matches && "Edit Profile"}
-          </Button>
-          <Button icon="delete" onClick={() => handleDeleteButtonClick()}>
-            {matches && "Delete Profile"}
-          </Button>
-        </ButtonGrpWrapper>
+        {getUrlType(location.pathname) === "view-employee" && (
+          <ButtonGrpWrapper className="btn-grp common-flex">
+            <Button
+              icon="edit"
+              onClick={() => navigate(`/edit-employee/${employee!.id}`)}
+            >
+              {matches && "Edit Profile"}
+            </Button>
+            <Button icon="delete" onClick={() => handleDeleteButtonClick()}>
+              {matches && "Delete Profile"}
+            </Button>
+          </ButtonGrpWrapper>
+        )}
       </EmployeeIntroSectionWrapper>
       {deleteModal && (
         <>

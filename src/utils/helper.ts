@@ -105,6 +105,7 @@ export const convertIGetEmployeeToIAppEmployee = (
 export const convertFormDataToIPostEmployees = async (
   formData: FieldValues
 ): Promise<IPostEmployee> => {
+  console.log(formData);
   const { photoId, skills, department, role, isActive, ...rest } = formData;
   return {
     ...(rest as IPostEmployee),
@@ -113,10 +114,11 @@ export const convertFormDataToIPostEmployees = async (
     role: role.value,
     isActive: isActive === "Yes" ? true : false,
     moreDetails: JSON.stringify({
-      photoId:
-        typeof photoId![0] == "object"
+      photoId: photoId
+        ? typeof photoId![0] == "object"
           ? await uploadImage(photoId![0])
-          : photoId,
+          : photoId
+        : "",
     }),
   };
 };
@@ -178,7 +180,6 @@ export const handleCheckboxChange = ({
   };
   employeesIdList?: string[];
 }) => {
-  
   deleteCheckBoxesList.setCheckedBoxesList((prevList) => {
     if (employeeId) {
       // Toggle the checkbox for individual employee
@@ -194,5 +195,4 @@ export const handleCheckboxChange = ({
 
     return prevList;
   });
-
 };
