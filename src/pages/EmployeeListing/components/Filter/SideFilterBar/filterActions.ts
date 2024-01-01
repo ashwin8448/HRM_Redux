@@ -5,7 +5,7 @@ const FilterActionsWrapper = styled.div`
   margin-top: 20px;
   border-radius: 10px;
   background-color: ${colors.WHITE_COLOR};
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 
