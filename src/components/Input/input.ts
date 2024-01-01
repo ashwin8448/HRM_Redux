@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
+import { fontSizes, fontWeights } from "../../core/constants/fontStyles";
 
 const InputWrapper = styled.div`
   gap: 15px;
@@ -13,23 +14,22 @@ const InputWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 15px;
-
   }
 
   input {
     padding: 10px;
-    font-weight: 500;
+    font-weight: ${fontWeights["--font-normal"]};
     outline: none;
     color: ${colors.SECONDARY_COLOR};
     background-color: white;
     border: 1px solid ${colors.LIGHT_GRAY_COLOR};
-    font-size: 14px;
+    font-size: ${fontSizes["--font-size-s"]};
     width: 100%;
     text-overflow: ellipsis;
 
     &::placeholder {
       color: ${colors.DARK_GRAY_COLOR};
-      font-size: 14px;
+      font-size: ${fontSizes["--font-size-s"]};
     }
     &:focus {
       border: 1px solid ${colors.DARK_GRAY_COLOR};
@@ -48,7 +48,7 @@ const InputWrapper = styled.div`
   }
   .placeholder {
     color: ${colors.DARK_GRAY_COLOR};
-    font-size: 14px;
+    font-size: ${fontSizes["--font-size-s"]};
   }
   .radio-list {
     gap: 15px;
@@ -58,7 +58,6 @@ const InputWrapper = styled.div`
   .select-border-radius {
     border-radius: 4px;
   }
-
 
   @media only screen and (max-width: 400px) {
     .radio-list {

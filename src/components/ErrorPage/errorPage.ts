@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../core/constants/colors';
+import { fontSizes, fontWeights } from '../../core/constants/fontStyles';
 
 const ErrorPageWrapper = styled.div`
   display: flex;
@@ -13,8 +14,8 @@ const ErrorPageWrapper = styled.div`
 
   .error-title {
     margin: 0;
-    font-size: 105px;
-    font-weight: 900;
+    font-size: ${fontSizes['--font-size-x-lg']};
+    font-weight: ${fontWeights["--font-bold"]};
     line-height: 1.5;
     color: ${colors.DARK_GRAY_COLOR};
     text-align: center;

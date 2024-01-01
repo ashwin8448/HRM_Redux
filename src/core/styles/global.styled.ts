@@ -3,6 +3,7 @@ import ManropeBold from "../fonts/Manrope-Bold.ttf";
 import ManropeMedium from "../fonts/Manrope-Medium.ttf";
 import ManropeLight from "../fonts/Manrope-Light.ttf";
 import colors from "../constants/colors";
+import { fontSizes, fontWeights } from "../constants/fontStyles";
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -41,21 +42,21 @@ body {
 }
 .page-title {
   margin: 0 0 20px 0;
-  font-size: 35px;
-  font-weight: 700;
+  font-size: ${fontSizes["--font-size-h1"]};
+  font-weight: ${fontWeights["--font-semi-bold"]};
   line-height: 1.5;
   color: ${colors.SECONDARY_COLOR};
 }
 .page-title-mobile {
-    font-size: 25px;
-    font-weight: 700;
+  font-size: ${fontSizes["--font-size-lg"]};
+  font-weight: ${fontWeights["--font-semi-bold"]};
     line-height: 1.5;
     color: ${colors.SECONDARY_COLOR};
   }
 .subheading {
   margin: 0;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: ${fontWeights["--font-normal"]};
+  font-size: ${fontSizes["--font-size-sm"]};
   line-height: 1.5;
   color: ${colors.SECONDARY_COLOR};
 }

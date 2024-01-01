@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
+import { fontSizes, fontWeights } from "../../core/constants/fontStyles";
 
 const DeleteModalWrapper = styled.div`
   top: 50%;
@@ -31,8 +32,8 @@ const DeleteModalWrapper = styled.div`
   }
   .delete-modal-heading {
     margin: 0;
-    font-weight: 900;
-    font-size: 22px;
+    font-weight: ${fontWeights["--font-bold"]};
+    font-size: ${fontSizes["--font-size-lg"]};
     line-height: 1.5;
     color: ${colors.SECONDARY_COLOR};
   }
@@ -63,13 +64,13 @@ const DeleteModalWrapper = styled.div`
   }
   .warning-heading > * {
     color: ${colors.WARNING_TEXT_COLOR};
-    font-weight: 900;
+    font-weight: ${fontWeights["--font-bold"]};
   }
   .warning-text {
     margin: 0 0 10px 0;
     color: ${colors.WARNING_TEXT_COLOR};
   }
-  .btn-grp{
+  .btn-grp {
     gap: 10px;
   }
   button {

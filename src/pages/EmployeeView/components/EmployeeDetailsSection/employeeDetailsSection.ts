@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { fontSizes } from "../../../../core/constants/fontStyles";
 
 const EmployeeDetailsSectionWrapper = styled.div`
   width: 100%;
@@ -9,7 +10,7 @@ const EmployeeDetailsSectionWrapper = styled.div`
   }
   .details-heading {
     margin: 0 0 15px 0;
-    font-size: 18px;
+    font-size: ${fontSizes['--font-size-md']};
   }
   .skills-container {
     width: 100%;

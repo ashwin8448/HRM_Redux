@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
+import { fontSizes } from "../../core/constants/fontStyles";
 
 const SearchWrapper = styled.div<{ $focus: boolean }>`
   background-color: ${colors.WHITE_COLOR};
@@ -32,12 +33,12 @@ const SearchWrapper = styled.div<{ $focus: boolean }>`
     border: none;
     outline: 0;
     text-decoration: none;
-    font-size: 16px;
+    font-size: ${fontSizes['--font-size-sm']};
     color: ${colors.SECONDARY_COLOR};
     padding: 0;
 
     &::placeholder {
-      font-size: 14px;
+      font-size: ${fontSizes['--font-size-s']};
       color: ${colors.DARK_GRAY_COLOR};
     }
   }

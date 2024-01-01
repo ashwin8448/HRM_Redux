@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { fontSizes } from "../../core/constants/fontStyles";
 
 const ProgressBarWrapper = styled.div<{
   $activeSection: number;
@@ -71,7 +72,7 @@ const ProgressBarWrapper = styled.div<{
 
   @media only screen and (max-width: 500px) {
     .step-name {
-      font-size: 10px;
+      font-size: ${fontSizes['--font-size-x-s']};
     }
   }
 `;

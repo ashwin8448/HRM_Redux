@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../../../core/constants/colors";
+import { fontSizes, fontWeights } from "../../../../core/constants/fontStyles";
 
 const ListingActionsWrapper = styled.div`
 display: flex;
@@ -9,8 +10,8 @@ display: flex;
 
   .message-text {
     margin: 0;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: ${fontSizes['--font-size-s']};
+    font-weight: ${fontWeights["--font-semi-bold"]};
     line-height: 1.5;
     color: ${colors.SECONDARY_COLOR};
   }

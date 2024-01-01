@@ -1,5 +1,6 @@
-import styled from 'styled-components';
-import colors from '../../../../core/constants/colors';
+import styled from "styled-components";
+import colors from "../../../../core/constants/colors";
+import { fontSizes, fontWeights } from "../../../../core/constants/fontStyles";
 
 const EmployeeCardWrapper = styled.div`
   background-color: ${colors.WHITE_COLOR};
@@ -12,7 +13,7 @@ const EmployeeCardWrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
-  input[type='checkbox'] {
+  input[type="checkbox"] {
     width: 20px;
     height: 20px;
   }
@@ -24,14 +25,14 @@ const EmployeeCardWrapper = styled.div`
     gap: 10px;
 
     .title {
-      font-size: 20px;
-      font-weight: bold;
+      font-size: ${fontSizes["--font-size-md"]};
+      font-weight: ${fontWeights["--font-bold"]};
       text-align: center;
       color: ${colors.SECONDARY_COLOR};
     }
     .content {
-      font-size: 15px;
-      font-weight: 500;
+      font-size: ${fontSizes["--font-size-sm"]};
+      font-weight: ${fontWeights["--font-normal"]};
       text-align: center;
     }
 
