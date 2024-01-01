@@ -1,20 +1,44 @@
 import { useState } from "react";
 import useAuth from "../Login/useAuth.ts";
-import LoginWrapper from "./signUp.ts";
+import LoginWrapper from "../Login/login.ts";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button.tsx";
 import Loader from "../../components/Loader/Loader.tsx";
+import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
+import InputWrapper from "../../components/Input/input.ts";
 
 function SignUp() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [isPasswordMatch, setIsPasswordMatch] = useState(true);
   const [errorMsg, setErrorMsg] = useState("");
   const { signUp, authLoading } = useAuth();
   const navigate = useNavigate();
 
+  const handlePasswordChange = (e) => {
+    console.log(e);
+    setPassword(e.target.value);
+    if (confirmPassword !== e.target.value) {
+      setIsPasswordMatch(false);
+    } else {
+      setIsPasswordMatch(true);
+    }
+  };
+
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+    if (password !== e.target.value) {
+      setIsPasswordMatch(false);
+    } else {
+      setIsPasswordMatch(true);
+    }
+  };
+
   function handleSubmit() {
     if (username === "") setErrorMsg("Please enter a username.");
     else if (password === "") setErrorMsg("Please enter a password.");
+    else if (!isPasswordMatch) setErrorMsg("Passwords not matching");
     else {
       signUp({ username, password });
     }
@@ -24,38 +48,52 @@ function SignUp() {
     <Loader />
   ) : (
     <LoginWrapper>
-      <div className="signup-container">
-        <h2>Sign Up</h2>
-        <form onSubmit={handleSubmit}>
-          {errorMsg != "" && <p className="error">{errorMsg}</p>}
+      <h2>Sign Up</h2>
+      <form onSubmit={handleSubmit}>
+        <InputWrapper>
           <label>Username:</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
+        </InputWrapper>
+        <InputWrapper>
           <label>Password:</label>
           <input
             type="password"
             value={password}
-            onChange={(e) => setPassword(e.target.value)}
+            onChange={handlePasswordChange}
           />
-          <br />
-          <div className="buttons-container">
+        </InputWrapper>
+        <InputWrapper>
+          <label>Re-enter Password:</label>
+          <input
+            type="password"
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+          />
+        </InputWrapper>
+        {errorMsg !== "" && <p className="error">{errorMsg}</p>}
+        <ButtonGrpWrapper>
+          <div className="common-flex">
+            {" "}
+            Already registered ?{" "}
             <Button
+              className="login-btn"
               type={"button"}
               onClick={() => {
                 navigate("/login");
               }}
             >
-              Already registered
-            </Button>
-            <Button type={"button"} onClick={handleSubmit}>
-              Submit
+              Sign In
             </Button>
           </div>
-        </form>
-      </div>
+          <Button type={"button"} onClick={handleSubmit}>
+            Submit
+          </Button>
+        </ButtonGrpWrapper>
+      </form>
     </LoginWrapper>
   );
 }

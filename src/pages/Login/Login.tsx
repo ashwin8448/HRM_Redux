@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button.tsx";
 import Loader from "../../components/Loader/Loader.tsx";
 import { getCookie } from "../../utils/helper.ts";
+import InputWrapper from "../../components/Input/input.ts";
+import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -29,29 +31,37 @@ function Login() {
   }
 
   return authLoading ? (
-    <Loader />
+    <div className="center-loader">
+      <Loader />
+    </div>
   ) : (
     <LoginWrapper>
-      <div className="login-container">
-        <h2>Login</h2>
-        <form onSubmit={handleSubmit}>
-          {(errorMsg != "" && <p className="error">{errorMsg}</p>) ||
-            (authError != "" && <p className="error">{authError}</p>)}
+      <h2>Login</h2>
+      <form onSubmit={handleSubmit}>
+        <InputWrapper>
           <label>Username:</label>
           <input
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
+        </InputWrapper>
+        <InputWrapper>
           <label>Password:</label>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          <br />
-          <div className="buttons-container">
+        </InputWrapper>
+        {(errorMsg != "" && <p className="error">{errorMsg}</p>) ||
+          (authError != "" && <p className="error">{authError}</p>)}
+
+        <ButtonGrpWrapper>
+          <div className="common-flex">
+            Not Already registered ?
             <Button
+              className="login-btn"
               type={"button"}
               onClick={() => {
                 navigate("/sign-up");
@@ -59,12 +69,12 @@ function Login() {
             >
               Create new account
             </Button>
-            <Button type={"button"} onClick={handleSubmit}>
-              Submit
-            </Button>
           </div>
-        </form>
-      </div>
+          <Button type={"button"} onClick={handleSubmit}>
+            Submit
+          </Button>
+        </ButtonGrpWrapper>
+      </form>
     </LoginWrapper>
   );
 }

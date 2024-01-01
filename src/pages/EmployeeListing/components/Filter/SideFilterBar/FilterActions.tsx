@@ -89,7 +89,9 @@ function FilterActions({ onClick }: { onClick: () => void }) {
           value={skillFilterValue}
         />
       ) : (
-        <Loader className="center-screen" />
+        <div className="center-loader">
+          <Loader />
+        </div>
       )}
       <ButtonGrpWrapper className=" btn-grp">
         <Button icon="" className="filter-all-btn" onClick={applyFilters}>

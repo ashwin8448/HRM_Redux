@@ -28,6 +28,7 @@ const useAuth = () => {
     username: string;
     password: string;
   }) => {
+
     try {
       setAuthLoading(true);
       const authResponse = await postData(apiURL.authSignIn, {
@@ -48,7 +49,7 @@ const useAuth = () => {
       } else {
         //TODO: error msg
       }
-    } catch (error: any) {
+    } catch (error:any) {
       if (error.message === "Invalid username or password")
         setAuthError(error.message);
       else
