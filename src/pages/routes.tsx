@@ -1,4 +1,4 @@
-import { Navigate, createBrowserRouter } from "react-router-dom";
+import {  createBrowserRouter } from "react-router-dom";
 import Layout from "./Layout.tsx";
 import EmployeeViewLayout from "./EmployeeView/EmployeeViewLayout.tsx";
 import Form from "./EmployeeUpdate/Form.tsx";
@@ -60,7 +60,6 @@ const router = createBrowserRouter(
       ],
       errorElement: <ErrorPage />,
     },
-    // { path: "*", element: <Navigate to="/login" replace /> },
   ],
   { basename: import.meta.env.DEV ? "/" : "/HRM_Redux/" }
 );

@@ -60,14 +60,13 @@ function EmployeeListing() {
       <h1 className={matches ? `page-title` : `page-title-mobile`}>
         Employee Management
       </h1>
-
       <ListingActions
         listingActive={listingActive}
         handleActiveListing={handleActiveListing}
         deleteCheckBoxesList={deleteCheckBoxesList}
       />
       <Snackbar deleteCheckBoxesList={deleteCheckBoxesList} />
-      {listingActive == "List" ? (
+      {listingActive == "List" && (
         <EmployeeTable
           deleteCheckBoxesList={deleteCheckBoxesList}
           employees={employees}
@@ -75,7 +74,8 @@ function EmployeeListing() {
           rowsPerPage={recordsPerPage}
           totalPages={totalPages}
         />
-      ) : (
+      )}
+      {listingActive == "Grid" && (
         <EmployeeCardList
           deleteCheckBoxesList={deleteCheckBoxesList}
           employees={employees}
