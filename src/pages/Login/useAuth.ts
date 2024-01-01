@@ -8,11 +8,6 @@ import { setCookie, deleteCookie, getCookie } from "../../utils/helper";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { useLocation, useNavigate } from "react-router-dom";
 
-// interface IJwtPayload extends JwtPayload {
-//   username?: string;
-// }
-// const invalidLoginMsg = 'Invalid Credentials';
-
 const useAuth = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userData.user);

@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 import { getData } from "../api/functions.ts";
-import * as actionTypes from "./actionTypes.ts";
+import * as actionNames from "./types/actionNames.ts";
 import {
   convertIGetEmployeeToIAppEmployee,
   transformArrayToOptionsList,
@@ -15,44 +15,8 @@ import {
 } from "../interfaces/interface.ts";
 import { apiURL } from "../config/constants.ts";
 import { AppDispatch } from "./configureStore.ts";
+import * as actionTypes from "./types/actionTypes.ts";
 
-interface ISET_LOADING {
-  type:
-    | "SET_LOADING"
-    | "SET_SKILLS_LOADING"
-    | "SET_DEPARTMENTS_LOADING"
-    | "SET_ROLES_LOADING";
-  payload: {
-    loading: boolean;
-  };
-}
-interface ISET_EMPLOYEES {
-  type: "SET_EMPLOYEES";
-  payload: IActionEmployeeData;
-}
-interface ISET_EMPLOYEES_LIST {
-  type: "SET_EMPLOYEES_LIST";
-  payload: IActionEmployeeData;
-}
-interface ISET_EMPLOYEES_GRID {
-  type: "SET_EMPLOYEES_GRID";
-  payload: IActionEmployeeData;
-}
-interface ISET_DEPARTMENTS {
-  type: "SET_DEPARTMENTS";
-  payload: ISelectOptionProps[];
-}
-interface ISET_ROLES {
-  type: "SET_ROLES";
-  payload: ISelectOptionProps[];
-}
-interface ISET_SKILLS {
-  type: "SET_SKILLS";
-  payload: ISelectOptionProps[];
-}
-interface IRESET_EMPLOYEES {
-  type: "RESET_EMPLOYEES_GRID";
-}
 
 export const setLoading = (
   actionType:
@@ -61,63 +25,63 @@ export const setLoading = (
     | "SET_DEPARTMENTS_LOADING"
     | "SET_ROLES_LOADING",
   payload: { loading: boolean }
-): ISET_LOADING => ({
+): actionTypes.ISET_LOADING => ({
   type: actionType,
   payload: payload,
 });
 export const setEmployees = (
   employeesData: IActionEmployeeData
-): ISET_EMPLOYEES => ({
-  type: actionTypes.SET_EMPLOYEES,
+): actionTypes.ISET_EMPLOYEES => ({
+  type: actionNames.SET_EMPLOYEES,
   payload: employeesData,
 });
 export const setEmployeesForList = (
   employeesData: IActionEmployeeData
-): ISET_EMPLOYEES_LIST => ({
-  type: actionTypes.SET_EMPLOYEES_LIST,
+): actionTypes.ISET_EMPLOYEES_LIST => ({
+  type: actionNames.SET_EMPLOYEES_LIST,
   payload: employeesData,
 });
 export const setEmployeesForGrid = (
   employeesData: IActionEmployeeData
-): ISET_EMPLOYEES_GRID => ({
-  type: actionTypes.SET_EMPLOYEES_GRID,
+): actionTypes.ISET_EMPLOYEES_GRID => ({
+  type: actionNames.SET_EMPLOYEES_GRID,
   payload: employeesData,
 });
 export const setDepartments = (
   departments: ISelectOptionProps[]
-): ISET_DEPARTMENTS => ({
-  type: actionTypes.SET_DEPARTMENTS,
+): actionTypes.ISET_DEPARTMENTS => ({
+  type: actionNames.SET_DEPARTMENTS,
   payload: departments,
 });
-export const setRoles = (roles: ISelectOptionProps[]): ISET_ROLES => ({
-  type: actionTypes.SET_ROLES,
+export const setRoles = (roles: ISelectOptionProps[]): actionTypes.ISET_ROLES => ({
+  type: actionNames.SET_ROLES,
   payload: roles,
 });
-export const setSkills = (skills: ISelectOptionProps[]): ISET_SKILLS => ({
-  type: actionTypes.SET_SKILLS,
+export const setSkills = (skills: ISelectOptionProps[]): actionTypes.ISET_SKILLS => ({
+  type: actionNames.SET_SKILLS,
   payload: skills,
 });
-export const resetEmployeesGrid = (): IRESET_EMPLOYEES => {
+export const resetEmployeesGrid = (): actionTypes.IRESET_EMPLOYEES => {
   return {
-    type: actionTypes.RESET_EMPLOYEES_GRID,
+    type: actionNames.RESET_EMPLOYEES_GRID,
   };
 };
 export const setlogin = () => ({
-  type: actionTypes.LOGIN,
+  type: actionNames.LOGIN,
 });
 export const setlogout = () => ({
-  type: actionTypes.LOGOUT,
+  type: actionNames.LOGOUT,
 });
 
 export type ActionInterface =
-  | ISET_DEPARTMENTS
-  | ISET_SKILLS
-  | ISET_ROLES
-  | ISET_EMPLOYEES
-  | ISET_EMPLOYEES_GRID
-  | ISET_EMPLOYEES_LIST
-  | ISET_LOADING
-  | IRESET_EMPLOYEES;
+  | actionTypes.ISET_DEPARTMENTS
+  | actionTypes.ISET_SKILLS
+  | actionTypes.ISET_ROLES
+  | actionTypes.ISET_EMPLOYEES
+  | actionTypes.ISET_EMPLOYEES_GRID
+  | actionTypes.ISET_EMPLOYEES_LIST
+  | actionTypes.ISET_LOADING
+  | actionTypes.IRESET_EMPLOYEES;
 
 //fetch methods
 export const fetchEmployeesData = (
@@ -133,7 +97,7 @@ export const fetchEmployeesData = (
 ) => {
   return async function (dispatch: AppDispatch) {
     try {
-      dispatch(setLoading(actionTypes.SET_LOADING, { loading: true }));
+      dispatch(setLoading(actionNames.SET_LOADING, { loading: true }));
       const response = await getData(apiURL.employee, { params: params });
       const employeesResponseData = response.data.data;
       const employees: IGetEmployee[] = employeesResponseData.employees;
@@ -160,7 +124,7 @@ export const fetchEmployeesData = (
       toast.error("No data is recieved", { toastId: "no-data" });
       console.error("Error fetching data:", error);
     } finally {
-      dispatch(setLoading(actionTypes.SET_LOADING, { loading: false }));
+      dispatch(setLoading(actionNames.SET_LOADING, { loading: false }));
     }
   };
 };
@@ -186,7 +150,7 @@ export const fetchDepartmentsData = () => {
     } finally {
       // Set loading to false for all dropdowns
       dispatch(
-        setLoading(actionTypes.SET_DEPARTMENTS_LOADING, { loading: false })
+        setLoading(actionNames.SET_DEPARTMENTS_LOADING, { loading: false })
       );
     }
   };
@@ -211,7 +175,7 @@ export const fetchRolesData = () => {
       console.error("Error fetching dropdown data:", error);
     } finally {
       // Set loading to false for all dropdowns
-      dispatch(setLoading(actionTypes.SET_ROLES_LOADING, { loading: false }));
+      dispatch(setLoading(actionNames.SET_ROLES_LOADING, { loading: false }));
     }
   };
 };
@@ -234,7 +198,7 @@ export const fetchSkillsData = () => {
       console.error("Error fetching skills data:", error);
     } finally {
       // Set loading to false for all dropdowns
-      dispatch(setLoading(actionTypes.SET_SKILLS_LOADING, { loading: false }));
+      dispatch(setLoading(actionNames.SET_SKILLS_LOADING, { loading: false }));
     }
   };
 };

@@ -1,6 +1,6 @@
 import { getCookie } from "../../../utils/helper.ts";
 import { IUser } from "../../interfaces/interface.ts";
-import * as actionTypes from "../actionTypes.ts";
+import * as actionNames from "../types/actionNames.ts";
 
 const initialState = {
   user: { isAuthenticated: Boolean(getCookie("accessToken")) },
@@ -14,14 +14,14 @@ function userReducer(
   }
 ) {
   switch (action.type) {
-    case actionTypes.LOGIN:
+    case actionNames.LOGIN:
       return {
         ...state,
         user: {
           isAuthenticated: true,
         },
       };
-    case actionTypes.LOGOUT:
+    case actionNames.LOGOUT:
       return {
         ...state,
         user: {

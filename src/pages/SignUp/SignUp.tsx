@@ -16,7 +16,7 @@ function SignUp() {
   const { signUp, authLoading } = useAuth();
   const navigate = useNavigate();
 
-  const handlePasswordChange = (e) => {
+  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     console.log(e);
     setPassword(e.target.value);
     if (confirmPassword !== e.target.value) {
@@ -26,7 +26,9 @@ function SignUp() {
     }
   };
 
-  const handleConfirmPasswordChange = (e) => {
+  const handleConfirmPasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
     setConfirmPassword(e.target.value);
     if (password !== e.target.value) {
       setIsPasswordMatch(false);
