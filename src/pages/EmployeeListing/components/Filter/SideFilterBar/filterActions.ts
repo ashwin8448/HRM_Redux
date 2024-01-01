@@ -24,5 +24,11 @@ const FilterActionsWrapper = styled.div`
       justify-content: center;
     }
   }
+
+  @media only screen and (max-width: 728px) {
+    .btn-grp {
+      flex-direction: column;
+    }
+  }
 `;
 export default FilterActionsWrapper;

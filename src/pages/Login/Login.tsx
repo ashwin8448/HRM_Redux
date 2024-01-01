@@ -36,7 +36,7 @@ function Login() {
     </div>
   ) : (
     <LoginWrapper>
-      <h2>Login</h2>
+      <h2>Sign In</h2>
       <form onSubmit={handleSubmit}>
         <InputWrapper>
           <label>Username:</label>
@@ -57,8 +57,8 @@ function Login() {
         {(errorMsg != "" && <p className="error">{errorMsg}</p>) ||
           (authError != "" && <p className="error">{authError}</p>)}
 
-        <ButtonGrpWrapper>
-          <div className="common-flex">
+        <ButtonGrpWrapper className="btn-grp">
+          <div className="common-flex alternative-msg">
             Not Already registered ?
             <Button
               className="login-btn"

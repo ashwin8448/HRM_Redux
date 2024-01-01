@@ -16,6 +16,7 @@ const LoginWrapper = styled.div`
   transform: translate(-50%, -50%);
 
   .login-btn {
+    background: none;
     border: none;
     color: ${colors.DARK_PRIMARY_COLOR};
   }
@@ -34,6 +35,23 @@ const LoginWrapper = styled.div`
     display: flex;
     flex-direction: column;
     gap: 10px;
+  }
+
+  .btn-grp {
+    margin-top: 10px;
+  }
+
+  @media only screen and (max-width: 728px) {
+    .btn-grp {
+      > button {
+        justify-content: center;
+      }
+      flex-direction: column-reverse;
+    }
+    .alternative-msg {
+      text-align:center;
+      flex-direction: column;
+    }
   }
 `;
 export default LoginWrapper;

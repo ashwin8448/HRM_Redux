@@ -77,8 +77,8 @@ function SignUp() {
           />
         </InputWrapper>
         {errorMsg !== "" && <p className="error">{errorMsg}</p>}
-        <ButtonGrpWrapper>
-          <div className="common-flex">
+        <ButtonGrpWrapper className="btn-grp">
+          <div className="common-flex alternative-msg">
             {" "}
             Already registered ?{" "}
             <Button
