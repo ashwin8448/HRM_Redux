@@ -42,7 +42,7 @@ body {
 }
 .page-title {
   margin: 0 0 20px 0;
-  font-size: ${fontSizes["--font-size-h1"]};
+  font-size: ${fontSizes["--font-size-h2"]};
   font-weight: ${fontWeights["--font-semi-bold"]};
   line-height: 1.5;
   color: ${colors.SECONDARY_COLOR};

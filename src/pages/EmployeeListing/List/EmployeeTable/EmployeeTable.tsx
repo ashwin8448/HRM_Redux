@@ -9,6 +9,7 @@ import Pagination from "../../../../components/Pagination/Pagination.tsx";
 import { useSearchParams } from "react-router-dom";
 import TableData from "./TableComponents/TableData/TableData.tsx";
 import { useAppDispatch } from "../../../../hooks/reduxHooks.ts";
+import { updateSearchParams } from "../../../../utils/helper.ts";
 
 function EmployeeTable({
   deleteCheckBoxesList,
@@ -30,12 +31,6 @@ function EmployeeTable({
 
   // Employee fetching
   const [searchParams, setSearchParams] = useSearchParams();
-  const updateSearchParams = (params: { page?: string }) => {
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      ...params,
-    });
-  };
 
   useEffect(() => {
     dispatch(
@@ -54,7 +49,7 @@ function EmployeeTable({
   }, [searchParams, rowsPerPage]);
 
   useEffect(() => {
-    updateSearchParams({ page: "1" });
+    updateSearchParams(setSearchParams,searchParams,{ page: "1" });
   }, []);
 
   return (

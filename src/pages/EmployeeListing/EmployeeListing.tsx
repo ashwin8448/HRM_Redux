@@ -9,6 +9,7 @@ import EmployeeListingWrapper from "./employeeListing.ts";
 import { useAppSelector } from "../../hooks/reduxHooks.ts";
 import Snackbar from "../../components/Snackbar/Snackbar.tsx";
 import { useMediaQuery } from "usehooks-ts";
+import { updateSearchParams } from "../../utils/helper.ts";
 
 function EmployeeListing() {
   const matches = useMediaQuery("(min-width: 768px)");
@@ -24,18 +25,13 @@ function EmployeeListing() {
 
   //search params for display
   const [searchParams, setSearchParams] = useSearchParams();
-  const updateSearchParams = (params: { display?: string; page?: string }) => {
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      ...params,
-    });
-  };
+
   const displayValue = searchParams.get("display");
 
   //toggle between list and grid
   const [listingActive, setListingActive] = useState(displayValue ?? "List");
   const handleActiveListing = (buttonTxt: string) => {
-    updateSearchParams({ display: buttonTxt });
+    updateSearchParams(setSearchParams, searchParams,{ display: buttonTxt });
     deleteCheckBoxesList.setCheckedBoxesList([]);
     setListingActive(buttonTxt);
   };
@@ -45,7 +41,10 @@ function EmployeeListing() {
   const totalPages = Math.ceil(Number(count) / recordsPerPage);
 
   useEffect(() => {
-    updateSearchParams({ display: displayValue ?? "List", page: "1" });
+    updateSearchParams(setSearchParams, searchParams, {
+      display: displayValue ?? "List",
+      page: "1",
+    });
   }, [listingActive]);
 
   return (

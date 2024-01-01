@@ -13,6 +13,25 @@ import { postData } from "../core/api/functions.ts";
 import { apiURL } from "../core/config/constants.ts";
 import { jwtDecode } from "jwt-decode";
 
+
+export const updateSearchParams = (
+  setSearchParams: (params: URLSearchParams) => void,
+  currentSearchParams: URLSearchParams,
+  newParams: Record<string, string | undefined>
+) => {
+  const updatedSearchParams = new URLSearchParams(currentSearchParams);
+
+  for (const key in newParams) {
+    if (newParams[key] !== undefined) {
+      updatedSearchParams.set(key, newParams[key]!);
+    } else {
+      updatedSearchParams.delete(key);
+    }
+  }
+
+  setSearchParams(updatedSearchParams);
+};
+
 export function transformArrayToOptionsList(
   optionsArray: (ISkill | IDepartment | IRole)[]
 ) {

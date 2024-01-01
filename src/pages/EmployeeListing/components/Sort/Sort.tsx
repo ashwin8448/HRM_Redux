@@ -9,6 +9,7 @@ import { SortDirection } from "../../../../core/config/constants.ts";
 import { useSearchParams } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
+import { updateSearchParams } from "../../../../utils/helper.ts";
 
 function Sort() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -65,15 +66,6 @@ function Sort() {
     changeSortDropdownOpenStatus();
   };
 
-  // Update URL parameters when local state changes
-  const updateSearchParams = () => {
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      sortBy: sortBySelection ?? "id",
-      sortDir: sortOrderSelection ?? "asc",
-    });
-  };
-
   useEffect(() => {
     setSortBySelection(sortBy ?? "id");
     setSortOrderSelection(getSortOrderFromParams(sortOrder ?? "asc"));
@@ -81,7 +73,10 @@ function Sort() {
 
   // Update URL parameters when local state changes
   useEffect(() => {
-    updateSearchParams();
+    updateSearchParams(setSearchParams, searchParams, {
+      sortBy: sortBySelection ?? "id",
+      sortDir: sortOrderSelection ?? "asc",
+    });
   }, [sortBySelection, sortOrderSelection]);
 
   useEffect(() => {
