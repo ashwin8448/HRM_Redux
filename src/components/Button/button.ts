@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
-import { fontSizes } from "../../core/constants/fontStyles";
 
 const ButtonWrapper = styled.button<{
   $isChildren: boolean;
@@ -18,8 +17,8 @@ const ButtonWrapper = styled.button<{
   gap: 5px;
 
   // a smooth transition effect over a duration of 0.2 sec
-  ${(props) => !props.$noTransition && 'transform: translateZ(0) scale(1);'}
-  transition: ${(props) => !props.$noTransition && 'transform 0.2s'};
+  ${(props) => !props.$noTransition && "transform: translateZ(0) scale(1);"}
+  transition: ${(props) => !props.$noTransition && "transform 0.2s"};
 
   // disables text selection by the user
   user-select: none;
@@ -39,23 +38,35 @@ const ButtonWrapper = styled.button<{
       left: 0;
       width: 100%;
       height: 100%;
-      position:absolute;
+      position: absolute;
       cursor: pointer;
     }
   }
 
-  .material-symbols-outlined{
-    font-size:${fontSizes["--font-size-md"]};
-  }
-  
   &:hover {
-    ${(props) => !props.$noTransition && 'transform: scale(0.95);'} // scales the button larger when hovered
+    ${(props) =>
+      !props.$noTransition &&
+      "transform: scale(0.95);"}// scales the button larger when hovered
   }
   &:not(:disabled):active {
-    ${(props) => !props.$noTransition && 'transform: translateY(-0.125rem);'}
+    ${(props) => !props.$noTransition && "transform: translateY(-0.125rem);"}
   }
-  &:disabled{
-    color:${colors.LIGHT_GRAY_COLOR}
+  &:disabled * {
+    color: ${colors.LIGHT_GRAY_COLOR};
+  }
+
+  &.invert-style {
+    background-color: ${colors.SECONDARY_COLOR};
+    > * {
+      color: ${colors.WHITE_COLOR};
+    }
+  }
+
+  &.very-important-btn {
+    background-color: ${colors.DARK_PRIMARY_COLOR};
+    > * {
+      color: ${colors.WHITE_COLOR};
+    }
   }
 
   .btn-loader {

@@ -1,14 +1,13 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
 
-const LoginWrapper = styled.div`
+const LoginLayoutWrapper = styled.div`
   display: flex;
   flex-direction: column;
   background-color: ${`${colors.WHITE_COLOR}`};
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  gap: 20px;
   width: 70%;
   position: absolute;
   top: 50%;
@@ -18,17 +17,15 @@ const LoginWrapper = styled.div`
   .login-btn {
     background: none;
     border: none;
-    color: ${colors.DARK_PRIMARY_COLOR};
+    *{
+      color:${colors.DARK_PRIMARY_COLOR}
+    }
   }
 
   .error {
-    color: red;
+    color: ${colors.RED_COLOR};
     margin: 0;
     margin-top: 10px;
-  }
-
-  h2 {
-    margin: 0;
   }
 
   form {
@@ -49,9 +46,9 @@ const LoginWrapper = styled.div`
       flex-direction: column-reverse;
     }
     .alternative-msg {
-      text-align:center;
+      text-align: center;
       flex-direction: column;
     }
   }
 `;
-export default LoginWrapper;
+export default LoginLayoutWrapper;

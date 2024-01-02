@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
-import { fontSizes, fontWeights } from "../../core/constants/fontStyles";
+import { fontWeights } from "../../core/constants/fontStyles";
 
 const DeleteModalWrapper = styled.div`
   top: 50%;
@@ -16,6 +16,7 @@ const DeleteModalWrapper = styled.div`
   padding: 15px;
   z-index: 3;
   margin: 0 auto;
+  gap: 10px;
   max-width: calc(100% - 30px); /* Adjusts the maximum width of the modal */
   max-height: calc(100% - 30px); /* Adjusts the maximum height of the modal */
   overflow: auto;
@@ -30,13 +31,7 @@ const DeleteModalWrapper = styled.div`
       background-color: ${colors.LIGHT_GRAY_COLOR};
     }
   }
-  .delete-modal-heading {
-    margin: 0;
-    font-weight: ${fontWeights["--font-bold"]};
-    font-size: ${fontSizes["--font-size-lg"]};
-    line-height: 1.5;
-    color: ${colors.SECONDARY_COLOR};
-  }
+
   .confirm-delete {
     width: 100%;
   }
@@ -45,7 +40,7 @@ const DeleteModalWrapper = styled.div`
     align-self: flex-start;
     max-height: 300px;
     overflow: auto;
-    margin: 0 0 10px 0;
+    margin: 0;
     > * {
       padding: 4px;
     }
@@ -56,22 +51,25 @@ const DeleteModalWrapper = styled.div`
     background-color: ${colors.WARNING_COLOR};
     border-radius: 10px;
     padding: 10px;
-    margin-bottom: 20px;
+    * {
+      color: ${colors.WARNING_TEXT_COLOR};
+    }
   }
   .warning-heading {
     justify-content: flex-start;
     gap: 5px;
   }
   .warning-heading > * {
-    color: ${colors.WARNING_TEXT_COLOR};
     font-weight: ${fontWeights["--font-bold"]};
+    margin: 0;
   }
   .warning-text {
-    margin: 0 0 10px 0;
     color: ${colors.WARNING_TEXT_COLOR};
+    margin: 0;
   }
   .btn-grp {
     gap: 10px;
+    margin: 10px 0;
   }
   button {
     gap: 5px;
@@ -80,8 +78,10 @@ const DeleteModalWrapper = styled.div`
     justify-content: flex-start;
   }
   .delete-btn {
-    background-color: #e02424 !important;
-    color: ${colors.WHITE_COLOR};
+    background-color: ${colors.RED_COLOR};
+    * {
+      color: ${colors.WHITE_COLOR};
+    }
 
     &:hover {
       background-color: rgba(200, 30, 30, 1) !important;

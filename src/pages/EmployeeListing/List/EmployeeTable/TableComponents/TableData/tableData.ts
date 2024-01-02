@@ -1,14 +1,8 @@
 import styled from "styled-components";
 import colors from "../../../../../../core/constants/colors";
-import {
-  fontSizes,
-  fontWeights,
-} from "../../../../../../core/constants/fontStyles";
 
 const TableDataWrapper = styled.tr`
   .employee-data {
-    font-size: ${fontSizes["--font-size-s"]};
-    font-weight: ${fontWeights["--font-normal"]};
     position: relative;
     white-space: nowrap;
   }

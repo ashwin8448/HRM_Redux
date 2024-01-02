@@ -1,11 +1,16 @@
 import { useState } from "react";
 import useAuth from "../../hooks/useAuth.ts";
-import LoginWrapper from "../Login/login.ts";
+import LoginLayoutWrapper from "../Login/login.ts";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button.tsx";
 import Loader from "../../components/Loader/Loader.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import InputWrapper from "../../components/Input/input.ts";
+import {
+  H3Styles,
+  LabelStyles,
+  ParagraphStyles,
+} from "../../core/constants/components/text/textStyledComponents.ts";
 
 function SignUp() {
   const [username, setUsername] = useState("");
@@ -48,11 +53,11 @@ function SignUp() {
   return authLoading ? (
     <Loader />
   ) : (
-    <LoginWrapper>
-      <h2>Sign Up</h2>
+    <LoginLayoutWrapper>
+      <H3Styles>Sign Up</H3Styles>
       <form onSubmit={handleSubmit}>
         <InputWrapper>
-          <label>Username:</label>
+          <LabelStyles>Username:</LabelStyles>
           <input
             type="text"
             value={username}
@@ -60,7 +65,7 @@ function SignUp() {
           />
         </InputWrapper>
         <InputWrapper>
-          <label>Password:</label>
+          <LabelStyles>Password:</LabelStyles>
           <input
             type="password"
             value={password}
@@ -68,14 +73,16 @@ function SignUp() {
           />
         </InputWrapper>
         <InputWrapper>
-          <label>Re-enter Password:</label>
+          <LabelStyles>Re-enter Password:</LabelStyles>
           <input
             type="password"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
           />
         </InputWrapper>
-        {errorMsg !== "" && <p className="error">{errorMsg}</p>}
+        {errorMsg !== "" && (
+          <ParagraphStyles className="error">{errorMsg}</ParagraphStyles>
+        )}
         <ButtonGrpWrapper className="btn-grp">
           <div className="common-flex alternative-msg">
             {" "}
@@ -95,7 +102,7 @@ function SignUp() {
           </Button>
         </ButtonGrpWrapper>
       </form>
-    </LoginWrapper>
+    </LoginLayoutWrapper>
   );
 }
 

@@ -9,6 +9,10 @@ import { FieldValues } from "react-hook-form";
 import DeleteModal from "../../../../components/DeleteModal/DeleteModal.tsx";
 import EmployeeIntroSectionWrapper from "./employeeIntroSection.ts";
 import { getUrlType } from "../../../../utils/helper.ts";
+import {
+  H2Styles,
+  ParagraphStyles,
+} from "../../../../core/constants/components/text/textStyledComponents.ts";
 
 function EmployeeIntroSection({
   employee,
@@ -44,8 +48,8 @@ function EmployeeIntroSection({
           />
         </div>
         <div className="common-flex employee-intro">
-          <h2>{employee.firstName + " " + employee.lastName}</h2>
-          <p className="subheading">{employee.role.label}</p>
+          <H2Styles>{employee.firstName + " " + employee.lastName}</H2Styles>
+          <ParagraphStyles>{employee.role.label}</ParagraphStyles>
         </div>
         {getUrlType(location.pathname) === "view-employee" && (
           <ButtonGrpWrapper className="btn-grp common-flex">

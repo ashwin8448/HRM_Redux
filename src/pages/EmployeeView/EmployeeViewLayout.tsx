@@ -6,6 +6,7 @@ import { getData } from "../../core/api/functions.ts";
 import { IAppEmployee } from "../../core/interfaces/interface.ts";
 import { convertIGetEmployeeToIAppEmployee } from "../../utils/helper.ts";
 import EmployeeView from "./EmployeeView.tsx";
+import Button from "../../components/Button/Button.tsx";
 
 function EmployeeViewLayout() {
   const { employeeId } = useParams();
@@ -58,13 +59,11 @@ function EmployeeViewLayout() {
   return (
     employee && (
       <>
-        <span
-          className="material-symbols-outlined back-btn"
+        <Button
+          className="material-symbols-outlined"
+          icon="reply"
           onClick={() => navigate(-1)}
-        >
-          {" "}
-          reply
-        </span>
+        ></Button>
         <EmployeeView employee={employee} />
       </>
     )

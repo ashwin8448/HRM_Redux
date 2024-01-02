@@ -8,13 +8,7 @@ const FilterActionsWrapper = styled.div`
   height: 100%;
   display: flex;
   flex-direction: column;
-
-  .filter-all-btn {
-    background-color: ${colors.DARK_PRIMARY_COLOR};
-    > label {
-      color: ${colors.WHITE_COLOR};
-    }
-  }
+  
   .btn-grp {
     margin-top: auto;
     gap: 10px;

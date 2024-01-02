@@ -1,4 +1,3 @@
-import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import EmployeeTable from "./List/EmployeeTable/EmployeeTable.tsx";
 import { useEffect, useState } from "react";
@@ -8,12 +7,10 @@ import ListingActions from "./components/ListingActions/ListingActions.tsx";
 import EmployeeListingWrapper from "./employeeListing.ts";
 import { useAppSelector } from "../../hooks/reduxHooks.ts";
 import Snackbar from "../../components/Snackbar/Snackbar.tsx";
-import { useMediaQuery } from "usehooks-ts";
 import { updateSearchParams } from "../../utils/helper.ts";
+import { TitleStyle } from "../../core/constants/components/text/textStyledComponents.ts";
 
 function EmployeeListing() {
-  const matches = useMediaQuery("(min-width: 768px)");
-
   // Employees data fetching
   const { employees, loading, count } = useAppSelector(
     (state) => state.employeesData
@@ -31,7 +28,7 @@ function EmployeeListing() {
   //toggle between list and grid
   const [listingActive, setListingActive] = useState(displayValue ?? "List");
   const handleActiveListing = (buttonTxt: string) => {
-    updateSearchParams(setSearchParams, searchParams,{ display: buttonTxt });
+    updateSearchParams(setSearchParams, searchParams, { display: buttonTxt });
     deleteCheckBoxesList.setCheckedBoxesList([]);
     setListingActive(buttonTxt);
   };
@@ -49,16 +46,7 @@ function EmployeeListing() {
 
   return (
     <EmployeeListingWrapper>
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        limit={1}
-        closeOnClick
-        pauseOnFocusLoss={false} // avoid pausing when the window looses the focus
-      />
-      <h1 className={matches ? `page-title` : `page-title-mobile`}>
-        Employee Management
-      </h1>
+      <TitleStyle>Employee Management</TitleStyle>
       <ListingActions
         listingActive={listingActive}
         handleActiveListing={handleActiveListing}

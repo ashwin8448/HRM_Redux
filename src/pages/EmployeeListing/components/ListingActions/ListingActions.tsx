@@ -21,7 +21,7 @@ function ListingActions({
   listingActive: string;
 }) {
   return (
-    <ListingActionsWrapper className="">
+    <ListingActionsWrapper>
       <ButtonGrpWrapper className=" btn-grp-view">
         <Button
           icon="format_list_bulleted"
@@ -45,7 +45,7 @@ function ListingActions({
         <div className="common-flex action-grp">
           <MoreActions deleteCheckBoxesList={deleteCheckBoxesList} />
           <StyledLink to="add-employee">
-            <Button icon="add" className="add-new-btn">New</Button>
+            <Button icon="add" className="invert-style">New</Button>
           </StyledLink>
         </div>
       </div>

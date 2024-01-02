@@ -25,11 +25,6 @@ const Fieldset = styled.fieldset`
     margin: 30px;
   }
 
-  .form-section-heading {
-    margin-top: 0;
-    color: #24262d;
-  }
-
 `;
 const InputRow = styled.div`
   flex-wrap: wrap;

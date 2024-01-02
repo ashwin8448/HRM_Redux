@@ -5,6 +5,7 @@ import InputError from "../InputError/InputError.tsx";
 import Button from "../Button/Button.tsx";
 import { Controller, useFormContext } from "react-hook-form";
 import PhotoInputWrapper from "./photoInput.ts";
+import { LabelStyles } from "../../core/constants/components/text/textStyledComponents.ts";
 
 const PhotoInput = ({ config }: { config: IInputProps }) => {
   const {
@@ -48,7 +49,7 @@ const PhotoInput = ({ config }: { config: IInputProps }) => {
 
       <div>
         <PhotoInputWrapper>
-          <label htmlFor={config.label}>Select image</label>
+          <LabelStyles htmlFor={config.label}>Select image</LabelStyles>
           <Controller
             name={config.name}
             control={control}

@@ -29,6 +29,10 @@ import {
   fetchRolesData,
   fetchSkillsData,
 } from "../../core/store/actions.ts";
+import {
+  H3Styles,
+  H2Styles,
+} from "../../core/constants/components/text/textStyledComponents.ts";
 
 const Form = () => {
   const { employeeId } = useParams();
@@ -157,20 +161,19 @@ const Form = () => {
     );
   return (
     <>
-      <span
-        className="material-symbols-outlined back-btn"
+      <Button
+        className="material-symbols-outlined"
+        icon="reply"
         onClick={() => navigate(-1)}
-      >
-        reply
-      </span>
+      ></Button>
       <FormWrapper>
-        <h2>
+        <H2Styles>
           {employeeId
             ? `Edit Employee: ${
                 employeeData?.firstName + " " + employeeData?.lastName
               }`
             : "Add New Employee"}
-        </h2>
+        </H2Styles>
         <ProgressBar
           activeSection={activeSection}
           steps={[
@@ -196,9 +199,7 @@ const Form = () => {
                         key={formSection.sectionActiveState}
                         className="form-details section "
                       >
-                        <h2 className="form-section-heading">
-                          {formSection.sectionName}
-                        </h2>
+                        <H3Styles>{formSection.sectionName}</H3Styles>
                         <>
                           {formSection.sectionFields.map(
                             (sectionField: IInputProps) => (
@@ -218,7 +219,7 @@ const Form = () => {
             {activeSection === 4 && (
               <>
                 {" "}
-                <h2 className="form-section-heading">Review</h2>
+                <H3Styles>Review</H3Styles>
                 <EmployeeViewWrapper className="section">
                   <EmployeeView employee={methods.getValues()}></EmployeeView>
                 </EmployeeViewWrapper>

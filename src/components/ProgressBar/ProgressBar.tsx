@@ -1,3 +1,4 @@
+import { LabelStyles } from "../../core/constants/components/text/textStyledComponents";
 import ProgressBarWrapper from "./ProgressBar";
 
 const ProgressBar = ({
@@ -8,11 +9,14 @@ const ProgressBar = ({
   activeSection: number;
 }) => {
   return (
-    <ProgressBarWrapper $activeSection={activeSection} $stepsNumber={steps.length}>
+    <ProgressBarWrapper
+      $activeSection={activeSection}
+      $stepsNumber={steps.length}
+    >
       <div className="progress-bar-container">
         {steps.map((step, index) => (
           <div key={index} className="step">
-            <div
+            <LabelStyles
               className={`step-number ${
                 index + 1 < activeSection
                   ? `completed`
@@ -22,8 +26,8 @@ const ProgressBar = ({
               }`}
             >
               {index + 1}
-            </div>
-            <div className="step-name">{step}</div>
+            </LabelStyles>
+            <LabelStyles className="step-name">{step}</LabelStyles>
           </div>
         ))}
         <div className="steps-link">

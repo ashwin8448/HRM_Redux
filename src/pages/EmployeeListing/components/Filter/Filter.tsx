@@ -4,6 +4,7 @@ import Button from "../../../../components/Button/Button.tsx";
 import SideFilterBarWrapper from "./SideFilterBar/sideFilterBar.ts";
 import FilterActions from "./SideFilterBar/FilterActions.tsx";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
+import { H2Styles } from "../../../../core/constants/components/text/textStyledComponents.ts";
 
 const Filter = () => {
   //responsive
@@ -31,8 +32,8 @@ const Filter = () => {
 
   return (
     <>
-      <Button icon="filter_list" onClick={handleButtonClick}>
-        {matches && "All filters"}
+      <Button icon="filter_list " onClick={handleButtonClick}>
+        {matches && "All flters"}
       </Button>
 
       {!loading && isSideFilterBarVisible && (
@@ -41,7 +42,7 @@ const Filter = () => {
           $visible={isSideFilterBarVisible}
         >
           <div className="common-flex">
-            <label className="page-title-mobile">Filters</label>
+            <H2Styles>Filters</H2Styles>
             <Button
               className="close-btn"
               icon="close"

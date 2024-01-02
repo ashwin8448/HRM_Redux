@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../../../core/constants/colors';
-import { fontSizes } from '../../../../core/constants/fontStyles';
+import { fontWeights } from '../../../../core/constants/fontStyles';
 
 const TableWrapper = styled.table`
   border-collapse: separate;
@@ -12,10 +12,11 @@ const TableWrapper = styled.table`
   tbody {
     width: 100%;
   }
-  thead {
-    font-size: ${fontSizes['--font-size-sm']};
-    background-color: ${colors.WHITE_COLOR};
+
+  th p{
+    font-weight: ${fontWeights['--font-semi-bold']};
   }
+
   tr:nth-child(2n) {
     td:nth-child(1),
     td:nth-child(2) {

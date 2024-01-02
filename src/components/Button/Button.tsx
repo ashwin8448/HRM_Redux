@@ -1,6 +1,7 @@
 import React from "react";
 import ButtonWrapper from "./button.ts";
 import Loader from "../Loader/Loader.tsx";
+import { LabelStyles } from "../../core/constants/components/text/textStyledComponents.ts";
 
 function Button({
   children,
@@ -35,7 +36,7 @@ function Button({
       ) : (
         <>
           {icon && <span className="material-symbols-outlined"> {icon} </span>}
-          {children && <label>{children}</label>}
+          {children && <LabelStyles>{children}</LabelStyles>}
         </>
       )}
     </ButtonWrapper>

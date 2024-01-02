@@ -1,19 +1,19 @@
 import Checkbox from "../../../../../../components/Checkbox/Checkbox.tsx";
+import { ParagraphStyles } from "../../../../../../core/constants/components/text/textStyledComponents.ts";
 import { IAppEmployee } from "../../../../../../core/interfaces/interface.ts";
 import TableHeadButton from "./TableHeadButton.tsx";
 import { TableHeadWrapper } from "./tableHead.ts";
 
 function TableHead({
   deleteCheckBoxesList,
-  employees
+  employees,
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-    employees: IAppEmployee[]
+  employees: IAppEmployee[];
 }) {
-
   const employeesIdList = employees.map(
     (employee: IAppEmployee) => employee.id
   );
@@ -22,9 +22,14 @@ function TableHead({
     <TableHeadWrapper>
       <tr>
         <th>
-          <Checkbox employeesIdList={employeesIdList} deleteCheckBoxesList={deleteCheckBoxesList} />
+          <Checkbox
+            employeesIdList={employeesIdList}
+            deleteCheckBoxesList={deleteCheckBoxesList}
+          />
         </th>
-        <TableHeadButton icon="expand_more" title="id">Id</TableHeadButton>
+        <TableHeadButton icon="expand_more" title="id">
+          Id
+        </TableHeadButton>
         <TableHeadButton icon="expand_more" title="firstName">
           <span className="material-symbols-outlined">person</span>Name
         </TableHeadButton>
@@ -40,12 +45,13 @@ function TableHead({
         <th>
           <span className="table-title common-flex">
             <span className="material-symbols-outlined">workspace_premium</span>
-            Skills{" "}
+            <ParagraphStyles>Skills</ParagraphStyles>
           </span>
         </th>
         <th>
           <span className="table-title common-flex">
-            <span className="material-symbols-outlined">bolt</span>Actions
+            <span className="material-symbols-outlined">bolt</span>{" "}
+            <ParagraphStyles>Actions</ParagraphStyles>
           </span>
         </th>
       </tr>

@@ -7,6 +7,7 @@ import StyledLink from "../../../../../../components/StyledLink.ts";
 import SkillsChip from "../../../../../../components/Skills/SkillsChip.tsx";
 import Checkbox from "../../../../../../components/Checkbox/Checkbox.tsx";
 import React from "react";
+import { TableDataStyles } from "../../../../../../core/constants/components/text/textStyledComponents.ts";
 
 function TableData({
   employee,
@@ -31,39 +32,43 @@ function TableData({
       key={employee.id}
       className={index % 2 !== 0 ? "alternate-table-row-color" : ""} // alternate colour for each row
     >
-      <td className="employee-data">
+      <TableDataStyles className="employee-data">
         <Checkbox
           employeeId={employee.id}
           deleteCheckBoxesList={deleteCheckBoxesList}
         />
-      </td>
+      </TableDataStyles>
 
-      <td className="employee-data">{employee.id}</td>
+      <TableDataStyles className="employee-data">{employee.id}</TableDataStyles>
       {/* navigating to view employee page */}
-      <td
+      <TableDataStyles
         className="employee-data  employee-view"
         onClick={handleEmployeeDetailsView}
       >
         {employee.lastName
           ? concatenateNames(employee.firstName, employee.lastName)
           : employee.firstName}
-      </td>
-      <td className="employee-data">{employee.designation || "-"}</td>
-      <td className="employee-data">
+      </TableDataStyles>
+      <TableDataStyles className="employee-data">
+        {employee.designation || "-"}
+      </TableDataStyles>
+      <TableDataStyles className="employee-data">
         {employee.department.label || "-"}
-      </td>
-      <td className="employee-data">{employee.role.label || "-"}</td>
-      <td className="employee-data skills-data">
+      </TableDataStyles>
+      <TableDataStyles className="employee-data">
+        {employee.role.label || "-"}
+      </TableDataStyles>
+      <TableDataStyles className="employee-data skills-data">
         <SkillsChip skills={employee.skills} />
-      </td>
-      <td className="employee-data">
+      </TableDataStyles>
+      <TableDataStyles className="employee-data">
         <div className=" actions-list common-flex">
           {/* navigating to edit employee page */}
           <StyledLink to={`/edit-employee/${employee.id}`}>
             <Button icon="edit"></Button>
           </StyledLink>
         </div>
-      </td>
+      </TableDataStyles>
     </TableDataWrapper>
   );
 }

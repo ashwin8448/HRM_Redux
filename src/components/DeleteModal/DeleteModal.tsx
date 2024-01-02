@@ -13,6 +13,11 @@ import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { useAppSelector } from "../../hooks/reduxHooks.ts";
 import { getUrlType } from "../../utils/helper.ts";
+import {
+  H2Styles,
+  LabelStyles,
+  ParagraphStyles,
+} from "../../core/constants/components/text/textStyledComponents.ts";
 
 function DeleteModal({
   changeDltModalOpenStatus,
@@ -74,19 +79,23 @@ function DeleteModal({
         className="close-btn"
         onClick={changeDltModalOpenStatus}
       ></Button>
-      <h2 className="delete-modal-heading">{DELETE_MODAL_HEADING}</h2>
-      <p className="confirm-delete">{CONFIRM_DELETE_TEXT(idArrayToDlt)}</p>
+      <H2Styles className="delete-modal-heading">
+        {DELETE_MODAL_HEADING}
+      </H2Styles>
+      <LabelStyles className="confirm-delete">
+        {CONFIRM_DELETE_TEXT(idArrayToDlt)}
+      </LabelStyles>
       <ul className="employees-name-list">
-        {employeesNameList.map((employeesName,index) => (
+        {employeesNameList.map((employeesName, index) => (
           <li key={index}>{employeesName}</li>
         ))}
       </ul>
       <div className="warning-container">
         <div className="warning-heading common-flex">
           <span className="material-icons-round">warning</span>
-          <p className="title">{WARNING_HEADING}</p>
+          <LabelStyles>{WARNING_HEADING}</LabelStyles>
         </div>
-        <p className="warning-text">{WARNING_TEXT}</p>
+        <ParagraphStyles>{WARNING_TEXT}</ParagraphStyles>
       </div>
       <ButtonGrpWrapper className="btn-grp">
         <Button className="cancel-btn" onClick={changeDltModalOpenStatus}>

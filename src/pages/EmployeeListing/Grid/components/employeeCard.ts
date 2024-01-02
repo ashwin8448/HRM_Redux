@@ -31,8 +31,6 @@ const EmployeeCardWrapper = styled.div`
       color: ${colors.SECONDARY_COLOR};
     }
     .content {
-      font-size: ${fontSizes["--font-size-sm"]};
-      font-weight: ${fontWeights["--font-normal"]};
       text-align: center;
     }
 

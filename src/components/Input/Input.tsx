@@ -8,6 +8,7 @@ import RadioGrp from "../Radio/RadioGrp.tsx";
 import InputWrapper from "./input.ts";
 import FormSelect from "../../pages/EmployeeUpdate/FormSelect/FormSelect.tsx";
 import PhotoInput from "./PhotoInput.tsx";
+import { LabelStyles } from "../../core/constants/components/text/textStyledComponents.ts";
 
 function Input({ config }: { config: IInputProps }) {
   const {
@@ -19,7 +20,7 @@ function Input({ config }: { config: IInputProps }) {
   const className = errorMsg ? `input-border-error ${config.label}` : "label";
   return (
     <InputWrapper>
-      <label className="subheading">{config.label}</label>
+      <LabelStyles>{config.label}</LabelStyles>
       {(() => {
         let inputToRender = <></>;
         switch (config.type) {

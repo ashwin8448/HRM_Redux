@@ -1,13 +1,12 @@
 import React, { useEffect, useRef, useState } from "react";
 import Button from "../../../../../components/Button/Button.tsx";
-import {
-  DropdownWrapper,
-} from "../../Sort/sort.ts";
+import { DropdownWrapper } from "../../Sort/sort.ts";
 import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
 import DeleteBtnWrapper from "./moreActions.ts";
 import DeleteModal from "../../../../../components/DeleteModal/DeleteModal.tsx";
 import Tooltip from "../../../../../components/Tooltip/Tooltip.tsx";
 import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
+import { ParagraphStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
 
 function MoreActions({
   deleteCheckBoxesList,
@@ -32,9 +31,7 @@ function MoreActions({
     }
   };
 
-  const { employees, loading } = useAppSelector(
-    (state) => state.employeesData
-  );
+  const { employees, loading } = useAppSelector((state) => state.employeesData);
 
   const selectAll =
     deleteCheckBoxesList.checkedBoxesList.length == 0 ||
@@ -102,9 +99,9 @@ function MoreActions({
               >
                 Delete
                 {deleteCheckBoxesList.checkedBoxesList.length > 0 && (
-                  <p className="message-text">
+                  <ParagraphStyles>
                     ({deleteCheckBoxesList.checkedBoxesList.length.toString()})
-                  </p>
+                  </ParagraphStyles>
                 )}
               </Button>{" "}
               {deleteCheckBoxesList.checkedBoxesList.length == 0 && (

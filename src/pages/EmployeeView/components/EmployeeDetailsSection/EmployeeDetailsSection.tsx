@@ -2,6 +2,7 @@ import { useMediaQuery } from "usehooks-ts";
 import DetailsSection from "../../../../components/Details/Details.tsx";
 import { ISelectOptionProps } from "../../../../core/interfaces/interface.ts";
 import EmployeeDetailsSectionWrapper from "./employeeDetailsSection.ts";
+import { H3Styles } from "../../../../core/constants/components/text/textStyledComponents.ts";
 
 function EmployeeDetailsSection({
   title,
@@ -14,7 +15,7 @@ function EmployeeDetailsSection({
 
   return (
     <EmployeeDetailsSectionWrapper>
-      <h2 className="details-heading">{title}</h2>
+      <H3Styles>{title}</H3Styles>
       <div className="detail-element common-flex">
         {details.map((detail) => (
           <DetailsSection
