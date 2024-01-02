@@ -5,7 +5,8 @@ import { Provider } from "react-redux";
 import store from "./core/store/configureStore.ts";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
-import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary.tsx";
+import ErrorBoundary from "./components/ErrorBoundary/ErrorBoundary";
+import router from "./pages/routes.tsx";
 function App() {
   return (
     <>
