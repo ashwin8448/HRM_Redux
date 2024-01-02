@@ -1,5 +1,5 @@
 import { useState } from "react";
-import useAuth from "../Login/useAuth.ts";
+import useAuth from "../../hooks/useAuth.ts";
 import LoginWrapper from "../Login/login.ts";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button.tsx";
@@ -17,7 +17,6 @@ function SignUp() {
   const navigate = useNavigate();
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
     setPassword(e.target.value);
     if (confirmPassword !== e.target.value) {
       setIsPasswordMatch(false);

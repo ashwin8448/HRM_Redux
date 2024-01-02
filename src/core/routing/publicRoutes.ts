@@ -1,7 +1,7 @@
-import SignIn from "../../pages/SignIn/SignIn";
+import Login from "../../pages/Login/Login.tsx"
 import SignUp from "../../pages/SignUp/SignUp";
 
 export const publicRoute = [
-  { path: "/sign-in", element: SignIn },
+  { path: "/login", element: Login },
   { path: "/sign-up", element: SignUp },
 ];

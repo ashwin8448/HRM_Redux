@@ -1,20 +1,108 @@
-import { useSelector } from "react-redux";
-import { IData } from "../core/interfaces/interface";
-import store from "../core/store/configureStore";
-import { setLogout } from "../core/store/actions";
+import { apiURL } from "../core/config/constants";
+import { postData } from "../core/api/functions";
+import { toast } from "react-toastify";
+import { useEffect, useState } from "react";
+import { setlogin, setlogout } from "../core/store/actions";
+import { useAppDispatch, useAppSelector } from "./reduxHooks";
+import { useLocation, useNavigate } from "react-router-dom";
+import { deleteToken, getToken, setToken } from "../utils/helper";
 
 const useAuth = () => {
-  const isAuthenticated = useSelector(
-    (state: IData) => state.userData.isAuthenticated
-  );
-  const login = async (userCredentials: { username: string; password: string }) => {
-    // const response  = await 
+  const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.userData.user);
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [authError, setAuthError] = useState("");
+  const [authLoading, setAuthLoading] = useState(false);
+
+  const login = async ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => {
+    try {
+      setAuthLoading(true);
+      const authResponse = await postData(apiURL.authSignIn, {
+        username,
+        password,
+      });
+      if (authResponse) {
+        const responseData: { access_token: string; refresh_token: string } =
+          authResponse.data;
+        const accessToken = responseData.access_token;
+        const refreshToken = responseData.refresh_token;
+        setToken("accessToken", accessToken);
+        setToken("refreshToken", refreshToken);
+        dispatch(setlogin());
+        //TODO: Add name
+        navigate(location.state ? location.state.from : "/");
+        toast.success("Welcome. You are succesfully logged in.");
+      } else {
+        //TODO: error msg
+      }
+    } catch (error: any) {
+      if (error.message === "Invalid username or password")
+        setAuthError(error.message);
+      else
+        toast.error("An error occurred during login.", {
+          toastId: "login-error",
+        });
+    } finally {
+      setAuthLoading(false);
+    }
   };
-  
+
   const logout = () => {
-    store.dispatch(setLogout());
+    deleteToken("accessToken");
+    deleteToken("refreshToken");
+    dispatch(setlogout());
+    navigate("/login", { replace: true });
   };
-  return { login, logout, isAuthenticated };
+
+  const signUp = async ({
+    username,
+    password,
+  }: {
+    username: string;
+    password: string;
+  }) => {
+    try {
+      setAuthLoading(true);
+      const response = await postData(apiURL.authSignUp, {
+        username,
+        password,
+      });
+      navigate("/login");
+      toast.success(
+        `Hi ${response.data.username}, you have signed up succesfully.`
+      );
+    } catch (error) {
+      toast.error("An error occurred during sign up.", {
+        toastId: "sign-up-error",
+      });
+    } finally {
+      setAuthLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    const authToken = getToken("accessToken");
+    if (authToken) {
+      dispatch(setlogin());
+    } else logout();
+  }, [dispatch]);
+
+  return {
+    user,
+    login,
+    logout,
+    signUp,
+    authError,
+    setAuthError,
+    authLoading,
+  };
 };
 
 export default useAuth;

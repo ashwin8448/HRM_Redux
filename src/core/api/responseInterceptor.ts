@@ -1,5 +1,5 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { getNewRefreshToken, setCookie } from "../../utils/helper";
+import { getNewRefreshToken, setToken } from "../../utils/helper";
 import { API } from ".";
 import { apiURL } from "../config/constants";
 
@@ -36,8 +36,8 @@ export async function onResponseError(error: AxiosError): Promise<AxiosError> {
   ) {
     const refreshResponse = await getNewRefreshToken();
     if (refreshResponse) {
-      setCookie("accessToken", refreshResponse.access_token);
-      setCookie("refreshToken", refreshResponse.refresh_token);
+      setToken("accessToken", refreshResponse.access_token);
+      setToken("refreshToken", refreshResponse.refresh_token);
       return API(config!);
     } else {
       return Promise.reject(error.response.data as IErrorResponse);

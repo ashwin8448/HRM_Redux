@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import useAuth from "./useAuth";
+import useAuth from "../../hooks/useAuth.ts";
 import LoginWrapper from "./login";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button.tsx";
 import Loader from "../../components/Loader/Loader.tsx";
-import { getCookie } from "../../utils/helper.ts";
 import InputWrapper from "../../components/Input/input.ts";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
+import { getToken } from "../../utils/helper.ts";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -16,7 +16,7 @@ function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (getCookie("accessToken")) navigate("/", { replace: true });
+    if (getToken("accessToken")) navigate("/", { replace: true });
   }, []);
 
   function handleSubmit() {

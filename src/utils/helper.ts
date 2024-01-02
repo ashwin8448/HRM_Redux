@@ -13,7 +13,6 @@ import { postData } from "../core/api/functions.ts";
 import { apiURL } from "../core/config/constants.ts";
 import { jwtDecode } from "jwt-decode";
 
-
 export const updateSearchParams = (
   setSearchParams: (params: URLSearchParams) => void,
   currentSearchParams: URLSearchParams,
@@ -124,7 +123,6 @@ export const convertIGetEmployeeToIAppEmployee = (
 export const convertFormDataToIPostEmployees = async (
   formData: FieldValues
 ): Promise<IPostEmployee> => {
-  console.log(formData);
   const { photoId, skills, department, role, isActive, ...rest } = formData;
   return {
     ...(rest as IPostEmployee),
@@ -145,33 +143,34 @@ export function concatenateNames(firstName: string, lastName: string): string {
   return `${firstName} ${lastName}`;
 }
 
-export function getCookie(name: string) {
-  const value = `; ${document.cookie}`;
-  const parts: string[] = value?.split(`; ${name}=`) ?? [];
-  if (parts && parts.length === 2) return parts?.pop()?.split(";")?.shift();
-  return null;
-}
-export function setCookie(name: string, value: string) {
-  const decodedToken = jwtDecode(value); //getting the payload of the token
-  const expiration = new Date(0); // Start with Unix epoch
-
-  if (decodedToken && decodedToken.exp) {
-    expiration.setUTCSeconds(decodedToken.exp); //set expiration time of cookie with the expiration time of token
+export function getToken(name: string) {
+  let token = localStorage.getItem(name);
+  if (token && JSON.parse(token).expiry * 1000 >= Date.now())
+    token = localStorage.getItem(name);
+  else {
+    deleteToken(name);
+    token = null;
   }
-
-  const cookieValue =
-    encodeURIComponent(value) +
-    (decodedToken.exp ? `; expires=${expiration.toUTCString()}` : ""); //convert expiration time to string
-
-  document.cookie = `${name}=${cookieValue}; path=/`;
+  return token;
 }
 
-export function deleteCookie(name: string) {
-  document.cookie = `${name}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`; //setting expiration time to epoch
+export function setToken(name: string, value: string) {
+  const decodedToken = jwtDecode(value); //getting the payload of the token
+
+  const tokenValue = {
+    token: encodeURIComponent(value),
+    expiry: decodedToken.exp,
+  };
+  localStorage.setItem(name, JSON.stringify(tokenValue));
+}
+
+export function deleteToken(name: string) {
+  localStorage.removeItem(name);
 }
 
 export const getNewRefreshToken = async () => {
-  const refreshToken = getCookie("refreshToken");
+  const tokenObject = getToken("refreshToken");
+  const refreshToken = tokenObject && JSON.parse(tokenObject).token;
   if (refreshToken) {
     try {
       const response = await postData(apiURL.authRenew, {

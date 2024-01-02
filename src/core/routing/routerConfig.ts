@@ -4,7 +4,7 @@ import { publicRoute } from "./publicRoutes";
 const routerConfig = {
   private: privateRoute,
   public: publicRoute,
-  defaultRedirect: "/sign-in",
+  defaultRedirect: "/login",
 };
 
 export default routerConfig;

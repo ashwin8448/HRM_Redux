@@ -1,9 +1,8 @@
-import { getCookie } from "../../../utils/helper.ts";
-import { IUser } from "../../interfaces/interface.ts";
+import { getToken } from "../../../utils/helper.ts";
 import * as actionNames from "../types/actionNames.ts";
 
 const initialState = {
-  user: { isAuthenticated: Boolean(getCookie("accessToken")) },
+  user: { isAuthenticated: Boolean(getToken("accessToken")) },
 };
 
 const userReducer = (

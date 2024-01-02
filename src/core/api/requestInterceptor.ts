@@ -1,12 +1,11 @@
-import { AxiosError, AxiosRequestConfig } from 'axios';
-import { getCookie } from '../../utils/helper';
+import { AxiosError, AxiosRequestConfig } from "axios";
+import { getToken } from "../../utils/helper";
 
 export const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
-  const authToken = localStorage.getItem("authToken");
-
+  const authToken = getToken("accessToken");
   const headers = {
     Authorization: authToken
-      ? `Bearer ${import.meta.env.VITE_ACCESS_TOKEN}`
+      ? `Bearer ${authToken && JSON.parse(authToken).token}`
       : null,
   };
 

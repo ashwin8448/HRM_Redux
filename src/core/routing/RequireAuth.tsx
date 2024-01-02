@@ -5,8 +5,8 @@ import routerConfig from "./routerConfig";
 
 const RequireAuth = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
-  const { isAuthenticated } = useAuth();
-  if (!isAuthenticated)
+  const { user } = useAuth();
+  if (!user.isAuthenticated)
     return <Navigate to={routerConfig.defaultRedirect} state={{ from: location }} replace />;
   return <>{children}</>;
 };
