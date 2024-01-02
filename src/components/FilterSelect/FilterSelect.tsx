@@ -4,6 +4,7 @@ import {
   ISelectOptionProps,
 } from "../../core/interfaces/interface.ts";
 import selectStyleComponent from "../SelectStyle/selectCustomStyles.ts";
+import { LabelStyles } from "../../core/constants/components/text/textStyledComponents.ts";
 
 function FilterSelect({
   label,
@@ -14,7 +15,7 @@ function FilterSelect({
 }: ISelectDropdownProps) {
   return (
     <>
-      <label className="subheading overflow-ellipsis">{label}</label>
+      <LabelStyles className=" overflow-ellipsis">{label}</LabelStyles>
       {value && (
         <Select
           value={value.skillFilterState}

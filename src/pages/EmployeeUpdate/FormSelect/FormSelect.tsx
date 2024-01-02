@@ -4,6 +4,7 @@ import { ISelectOptionProps } from "../../../core/interfaces/interface.ts";
 import InputWrapper from "../../../components/Input/input.ts";
 import InputError from "../../../components/InputError/InputError.tsx";
 import selectStyles from "../../../components/SelectStyle/selectCustomStyles.ts";
+import { ParagraphStyles } from "../../../core/constants/components/text/textStyledComponents.ts";
 
 function FormSelect({
   label,
@@ -47,9 +48,9 @@ function FormSelect({
                 isSearchable={true}
                 options={options}
                 placeholder={
-                  <div className="placeholder overflow-ellipsis">
+                  <ParagraphStyles className="placeholder overflow-ellipsis">
                     {placeholder}
-                  </div>
+                  </ParagraphStyles>
                 }
                 isMulti={isMulti || false}
                 styles={selectStyles(errorMsg?.toString())} // custom style for select dropdown

@@ -10,6 +10,7 @@ import { useSearchParams } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 import { updateSearchParams } from "../../../../utils/helper.ts";
+import { SpanStyles } from "../../../../core/constants/components/text/textStyledComponents.ts";
 
 function Sort() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -103,7 +104,7 @@ function Sort() {
               onClick={() => handleItemSelection(option.criteria)}
               $sortBySelection={sortBySelection === option.criteria}
             >
-              {option.label}
+              <SpanStyles>{option.label}</SpanStyles>
               <span className="material-symbols-outlined sort-enable-icon">
                 done
               </span>
@@ -117,7 +118,7 @@ function Sort() {
           >
             <span className="order common-flex">
               <span className="material-symbols-outlined">arrow_downward</span>
-              Ascending
+              <SpanStyles>Ascending</SpanStyles>
             </span>
             <span className="material-symbols-outlined sort-enable-icon">
               done
@@ -130,7 +131,7 @@ function Sort() {
           >
             <span className="order common-flex">
               <span className="material-symbols-outlined">arrow_upward</span>
-              Descending
+              <SpanStyles>Descending</SpanStyles>
             </span>
             <span className="material-symbols-outlined sort-enable-icon">
               done

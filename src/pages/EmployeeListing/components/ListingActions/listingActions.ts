@@ -1,19 +1,14 @@
 import styled from "styled-components";
 import colors from "../../../../core/constants/colors";
-import { fontSizes, fontWeights } from "../../../../core/constants/fontStyles";
+import { fontWeights } from "../../../../core/constants/fontStyles";
 
 const ListingActionsWrapper = styled.div`
-display: flex;
+  display: flex;
   padding: 10px 0;
   gap: 20px;
-  margin-bottom: 20px;
 
   .message-text {
-    margin: 0;
-    font-size: ${fontSizes['--font-size-s']};
-    font-weight: ${fontWeights["--font-semi-bold"]};
-    line-height: 1.5;
-    color: ${colors.SECONDARY_COLOR};
+    font-weight: ${fontWeights["--font-semi-bold"]} !important;
   }
   .btn-grp-view {
     justify-content: flex-start;
@@ -41,11 +36,6 @@ display: flex;
 
   .action-grp:first-child {
     width: 100%;
-  }
-
-  .add-new-btn {
-    background-color: ${colors.SECONDARY_COLOR};
-    color: ${colors.WHITE_COLOR};
   }
 
   @media only screen and (max-width: 500px) {

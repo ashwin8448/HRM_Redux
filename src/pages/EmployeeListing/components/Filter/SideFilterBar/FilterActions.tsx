@@ -85,7 +85,7 @@ function FilterActions({ onClick }: { onClick: () => void }) {
         </div>
       )}
       <ButtonGrpWrapper className=" btn-grp">
-        <Button icon="" className="filter-all-btn" onClick={applyFilters}>
+        <Button className="very-important-btn" onClick={applyFilters}>
           Apply Filters
         </Button>
         <Button icon="" onClick={resetFilters}>

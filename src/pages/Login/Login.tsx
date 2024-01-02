@@ -1,12 +1,17 @@
 import { useEffect, useState } from "react";
 import useAuth from "./useAuth";
-import LoginWrapper from "./login";
+import LoginLayoutWrapper from "./login";
 import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button.tsx";
 import Loader from "../../components/Loader/Loader.tsx";
 import { getCookie } from "../../utils/helper.ts";
 import InputWrapper from "../../components/Input/input.ts";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
+import {
+  H3Styles,
+  LabelStyles,
+  ParagraphStyles,
+} from "../../core/constants/components/text/textStyledComponents.ts";
 
 function Login() {
   const [username, setUsername] = useState("");
@@ -35,11 +40,11 @@ function Login() {
       <Loader />
     </div>
   ) : (
-    <LoginWrapper>
-      <h2>Sign In</h2>
+    <LoginLayoutWrapper>
+      <H3Styles>Sign In</H3Styles>
       <form onSubmit={handleSubmit}>
         <InputWrapper>
-          <label>Username:</label>
+          <LabelStyles>Username:</LabelStyles>
           <input
             type="text"
             value={username}
@@ -47,15 +52,19 @@ function Login() {
           />
         </InputWrapper>
         <InputWrapper>
-          <label>Password:</label>
+          <LabelStyles>Password:</LabelStyles>
           <input
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </InputWrapper>
-        {(errorMsg != "" && <p className="error">{errorMsg}</p>) ||
-          (authError != "" && <p className="error">{authError}</p>)}
+        {(errorMsg != "" && (
+          <ParagraphStyles className="error">{errorMsg}</ParagraphStyles>
+        )) ||
+          (authError != "" && (
+            <ParagraphStyles className="error">{authError}</ParagraphStyles>
+          ))}
 
         <ButtonGrpWrapper className="btn-grp">
           <div className="common-flex alternative-msg">
@@ -75,7 +84,7 @@ function Login() {
           </Button>
         </ButtonGrpWrapper>
       </form>
-    </LoginWrapper>
+    </LoginLayoutWrapper>
   );
 }
 

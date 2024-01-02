@@ -46,10 +46,6 @@ const InputWrapper = styled.div`
     position: relative;
     min-height: 70px; /* Adjust the min-height based on your design */
   }
-  .placeholder {
-    color: ${colors.DARK_GRAY_COLOR};
-    font-size: ${fontSizes["--font-size-s"]};
-  }
   .radio-list {
     gap: 15px;
     justify-content: flex-start;

@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { fontSizes } from "../../../../core/constants/fontStyles";
 
 const DropdownWrapper = styled.div`
   position: absolute;
@@ -11,10 +10,6 @@ const DropdownWrapper = styled.div`
   background-color: #fff;
   padding: 5px 0;
   border-radius: 10px;
-
-  .material-symbols-outlined {
-    font-size: ${fontSizes['--font-size-sm']};
-  }
   
   .item {
     cursor: pointer;

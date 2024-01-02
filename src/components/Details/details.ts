@@ -1,6 +1,5 @@
 import { styled } from "styled-components";
 import colors from "../../core/constants/colors";
-import { fontSizes, fontWeights } from "../../core/constants/fontStyles";
 
 const DetailsWrapper = styled.div<{ $newline?: boolean }>`
   display: flex;
@@ -16,16 +15,12 @@ const DetailsWrapper = styled.div<{ $newline?: boolean }>`
 
   .content {
     width: 100%;
-    font-size: ${fontSizes["--font-size-s"]};
-    font-weight: ${fontWeights["--font-normal"]};
     padding-left: 10px;
   }
 
   .title {
     margin-left: 10px;
-    font-size: ${fontSizes["--font-size-s"]};
     color: ${colors.DARK_GRAY_COLOR};
-    font-weight: ${fontWeights["--font-normal"]};
   }
 
   .description {

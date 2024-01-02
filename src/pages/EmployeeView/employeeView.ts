@@ -14,13 +14,5 @@ const EmployeeViewWrapper = styled.div`
   gap: 30px;
   position: relative;
   width: 100%;
-
-  p {
-    margin: 0;
-  }
-  h2 {
-    margin: 0;
-  }
-
 `;
 export default EmployeeViewWrapper;

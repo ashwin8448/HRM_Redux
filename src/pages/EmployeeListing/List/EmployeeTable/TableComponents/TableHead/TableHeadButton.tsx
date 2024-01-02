@@ -1,16 +1,17 @@
 import ButtonWrapper from "../../../../../../components/Button/button.ts";
 import { SortDirection } from "../../../../../../core/config/constants.ts";
+import { ParagraphStyles } from "../../../../../../core/constants/components/text/textStyledComponents.ts";
 import { TableHeadIconWrapper } from "./tableHead.ts";
 import { useSearchParams } from "react-router-dom";
 
 function TableHeadButton({
   children,
   icon,
-  title
+  title,
 }: {
   children?: React.ReactNode;
   icon?: string;
-  title: string
+  title: string;
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get("sortBy");
@@ -28,8 +29,8 @@ function TableHeadButton({
       sortIcon = "rotate";
     } else if (sortOrder === SortDirection.ASC) {
       newSortProp = SortDirection.DESC;
-      sortIcon=""
-    } 
+      sortIcon = "";
+    }
   }
 
   function sortBtnClickHandler() {
@@ -54,7 +55,9 @@ function TableHeadButton({
         >
           {icon}
         </TableHeadIconWrapper>
-        <label className="table-title common-flex">{children}</label>
+        <ParagraphStyles className="table-title common-flex">
+          {children}
+        </ParagraphStyles>
       </ButtonWrapper>
     </th>
   );
