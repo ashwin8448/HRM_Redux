@@ -10,8 +10,8 @@ const fontSizes = {
 
 const fontWeights = {
   "--font-normal": 500,
-  "--font-semi-bold": 700,
-  "--font-bold": 900,
+  "--font-semi-bold": 600,
+  "--font-bold": 700,
 };
 
 export { fontSizes, fontWeights };
