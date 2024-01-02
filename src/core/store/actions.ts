@@ -69,6 +69,7 @@ export const resetEmployeesGrid = (): actionTypes.IRESET_EMPLOYEES => {
 export const setlogin = () => ({
   type: actionNames.LOGIN,
 });
+
 export const setlogout = () => ({
   type: actionNames.LOGOUT,
 });

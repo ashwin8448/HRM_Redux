@@ -1,18 +1,14 @@
-import { getCookie } from "../../../utils/helper.ts";
-import { IUser } from "../../interfaces/interface.ts";
+import { getToken } from "../../../utils/helper.ts";
 import * as actionNames from "../types/actionNames.ts";
 
 const initialState = {
-  user: { isAuthenticated: Boolean(getCookie("accessToken")) },
+  user: { isAuthenticated: Boolean(getToken("accessToken")) },
 };
 
-function userReducer(
+const userReducer = (
   state = initialState,
-  action: {
-    type: string;
-    payload: IUser;
-  }
-) {
+  action: { type: string; payload: string }
+) => {
   switch (action.type) {
     case actionNames.LOGIN:
       return {
@@ -32,6 +28,6 @@ function userReducer(
     default:
       return state;
   }
-}
+};
 
 export default userReducer;

@@ -2,7 +2,7 @@ import HeaderWrapper from "./header.ts";
 import StyledLink from "./../StyledLink";
 import Tooltip from "../Tooltip/Tooltip.tsx";
 import Button from "../Button/Button.tsx";
-import useAuth from "../../pages/Login/useAuth.ts";
+import useAuth from "../../hooks/useAuth.ts";
 
 import logo from "../../assets/favicon.png";
 

@@ -1,12 +1,11 @@
-import { apiURL } from "../../core/config/constants";
-import { postData } from "../../core/api/functions";
-import { jwtDecode } from "jwt-decode";
+import { apiURL } from "../core/config/constants";
+import { postData } from "../core/api/functions";
 import { toast } from "react-toastify";
 import { useEffect, useState } from "react";
-import { setlogin, setlogout } from "../../core/store/actions";
-import { setCookie, deleteCookie, getCookie } from "../../utils/helper";
-import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
+import { setlogin, setlogout } from "../core/store/actions";
+import { useAppDispatch, useAppSelector } from "./reduxHooks";
 import { useLocation, useNavigate } from "react-router-dom";
+import { deleteToken, getToken, setToken } from "../utils/helper";
 
 const useAuth = () => {
   const dispatch = useAppDispatch();
@@ -23,7 +22,6 @@ const useAuth = () => {
     username: string;
     password: string;
   }) => {
-
     try {
       setAuthLoading(true);
       const authResponse = await postData(apiURL.authSignIn, {
@@ -35,8 +33,8 @@ const useAuth = () => {
           authResponse.data;
         const accessToken = responseData.access_token;
         const refreshToken = responseData.refresh_token;
-        setCookie("accessToken", accessToken);
-        setCookie("refreshToken", refreshToken);
+        setToken("accessToken", accessToken);
+        setToken("refreshToken", refreshToken);
         dispatch(setlogin());
         //TODO: Add name
         navigate(location.state ? location.state.from : "/");
@@ -44,7 +42,7 @@ const useAuth = () => {
       } else {
         //TODO: error msg
       }
-    } catch (error:any) {
+    } catch (error: any) {
       if (error.message === "Invalid username or password")
         setAuthError(error.message);
       else
@@ -57,8 +55,8 @@ const useAuth = () => {
   };
 
   const logout = () => {
-    deleteCookie("accessToken");
-    deleteCookie("refreshToken");
+    deleteToken("accessToken");
+    deleteToken("refreshToken");
     dispatch(setlogout());
     navigate("/login", { replace: true });
   };
@@ -90,17 +88,10 @@ const useAuth = () => {
   };
 
   useEffect(() => {
-    const authToken = getCookie("accessToken");
+    const authToken = getToken("accessToken");
     if (authToken) {
       dispatch(setlogin());
-      const decodedToken = jwtDecode(authToken); // jwt-decode npm package
-      const currentTime = Math.floor(Date.now() / 1000);
-
-      // Check token expiry
-      if (decodedToken && decodedToken.exp! < currentTime) {
-        logout();
-      }
-    }
+    } else logout();
   }, [dispatch]);
 
   return {
@@ -113,4 +104,5 @@ const useAuth = () => {
     authLoading,
   };
 };
+
 export default useAuth;
