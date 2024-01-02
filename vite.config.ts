@@ -9,7 +9,7 @@ export default defineConfig(({ command }) => {
   }
 
   if (command !== 'serve') {
-    config.base = '/HRM_Redux/'
+    config.base = '/HRM_Redux_Auth/'
   }
 
   return config

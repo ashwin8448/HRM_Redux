@@ -61,7 +61,7 @@ const router = createBrowserRouter(
       errorElement: <ErrorPage />,
     },
   ],
-  { basename: import.meta.env.DEV ? "/" : "/HRM_Redux/" }
+  { basename: import.meta.env.DEV ? "/" : "/HRM_Redux_Auth/" }
 );
 
 export default router;
