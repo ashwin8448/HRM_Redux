@@ -48,7 +48,6 @@ const Form = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   useEffect(() => {
-    console.log(roles, departments, skills);
     if (!roles.length) dispatch(fetchRolesData());
     if (!departments.length) dispatch(fetchDepartmentsData());
     if (!skills.length) dispatch(fetchSkillsData());
@@ -150,7 +149,12 @@ const Form = () => {
     roles: roles as ISelectOptionProps[],
   });
 
-  if (isLoading) return <Loader className="center-screen" />;
+  if (isLoading)
+    return (
+      <div className="center-loader">
+        <Loader />
+      </div>
+    );
   return (
     <>
       <span
@@ -190,7 +194,7 @@ const Form = () => {
                     {activeSection === formSection.sectionActiveState && (
                       <Fieldset
                         key={formSection.sectionActiveState}
-                        className="form-details "
+                        className="form-details section "
                       >
                         <h2 className="form-section-heading">
                           {formSection.sectionName}
@@ -214,12 +218,10 @@ const Form = () => {
             {activeSection === 4 && (
               <>
                 {" "}
-                <Fieldset className="form-details ">
-                  <h2 className="form-section-heading">Review</h2>
-                  <EmployeeViewWrapper>
-                    <EmployeeView employee={methods.getValues()}></EmployeeView>
-                  </EmployeeViewWrapper>
-                </Fieldset>
+                <h2 className="form-section-heading">Review</h2>
+                <EmployeeViewWrapper className="section">
+                  <EmployeeView employee={methods.getValues()}></EmployeeView>
+                </EmployeeViewWrapper>
                 <ButtonGrpWrapper>
                   <Button icon="" onClick={() => setActiveSection(1)}>
                     Edit

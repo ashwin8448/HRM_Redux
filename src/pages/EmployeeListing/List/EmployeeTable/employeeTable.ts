@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../../../core/constants/colors';
+import { fontSizes } from '../../../../core/constants/fontStyles';
 
 const TableWrapper = styled.table`
   border-collapse: separate;
@@ -12,7 +13,7 @@ const TableWrapper = styled.table`
     width: 100%;
   }
   thead {
-    font-size: 16px;
+    font-size: ${fontSizes['--font-size-sm']};
     background-color: ${colors.WHITE_COLOR};
   }
   tr:nth-child(2n) {

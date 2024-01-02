@@ -1,15 +1,17 @@
 import styled from "styled-components";
 import colors from "../../../../core/constants/colors";
+import { fontSizes, fontWeights } from "../../../../core/constants/fontStyles";
 
 const ListingActionsWrapper = styled.div`
+display: flex;
   padding: 10px 0;
-  gap: 10px;
+  gap: 20px;
   margin-bottom: 20px;
 
   .message-text {
     margin: 0;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: ${fontSizes['--font-size-s']};
+    font-weight: ${fontWeights["--font-semi-bold"]};
     line-height: 1.5;
     color: ${colors.SECONDARY_COLOR};
   }
@@ -28,13 +30,27 @@ const ListingActionsWrapper = styled.div`
       }
     }
   }
-
-  .action-grp{
+  .main-actions {
+    flex: 1;
+    gap: 20px;
+    width: 100%;
+  }
+  .action-grp {
     gap: 5px;
   }
-  
+
+  .action-grp:first-child {
+    width: 100%;
+  }
+
+  .add-new-btn {
+    background-color: ${colors.SECONDARY_COLOR};
+    color: ${colors.WHITE_COLOR};
+  }
+
   @media only screen and (max-width: 500px) {
     flex-direction: column;
+    align-items: flex-start;
   }
 `;
 export default ListingActionsWrapper;

@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../../../../../core/constants/colors";
+import { fontSizes, fontWeights } from "../../../../../../core/constants/fontStyles";
 
 const TableHeadWrapper = styled.thead`
   .table-button-head {
@@ -13,14 +14,14 @@ const TableHeadWrapper = styled.thead`
     }
   }
   .table-title {
-    font-size: 14px;
-    font-weight: 700;
+    font-size: ${fontSizes['--font-size-s']};
+    font-weight: ${fontWeights["--font-semi-bold"]};
     color: ${colors.SECONDARY_COLOR};
     justify-content: flex-start;
     gap: 10px;
 
     .material-symbols-outlined{
-      font-size: 18px;
+      font-size: ${fontSizes['--font-size-md']};
     }
   }
   button {

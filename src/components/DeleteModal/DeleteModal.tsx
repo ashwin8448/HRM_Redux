@@ -77,8 +77,8 @@ function DeleteModal({
       <h2 className="delete-modal-heading">{DELETE_MODAL_HEADING}</h2>
       <p className="confirm-delete">{CONFIRM_DELETE_TEXT(idArrayToDlt)}</p>
       <ul className="employees-name-list">
-        {employeesNameList.map((employeesName) => (
-          <li key={employeesName}>{employeesName}</li>
+        {employeesNameList.map((employeesName,index) => (
+          <li key={index}>{employeesName}</li>
         ))}
       </ul>
       <div className="warning-container">

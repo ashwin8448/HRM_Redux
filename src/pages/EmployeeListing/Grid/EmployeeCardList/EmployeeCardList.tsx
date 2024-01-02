@@ -26,7 +26,7 @@ function EmployeeCardList({
   cardsPerPage: number;
   totalPages: number;
 }) {
-  const dispatch = useAppDispatch()
+  const dispatch = useAppDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -87,7 +87,7 @@ function EmployeeCardList({
 
   useEffect(() => {
     searchParams.delete("page");
-    setSearchParams(() => searchParams)
+    setSearchParams({ ...Object.fromEntries(searchParams.entries()) });
   }, []);
 
   useEffect(() => {
@@ -99,14 +99,16 @@ function EmployeeCardList({
     <>
       <EmployeeCardListWrapper>
         {employees.length > 0 ? (
-          employees.map((employee: IAppEmployee) => (
-            employee &&
-            <EmployeeCard
-              key={employee.id}
-              deleteCheckBoxesList={deleteCheckBoxesList}
-              employee={employee}
-            />
-          ))
+          employees.map(
+            (employee: IAppEmployee) =>
+              employee && (
+                <EmployeeCard
+                  key={employee.id}
+                  deleteCheckBoxesList={deleteCheckBoxesList}
+                  employee={employee}
+                />
+              )
+          )
         ) : (
           <div className="common-flex">
             {!loading ? "No data available" : null}

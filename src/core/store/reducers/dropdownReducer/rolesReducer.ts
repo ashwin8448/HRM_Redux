@@ -1,7 +1,5 @@
-import {
-  IRolesData,
-} from "../../../interfaces/interface.ts";
-import * as actionTypes from "../../actionTypes.ts";
+import { IRolesData } from "../../../interfaces/interface.ts";
+import * as actionNames from "../../types/actionNames.ts";
 import { ActionInterface } from "../../actions.ts";
 
 const initialState: IRolesData = {
@@ -13,11 +11,10 @@ function rolesReducer(
   state = initialState,
   action: ActionInterface
 ): IRolesData {
-  
   switch (action.type) {
-    case actionTypes.SET_ROLES:
+    case actionNames.SET_ROLES:
       return { ...state, roles: action.payload };
-    case actionTypes.SET_ROLES_LOADING:
+    case actionNames.SET_ROLES_LOADING:
       return { ...state, loading: action.payload.loading };
     default:
       return state;

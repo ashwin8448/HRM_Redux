@@ -3,6 +3,7 @@ import ManropeBold from "../fonts/Manrope-Bold.ttf";
 import ManropeMedium from "../fonts/Manrope-Medium.ttf";
 import ManropeLight from "../fonts/Manrope-Light.ttf";
 import colors from "../constants/colors";
+import { fontSizes, fontWeights } from "../constants/fontStyles";
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -40,23 +41,22 @@ body {
   padding:15px;
 }
 .page-title {
-  margin: 0;
-  font-size: 35px;
-  font-weight: 700;
+  margin: 0 0 20px 0;
+  font-size: ${fontSizes["--font-size-h2"]};
+  font-weight: ${fontWeights["--font-semi-bold"]};
   line-height: 1.5;
   color: ${colors.SECONDARY_COLOR};
 }
 .page-title-mobile {
-    margin: 0;
-    font-size: 25px;
-    font-weight: 700;
+  font-size: ${fontSizes["--font-size-lg"]};
+  font-weight: ${fontWeights["--font-semi-bold"]};
     line-height: 1.5;
     color: ${colors.SECONDARY_COLOR};
   }
 .subheading {
   margin: 0;
-  font-weight: 700;
-  font-size: 16px;
+  font-weight: ${fontWeights["--font-normal"]};
+  font-size: ${fontSizes["--font-size-sm"]};
   line-height: 1.5;
   color: ${colors.SECONDARY_COLOR};
 }
@@ -105,6 +105,28 @@ body {
     justify-content: center !important;
     margin: 0 auto;
 }
+
+//for loading
+.center-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.photo-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+  }
+  .photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-width: 100%;
+  }
+  
 @media screen and (max-width: 1400px) {
   .table-overflow-scroll {
     overflow-x: auto;

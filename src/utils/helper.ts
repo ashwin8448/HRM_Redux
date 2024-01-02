@@ -13,6 +13,25 @@ import { postData } from "../core/api/functions.ts";
 import { apiURL } from "../core/config/constants.ts";
 import { jwtDecode } from "jwt-decode";
 
+
+export const updateSearchParams = (
+  setSearchParams: (params: URLSearchParams) => void,
+  currentSearchParams: URLSearchParams,
+  newParams: Record<string, string | undefined>
+) => {
+  const updatedSearchParams = new URLSearchParams(currentSearchParams);
+
+  for (const key in newParams) {
+    if (newParams[key] !== undefined) {
+      updatedSearchParams.set(key, newParams[key]!);
+    } else {
+      updatedSearchParams.delete(key);
+    }
+  }
+
+  setSearchParams(updatedSearchParams);
+};
+
 export function transformArrayToOptionsList(
   optionsArray: (ISkill | IDepartment | IRole)[]
 ) {
@@ -105,6 +124,7 @@ export const convertIGetEmployeeToIAppEmployee = (
 export const convertFormDataToIPostEmployees = async (
   formData: FieldValues
 ): Promise<IPostEmployee> => {
+  console.log(formData);
   const { photoId, skills, department, role, isActive, ...rest } = formData;
   return {
     ...(rest as IPostEmployee),
@@ -113,10 +133,11 @@ export const convertFormDataToIPostEmployees = async (
     role: role.value,
     isActive: isActive === "Yes" ? true : false,
     moreDetails: JSON.stringify({
-      photoId:
-        typeof photoId![0] == "object"
+      photoId: photoId
+        ? typeof photoId![0] == "object"
           ? await uploadImage(photoId![0])
-          : photoId,
+          : photoId
+        : "",
     }),
   };
 };
@@ -164,4 +185,33 @@ export const getNewRefreshToken = async () => {
       return;
     }
   } else return;
+};
+
+export const handleCheckboxChange = ({
+  employeeId,
+  deleteCheckBoxesList,
+  employeesIdList,
+}: {
+  employeeId?: string;
+  deleteCheckBoxesList: {
+    checkedBoxesList: string[];
+    setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
+  };
+  employeesIdList?: string[];
+}) => {
+  deleteCheckBoxesList.setCheckedBoxesList((prevList) => {
+    if (employeeId) {
+      // Toggle the checkbox for individual employee
+      return prevList.includes(employeeId)
+        ? prevList.filter((id) => id !== employeeId)
+        : [...prevList, employeeId];
+    } else if (employeesIdList) {
+      // Toggle the checkbox for all employees
+      return prevList.length === employeesIdList.length
+        ? [] // Uncheck all if all are checked
+        : employeesIdList; // Check all if not all are checked
+    }
+
+    return prevList;
+  });
 };

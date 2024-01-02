@@ -11,6 +11,7 @@ import {
   useAppDispatch,
   useAppSelector,
 } from "../../../../../hooks/reduxHooks.ts";
+import { updateSearchParams } from "../../../../../utils/helper.ts";
 
 function FilterActions({ onClick }: { onClick: () => void }) {
   const dispatch = useAppDispatch();
@@ -35,16 +36,6 @@ function FilterActions({ onClick }: { onClick: () => void }) {
       }))
     : [];
 
-  const updateSearchParams = (params?: {
-    page?: string;
-    skillIds?: string;
-  }) => {
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      ...params,
-    });
-  };
-
   const [skillFilterState, setSkillFilterState] =
     useState<ISelectOptionProps[]>(skillIdsArray);
   const skillFilterValue = { skillFilterState, setSkillFilterState };
@@ -55,9 +46,9 @@ function FilterActions({ onClick }: { onClick: () => void }) {
       .join(",");
     if (skillFiltersParams) {
       if (display === "List") {
-        updateSearchParams({ page: "1", skillIds: skillFiltersParams });
+        updateSearchParams(setSearchParams, searchParams,{ page: "1", skillIds: skillFiltersParams });
       } else {
-        updateSearchParams({ skillIds: skillFiltersParams });
+        updateSearchParams(setSearchParams, searchParams,{ skillIds: skillFiltersParams });
       }
       onClick();
     } else {
@@ -70,9 +61,9 @@ function FilterActions({ onClick }: { onClick: () => void }) {
     searchParams.delete("skillIds");
 
     if (display === "List") {
-      updateSearchParams({ page: "1" });
+      updateSearchParams(setSearchParams, searchParams,{ page: "1" });
     } else {
-      updateSearchParams();
+      updateSearchParams(setSearchParams, searchParams,{});
     }
 
     onClick();
@@ -89,7 +80,9 @@ function FilterActions({ onClick }: { onClick: () => void }) {
           value={skillFilterValue}
         />
       ) : (
-        <Loader className="center-screen" />
+        <div className="center-loader">
+          <Loader />
+        </div>
       )}
       <ButtonGrpWrapper className=" btn-grp">
         <Button icon="" className="filter-all-btn" onClick={applyFilters}>

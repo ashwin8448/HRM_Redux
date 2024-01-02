@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import colors from '../../core/constants/colors';
+import { fontSizes } from '../../core/constants/fontStyles';
 
 const InputErrorWrapper = styled.div`
   display: flex;
@@ -10,7 +11,7 @@ const InputErrorWrapper = styled.div`
 
   & > * {
     color: ${colors.RED_COLOR} !important;
-    font-size: 10px;
+    font-size: ${fontSizes['--font-size-x-s']};
   }
 `;
 export default InputErrorWrapper;

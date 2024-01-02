@@ -1,5 +1,5 @@
 import { IEmployeeData } from "../../interfaces/interface.ts";
-import * as actionTypes from "../actionTypes.ts";
+import * as actionNames from "../types/actionNames.ts";
 import { ActionInterface } from "../actions.ts";
 
 const initialState: IEmployeeData = {
@@ -12,21 +12,20 @@ function employeeReducer(
   state = initialState,
   action: ActionInterface
 ): IEmployeeData {
-  
   switch (action.type) {
-    case actionTypes.SET_EMPLOYEES:
+    case actionNames.SET_EMPLOYEES:
       return {
         ...state,
         employees: action.payload.employees,
         count: action.payload.count,
       };
-    case actionTypes.SET_EMPLOYEES_LIST:
+    case actionNames.SET_EMPLOYEES_LIST:
       return {
         ...state,
         employees: action.payload.employees,
         count: action.payload.count,
       };
-    case actionTypes.SET_EMPLOYEES_GRID:
+    case actionNames.SET_EMPLOYEES_GRID:
       return {
         ...state,
         employees: Array.from(
@@ -34,12 +33,12 @@ function employeeReducer(
         ),
         count: action.payload.count,
       };
-    case actionTypes.RESET_EMPLOYEES_GRID:
+    case actionNames.RESET_EMPLOYEES_GRID:
       return {
         ...state,
         employees: [],
       };
-    case actionTypes.SET_LOADING:
+    case actionNames.SET_LOADING:
       return { ...state, loading: action.payload.loading };
     default:
       return state;

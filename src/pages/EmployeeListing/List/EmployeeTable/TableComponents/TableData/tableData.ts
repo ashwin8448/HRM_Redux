@@ -1,46 +1,48 @@
 import styled from "styled-components";
 import colors from "../../../../../../core/constants/colors";
+import {
+  fontSizes,
+  fontWeights,
+} from "../../../../../../core/constants/fontStyles";
 
 const TableDataWrapper = styled.tr`
-
-.employee-data{
-    font-size: 14px;
-    font-weight: 500;
-    position:relative;
-    white-space:nowrap;
-}
-.employee-view{
-    color: ${colors.LINK_COLOR};
-    cursor:pointer; 
-
-    &:active{
-        text-decoration:underline;
-    }
-    &:hover{
-        color:${colors.LINK_HIGHLIGHT_COLOR};
-        text-decoration:underline;
-    }
-}
-
-.skills-data{
+  .employee-data {
+    font-size: ${fontSizes["--font-size-s"]};
+    font-weight: ${fontWeights["--font-normal"]};
     position: relative;
-    &:hover{
-        .skills-tooltip{
+    white-space: nowrap;
+  }
+  .employee-view {
+    color: ${colors.LINK_COLOR};
+    cursor: pointer;
+
+    &:active {
+      text-decoration: underline;
+    }
+    &:hover {
+      color: ${colors.LINK_HIGHLIGHT_COLOR};
+      text-decoration: underline;
+    }
+  }
+
+  .skills-data {
+    position: relative;
+    &:hover {
+      .skills-tooltip {
         visibility: visible;
+      }
     }
-    }
-}
+  }
 
-.skills-tooltip{
+  .skills-tooltip {
     visibility: hidden;
-}
+  }
 
-button {
+  button {
     flex-direction: row-reverse;
     background: none;
     padding: 0;
     border-radius: 0;
-}
-
+  }
 `;
 export default TableDataWrapper;

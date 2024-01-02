@@ -1,10 +1,9 @@
-import usePagination, {
-  DOTS,
-} from "./hook/usePagination.ts";
+import usePagination, { DOTS } from "./hook/usePagination.ts";
 import PaginationWrapper from "./pagination.ts";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import React from "react";
+import { updateSearchParams } from "../../utils/helper.ts";
 
 function Pagination({
   rowsPerPage,
@@ -19,12 +18,6 @@ function Pagination({
   };
 }) {
   const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
-  const updateSearchParams = (params: { page?: string }) => {
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      ...params,
-    });
-  };
 
   let currentPageNumber = Number(searchParams.get("page"));
 
@@ -43,18 +36,23 @@ function Pagination({
       mode === "step"
         ? checkPage(currentPageNumber + update)
         : checkPage(update);
-    updateSearchParams({ page: String(currentPageNumber) });
+    updateSearchParams(setSearchParams, searchParams, {
+      page: String(currentPageNumber),
+    });
   };
   useEffect(() => {
     if (!searchParams.get("page"))
-      updateSearchParams({ page: searchParams.get("page") || "1" });
+      updateSearchParams(setSearchParams, searchParams, {
+        page: searchParams.get("page") || "1",
+      });
   }, [searchParams]);
 
   return totalPages > 1 ? (
     <PaginationWrapper className="pagination-bar">
       <li
-        className={`pagination-item ${currentPageNumber === 1 ? "disabled" : ""
-          } `}
+        className={`pagination-item ${
+          currentPageNumber === 1 ? "disabled" : ""
+        } `}
         onClick={() => {
           updateParams(-1, "step");
         }}
@@ -69,8 +67,9 @@ function Pagination({
           }
           return (
             <li
-              className={`pagination-item ${pageNumber === currentPageNumber ? 'selected' : ''
-                } `}
+              className={`pagination-item ${
+                pageNumber === currentPageNumber ? "selected" : ""
+              } `}
               key={pageNumber}
               onClick={() => {
                 updateParams(Number(pageNumber));
@@ -82,8 +81,9 @@ function Pagination({
         })}
 
       <li
-        className={`pagination-item ${currentPageNumber === totalPages ? "disabled" : ""
-          } `}
+        className={`pagination-item ${
+          currentPageNumber === totalPages ? "disabled" : ""
+        } `}
         onClick={() => {
           updateParams(1, "step");
         }}

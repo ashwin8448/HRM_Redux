@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
+import { fontSizes } from "../../core/constants/fontStyles";
 
 const ButtonWrapper = styled.button<{
   $isChildren: boolean;
@@ -44,7 +45,7 @@ const ButtonWrapper = styled.button<{
   }
 
   .material-symbols-outlined{
-    font-size:20px;
+    font-size:${fontSizes["--font-size-md"]};
   }
   
   &:hover {

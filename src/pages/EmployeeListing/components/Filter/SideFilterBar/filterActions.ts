@@ -5,7 +5,7 @@ const FilterActionsWrapper = styled.div`
   margin-top: 20px;
   border-radius: 10px;
   background-color: ${colors.WHITE_COLOR};
-  height: 100vh;
+  height: 100%;
   display: flex;
   flex-direction: column;
 
@@ -22,6 +22,12 @@ const FilterActionsWrapper = styled.div`
     > button {
       flex: 1;
       justify-content: center;
+    }
+  }
+
+  @media only screen and (max-width: 728px) {
+    .btn-grp {
+      flex-direction: column;
     }
   }
 `;

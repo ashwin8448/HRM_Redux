@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
+import { fontSizes, fontWeights } from "../../core/constants/fontStyles";
 
 const DeleteModalWrapper = styled.div`
   top: 50%;
@@ -31,8 +32,8 @@ const DeleteModalWrapper = styled.div`
   }
   .delete-modal-heading {
     margin: 0;
-    font-weight: 900;
-    font-size: 22px;
+    font-weight: ${fontWeights["--font-bold"]};
+    font-size: ${fontSizes["--font-size-lg"]};
     line-height: 1.5;
     color: ${colors.SECONDARY_COLOR};
   }
@@ -44,6 +45,7 @@ const DeleteModalWrapper = styled.div`
     align-self: flex-start;
     max-height: 300px;
     overflow: auto;
+    margin: 0 0 10px 0;
     > * {
       padding: 4px;
     }
@@ -54,6 +56,7 @@ const DeleteModalWrapper = styled.div`
     background-color: ${colors.WARNING_COLOR};
     border-radius: 10px;
     padding: 10px;
+    margin-bottom: 20px;
   }
   .warning-heading {
     justify-content: flex-start;
@@ -61,11 +64,14 @@ const DeleteModalWrapper = styled.div`
   }
   .warning-heading > * {
     color: ${colors.WARNING_TEXT_COLOR};
-    font-weight: 900;
+    font-weight: ${fontWeights["--font-bold"]};
   }
   .warning-text {
     margin: 0 0 10px 0;
     color: ${colors.WARNING_TEXT_COLOR};
+  }
+  .btn-grp {
+    gap: 10px;
   }
   button {
     gap: 5px;

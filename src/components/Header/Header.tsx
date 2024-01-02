@@ -1,22 +1,34 @@
 import HeaderWrapper from "./header.ts";
 import StyledLink from "./../StyledLink";
 import Tooltip from "../Tooltip/Tooltip.tsx";
-import { useMediaQuery } from "usehooks-ts";
+import Button from "../Button/Button.tsx";
+import useAuth from "../../pages/Login/useAuth.ts";
+
+import logo from "../../assets/favicon.png";
 
 function Header() {
-    const matches = useMediaQuery('(min-width: 768px)')
+  const { user, logout } = useAuth();
 
-    return (
-        <HeaderWrapper>
-            <div className="header-content global-width">
-                <StyledLink to="/">
-                    <span className="logo">
-                    <h1 className={matches ? `page-title` : `page-title-mobile`}>Employee Management</h1>
-                        <Tooltip className="header-tooltip" message="Go to homepage" />
-                    </span>
-                </StyledLink>
-            </div>
-        </HeaderWrapper>
-    );
+  return (
+    <HeaderWrapper>
+      <div className="header-content global-width">
+        <StyledLink to="/">
+          <span className="logo-wrapper">
+            <img className="logo" src={logo} alt="" />
+            <Tooltip className="header-tooltip" message="Go to homepage" />
+          </span>
+        </StyledLink>
+        {user.isAuthenticated && (
+          <Button
+            onClick={() => {
+              logout();
+            }}
+          >
+            Logout
+          </Button>
+        )}
+      </div>
+    </HeaderWrapper>
+  );
 }
 export default Header;

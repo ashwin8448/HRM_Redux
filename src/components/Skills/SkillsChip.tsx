@@ -41,7 +41,7 @@ function SkillsChip({ skills }: { skills:  ISelectOptionProps[]| undefined }) {
 
   return Array.isArray(skills) && skills.length > 0 ? (
     <>
-      <SkillsListWrapper className="overflow-ellipsis" ref={skillsContainerRef}>
+      <SkillsListWrapper className="overflow-ellipsis skills-container" ref={skillsContainerRef}>
         {skills.map((skill: ISelectOptionProps)  => {
           return (
             <SkillsChipWrapper key={skill.value}>{skill.label}</SkillsChipWrapper>

@@ -2,9 +2,9 @@ import styled from 'styled-components';
 
 const SideFilterBarWrapper = styled.div<{ $visible: boolean }>`
   position: fixed;
-  height: 100vh;
+  height: 100%;
   padding: 20px;
-  width: 35%;
+  width: 50%;
   z-index: 5;
   top: 0;
   right: 0;
