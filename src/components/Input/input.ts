@@ -55,7 +55,7 @@ const InputWrapper = styled.div`
     border-radius: 4px;
   }
 
-  @media only screen and (max-width: 400px) {
+  @media only screen and (max-width: 480px) {
     .radio-list {
       flex-direction: column;
       align-items: flex-start;

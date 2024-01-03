@@ -38,7 +38,7 @@ const ListingActionsWrapper = styled.div`
     width: 100%;
   }
 
-  @media only screen and (max-width: 500px) {
+  @media only screen and (max-width: 480px) {
     flex-direction: column;
     align-items: flex-start;
   }

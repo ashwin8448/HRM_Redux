@@ -33,7 +33,7 @@ const Filter = () => {
   return (
     <>
       <Button icon="filter_list " onClick={handleButtonClick}>
-        {matches && "All flters"}
+        {matches && "All filters"}
       </Button>
 
       {!loading && isSideFilterBarVisible && (

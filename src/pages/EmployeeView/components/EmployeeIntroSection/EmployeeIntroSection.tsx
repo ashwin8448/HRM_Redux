@@ -20,7 +20,8 @@ function EmployeeIntroSection({
 }: {
   employee: IAppEmployee | FieldValues;
 }) {
-  const matches = useMediaQuery("(min-width: 768px)");
+  const matchesWithTab = useMediaQuery("(min-width: 768px)");
+  const matchesWithMobile = useMediaQuery("(max-width: 480px)");
 
   const navigate = useNavigate();
   const location = useLocation();
@@ -37,17 +38,17 @@ function EmployeeIntroSection({
           <img
             src={
               employee.photoId === "" ||
-              employee.photoId === undefined ||
-              (typeof employee.photoId === "object" && !employee.photoId.length)
+                employee.photoId === undefined ||
+                (typeof employee.photoId === "object" && !employee.photoId.length)
                 ? DummyImg
                 : typeof employee.photoId === "string"
-                ? employee.photoId
-                : URL.createObjectURL(employee.photoId[0])
+                  ? employee.photoId
+                  : URL.createObjectURL(employee.photoId[0])
             }
             alt="Employee image"
             className=" photo"
           />
-        </div>        
+        </div>
         <div className="common-flex employee-intro">
           <div className="common-flex">
             <H2Styles>{employee.firstName + " " + employee.lastName}</H2Styles>
@@ -62,10 +63,20 @@ function EmployeeIntroSection({
               icon="edit"
               onClick={() => navigate(`/edit-employee/${employee!.id}`)}
             >
-              {matches && "Edit Profile"}
+              {(matchesWithMobile || matchesWithTab) && (
+                <>
+                  {matchesWithMobile && "Edit Profile"}
+                  {matchesWithTab && "Edit Profile"}
+                </>
+              )}
             </Button>
             <Button icon="delete" onClick={() => handleDeleteButtonClick()}>
-              {matches && "Delete Profile"}
+              {(matchesWithMobile || matchesWithTab) && (
+                <>
+                  {matchesWithMobile && "Delete Profile"}
+                  {matchesWithTab && "Delete Profile"}
+                </>
+              )}
             </Button>
           </ButtonGrpWrapper>
         )}

@@ -8,7 +8,6 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import DummyImg from "../../../../assets/userAvatar.svg";
 import Button from "../../../../components/Button/Button.tsx";
-import StyledLink from "../../../../components/StyledLink.ts";
 
 function EmployeeCard({
   deleteCheckBoxesList,
