@@ -16,7 +16,7 @@ function Button({
   children?: React.ReactNode;
   icon?: string;
   className?: string | undefined;
-  onClick?: () => void;
+  onClick?: (e?: React.MouseEvent<HTMLButtonElement>) => void;
   loading?: boolean;
   $noTransition?: boolean;
   disabled?: boolean;

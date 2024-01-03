@@ -4,9 +4,11 @@ import { concatenateNames } from "../../../../utils/helper.js";
 import ActiveDot from "../../../../components/ActiveDot/ActiveDot.tsx";
 import Checkbox from "../../../../components/Checkbox/Checkbox.tsx";
 import DetailsSection from "../../../../components/Details/Details.tsx";
-import React, { useState } from "react";
+import React from "react";
 import { useNavigate } from "react-router-dom";
 import DummyImg from "../../../../assets/userAvatar.svg";
+import Button from "../../../../components/Button/Button.tsx";
+import StyledLink from "../../../../components/StyledLink.ts";
 
 function EmployeeCard({
   deleteCheckBoxesList,
@@ -20,15 +22,25 @@ function EmployeeCard({
 }) {
   const navigate = useNavigate();
 
+  const cardEditBtnClick = (e: React.MouseEvent<HTMLButtonElement> | undefined) => {
+    if (e)
+      e.stopPropagation();
+    navigate(`/edit-employee/${employee.id}`);
+  }
 
   return (
     <EmployeeCardWrapper
       onClick={() => navigate(`/view-employee/${employee.id}`)}
     >
-      <Checkbox
-        employeeId={employee.id}
-        deleteCheckBoxesList={deleteCheckBoxesList}
-      />
+      <div className="common-flex">
+        <Checkbox
+          employeeId={employee.id}
+          deleteCheckBoxesList={deleteCheckBoxesList}
+        />
+        {/* navigating to edit employee page */}
+        <Button icon="edit" onClick={(e) => cardEditBtnClick(e)}
+        ></Button>
+      </div>
       <div className="title-section">
         <div className="photo-container">
           <img
