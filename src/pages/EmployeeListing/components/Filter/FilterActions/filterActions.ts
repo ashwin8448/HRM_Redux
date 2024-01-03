@@ -2,7 +2,6 @@ import styled from "styled-components";
 import colors from "../../../../../core/constants/colors";
 
 const FilterActionsWrapper = styled.div`
-  margin-top: 20px;
   border-radius: 10px;
   background-color: ${colors.WHITE_COLOR};
   height: 100%;

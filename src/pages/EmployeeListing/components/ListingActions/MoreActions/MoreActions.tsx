@@ -76,6 +76,7 @@ function MoreActions({
         className=""
         onClick={changeMoreActionsDropdownOpenStatus}
         icon="more_horiz"
+        $noTransition
       ></Button>
       {!loading && moreActionsDropdown && (
         <DropdownWrapper>

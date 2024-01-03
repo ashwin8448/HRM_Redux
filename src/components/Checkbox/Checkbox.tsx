@@ -1,5 +1,6 @@
 import React from "react";
 import { handleCheckboxChange } from "../../utils/helper";
+import CheckboxWrapper from "./checkbox";
 
 function Checkbox({
   employeeId,
@@ -14,7 +15,7 @@ function Checkbox({
   employeesIdList?: string[];
 }) {
   return (
-    <input
+    <CheckboxWrapper
       className="checkbox"
       type="checkbox"
       onClick={(e) => e.stopPropagation()}

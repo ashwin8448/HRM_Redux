@@ -1,6 +1,5 @@
 import { IAppEmployee } from "../../core/interfaces/interface";
 import { getDateView, getWorkExp } from "../../utils/helper.ts";
-import ActiveChip from "../../components/ActiveChip/ActiveChip.tsx";
 import { FieldValues } from "react-hook-form";
 import EmployeeViewWrapper from "./employeeView.ts";
 import EmployeeDetailsSection from "./components/EmployeeDetailsSection/EmployeeDetailsSection.tsx";
@@ -14,7 +13,6 @@ const EmployeeView = ({
   return (
     <>
       <EmployeeViewWrapper>
-        <ActiveChip isActive={employee.isActive} />
         <EmployeeIntroSection employee={employee} />
         <EmployeeDetailsSection
           title="Personal Information"
@@ -50,7 +48,7 @@ const EmployeeView = ({
           details={[
             {
               title: "Employee ID",
-              content: employee.id? employee.id.toString():"-",
+              content: employee.id ? employee.id.toString() : "-",
             },
             {
               title: "Date hired",

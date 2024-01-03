@@ -162,7 +162,7 @@ const Form = () => {
   return (
     <>
       <Button
-        className="material-symbols-outlined"
+        className="material-symbols-outlined back-btn"
         icon="reply"
         onClick={() => navigate(-1)}
       ></Button>
@@ -219,8 +219,8 @@ const Form = () => {
             {activeSection === 4 && (
               <>
                 {" "}
-                <H3Styles>Review</H3Styles>
                 <EmployeeViewWrapper className="section">
+                  <H3Styles>Review</H3Styles>
                   <EmployeeView employee={methods.getValues()}></EmployeeView>
                 </EmployeeViewWrapper>
                 <ButtonGrpWrapper>

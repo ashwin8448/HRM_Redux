@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import colors from "../../../../../../core/constants/colors";
+import colors from "../../../../../core/constants/colors";
 
 const TableHeadWrapper = styled.thead`
   .table-button-head {

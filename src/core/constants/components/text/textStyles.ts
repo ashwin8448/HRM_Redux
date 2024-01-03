@@ -31,6 +31,7 @@ export const largeTextStyles = `
   font-size: ${fontSizes["--font-size-lg"]};
   line-height: 1.5;
   color: ${colors.SECONDARY_COLOR};
+  margin-bottom: 15px;
 `;
 
 export const extraLargeTextStyles = `

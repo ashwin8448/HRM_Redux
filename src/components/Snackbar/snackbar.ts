@@ -42,8 +42,5 @@ const SnackbarWrapper = styled.div`
     color: ${colors.WARNING_TEXT_COLOR};
   }
 
-  input[type="checkbox"]{
-    
-  }
 `;
 export default SnackbarWrapper;

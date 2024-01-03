@@ -1,6 +1,6 @@
-import Checkbox from "../../../../../../components/Checkbox/Checkbox.tsx";
-import { ParagraphStyles } from "../../../../../../core/constants/components/text/textStyledComponents.ts";
-import { IAppEmployee } from "../../../../../../core/interfaces/interface.ts";
+import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
+import { ParagraphStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
+import { IAppEmployee } from "../../../../../core/interfaces/interface.ts";
 import TableHeadButton from "./TableHeadButton.tsx";
 import { TableHeadWrapper } from "./tableHead.ts";
 

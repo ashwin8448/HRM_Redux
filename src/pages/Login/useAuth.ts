@@ -6,13 +6,12 @@ import { useEffect, useState } from "react";
 import { setlogin, setlogout } from "../../core/store/actions";
 import { setCookie, deleteCookie, getCookie } from "../../utils/helper";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const useAuth = () => {
   const dispatch = useAppDispatch();
   const user = useAppSelector((state) => state.userData.user);
   const navigate = useNavigate();
-  const location = useLocation();
   const [authError, setAuthError] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
 
@@ -39,7 +38,7 @@ const useAuth = () => {
         setCookie("refreshToken", refreshToken);
         dispatch(setlogin());
         //TODO: Add name
-        navigate(location.state ? location.state.from : "/");
+        navigate( "/");
         toast.success("Welcome. You are succesfully logged in.");
       } else {
         //TODO: error msg

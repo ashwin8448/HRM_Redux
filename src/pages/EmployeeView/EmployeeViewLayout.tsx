@@ -60,7 +60,7 @@ function EmployeeViewLayout() {
     employee && (
       <>
         <Button
-          className="material-symbols-outlined"
+          className="material-symbols-outlined back-btn"
           icon="reply"
           onClick={() => navigate(-1)}
         ></Button>

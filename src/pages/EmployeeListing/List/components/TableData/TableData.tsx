@@ -1,13 +1,13 @@
-import { IAppEmployee } from "../../../../../../core/interfaces/interface.ts";
+import { IAppEmployee } from "../../../../../core/interfaces/interface.ts";
 import TableDataWrapper from "./tableData.ts";
-import Button from "../../../../../../components/Button/Button.tsx";
+import Button from "../../../../../components/Button/Button.tsx";
 import { useNavigate } from "react-router-dom";
-import { concatenateNames } from "../../../../../../utils/helper.ts";
-import StyledLink from "../../../../../../components/StyledLink.ts";
-import SkillsChip from "../../../../../../components/Skills/SkillsChip.tsx";
-import Checkbox from "../../../../../../components/Checkbox/Checkbox.tsx";
+import { concatenateNames } from "../../../../../utils/helper.ts";
+import StyledLink from "../../../../../components/StyledLink.ts";
+import SkillsChip from "../../../../../components/Skills/SkillsChip.tsx";
+import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
 import React from "react";
-import { TableDataStyles } from "../../../../../../core/constants/components/text/textStyledComponents.ts";
+import { TableDataStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
 
 function TableData({
   employee,

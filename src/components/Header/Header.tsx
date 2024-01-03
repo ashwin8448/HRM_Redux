@@ -15,7 +15,8 @@ function Header() {
         <StyledLink to="/">
           <span className="logo-wrapper">
             <img className="logo" src={logo} alt="" />
-            <Tooltip className="header-tooltip" message="Go to homepage" />
+            {user.isAuthenticated &&
+              <Tooltip className="header-tooltip" message="Go to homepage" />}
           </span>
         </StyledLink>
         {user.isAuthenticated && (

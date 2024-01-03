@@ -16,7 +16,6 @@ const DeleteModalWrapper = styled.div`
   padding: 15px;
   z-index: 3;
   margin: 0 auto;
-  gap: 10px;
   max-width: calc(100% - 30px); /* Adjusts the maximum width of the modal */
   max-height: calc(100% - 30px); /* Adjusts the maximum height of the modal */
   overflow: auto;
@@ -41,6 +40,7 @@ const DeleteModalWrapper = styled.div`
     max-height: 300px;
     overflow: auto;
     margin: 0;
+    margin-bottom: 10px;
     > * {
       padding: 4px;
     }

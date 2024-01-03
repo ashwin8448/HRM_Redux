@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import { IAppEmployee } from "../../../../core/interfaces/interface.ts";
 import TableWrapper from "./employeeTable.ts";
-import TableHead from "../EmployeeTable/TableComponents/TableHead/TableHead.tsx";
 import Loader from "../../../../components/Loader/Loader.tsx";
 import { fetchEmployeesData } from "../../../../core/store/actions.ts";
 import React from "react";
-import Pagination from "../../../../components/Pagination/Pagination.tsx";
 import { useSearchParams } from "react-router-dom";
-import TableData from "./TableComponents/TableData/TableData.tsx";
 import { useAppDispatch } from "../../../../hooks/reduxHooks.ts";
 import { updateSearchParams } from "../../../../utils/helper.ts";
+import Pagination from "../components/Pagination/Pagination.tsx";
+import TableData from "../components/TableData/TableData.tsx";
+import TableHead from "../components/TableHead/TableHead.tsx";
 
 function EmployeeTable({
   deleteCheckBoxesList,
@@ -49,7 +49,7 @@ function EmployeeTable({
   }, [searchParams, rowsPerPage]);
 
   useEffect(() => {
-    updateSearchParams(setSearchParams,searchParams,{ page: "1" });
+    updateSearchParams(setSearchParams, searchParams, { page: "1" });
   }, []);
 
   return (

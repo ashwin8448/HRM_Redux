@@ -1,6 +1,6 @@
-import ButtonWrapper from "../../../../../../components/Button/button.ts";
-import { SortDirection } from "../../../../../../core/config/constants.ts";
-import { ParagraphStyles } from "../../../../../../core/constants/components/text/textStyledComponents.ts";
+import ButtonWrapper from "../../../../../components/Button/button.ts";
+import { SortDirection } from "../../../../../core/config/constants.ts";
+import { ParagraphStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
 import { TableHeadIconWrapper } from "./tableHead.ts";
 import { useSearchParams } from "react-router-dom";
 

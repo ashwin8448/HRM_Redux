@@ -1,10 +1,10 @@
 import { IAppEmployee } from "../../../../core/interfaces/interface.js";
 import EmployeeCardWrapper from "./employeeCard.ts";
 import { concatenateNames } from "../../../../utils/helper.js";
-import ActiveChip from "../../../../components/ActiveChip/ActiveChip.tsx";
+import ActiveDot from "../../../../components/ActiveDot/ActiveDot.tsx";
 import Checkbox from "../../../../components/Checkbox/Checkbox.tsx";
 import DetailsSection from "../../../../components/Details/Details.tsx";
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import DummyImg from "../../../../assets/userAvatar.svg";
 
@@ -20,17 +20,15 @@ function EmployeeCard({
 }) {
   const navigate = useNavigate();
 
+
   return (
     <EmployeeCardWrapper
       onClick={() => navigate(`/view-employee/${employee.id}`)}
     >
-      <div className="actions-section common-flex">
-        <Checkbox
-          employeeId={employee.id}
-          deleteCheckBoxesList={deleteCheckBoxesList}
-        />
-        <ActiveChip isActive={employee.isActive}></ActiveChip>
-      </div>
+      <Checkbox
+        employeeId={employee.id}
+        deleteCheckBoxesList={deleteCheckBoxesList}
+      />
       <div className="title-section">
         <div className="photo-container">
           <img
@@ -43,14 +41,17 @@ function EmployeeCard({
             className="photo"
           />
         </div>
-        <DetailsSection
-          title={concatenateNames(
-            employee.firstName,
-            employee.lastName ? employee.lastName : ""
-          )}
-          content={employee.designation ? employee.designation : "-"}
-          newline
-        />
+        <div className="name-container">
+          <DetailsSection
+            title={concatenateNames(
+              employee.firstName,
+              employee.lastName ? employee.lastName : ""
+            )}
+            content={employee.designation ? employee.designation : "-"}
+            newline
+          />
+          <ActiveDot isActive={employee.isActive}></ActiveDot>
+        </div>
       </div>
       <div className="details-section ">
         <div className="company-details common-flex">

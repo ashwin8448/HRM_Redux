@@ -8,8 +8,9 @@ const FormWrapper = styled.div`
   form {
     width: 80%;
 
-    .section{
+    .section {
       margin: 30px 0;
+      gap: 0;
     }
   }
 `;

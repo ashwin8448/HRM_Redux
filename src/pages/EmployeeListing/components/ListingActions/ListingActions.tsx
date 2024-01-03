@@ -27,13 +27,11 @@ function ListingActions({
           icon="format_list_bulleted"
           className={listingActive === "List" ? "active" : ""}
           onClick={() => handleActiveListing("List")}
-          $noTransition={true}
         ></Button>
         <Button
           icon="grid_on"
           className={listingActive === "Grid" ? "active" : ""}
           onClick={() => handleActiveListing("Grid")}
-          $noTransition={true}
         ></Button>
       </ButtonGrpWrapper>
       <div className="common-flex main-actions">

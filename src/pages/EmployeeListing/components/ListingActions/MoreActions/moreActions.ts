@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../../../../core/constants/colors";
+import { fontWeights } from "../../../../../core/constants/fontStyles";
 
 const DeleteBtnWrapper = styled.div<{ $disabled: boolean }>`
   position: relative;
@@ -10,8 +11,14 @@ const DeleteBtnWrapper = styled.div<{ $disabled: boolean }>`
 
     > label {
       display: flex;
-      justify-content: space-between;
+      justify-content: center;
       align-items: center;
+      gap:10px;
+
+      p{
+        color:${colors.WARNING_TEXT_COLOR};
+        font-weight:${fontWeights["--font-bold"]}
+      }
     }
   }
 

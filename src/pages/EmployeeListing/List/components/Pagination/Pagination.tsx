@@ -1,9 +1,9 @@
-import usePagination, { DOTS } from "./hook/usePagination.ts";
-import PaginationWrapper from "./pagination.ts";
+import usePagination, { DOTS } from "./hook/usePagination.js";
+import PaginationWrapper from "./pagination.js";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import React from "react";
-import { updateSearchParams } from "../../utils/helper.ts";
+import { updateSearchParams } from "../../../../../utils/helper.js";
 
 function Pagination({
   rowsPerPage,
@@ -50,9 +50,8 @@ function Pagination({
   return totalPages > 1 ? (
     <PaginationWrapper className="pagination-bar">
       <li
-        className={`pagination-item ${
-          currentPageNumber === 1 ? "disabled" : ""
-        } `}
+        className={`pagination-item ${currentPageNumber === 1 ? "disabled" : ""
+          } `}
         onClick={() => {
           updateParams(-1, "step");
         }}
@@ -67,9 +66,8 @@ function Pagination({
           }
           return (
             <li
-              className={`pagination-item ${
-                pageNumber === currentPageNumber ? "selected" : ""
-              } `}
+              className={`pagination-item ${pageNumber === currentPageNumber ? "selected" : ""
+                } `}
               key={pageNumber}
               onClick={() => {
                 updateParams(Number(pageNumber));
@@ -81,9 +79,8 @@ function Pagination({
         })}
 
       <li
-        className={`pagination-item ${
-          currentPageNumber === totalPages ? "disabled" : ""
-        } `}
+        className={`pagination-item ${currentPageNumber === totalPages ? "disabled" : ""
+          } `}
         onClick={() => {
           updateParams(1, "step");
         }}

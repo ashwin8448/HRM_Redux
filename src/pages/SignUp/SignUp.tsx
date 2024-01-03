@@ -52,7 +52,9 @@ function SignUp() {
   }
 
   return authLoading ? (
-    <Loader />
+    <div className="center-loader">
+      <Loader />
+    </div>
   ) : (
     <LoginLayoutWrapper>
       <H3Styles>Sign Up</H3Styles>

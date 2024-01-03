@@ -10,7 +10,7 @@ const EmployeeViewWrapper = styled.div`
   border-radius: 10px;
   margin: 0 auto;
   max-width: 700px;
-  padding: 25px;
+padding: 25px;
   gap: 30px;
   position: relative;
   width: 100%;

@@ -99,6 +99,11 @@ body {
   transform: translate(-50%, -50%);
 }
 
+.back-btn{
+    font-size:24px;
+    margin-bottom: 15px;
+} 
+
 .photo-container {
     width: 100px;
     height: 100px;

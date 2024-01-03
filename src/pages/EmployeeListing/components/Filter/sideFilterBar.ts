@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-const SideFilterBarWrapper = styled.div<{ $visible: boolean }>`
+const FilterWrapper = styled.div<{ $visible: boolean }>`
   position: fixed;
   height: 100%;
   padding: 20px;
@@ -21,4 +21,4 @@ const SideFilterBarWrapper = styled.div<{ $visible: boolean }>`
     cursor: pointer;
   }
 `;
-export default SideFilterBarWrapper;
+export default FilterWrapper;

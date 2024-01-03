@@ -7,12 +7,14 @@ const EmployeeIntroSectionWrapper = styled.div`
   .btn-grp {
     align-self: flex-start;
   }
+  h2{
+    margin: 0;
+  }
 
   .employee-intro {
     flex-grow: 1;
     flex-direction: column;
     align-items: flex-start;
-    gap: 10px;
   }
 `;
 

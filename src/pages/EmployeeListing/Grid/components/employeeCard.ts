@@ -13,9 +13,10 @@ const EmployeeCardWrapper = styled.div`
   &:hover {
     cursor: pointer;
   }
-  input[type="checkbox"] {
-    width: 20px;
-    height: 20px;
+
+  .name-container {
+    display: flex;
+    justify-content: flex-start;
   }
 
   .title-section {

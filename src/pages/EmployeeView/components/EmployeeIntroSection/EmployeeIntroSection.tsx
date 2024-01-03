@@ -13,6 +13,7 @@ import {
   H2Styles,
   ParagraphStyles,
 } from "../../../../core/constants/components/text/textStyledComponents.ts";
+import ActiveDot from "../../../../components/ActiveDot/ActiveDot.tsx";
 
 function EmployeeIntroSection({
   employee,
@@ -46,11 +47,15 @@ function EmployeeIntroSection({
             alt="Employee image"
             className=" photo"
           />
-        </div>
+        </div>        
         <div className="common-flex employee-intro">
-          <H2Styles>{employee.firstName + " " + employee.lastName}</H2Styles>
+          <div className="common-flex">
+            <H2Styles>{employee.firstName + " " + employee.lastName}</H2Styles>
+            <ActiveDot isActive={employee.isActive}></ActiveDot>
+          </div>
           <ParagraphStyles>{employee.role.label}</ParagraphStyles>
         </div>
+
         {getUrlType(location.pathname) === "view-employee" && (
           <ButtonGrpWrapper className="btn-grp common-flex">
             <Button
