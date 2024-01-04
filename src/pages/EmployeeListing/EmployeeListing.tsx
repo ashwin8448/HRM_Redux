@@ -40,7 +40,7 @@ function EmployeeListing() {
   useEffect(() => {
     updateSearchParams(setSearchParams, searchParams, {
       display: displayValue ?? "List",
-      page: "1",
+      page: searchParams.get("page")??"1",
     });
   }, [listingActive]);
 

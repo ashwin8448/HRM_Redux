@@ -5,8 +5,8 @@ import ListingActionsWrapper from "./listingActions.ts";
 import SearchBar from "../../../../components/SearchBar/SearchBar.tsx";
 import Sort from "../Sort/Sort.tsx";
 import Filter from "../Filter/Filter.tsx";
-import StyledLink from "../../../../components/StyledLink.ts";
 import MoreActions from "./MoreActions/MoreActions.tsx";
+import { useNavigate } from "react-router-dom";
 
 function ListingActions({
   deleteCheckBoxesList,
@@ -20,6 +20,9 @@ function ListingActions({
   handleActiveListing: (button: string) => void;
   listingActive: string;
 }) {
+
+  const navigate = useNavigate();
+
   return (
     <ListingActionsWrapper>
       <ButtonGrpWrapper className=" btn-grp-view">
@@ -42,9 +45,7 @@ function ListingActions({
         </div>
         <div className="common-flex action-grp">
           <MoreActions deleteCheckBoxesList={deleteCheckBoxesList} />
-          <StyledLink to="add-employee">
-            <Button icon="add" className="invert-style">New</Button>
-          </StyledLink>
+            <Button icon="add" className="invert-style" onClick={()=>navigate("add-employee")}>New</Button>
         </div>
       </div>
     </ListingActionsWrapper>

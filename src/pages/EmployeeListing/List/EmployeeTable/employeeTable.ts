@@ -60,10 +60,6 @@ const TableWrapper = styled.table`
     height: 100px; /* Adjust the height as needed */
     width: 150vh;
   }
-  .actions-list {
-    justify-content: center;
-    gap: 5px;
-  }
   .no-data {
     text-align: center;
   }

@@ -7,14 +7,15 @@ const EmployeeIntroSectionWrapper = styled.div`
   .btn-grp {
     align-self: flex-start;
   }
-  h2 {
-    margin: 0;
-  }
 
   .employee-intro {
     flex-grow: 1;
     flex-direction: column;
     align-items: flex-start;
+
+    .intro-title{
+      align-items: flex-start;
+    }
   }
 
   @media only screen and (max-width: 480px) {

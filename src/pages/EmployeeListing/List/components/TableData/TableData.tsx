@@ -3,7 +3,6 @@ import TableDataWrapper from "./tableData.ts";
 import Button from "../../../../../components/Button/Button.tsx";
 import { useNavigate } from "react-router-dom";
 import { concatenateNames } from "../../../../../utils/helper.ts";
-import StyledLink from "../../../../../components/StyledLink.ts";
 import SkillsChip from "../../../../../components/Skills/SkillsChip.tsx";
 import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
 import React from "react";
@@ -64,9 +63,7 @@ function TableData({
       <TableDataStyles className="employee-data">
         <div className=" actions-list common-flex">
           {/* navigating to edit employee page */}
-          <StyledLink to={`/edit-employee/${employee.id}`}>
-            <Button icon="edit"></Button>
-          </StyledLink>
+            <Button icon="edit" onClick={()=>navigate(`/edit-employee/${employee.id}`)}></Button>
         </div>
       </TableDataStyles>
     </TableDataWrapper>

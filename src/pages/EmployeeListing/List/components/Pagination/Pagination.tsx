@@ -17,7 +17,7 @@ function Pagination({
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
 }) {
-  const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
+  const [searchParams, setSearchParams] = useSearchParams();
 
   let currentPageNumber = Number(searchParams.get("page"));
 
@@ -43,7 +43,7 @@ function Pagination({
   useEffect(() => {
     if (!searchParams.get("page"))
       updateSearchParams(setSearchParams, searchParams, {
-        page: searchParams.get("page") || "1",
+        page: "1",
       });
   }, [searchParams]);
 

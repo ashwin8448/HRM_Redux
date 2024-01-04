@@ -38,19 +38,19 @@ function EmployeeIntroSection({
           <img
             src={
               employee.photoId === "" ||
-                employee.photoId === undefined ||
-                (typeof employee.photoId === "object" && !employee.photoId.length)
+              employee.photoId === undefined ||
+              (typeof employee.photoId === "object" && !employee.photoId.length)
                 ? DummyImg
                 : typeof employee.photoId === "string"
-                  ? employee.photoId
-                  : URL.createObjectURL(employee.photoId[0])
+                ? employee.photoId
+                : URL.createObjectURL(employee.photoId[0])
             }
             alt="Employee image"
             className=" photo"
           />
         </div>
         <div className="common-flex employee-intro">
-          <div className="common-flex">
+          <div className="common-flex intro-title">
             <H2Styles>{employee.firstName + " " + employee.lastName}</H2Styles>
             <ActiveDot isActive={employee.isActive}></ActiveDot>
           </div>

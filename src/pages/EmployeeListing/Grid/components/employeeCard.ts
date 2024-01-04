@@ -1,6 +1,5 @@
 import styled from "styled-components";
 import colors from "../../../../core/constants/colors";
-import { fontSizes, fontWeights } from "../../../../core/constants/fontStyles";
 
 const EmployeeCardWrapper = styled.div`
   background-color: ${colors.WHITE_COLOR};
@@ -14,9 +13,18 @@ const EmployeeCardWrapper = styled.div`
     cursor: pointer;
   }
 
-  .name-container {
-    display: flex;
-    justify-content: flex-start;
+  .employee-intro {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    .intro-title {
+      gap: 10px;
+
+      > * {
+        margin: 0;
+      }
+    }
   }
 
   .title-section {
@@ -24,21 +32,9 @@ const EmployeeCardWrapper = styled.div`
     flex-direction: column;
     align-items: center;
     gap: 10px;
-
-    .title {
-      font-size: ${fontSizes["--font-size-md"]};
-      font-weight: ${fontWeights["--font-bold"]};
-      text-align: center;
-      color: ${colors.SECONDARY_COLOR};
-    }
-    .content {
-      text-align: center;
-    }
-
-    .description {
-      justify-content: center;
-    }
+    flex-grow: 1;
   }
+
   .details-section {
     background-color: ${colors.BACKGROUND_COLOR};
     border-radius: 5px;
