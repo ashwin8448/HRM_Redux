@@ -7,6 +7,8 @@ const FormWrapper = styled.div`
   flex-direction: column;
   form {
     width: 80%;
+    margin: 0 auto;
+    max-width: 700px;
 
     .section {
       margin: 30px 0;
@@ -25,7 +27,6 @@ const Fieldset = styled.fieldset`
   .submit-btn {
     margin: 30px;
   }
-
 `;
 const InputRow = styled.div`
   flex-wrap: wrap;

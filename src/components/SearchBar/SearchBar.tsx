@@ -32,7 +32,7 @@ function SearchBar() {
           placeholder="Search by First Name"
           onFocus={handleFocus}
           onChange={(e) => {
-            handleChange({ searchedTxt: e.target.value });
+            handleChange({ searchedTxt: e.target.value });  
           }}
           onBlur={handleBlur}
         />
