@@ -2,8 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { ISelectOptionProps } from "../../core/interfaces/interface";
 import { SkillsChipWrapper, SkillsListWrapper } from "./skillsChip";
 import Tooltip from "../Tooltip/Tooltip.tsx";
+import colors from "../../core/constants/colors.ts";
 
-function SkillsChip({ skills }: { skills:  ISelectOptionProps[]| undefined }) {
+function SkillsChip({ skills }: { skills: ISelectOptionProps[] | undefined }) {
   //check for skills overflowing the scroll width
   const [skillsOverflow, setSkillsOverflow] = useState(false);
   const handleSkillsOverflow = (isOverflow: boolean) => {
@@ -34,17 +35,36 @@ function SkillsChip({ skills }: { skills:  ISelectOptionProps[]| undefined }) {
     };
   }, [skills, skillsContainerRef]);
 
-  if (skills && !skills.length) {
-    // No skills, nothing to render
-    return null;
-  }
+  const colorsRange: (keyof typeof colors)[] = [
+    "SKILL_CHIP_COLOR_1",
+    "SKILL_CHIP_COLOR_2",
+    "SKILL_CHIP_COLOR_3",
+  ];
+  const backgroundColorsRange: (keyof typeof colors)[] = [
+    "SKILL_CHIP_BACKGROUND_COLOR_1",
+    "SKILL_CHIP_BACKGROUND_COLOR_2",
+    "SKILL_CHIP_BACKGROUND_COLOR_3",
+  ];
 
   return Array.isArray(skills) && skills.length > 0 ? (
     <>
-      <SkillsListWrapper className="overflow-ellipsis skills-container" ref={skillsContainerRef}>
-        {skills.map((skill: ISelectOptionProps)  => {
+      <SkillsListWrapper
+        className="overflow-ellipsis skills-container"
+        ref={skillsContainerRef}
+      >
+        {skills.map((skill: ISelectOptionProps, index: number) => {
+          const colorIndex = index % colorsRange.length;
+          const color = colorsRange[colorIndex];
+          const backgroundColor = backgroundColorsRange[colorIndex];
+
           return (
-            <SkillsChipWrapper key={skill.value}>{skill.label}</SkillsChipWrapper>
+            <SkillsChipWrapper
+              key={skill.value}
+              $color={color}
+              $backgroundColor={backgroundColor}
+            >
+              {skill.label}
+            </SkillsChipWrapper>
           );
         })}
       </SkillsListWrapper>

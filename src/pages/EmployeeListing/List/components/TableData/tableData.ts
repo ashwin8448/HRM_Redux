@@ -27,7 +27,6 @@ const TableDataWrapper = styled.tr`
       }
     }
   }
-
   .skills-tooltip {
     visibility: hidden;
   }

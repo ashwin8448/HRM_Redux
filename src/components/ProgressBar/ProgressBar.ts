@@ -6,19 +6,17 @@ const ProgressBarWrapper = styled.div<{
   $stepsNumber: number;
 }>`
   text-align: center;
-  width: 100%;
+  width: 80%;
 
   .progress-bar-container {
-    display: inline-flex;
+    display: flex;
     justify-content: center;
     position: relative;
     width: 100%;
     gap: 10px;
   }
   .step {
-    width: calc(
-      (100% - 30px) / 4
-    ); 
+    width: 25%; 
     display: flex;
     flex-direction: column;
     align-items: center;
