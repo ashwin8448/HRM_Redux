@@ -31,6 +31,9 @@ const TableDataWrapper = styled.tr`
     visibility: hidden;
   }
 
+   .actions-list {
+    justify-content: center;
+  }
   button {
     flex-direction: row-reverse;
     background: none;

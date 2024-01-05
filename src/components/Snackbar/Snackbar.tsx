@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import Button from "./../Button/Button.tsx";
 import SnackbarWrapper from "./snackbar.ts";
 import DeleteModal from "../DeleteModal/DeleteModal.tsx";
 import { handleCheckboxChange } from "../../utils/helper.ts";
+import { ParagraphStyles } from "../../core/constants/components/text/textStyledComponents.ts";
 
 const Snackbar = ({
   deleteCheckBoxesList,
@@ -31,17 +32,36 @@ const Snackbar = ({
     changeDltModalOpenStatus();
   };
 
+  const snackbarRef = useRef<HTMLDivElement | null>(null); // Set the type explicitly
+  const handleOutsideClick = (event: MouseEvent) => {
+    if (
+      snackbarRef.current &&
+      !snackbarRef.current.contains(event.target as Node)
+    ) {
+      handleClose();
+    }
+  };
+
+  useEffect(() => {
+    // Attach the event listener when the component mounts
+    document.addEventListener("click", handleOutsideClick);
+
+    // Detach the event listener when the component unmounts
+    return () => {
+      document.removeEventListener("click", handleOutsideClick);
+    };
+  }, [employeeCount,snackbarRef]); // Empty dependency array ensures that the effect runs only once
+
   return (
     <>
       {employeeCount != 0 && (
-        <SnackbarWrapper className="open">
-          <Button icon="close" onClick={handleClose} $noTransition></Button>
-          <p>{employeeCount.toString()} employee selected</p>
+        <SnackbarWrapper className="open" ref={snackbarRef}>
+          <Button icon="close" onClick={handleClose} ></Button>
+          <ParagraphStyles>{employeeCount.toString()} employee selected</ParagraphStyles>
           <Button
             onClick={handleDelete}
             className="deleteBtn"
             icon="delete"
-            $noTransition
           ></Button>
         </SnackbarWrapper>
       )}

@@ -1,7 +1,6 @@
 import ErrorPageWrapper from "./errorPage.js";
-import StyledLink from "../StyledLink.js";
 import Button from "../Button/Button.tsx";
-import { useSearchParams } from "react-router-dom";
+import { useNavigate, useSearchParams } from "react-router-dom";
 import {
   H1Styles,
   ParagraphStyles,
@@ -9,6 +8,8 @@ import {
 } from "../../core/constants/components/text/textStyledComponents.ts";
 
 function ErrorPage() {
+  
+  const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
   const statusCode: string | null = searchParams.get("statusCode");
@@ -51,11 +52,13 @@ function ErrorPage() {
           <ParagraphStyles>
             But dont worry, you can find plenty of other things on our homepage
           </ParagraphStyles>
-          <StyledLink to="/">
-            <Button icon="home" className="very-important-btn">
-              Back to homepage
-            </Button>
-          </StyledLink>
+          <Button
+            icon="home"
+            className="very-important-btn"
+            onClick={()=>navigate("/")}
+          >
+            Back to homepage
+          </Button>
         </>
       )}
     </ErrorPageWrapper>
