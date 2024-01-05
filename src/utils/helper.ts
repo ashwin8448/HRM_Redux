@@ -160,6 +160,7 @@ export function getCookie(name: string) {
   if (parts && parts.length === 2) return parts?.pop()?.split(";")?.shift();
   return null;
 }
+
 export function setCookie(name: string, value: string) {
   const decodedToken = jwtDecode(value); //getting the payload of the token
   const expiration = new Date(0); // Start with Unix epoch

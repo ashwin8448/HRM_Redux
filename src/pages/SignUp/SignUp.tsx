@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { FormEvent, useState } from "react";
 import useAuth from "../Login/useAuth.ts";
 import LoginLayoutWrapper from "../Login/login.ts";
 import { useNavigate } from "react-router-dom";
@@ -42,7 +42,8 @@ function SignUp() {
     }
   };
 
-  function handleSubmit() {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     if (username === "") setErrorMsg("Please enter a username.");
     else if (password === "") setErrorMsg("Please enter a password.");
     else if (!isPasswordMatch) setErrorMsg("Passwords not matching");
@@ -65,6 +66,7 @@ function SignUp() {
             type="text"
             value={username}
             onChange={(e) => setUsername(e.target.value)}
+            autoComplete="new-password"
           />
         </InputWrapper>
         <InputWrapper>
@@ -73,6 +75,7 @@ function SignUp() {
             type="password"
             value={password}
             onChange={handlePasswordChange}
+            autoComplete="new-password"
           />
         </InputWrapper>
         <InputWrapper>
@@ -81,6 +84,7 @@ function SignUp() {
             type="password"
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
+            autoComplete="new-password"
           />
         </InputWrapper>
         {errorMsg !== "" && (
@@ -100,9 +104,7 @@ function SignUp() {
               Sign In
             </Button>
           </div>
-          <Button type={"button"} onClick={handleSubmit}>
-            Submit
-          </Button>
+          <Button type={"submit"}>Submit</Button>
         </ButtonGrpWrapper>
       </form>
     </LoginLayoutWrapper>

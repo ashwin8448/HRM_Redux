@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import useAuth from "./useAuth";
 import LoginLayoutWrapper from "./login";
 import { useNavigate } from "react-router-dom";
@@ -24,7 +24,8 @@ function Login() {
     if (getCookie("accessToken")) navigate("/", { replace: true });
   }, []);
 
-  function handleSubmit() {
+  function handleSubmit(e: FormEvent<HTMLFormElement>) {
+    e.preventDefault();
     if (username === "") setErrorMsg("Please enter a username.");
     else if (password === "") setErrorMsg("Please enter a password.");
     else {
@@ -68,7 +69,7 @@ function Login() {
 
         <ButtonGrpWrapper className="btn-grp">
           <div className="common-flex alternative-msg">
-            Not Already registered ?
+            Not registered ?
             <Button
               className="login-btn"
               type={"button"}
@@ -79,9 +80,7 @@ function Login() {
               Create new account
             </Button>
           </div>
-          <Button type={"button"} onClick={handleSubmit}>
-            Submit
-          </Button>
+          <Button type={"submit"}>Submit</Button>
         </ButtonGrpWrapper>
       </form>
     </LoginLayoutWrapper>

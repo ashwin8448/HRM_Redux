@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
+import { media } from "../../core/styles/media";
 
 const LoginLayoutWrapper = styled.div`
   display: flex;
@@ -8,7 +9,7 @@ const LoginLayoutWrapper = styled.div`
   border-radius: 10px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   padding: 20px;
-  width: 70%;
+  width: 560px;
   position: absolute;
   top: 50%;
   left: 50%;
@@ -17,8 +18,8 @@ const LoginLayoutWrapper = styled.div`
   .login-btn {
     background: none;
     border: none;
-    *{
-      color:${colors.DARK_PRIMARY_COLOR}
+    * {
+      color: ${colors.DARK_PRIMARY_COLOR};
     }
   }
 
@@ -38,7 +39,8 @@ const LoginLayoutWrapper = styled.div`
     margin-top: 10px;
   }
 
-  @media only screen and (max-width: 728px) {
+  ${media.tablet} {
+    width: 75%;
     .btn-grp {
       > button {
         justify-content: center;

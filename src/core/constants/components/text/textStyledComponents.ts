@@ -20,6 +20,7 @@ export const SpanStyles = styled.span`
 export const H3Styles = styled.h3`
   ${textStyles.mediumTextStyles}
 `;
+
 export const H2Styles = styled.h2`
   ${textStyles.largeTextStyles}
 `;
