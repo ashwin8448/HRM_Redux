@@ -116,7 +116,7 @@ body {
     object-fit: cover;
     max-width: 100%;
   }
-  
+
 @media screen and (max-width: 1400px) {
   .table-overflow-scroll {
     overflow-x: auto;

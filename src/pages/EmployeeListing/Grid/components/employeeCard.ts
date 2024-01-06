@@ -11,6 +11,7 @@ const EmployeeCardWrapper = styled.div`
 
   &:hover {
     cursor: pointer;
+    transform: scale(1.05);
   }
 
   .employee-intro {
@@ -20,6 +21,7 @@ const EmployeeCardWrapper = styled.div`
 
     .intro-title {
       gap: 10px;
+      text-align: center;
 
       > * {
         margin: 0;

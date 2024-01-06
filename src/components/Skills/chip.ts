@@ -2,18 +2,23 @@ import styled from "styled-components";
 import colors from "../../core/constants/colors";
 import { fontSizes, fontWeights } from "../../core/constants/fontStyles";
 
-const SkillsListWrapper = styled.div`
+const ChipListWrapper = styled.div`
   padding-left: 10px;
+  width: 100%;
+  cursor: pointer;
 `;
-const SkillsChipWrapper = styled.span<{ $color: keyof typeof colors, $backgroundColor: keyof typeof colors }>`
+const ChipWrapper = styled.span<{
+  $color?: keyof typeof colors;
+  $backgroundColor?: keyof typeof colors;
+}>`
   font-size: ${fontSizes["--font-size-s"]};
   font-weight: ${fontWeights["--font-normal"]};
-  color: ${(props) => colors[props.$color]};
-  background-color: ${(props) => colors[props.$backgroundColor]};
+  color: ${(props) => colors[props.$color!]};
+  background-color: ${(props) => colors[props.$backgroundColor!]};
   padding: 5px;
   border-radius: 5px;
   margin: 5px 5px 5px 0;
   display: inline-block; /* Ensure each skill card is on a single line */
 `;
 
-export { SkillsListWrapper, SkillsChipWrapper };
+export { ChipListWrapper, ChipWrapper };

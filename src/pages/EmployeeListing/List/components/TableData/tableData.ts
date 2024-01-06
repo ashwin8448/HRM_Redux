@@ -19,18 +19,6 @@ const TableDataWrapper = styled.tr`
     }
   }
 
-  .skills-data {
-    position: relative;
-    &:hover {
-      .skills-tooltip {
-        visibility: visible;
-      }
-    }
-  }
-  .skills-tooltip {
-    visibility: hidden;
-  }
-
    .actions-list {
     justify-content: center;
   }

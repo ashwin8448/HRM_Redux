@@ -14,21 +14,11 @@ const HeaderWrapper = styled.header`
     justify-content: space-between;
     align-items: center;
   }
-  .logo-wrapper {
-    position: relative;
-    .logo{
-      width:50px;
-      height: auto;
-    }
-    &:hover {
-      .header-tooltip {
-        visibility: visible;
-      }
-    }
-  }
-
-  .header-tooltip {
-    visibility: hidden;
+  
+  .logo {
+    width: 50px;
+    height: auto;
+    cursor: pointer;
   }
 `;
 export default HeaderWrapper;

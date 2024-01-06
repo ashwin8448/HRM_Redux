@@ -1,8 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { ISelectOptionProps } from "../../core/interfaces/interface";
-import { SkillsChipWrapper, SkillsListWrapper } from "./skillsChip";
-import Tooltip from "../Tooltip/Tooltip.tsx";
+import { ISelectOptionProps } from "../../core/interfaces/interface.ts";
 import colors from "../../core/constants/colors.ts";
+import { ChipListWrapper, ChipWrapper } from "./chip.ts";
+import TooltipComponent from "../Tooltip/Tooltip.tsx";
 
 function SkillsChip({ skills }: { skills: ISelectOptionProps[] | undefined }) {
   //check for skills overflowing the scroll width
@@ -46,9 +46,11 @@ function SkillsChip({ skills }: { skills: ISelectOptionProps[] | undefined }) {
     "SKILL_CHIP_BACKGROUND_COLOR_3",
   ];
 
-  return Array.isArray(skills) && skills.length > 0 ? (
-    <>
-      <SkillsListWrapper
+  const tooltipMsg = skills ? skills.map((msg) => msg.label).join(", ") : "";
+
+  const chipList =
+    Array.isArray(skills) && skills.length > 0 ? (
+      <ChipListWrapper
         className="overflow-ellipsis skills-container"
         ref={skillsContainerRef}
       >
@@ -58,22 +60,24 @@ function SkillsChip({ skills }: { skills: ISelectOptionProps[] | undefined }) {
           const backgroundColor = backgroundColorsRange[colorIndex];
 
           return (
-            <SkillsChipWrapper
+            <ChipWrapper
               key={skill.value}
               $color={color}
               $backgroundColor={backgroundColor}
             >
               {skill.label}
-            </SkillsChipWrapper>
+            </ChipWrapper>
           );
         })}
-      </SkillsListWrapper>
-      {skillsOverflow && (
-        <Tooltip className="skills-tooltip" message={skills} />
-      )}
-    </>
+      </ChipListWrapper>
+    ) : (
+      <p> - </p>
+    );
+
+  return skillsOverflow ? (
+    <TooltipComponent title={tooltipMsg}>{chipList}</TooltipComponent>
   ) : (
-    "-"
+    chipList
   );
 }
 export default SkillsChip;

@@ -4,9 +4,9 @@ import { DropdownWrapper } from "../../Sort/sort.ts";
 import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
 import DeleteBtnWrapper from "./moreActions.ts";
 import DeleteModal from "../../../../../components/DeleteModal/DeleteModal.tsx";
-import Tooltip from "../../../../../components/Tooltip/Tooltip.tsx";
 import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
 import { ParagraphStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
+import TooltipComponent from "../../../../../components/Tooltip/Tooltip.tsx";
 
 function MoreActions({
   deleteCheckBoxesList,
@@ -70,6 +70,27 @@ function MoreActions({
     };
   }, []); // Empty dependency array ensures that the effect runs only once
 
+  const deleteButton = (
+    <DeleteBtnWrapper
+      className="common-flex"
+      $disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
+    >
+      <Button
+        className="item"
+        onClick={dltBtnClick}
+        disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
+        $noTransition
+      >
+        Delete
+        {deleteCheckBoxesList.checkedBoxesList.length > 0 && (
+          <ParagraphStyles>
+            ({deleteCheckBoxesList.checkedBoxesList.length.toString()})
+          </ParagraphStyles>
+        )}
+      </Button>
+    </DeleteBtnWrapper>
+  );
+
   return (
     <div className="dropdown-container" ref={moreActionsRef}>
       <Button
@@ -87,32 +108,15 @@ function MoreActions({
               employeesIdList={employees.map((employee) => employee.id)}
             />
           </Button>
-          <DeleteBtnWrapper
-            className="common-flex"
-            $disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
-          >
-            <>
-              <Button
-                className="item"
-                onClick={dltBtnClick}
-                disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
-                $noTransition
-              >
-                Delete
-                {deleteCheckBoxesList.checkedBoxesList.length > 0 && (
-                  <ParagraphStyles>
-                    ({deleteCheckBoxesList.checkedBoxesList.length.toString()})
-                  </ParagraphStyles>
-                )}
-              </Button>{" "}
-              {deleteCheckBoxesList.checkedBoxesList.length == 0 && (
-                <Tooltip
-                  className="dlt-btn-tooltip"
-                  message=" Do select the employees to delete the necessary ones"
-                />
-              )}
-            </>
-          </DeleteBtnWrapper>
+          {deleteCheckBoxesList.checkedBoxesList.length == 0 ? (
+            <TooltipComponent 
+              title=" Do select the employees to delete the necessary ones"
+            >
+              {deleteButton}
+            </TooltipComponent>
+          ) : (
+            deleteButton
+          )}
         </DropdownWrapper>
       )}
       {deleteModal && <div className="overlay" onClick={dltBtnClick}></div>}

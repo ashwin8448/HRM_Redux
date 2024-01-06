@@ -1,18 +1,16 @@
-import { ISelectOptionProps } from "../../core/interfaces/interface.ts";
-import TooltipWrapper from "./tooltip";
+import Tooltip from '@mui/material/Tooltip';
+import tooltipStyles from "./tooltip.ts"
 
-function Tooltip({
-  message,
-  className,
-}: {
-  message: ISelectOptionProps[] | string;
-  className?: string;
-}) {
-  let tooltipMsg = "";
-  if (Array.isArray(message))
-    tooltipMsg = message.map((msg) => msg.label).join(", ");
-  else tooltipMsg = message;
-  return <TooltipWrapper className={className}>{tooltipMsg}</TooltipWrapper>;
-}
+const TooltipComponent = ({ title,children }:{title:string, children:JSX.Element}) => {
+  return (
+    <Tooltip
+      title={title}
+      arrow
+      componentsProps={{ tooltip: tooltipStyles.tooltip }}
+    >
+      {children}
+    </Tooltip>
+  );
+};
 
-export default Tooltip;
+export default TooltipComponent;
