@@ -16,6 +16,10 @@ const TableWrapper = styled.table`
   th p{
     font-weight: ${fontWeights['--font-semi-bold']};
   }
+  
+  tr:first-child{
+    background-color: ${colors.WHITE_COLOR};
+  }
 
   tr:nth-child(2n) {
     td:nth-child(1),
@@ -31,7 +35,6 @@ const TableWrapper = styled.table`
   }
   th {
     border-bottom: 1px solid ${colors.LIGHT_GRAY_COLOR};
-    &:first-child,
     &:nth-child(2) {
       background-color: ${colors.WHITE_COLOR};
     }
