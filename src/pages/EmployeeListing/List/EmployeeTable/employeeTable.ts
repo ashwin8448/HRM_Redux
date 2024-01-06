@@ -20,10 +20,10 @@ const TableWrapper = styled.table`
   th p {
     font-weight: ${fontWeights["--font-semi-bold"]};
   }
-
   tbody tr:hover {
-    td{
-    background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR} !important;}
+    td {
+      background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR} !important;
+    }
   }
 
   tr:nth-child(2n) {
@@ -40,6 +40,7 @@ const TableWrapper = styled.table`
   }
   th {
     border-bottom: 1px solid ${colors.LIGHT_GRAY_COLOR};
+    &:first-child,
     &:nth-child(2) {
       background-color: ${colors.WHITE_COLOR};
     }
