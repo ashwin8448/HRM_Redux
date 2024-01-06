@@ -31,6 +31,7 @@ function TableData({
     <TableDataWrapper
       key={employee.id}
       className={index % 2 !== 0 ? "alternate-table-row-color" : ""} // alternate colour for each row
+      onClick={handleEmployeeDetailsView}
     >
       <TableDataStyles className="employee-data">
         <Checkbox
@@ -41,14 +42,12 @@ function TableData({
 
       <TableDataStyles className="employee-data">{employee.id}</TableDataStyles>
       {/* navigating to view employee page */}
-      <TableDataStyles
-        className="employee-data  employee-view"
-        onClick={handleEmployeeDetailsView}
-      >
-        {employee.lastName
+      <TableDataStyles className="employee-data">
+      {employee.lastName
           ? concatenateNames(employee.firstName, employee.lastName)
           : employee.firstName}
       </TableDataStyles>
+
       <TableDataStyles className="employee-data">
         {employee.designation || "-"}
       </TableDataStyles>

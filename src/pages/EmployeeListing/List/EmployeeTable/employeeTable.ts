@@ -1,6 +1,6 @@
-import styled from 'styled-components';
-import colors from '../../../../core/constants/colors';
-import { fontWeights } from '../../../../core/constants/fontStyles';
+import styled from "styled-components";
+import colors from "../../../../core/constants/colors";
+import { fontWeights } from "../../../../core/constants/fontStyles";
 
 const TableWrapper = styled.table`
   border-collapse: separate;
@@ -8,17 +8,22 @@ const TableWrapper = styled.table`
   table-layout: fixed;
   width: 1370px;
 
+  thead {
+    background-color: ${colors.WHITE_COLOR};
+  }
+
   thead,
   tbody {
     width: 100%;
   }
 
-  th p{
-    font-weight: ${fontWeights['--font-semi-bold']};
+  th p {
+    font-weight: ${fontWeights["--font-semi-bold"]};
   }
-  
-  tr:first-child{
-    background-color: ${colors.WHITE_COLOR};
+
+  tbody tr:hover {
+    td{
+    background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR} !important;}
   }
 
   tr:nth-child(2n) {

@@ -26,9 +26,6 @@ const DeleteModalWrapper = styled.div`
     > span {
       color: ${colors.DARK_GRAY_COLOR};
     }
-    &:hover {
-      background-color: ${colors.LIGHT_GRAY_COLOR};
-    }
   }
 
   .confirm-delete {
