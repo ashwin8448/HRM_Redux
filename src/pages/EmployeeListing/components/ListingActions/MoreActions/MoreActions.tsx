@@ -7,6 +7,8 @@ import DeleteModal from "../../../../../components/DeleteModal/DeleteModal.tsx";
 import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
 import { ParagraphStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
 import TooltipComponent from "../../../../../components/Tooltip/Tooltip.tsx";
+import { CSVLink } from "react-csv";
+import { export_csvData } from "../../../../../utils/helper.ts";
 
 function MoreActions({
   deleteCheckBoxesList,
@@ -77,7 +79,10 @@ function MoreActions({
     >
       <Button
         className="item"
-        onClick={dltBtnClick}
+        onClick={(e) => {
+          e?.stopPropagation;
+          dltBtnClick();
+        }}
         disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
         $noTransition
       >
@@ -91,6 +96,8 @@ function MoreActions({
     </DeleteBtnWrapper>
   );
 
+  const csv_data = export_csvData(employees);
+
   return (
     <div className="dropdown-container" ref={moreActionsRef}>
       <Button
@@ -101,6 +108,18 @@ function MoreActions({
       ></Button>
       {!loading && moreActionsDropdown && (
         <DropdownWrapper>
+          {csv_data.length > 0 && (
+            <CSVLink
+              className="export-btn "
+              filename="employees.csv"
+              data={csv_data}
+              onClick={changeMoreActionsDropdownOpenStatus}
+            >
+              <Button className="item" $noTransition>
+                Export ({employees.length})
+              </Button>
+            </CSVLink>
+          )}
           <Button className="select-all item" $noTransition>
             {selectAll ? "Select All" : "Unselect All"}
             <Checkbox
@@ -109,9 +128,7 @@ function MoreActions({
             />
           </Button>
           {deleteCheckBoxesList.checkedBoxesList.length == 0 ? (
-            <TooltipComponent 
-              title=" Do select the employees to delete the necessary ones"
-            >
+            <TooltipComponent title=" Do select the employees to delete the necessary ones">
               {deleteButton}
             </TooltipComponent>
           ) : (

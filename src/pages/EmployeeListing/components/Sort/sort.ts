@@ -30,6 +30,10 @@ const DropdownWrapper = styled.div`
     width: 100%;
     border: none;
   }
+  .export-btn{
+    text-decoration: none;
+    width:100%;
+  }
 `;
 const SortByDropdownItem = styled.span<{ $sortBySelection: boolean }>`
   .sort-enable-icon {

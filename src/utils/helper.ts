@@ -224,3 +224,50 @@ export const handleCheckboxChange = ({
     return prevList;
   });
 };
+
+export const export_csvData=(employees:IAppEmployee[]) => [
+  [
+    "Id",
+    "Name",
+    "Date of Birth",
+    "Phone No",
+    "Email Id",
+    "Address",
+    "Salary",
+    "Date of Joining",
+    "Role",
+    "Designation",
+    "Department",
+    "Skills",
+  ],
+  ...employees.map(
+    ({
+      id,
+      firstName,
+      lastName,
+      dob,
+      phone,
+      email,
+      address,
+      salary,
+      dateOfJoining,
+      role,
+      designation,
+      department,
+      skills,
+    }) => [
+      id,
+      firstName + " " + lastName,
+      getDateView(dob),
+      phone,
+      email,
+      address,
+      salary,
+      getDateView(dateOfJoining),
+      role.label,
+      designation,
+      department.label,
+      skills.map((skill: ISelectOptionProps) => skill.label).join(","),
+    ]
+  ),
+];
