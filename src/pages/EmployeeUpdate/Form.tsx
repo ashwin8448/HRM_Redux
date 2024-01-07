@@ -51,6 +51,7 @@ const Form = () => {
   const urlType = getUrlType(location.pathname);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  
   useEffect(() => {
     if (!roles.length) dispatch(fetchRolesData());
     if (!departments.length) dispatch(fetchDepartmentsData());

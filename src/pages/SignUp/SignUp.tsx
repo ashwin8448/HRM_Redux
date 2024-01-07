@@ -22,7 +22,6 @@ function SignUp() {
   const navigate = useNavigate();
 
   const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log(e);
     setPassword(e.target.value);
     if (confirmPassword !== e.target.value) {
       setIsPasswordMatch(false);

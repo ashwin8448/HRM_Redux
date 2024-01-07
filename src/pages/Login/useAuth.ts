@@ -1,17 +1,22 @@
 import { apiURL } from "../../core/config/constants";
-import { postData } from "../../core/api/functions";
+import { getData, postData } from "../../core/api/functions";
 import { jwtDecode } from "jwt-decode";
 import { toast } from "react-toastify";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { setlogin, setlogout } from "../../core/store/actions";
-import { setCookie, deleteCookie, getCookie } from "../../utils/helper";
+import {
+  setCookie,
+  deleteCookie,
+  convertIGetEmployeeToIAppEmployee,
+} from "../../utils/helper";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks";
 import { useLocation, useNavigate } from "react-router-dom";
+import { IAccessToken } from "../../core/interfaces/interface";
 
 const useAuth = () => {
   const dispatch = useAppDispatch();
-  const user = useAppSelector((state) => state.userData.user);
-  const navigate = useNavigate()
+  const user = useAppSelector((state) => state.userData);
+  const navigate = useNavigate();
   const location = useLocation();
   const [authError, setAuthError] = useState("");
   const [authLoading, setAuthLoading] = useState(false);
@@ -23,7 +28,6 @@ const useAuth = () => {
     username: string;
     password: string;
   }) => {
-
     try {
       setAuthLoading(true);
       const authResponse = await postData(apiURL.authSignIn, {
@@ -37,14 +41,19 @@ const useAuth = () => {
         const refreshToken = responseData.refresh_token;
         setCookie("accessToken", accessToken);
         setCookie("refreshToken", refreshToken);
-        dispatch(setlogin());
+        const currentEmployeeId = (jwtDecode(accessToken) as IAccessToken)
+          .username;
+        const currentEmployee = (
+          await getData(apiURL.employee + `/${currentEmployeeId}`)
+        ).data.data;
+        dispatch(setlogin(convertIGetEmployeeToIAppEmployee(currentEmployee)));
         //TODO: Add name
         navigate(location.state ? location.state.from : "/");
         toast.success("Welcome. You are succesfully logged in.");
       } else {
         //TODO: error msg
       }
-    } catch (error:any) {
+    } catch (error: any) {
       if (error.message === "Invalid username or password")
         setAuthError(error.message);
       else
@@ -89,20 +98,6 @@ const useAuth = () => {
     }
   };
 
-  useEffect(() => {
-    const authToken = getCookie("accessToken");
-    if (authToken) {
-      dispatch(setlogin());
-      const decodedToken = jwtDecode(authToken); // jwt-decode npm package
-      const currentTime = Math.floor(Date.now() / 1000);
-
-      // Check token expiry
-      if (decodedToken && decodedToken.exp! < currentTime) {
-        logout();
-      }
-    }
-  }, [dispatch]);
-
   return {
     user,
     login,
@@ -111,6 +106,7 @@ const useAuth = () => {
     authError,
     setAuthError,
     authLoading,
+    setAuthLoading
   };
 };
 export default useAuth;

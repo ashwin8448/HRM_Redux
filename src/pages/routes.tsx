@@ -24,7 +24,7 @@ const router = createBrowserRouter(
         {
           path: "view-employee/:employeeId",
           element: (
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin", "user"]}>
               <EmployeeViewLayout />
             </ProtectedRoute>
           ),
@@ -32,7 +32,7 @@ const router = createBrowserRouter(
         {
           path: "add-employee",
           element: (
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin"]}>
               <Form />
             </ProtectedRoute>
           ),
@@ -40,7 +40,7 @@ const router = createBrowserRouter(
         {
           path: "edit-employee/:employeeId",
           element: (
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin", "user"]}>
               <Form />
             </ProtectedRoute>
           ),
@@ -48,7 +48,7 @@ const router = createBrowserRouter(
         {
           path: "/",
           element: (
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={["admin", "user"]}>
               <EmployeeListing />
             </ProtectedRoute>
           ),

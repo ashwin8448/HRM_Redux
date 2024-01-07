@@ -1,32 +1,25 @@
 import { getCookie } from "../../../utils/helper.ts";
 import { IUser } from "../../interfaces/interface.ts";
+import { ActionInterface } from "../actions.ts";
 import * as actionNames from "../types/actionNames.ts";
 
 const initialState = {
-  user: { isAuthenticated: Boolean(getCookie("accessToken")) },
+  isAuthenticated: Boolean(getCookie("accessToken")),
+  employeeDetails: null,
 };
 
-function userReducer(
-  state = initialState,
-  action: {
-    type: string;
-    payload: IUser;
-  }
-) {
+function userReducer(state = initialState, action: ActionInterface): IUser {
   switch (action.type) {
     case actionNames.LOGIN:
       return {
-        ...state,
-        user: {
-          isAuthenticated: true,
-        },
+        isAuthenticated: true,
+        employeeDetails: action.payload!,
       };
+
     case actionNames.LOGOUT:
       return {
-        ...state,
-        user: {
-          isAuthenticated: false,
-        },
+        isAuthenticated: false,
+        employeeDetails: null,
       };
 
     default:

@@ -12,11 +12,11 @@ import {
   ISelectOptionProps,
   ISkill,
   IActionEmployeeData,
+  IAppEmployee,
 } from "../interfaces/interface.ts";
 import { apiURL } from "../config/constants.ts";
 import { AppDispatch } from "./configureStore.ts";
 import * as actionTypes from "./types/actionTypes.ts";
-
 
 export const setLoading = (
   actionType:
@@ -29,18 +29,21 @@ export const setLoading = (
   type: actionType,
   payload: payload,
 });
+
 export const setEmployees = (
   employeesData: IActionEmployeeData
 ): actionTypes.ISET_EMPLOYEES => ({
   type: actionNames.SET_EMPLOYEES,
   payload: employeesData,
 });
+
 export const setEmployeesForList = (
   employeesData: IActionEmployeeData
 ): actionTypes.ISET_EMPLOYEES_LIST => ({
   type: actionNames.SET_EMPLOYEES_LIST,
   payload: employeesData,
 });
+
 export const setEmployeesForGrid = (
   employeesData: IActionEmployeeData
 ): actionTypes.ISET_EMPLOYEES_GRID => ({
@@ -53,23 +56,35 @@ export const setDepartments = (
   type: actionNames.SET_DEPARTMENTS,
   payload: departments,
 });
-export const setRoles = (roles: ISelectOptionProps[]): actionTypes.ISET_ROLES => ({
+
+export const setRoles = (
+  roles: ISelectOptionProps[]
+): actionTypes.ISET_ROLES => ({
   type: actionNames.SET_ROLES,
   payload: roles,
 });
-export const setSkills = (skills: ISelectOptionProps[]): actionTypes.ISET_SKILLS => ({
+
+export const setSkills = (
+  skills: ISelectOptionProps[]
+): actionTypes.ISET_SKILLS => ({
   type: actionNames.SET_SKILLS,
   payload: skills,
 });
+
 export const resetEmployeesGrid = (): actionTypes.IRESET_EMPLOYEES => {
   return {
     type: actionNames.RESET_EMPLOYEES_GRID,
   };
 };
-export const setlogin = () => ({
+
+export const setlogin = (
+  employeeDetails: IAppEmployee
+): actionTypes.ISET_USER => ({
   type: actionNames.LOGIN,
+  payload: employeeDetails,
 });
-export const setlogout = () => ({
+
+export const setlogout = (): actionTypes.ISET_USER => ({
   type: actionNames.LOGOUT,
 });
 
@@ -81,7 +96,8 @@ export type ActionInterface =
   | actionTypes.ISET_EMPLOYEES_GRID
   | actionTypes.ISET_EMPLOYEES_LIST
   | actionTypes.ISET_LOADING
-  | actionTypes.IRESET_EMPLOYEES;
+  | actionTypes.IRESET_EMPLOYEES
+  | actionTypes.ISET_USER;
 
 //fetch methods
 export const fetchEmployeesData = (

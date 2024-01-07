@@ -1,6 +1,7 @@
 import {
   IActionEmployeeData,
-  ISelectOptionProps,
+  IAppEmployee,
+  ISelectOptionProps
 } from "../../interfaces/interface";
 
 export interface ISET_LOADING {
@@ -17,26 +18,37 @@ export interface ISET_EMPLOYEES {
   type: "SET_EMPLOYEES";
   payload: IActionEmployeeData;
 }
+
 export interface ISET_EMPLOYEES_LIST {
   type: "SET_EMPLOYEES_LIST";
   payload: IActionEmployeeData;
 }
+
 export interface ISET_EMPLOYEES_GRID {
   type: "SET_EMPLOYEES_GRID";
   payload: IActionEmployeeData;
 }
+
 export interface ISET_DEPARTMENTS {
   type: "SET_DEPARTMENTS";
   payload: ISelectOptionProps[];
 }
+
 export interface ISET_ROLES {
   type: "SET_ROLES";
   payload: ISelectOptionProps[];
 }
+
 export interface ISET_SKILLS {
   type: "SET_SKILLS";
   payload: ISelectOptionProps[];
 }
+
 export interface IRESET_EMPLOYEES {
   type: "RESET_EMPLOYEES_GRID";
+}
+
+export interface ISET_USER {
+  type: "LOGIN" | "LOGOUT";
+  payload?: IAppEmployee;
 }

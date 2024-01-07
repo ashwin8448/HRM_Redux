@@ -1,9 +1,13 @@
-
-
 export interface IActionEmployeeData {
   employees: IAppEmployee[];
   count: number;
 }
+
+export interface IUser {
+  employeeDetails: IAppEmployee | null;
+  isAuthenticated: boolean;
+}
+
 export interface IEmployeeData extends IActionEmployeeData {
   loading: boolean;
 }
@@ -53,6 +57,8 @@ export interface IAppEmployee extends ICommonEmployeeFields {
   designation: string;
   salary: string;
   address: string;
+  isNew: boolean;
+  accessControlRole: string;
 }
 
 export interface IPostEmployee extends ICommonEmployeeFields {
@@ -112,11 +118,6 @@ export interface IInputProps {
   isMulti?: boolean;
   accept?: string;
 }
-export interface IUser {
-  user: {
-    isAuthenticated: boolean;
-  };
-}
 
 export interface ISelectOptionProps {
   value?: number;
@@ -142,4 +143,11 @@ export interface ISelectDropdownProps {
       React.SetStateAction<ISelectOptionProps[]>
     >;
   } | null;
+}
+
+export interface IAccessToken {
+  iat: number;
+  exp: number;
+  sub: number;
+  username: string;
 }

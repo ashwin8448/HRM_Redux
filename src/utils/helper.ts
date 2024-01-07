@@ -13,7 +13,6 @@ import { postData } from "../core/api/functions.ts";
 import { apiURL } from "../core/config/constants.ts";
 import { jwtDecode } from "jwt-decode";
 
-
 export const updateSearchParams = (
   setSearchParams: (params: URLSearchParams) => void,
   currentSearchParams: URLSearchParams,
@@ -45,13 +44,13 @@ export function transformArrayToOptionsList(
 }
 
 export const getDate = (dateVal: string) => {
-  const [year, month, day] = dateVal.split('-');
+  const [year, month, day] = dateVal.split("-");
   const newDate = new Date(`${year}-${month}-${day}`);
-  return newDate.toISOString().split('T')[0];
+  return newDate.toISOString().split("T")[0];
 };
 
 export const getWorkExp = (dateOfJoining: string) => {
-  const [year, month, day] = dateOfJoining.split('-').map(Number);
+  const [year, month, day] = dateOfJoining.split("-").map(Number);
   const dateInNewFormat = new Date(year, month - 1, day);
   const DOJ = new Date(dateInNewFormat);
   const now = new Date();
@@ -59,22 +58,22 @@ export const getWorkExp = (dateOfJoining: string) => {
   const workExp: number = Math.floor(
     (now.getTime() - DOJ.getTime()) / (1000 * 60 * 60 * 24 * 30)
   );
-  if (workExp < 1) return 'Less than a month';
+  if (workExp < 1) return "Less than a month";
   else if (workExp <= 12) {
     return workExp === 12
-      ? '1 year'
-      : `${workExp} month${workExp > 1 ? 's' : ''}`;
+      ? "1 year"
+      : `${workExp} month${workExp > 1 ? "s" : ""}`;
   } else {
     const years = Math.floor(workExp / 12);
     const remainingMonths = workExp % 12;
 
-    const yearsText = years > 0 ? `${years} year${years > 1 ? 's' : ''}` : '';
+    const yearsText = years > 0 ? `${years} year${years > 1 ? "s" : ""}` : "";
     const monthsText =
       remainingMonths > 0
-        ? `${remainingMonths} month${remainingMonths > 1 ? 's' : ''}`
-        : '';
+        ? `${remainingMonths} month${remainingMonths > 1 ? "s" : ""}`
+        : "";
 
-    return `${yearsText}${yearsText && monthsText ? ' ' : ''}${monthsText}`;
+    return `${yearsText}${yearsText && monthsText ? " " : ""}${monthsText}`;
   }
 };
 
@@ -127,13 +126,16 @@ export const convertIGetEmployeeToIAppEmployee = (
       ? transformArrayToOptionsList([role])[0]
       : { value: 0, label: "" },
     photoId: moreDetails ? JSON.parse(moreDetails).photoId : "",
+    isNew: moreDetails ? JSON.parse(moreDetails).isNew : "",
+    accessControlRole: moreDetails
+      ? JSON.parse(moreDetails).accessControlRole
+      : "",
   };
 };
 
 export const convertFormDataToIPostEmployees = async (
   formData: FieldValues
 ): Promise<IPostEmployee> => {
-  console.log(formData);
   const { photoId, skills, department, role, isActive, ...rest } = formData;
   return {
     ...(rest as IPostEmployee),
