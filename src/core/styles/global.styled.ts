@@ -42,7 +42,7 @@ body {
 }
 
   .material-symbols-outlined {
-    font-size: ${fontSizes["--font-size-sm"]};
+    font-size: ${fontSizes["--font-size-md"]};
   }
 
 .common-flex {

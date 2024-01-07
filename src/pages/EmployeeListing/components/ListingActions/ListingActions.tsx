@@ -20,7 +20,6 @@ function ListingActions({
   handleActiveListing: (button: string) => void;
   listingActive: string;
 }) {
-
   const navigate = useNavigate();
 
   return (
@@ -45,7 +44,13 @@ function ListingActions({
         </div>
         <div className="common-flex action-grp">
           <MoreActions deleteCheckBoxesList={deleteCheckBoxesList} />
-            <Button icon="add" className="invert-style" onClick={()=>navigate("add-employee")}>New</Button>
+          <Button
+            icon="add"
+            className="invert-style"
+            onClick={() => navigate("add-employee")}
+          >
+            New
+          </Button>
         </div>
       </div>
     </ListingActionsWrapper>

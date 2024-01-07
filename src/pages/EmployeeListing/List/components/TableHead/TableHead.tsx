@@ -1,6 +1,7 @@
 import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
 import { ParagraphStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
 import { IAppEmployee } from "../../../../../core/interfaces/interface.ts";
+import useAuth from "../../../../Login/useAuth.ts";
 import TableHeadButton from "./TableHeadButton.tsx";
 import { TableHeadWrapper } from "./tableHead.ts";
 
@@ -14,6 +15,7 @@ function TableHead({
   };
   employees: IAppEmployee[];
 }) {
+  const { user } = useAuth();
   const employeesIdList = employees.map(
     (employee: IAppEmployee) => employee.id
   );
@@ -21,12 +23,14 @@ function TableHead({
   return (
     <TableHeadWrapper>
       <tr>
-        <th>
-          <Checkbox
-            employeesIdList={employeesIdList}
-            deleteCheckBoxesList={deleteCheckBoxesList}
-          />
-        </th>
+        {user.employeeDetails?.accessControlRole === "admin" && (
+          <th>
+            <Checkbox
+              employeesIdList={employeesIdList}
+              deleteCheckBoxesList={deleteCheckBoxesList}
+            />
+          </th>
+        )}
         <TableHeadButton icon="expand_more" title="id">
           Id
         </TableHeadButton>

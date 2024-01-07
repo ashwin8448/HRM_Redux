@@ -18,10 +18,6 @@ const router = createBrowserRouter(
           element: <Login />,
         },
         {
-          path: "/sign-up",
-          element: <SignUp />,
-        },
-        {
           path: "view-employee/:employeeId",
           element: (
             <ProtectedRoute allowedRoles={["admin", "user"]}>

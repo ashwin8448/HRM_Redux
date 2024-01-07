@@ -9,8 +9,10 @@ const ProtectedRoute = ({
   children: ReactNode;
   allowedRoles: string[];
 }) => {
+
   const { user } = useAuth();
   const location = useLocation();
+  
   return (
     <>
       {user.isAuthenticated && user.employeeDetails ? (

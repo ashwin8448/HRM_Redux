@@ -107,10 +107,13 @@ export const convertIGetEmployeeToIAppEmployee = (
     salary,
     address,
     isActive,
+    id,
     ...rest
   } = employee;
+  const moreDetailsObject = moreDetails ? JSON.parse(moreDetails) : {};
   return {
     ...rest,
+    id: String(id),
     isActive: isActive,
     lastName: lastName ?? "",
     email: email ?? "",
@@ -125,11 +128,9 @@ export const convertIGetEmployeeToIAppEmployee = (
     role: role
       ? transformArrayToOptionsList([role])[0]
       : { value: 0, label: "" },
-    photoId: moreDetails ? JSON.parse(moreDetails).photoId : "",
-    isNew: moreDetails ? JSON.parse(moreDetails).isNew : "",
-    accessControlRole: moreDetails
-      ? JSON.parse(moreDetails).accessControlRole
-      : "",
+    photoId: moreDetailsObject.photoId || "",
+    isNew: moreDetailsObject.isNew || false,
+    accessControlRole: moreDetailsObject.accessControlRole || "user",
   };
 };
 

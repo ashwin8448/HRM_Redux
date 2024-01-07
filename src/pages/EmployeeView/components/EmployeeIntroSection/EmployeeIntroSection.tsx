@@ -1,4 +1,5 @@
 import { useLocation, useNavigate } from "react-router";
+import { useParams } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 import Button from "../../../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../../../components/Button/buttonGrpWrapper.ts";
@@ -14,6 +15,7 @@ import {
   ParagraphStyles,
 } from "../../../../core/constants/components/text/textStyledComponents.ts";
 import ActiveDot from "../../../../components/ActiveDot/ActiveDot.tsx";
+import useAuth from "../../../Login/useAuth.ts";
 
 function EmployeeIntroSection({
   employee,
@@ -26,7 +28,8 @@ function EmployeeIntroSection({
   const navigate = useNavigate();
   const location = useLocation();
   const [deleteModal, setDeleteModal] = useState(false);
-
+  const { user } = useAuth();
+  const { employeeId } = useParams();
   const handleDeleteButtonClick = () => {
     setDeleteModal((prev) => !prev);
   };
@@ -57,29 +60,41 @@ function EmployeeIntroSection({
           <ParagraphStyles>{employee.role.label}</ParagraphStyles>
         </div>
 
-        {getUrlType(location.pathname) === "view-employee" && (
-          <ButtonGrpWrapper className="btn-grp common-flex">
-            <Button
-              icon="edit"
-              onClick={() => navigate(`/edit-employee/${employee!.id}`)}
-            >
-              {(matchesWithMobile || matchesWithTab) && (
-                <>
-                  {matchesWithMobile && "Edit Profile"}
-                  {matchesWithTab && "Edit Profile"}
-                </>
-              )}
-            </Button>
-            <Button icon="delete" onClick={() => handleDeleteButtonClick()}>
-              {(matchesWithMobile || matchesWithTab) && (
-                <>
-                  {matchesWithMobile && "Delete Profile"}
-                  {matchesWithTab && "Delete Profile"}
-                </>
-              )}
-            </Button>
-          </ButtonGrpWrapper>
-        )}
+        {getUrlType(location.pathname) === "view-employee" &&
+          (user.employeeDetails?.accessControlRole === "admin" ||
+            user.employeeDetails?.id === employeeId) && (
+            <ButtonGrpWrapper className="btn-grp common-flex">
+              <Button
+                icon="edit"
+                onClick={() => navigate(`/edit-employee/${employee!.id}`)}
+              >
+                {(matchesWithMobile || matchesWithTab) && (
+                  <>
+                    {matchesWithMobile &&
+                      `${
+                        user.employeeDetails?.isNew
+                          ? "Complete Profile"
+                          : "Edit Profile"
+                      }`}
+                    {matchesWithTab &&
+                      `${
+                        user.employeeDetails?.isNew
+                          ? "Complete Profile"
+                          : "Edit Profile"
+                      }`}
+                  </>
+                )}
+              </Button>
+              <Button icon="delete" onClick={() => handleDeleteButtonClick()}>
+                {(matchesWithMobile || matchesWithTab) && (
+                  <>
+                    {matchesWithMobile && "Delete Profile"}
+                    {matchesWithTab && "Delete Profile"}
+                  </>
+                )}
+              </Button>
+            </ButtonGrpWrapper>
+          )}
       </EmployeeIntroSectionWrapper>
       {deleteModal && (
         <>

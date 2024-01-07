@@ -16,8 +16,8 @@ const HeaderWrapper = styled.header`
   }
   .logo-wrapper {
     position: relative;
-    .logo{
-      width:50px;
+    .logo {
+      width: 50px;
       height: auto;
     }
     &:hover {
@@ -29,6 +29,27 @@ const HeaderWrapper = styled.header`
 
   .header-tooltip {
     visibility: hidden;
+  }
+
+  .user-container {
+    display: flex;
+    gap: 30px;
+
+    .image-container {
+      position: relative;
+      cursor: pointer;
+      img {
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+      }
+      .profile-error {
+        position: absolute;
+        top: 20px;
+        left: 30px;
+        color: #b20808;
+      }
+    }
   }
 `;
 export default HeaderWrapper;

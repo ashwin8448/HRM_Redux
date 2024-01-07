@@ -12,17 +12,30 @@ import {
   LabelStyles,
   ParagraphStyles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
+import { jwtDecode } from "jwt-decode";
+import { useAppDispatch } from "../../hooks/reduxHooks.ts";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const { login, authError, authLoading } = useAuth();
   const navigate = useNavigate();
+  const { login, authError, logout, fetchCurrentUser, authLoading } = useAuth();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (getCookie("accessToken")) navigate("/", { replace: true });
-  }, []);
+    const authToken = getCookie("accessToken");
+    if (authToken) {
+      const decodedToken = jwtDecode(authToken); // jwt-decode npm package
+      const currentTime = Math.floor(Date.now() / 1000);
+      // Check token expiry
+      if (decodedToken && decodedToken.exp! < currentTime) {
+        logout();
+      } else {
+        fetchCurrentUser(authToken);
+      }
+    }
+  }, [dispatch]);
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -66,22 +79,9 @@ function Login() {
           (authError != "" && (
             <ParagraphStyles className="error">{authError}</ParagraphStyles>
           ))}
-
-        <ButtonGrpWrapper className="btn-grp">
-          <div className="common-flex alternative-msg">
-            Not registered ?
-            <Button
-              className="login-btn"
-              type={"button"}
-              onClick={() => {
-                navigate("/sign-up");
-              }}
-            >
-              Create new account
-            </Button>
-          </div>
+        <div className="button-container">
           <Button type={"submit"}>Submit</Button>
-        </ButtonGrpWrapper>
+        </div>
       </form>
     </LoginLayoutWrapper>
   );

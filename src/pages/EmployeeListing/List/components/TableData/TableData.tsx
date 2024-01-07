@@ -7,6 +7,7 @@ import SkillsChip from "../../../../../components/Skills/SkillsChip.tsx";
 import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
 import React from "react";
 import { TableDataStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
+import useAuth from "../../../../Login/useAuth.ts";
 
 function TableData({
   employee,
@@ -21,7 +22,7 @@ function TableData({
   };
 }) {
   const navigate = useNavigate();
-
+  const { user } = useAuth();
   const handleEmployeeDetailsView = () => {
     navigate(`/view-employee/${employee.id}`);
   };
@@ -31,12 +32,14 @@ function TableData({
       key={employee.id}
       className={index % 2 !== 0 ? "alternate-table-row-color" : ""} // alternate colour for each row
     >
-      <TableDataStyles className="employee-data">
-        <Checkbox
-          employeeId={employee.id}
-          deleteCheckBoxesList={deleteCheckBoxesList}
-        />
-      </TableDataStyles>
+      {user.employeeDetails?.accessControlRole === "admin" && (
+        <TableDataStyles className="employee-data">
+          <Checkbox
+            employeeId={employee.id}
+            deleteCheckBoxesList={deleteCheckBoxesList}
+          />
+        </TableDataStyles>
+      )}
 
       <TableDataStyles className="employee-data">{employee.id}</TableDataStyles>
       {/* navigating to view employee page */}
@@ -63,7 +66,10 @@ function TableData({
       <TableDataStyles className="employee-data">
         <div className=" actions-list common-flex">
           {/* navigating to edit employee page */}
-            <Button icon="edit" onClick={()=>navigate(`/edit-employee/${employee.id}`)}></Button>
+          <Button
+            icon="edit"
+            onClick={() => navigate(`/edit-employee/${employee.id}`)}
+          ></Button>
         </div>
       </TableDataStyles>
     </TableDataWrapper>

@@ -15,14 +15,6 @@ const LoginLayoutWrapper = styled.div`
   left: 50%;
   transform: translate(-50%, -50%);
 
-  .login-btn {
-    background: none;
-    border: none;
-    * {
-      color: ${colors.DARK_PRIMARY_COLOR};
-    }
-  }
-
   .error {
     color: ${colors.RED_COLOR};
     margin: 0;
@@ -35,22 +27,16 @@ const LoginLayoutWrapper = styled.div`
     gap: 10px;
   }
 
-  .btn-grp {
+  .button-container {
     margin-top: 10px;
+
+    button {
+      margin-left: auto;
+    }
   }
 
   ${media.tablet} {
     width: 75%;
-    .btn-grp {
-      > button {
-        justify-content: center;
-      }
-      flex-direction: column-reverse;
-    }
-    .alternative-msg {
-      text-align: center;
-      flex-direction: column;
-    }
   }
 `;
 export default LoginLayoutWrapper;

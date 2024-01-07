@@ -49,7 +49,7 @@ const useAuth = () => {
         dispatch(setlogin(convertIGetEmployeeToIAppEmployee(currentEmployee)));
         //TODO: Add name
         navigate(location.state ? location.state.from : "/");
-        toast.success("Welcome. You are succesfully logged in.");
+        toast.success(`Hi ${currentEmployee.firstName}. You have logged in succesfully.`);
       } else {
         //TODO: error msg
       }
@@ -70,6 +70,27 @@ const useAuth = () => {
     deleteCookie("refreshToken");
     dispatch(setlogout());
     navigate("/login", { replace: true });
+  };
+
+  const fetchCurrentUser = async (accessToken: string) => {
+    setAuthLoading(true);
+    try {
+      const currentEmployeeId = (jwtDecode(accessToken) as IAccessToken)
+        .username;
+      const currentEmployee = (
+        await getData(apiURL.employee + `/${currentEmployeeId}`)
+      ).data.data;
+      dispatch(setlogin(convertIGetEmployeeToIAppEmployee(currentEmployee)));
+      navigate(location.state ? location.state.from : "/");
+      toast.success(`Hi ${currentEmployee.firstName}. You have logged in succesfully.`);
+    } catch (error) {
+      console.error(error);
+      toast.error("An error occurred during sign in.", {
+        toastId: "fetch-user-data-error",
+      });
+    } finally {
+      setAuthLoading(false);
+    }
   };
 
   const signUp = async ({
@@ -106,7 +127,7 @@ const useAuth = () => {
     authError,
     setAuthError,
     authLoading,
-    setAuthLoading
+    fetchCurrentUser,
   };
 };
 export default useAuth;
