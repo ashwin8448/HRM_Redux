@@ -10,6 +10,7 @@ const TableDataWrapper = styled.tr`
 
   .actions-list {
     justify-content: center;
+    gap:10px;
   }
   button {
     flex-direction: row-reverse;

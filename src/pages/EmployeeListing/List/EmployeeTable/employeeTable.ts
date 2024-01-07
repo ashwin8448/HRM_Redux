@@ -58,8 +58,8 @@ const TableWrapper = styled.table`
   td:nth-child(2) {
     width: 60px;
   }
-  th:nth-child(8),
-  td:nth-child(8) {
+  th:nth-child(9),
+  td:nth-child(9) {
     width: 100px;
   }
   .loader-container {
