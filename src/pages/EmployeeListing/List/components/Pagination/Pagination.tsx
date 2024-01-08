@@ -4,31 +4,34 @@ import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import React from "react";
 import { updateSearchParams } from "../../../../../utils/helper.js";
+import { defaultPageSize, recordsPerPage,totalPages } from "../../../../../core/config/constants.ts";
+import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
 
 function Pagination({
-  rowsPerPage,
-  totalPages,
   deleteCheckBoxesList,
 }: {
-  rowsPerPage: number;
-  totalPages: number;
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
 }) {
+
+  // Employees count fetching
+  const { count } = useAppSelector((state) => state.employeesData);
+  const totalPageSize = totalPages(count);
+  
   const [searchParams, setSearchParams] = useSearchParams();
 
   let currentPageNumber = Number(searchParams.get("page"));
 
   const paginationRange = usePagination({
-    totalPageCount: totalPages,
-    pageSize: rowsPerPage,
+    totalPageCount: totalPageSize,
+    pageSize: recordsPerPage,
     siblingCount: 1,
     currentPage: currentPageNumber,
   });
   const checkPage = (newPage: number) => {
-    return newPage > totalPages ? totalPages : newPage < 1 ? 1 : newPage;
+    return newPage > totalPageSize ? totalPageSize : newPage < 1 ? 1 : newPage;
   };
   const updateParams = (update: number, mode?: string) => {
     deleteCheckBoxesList.setCheckedBoxesList([]);
@@ -42,12 +45,10 @@ function Pagination({
   };
   useEffect(() => {
     if (!searchParams.get("page"))
-      updateSearchParams(setSearchParams, searchParams, {
-        page: "1",
-      });
+      updateSearchParams(setSearchParams, searchParams, defaultPageSize);
   }, [searchParams]);
 
-  return totalPages > 1 ? (
+  return totalPageSize > 1 ? (
     <PaginationWrapper className="pagination-bar">
       <li
         className={`pagination-item ${currentPageNumber === 1 ? "disabled" : ""
@@ -79,7 +80,7 @@ function Pagination({
         })}
 
       <li
-        className={`pagination-item ${currentPageNumber === totalPages ? "disabled" : ""
+        className={`pagination-item ${currentPageNumber === totalPageSize ? "disabled" : ""
           } `}
         onClick={() => {
           updateParams(1, "step");

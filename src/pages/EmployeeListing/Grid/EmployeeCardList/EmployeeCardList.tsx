@@ -8,14 +8,23 @@ import {
 import EmployeeCardListWrapper from "./employeeCardList.ts";
 import { useSearchParams } from "react-router-dom";
 import { IAppEmployee } from "../../../../core/interfaces/interface.ts";
-import { useAppDispatch } from "../../../../hooks/reduxHooks.ts";
+import {
+  useAppDispatch,
+  useAppSelector,
+} from "../../../../hooks/reduxHooks.ts";
+import {
+  defaultSortBy,
+  defaultSortDir,
+  recordsPerPage,
+  totalPages,
+} from "../../../../core/config/constants.ts";
+import { updateSearchParams } from "../../../../utils/helper.ts";
+import { gridDisplay } from "./../../../../core/config/constants";
 
 function EmployeeCardList({
   deleteCheckBoxesList,
   employees,
   loading,
-  cardsPerPage,
-  totalPages,
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
@@ -23,9 +32,10 @@ function EmployeeCardList({
   };
   employees: IAppEmployee[];
   loading: boolean;
-  cardsPerPage: number;
-  totalPages: number;
 }) {
+  // Employees count fetching
+  const { count } = useAppSelector((state) => state.employeesData);
+
   const dispatch = useAppDispatch();
 
   const [searchParams, setSearchParams] = useSearchParams();
@@ -43,8 +53,8 @@ function EmployeeCardList({
   };
 
   useEffect(() => {
-    if (page <= totalPages || totalPages === 0) {
-      const offset = Math.max(0, (page - 1) * cardsPerPage);
+    if (page <= totalPages(count) || totalPages(count) === 0) {
+      const offset = Math.max(0, (page - 1) * recordsPerPage);
 
       // Adding a delay of 500 milliseconds before dispatching the action
       const delay = 500;
@@ -52,14 +62,14 @@ function EmployeeCardList({
         dispatch(
           fetchEmployeesData(
             {
-              limit: cardsPerPage,
+              limit: recordsPerPage,
               offset,
-              sortBy: searchParams.get("sortBy") || "id",
-              sortDir: searchParams.get("sortDir") || "asc",
+              sortBy: searchParams.get("sortBy") || defaultSortBy,
+              sortDir: searchParams.get("sortDir") || defaultSortDir,
               search: searchParams.get("search") || "",
               skillIds: searchParams.get("skillIds") || "",
             },
-            "Grid"
+            gridDisplay
           )
         );
       }, delay);
@@ -86,8 +96,7 @@ function EmployeeCardList({
   }, [searchParams]);
 
   useEffect(() => {
-    searchParams.delete("page");
-    setSearchParams({ ...Object.fromEntries(searchParams.entries()) });
+    updateSearchParams(setSearchParams, searchParams, { page: undefined });
   }, []);
 
   useEffect(() => {

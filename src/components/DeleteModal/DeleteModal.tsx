@@ -12,12 +12,13 @@ import {
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
 import { useAppSelector } from "../../hooks/reduxHooks.ts";
-import { getUrlType } from "../../utils/helper.ts";
+import { getUrlType, updateSearchParams } from "../../utils/helper.ts";
 import {
   H2Styles,
   LabelStyles,
   ParagraphStyles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
+import { listDisplay, defaultPageSize } from "../../core/config/constants.ts";
 
 function DeleteModal({
   changeDltModalOpenStatus,
@@ -26,7 +27,7 @@ function DeleteModal({
   changeDltModalOpenStatus: () => void;
   idArrayToDlt: string[];
 }) {
-  const [searchParams, setSearchParams] = useSearchParams({ page: "1" });
+  const [searchParams, setSearchParams] = useSearchParams();
   const [confirmDeleteLoader, setConfirmDeleteLoader] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
@@ -57,12 +58,10 @@ function DeleteModal({
       toast.error("Error deleting users", { toastId: "delete-user" });
     } finally {
       setConfirmDeleteLoader(false);
-      const isdisplayList = searchParams.get("display") === "List";
-      const pageValue = isdisplayList && { page: "1" };
-      setSearchParams({
-        ...Object.fromEntries(searchParams.entries()),
-        ...pageValue,
-      });
+      const isdisplayList = searchParams.get("display") === listDisplay;
+      if (isdisplayList) {
+        updateSearchParams(setSearchParams, searchParams, defaultPageSize);
+      }
     }
     changeDltModalOpenStatus();
   };

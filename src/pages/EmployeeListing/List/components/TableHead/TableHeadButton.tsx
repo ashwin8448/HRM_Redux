@@ -1,6 +1,11 @@
 import ButtonWrapper from "../../../../../components/Button/button.ts";
-import { SortDirection } from "../../../../../core/config/constants.ts";
+import {
+  SortDirection,
+  defaultSortBy,
+  defaultSortDir,
+} from "../../../../../core/config/constants.ts";
 import { ParagraphStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
+import { updateSearchParams } from "../../../../../utils/helper.ts";
 import { TableHeadIconWrapper } from "./tableHead.ts";
 import { useSearchParams } from "react-router-dom";
 
@@ -34,10 +39,9 @@ function TableHeadButton({
   }
 
   function sortBtnClickHandler() {
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      sortBy: currentSortCriteria.toString() ?? "id",
-      sortDir: newSortProp ?? "asc",
+    updateSearchParams(setSearchParams, searchParams, {
+      sortBy: currentSortCriteria.toString() || defaultSortBy,
+      sortDir: newSortProp || defaultSortDir,
     });
   }
 

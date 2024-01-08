@@ -9,10 +9,11 @@ import { useAppSelector } from "../../hooks/reduxHooks.ts";
 import Snackbar from "../../components/Snackbar/Snackbar.tsx";
 import { updateSearchParams } from "../../utils/helper.ts";
 import { TitleStyle } from "../../core/constants/components/text/textStyledComponents.ts";
+import { defaultPageSize, gridDisplay, listDisplay } from "../../core/config/constants.ts";
 
 function EmployeeListing() {
   // Employees data fetching
-  const { employees, loading, count } = useAppSelector(
+  const { employees, loading } = useAppSelector(
     (state) => state.employeesData
   );
 
@@ -26,21 +27,17 @@ function EmployeeListing() {
   const displayValue = searchParams.get("display");
 
   //toggle between list and grid
-  const [listingActive, setListingActive] = useState(displayValue ?? "List");
+  const [listingActive, setListingActive] = useState(displayValue ?? listDisplay);
   const handleActiveListing = (buttonTxt: string) => {
     updateSearchParams(setSearchParams, searchParams, { display: buttonTxt });
     deleteCheckBoxesList.setCheckedBoxesList([]);
     setListingActive(buttonTxt);
   };
 
-  //pagination/infiinite loading
-  const recordsPerPage = 10;
-  const totalPages = Math.ceil(Number(count) / recordsPerPage);
-
   useEffect(() => {
     updateSearchParams(setSearchParams, searchParams, {
-      display: displayValue ?? "List",
-      page: searchParams.get("page")??"1",
+      display: displayValue ?? listDisplay,
+      page: searchParams.get("page")?? defaultPageSize.page,
     });
   }, [listingActive]);
 
@@ -53,22 +50,18 @@ function EmployeeListing() {
         deleteCheckBoxesList={deleteCheckBoxesList}
       />
       <Snackbar deleteCheckBoxesList={deleteCheckBoxesList} />
-      {listingActive == "List" && (
+      {listingActive == listDisplay && (
         <EmployeeTable
           deleteCheckBoxesList={deleteCheckBoxesList}
           employees={employees}
           loading={loading}
-          rowsPerPage={recordsPerPage}
-          totalPages={totalPages}
         />
       )}
-      {listingActive == "Grid" && (
+      {listingActive == gridDisplay && (
         <EmployeeCardList
           deleteCheckBoxesList={deleteCheckBoxesList}
           employees={employees}
           loading={loading}
-          cardsPerPage={recordsPerPage}
-          totalPages={totalPages}
         />
       )}
     </EmployeeListingWrapper>

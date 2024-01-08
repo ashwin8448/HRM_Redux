@@ -7,6 +7,7 @@ import Sort from "../Sort/Sort.tsx";
 import Filter from "../Filter/Filter.tsx";
 import MoreActions from "./MoreActions/MoreActions.tsx";
 import { useNavigate } from "react-router-dom";
+import { gridDisplay, listDisplay } from "../../../../core/config/constants.ts";
 
 function ListingActions({
   deleteCheckBoxesList,
@@ -28,13 +29,13 @@ function ListingActions({
       <ButtonGrpWrapper className=" btn-grp-view">
         <Button
           icon="format_list_bulleted"
-          className={listingActive === "List" ? "active" : ""}
-          onClick={() => handleActiveListing("List")}
+          className={listingActive === listDisplay ? "active" : ""}
+          onClick={() => handleActiveListing(listDisplay)}
         ></Button>
         <Button
           icon="grid_on"
-          className={listingActive === "Grid" ? "active" : ""}
-          onClick={() => handleActiveListing("Grid")}
+          className={listingActive === gridDisplay ? "active" : ""}
+          onClick={() => handleActiveListing(gridDisplay)}
         ></Button>
       </ButtonGrpWrapper>
       <div className="common-flex main-actions">

@@ -13,10 +13,9 @@ import {
   ISkill,
   IActionEmployeeData,
 } from "../interfaces/interface.ts";
-import { apiURL } from "../config/constants.ts";
+import { apiURL, gridDisplay, listDisplay } from "../config/constants.ts";
 import { AppDispatch } from "./configureStore.ts";
 import * as actionTypes from "./types/actionTypes.ts";
-
 
 export const setLoading = (
   actionType:
@@ -53,11 +52,15 @@ export const setDepartments = (
   type: actionNames.SET_DEPARTMENTS,
   payload: departments,
 });
-export const setRoles = (roles: ISelectOptionProps[]): actionTypes.ISET_ROLES => ({
+export const setRoles = (
+  roles: ISelectOptionProps[]
+): actionTypes.ISET_ROLES => ({
   type: actionNames.SET_ROLES,
   payload: roles,
 });
-export const setSkills = (skills: ISelectOptionProps[]): actionTypes.ISET_SKILLS => ({
+export const setSkills = (
+  skills: ISelectOptionProps[]
+): actionTypes.ISET_SKILLS => ({
   type: actionNames.SET_SKILLS,
   payload: skills,
 });
@@ -88,10 +91,10 @@ export const fetchEmployeesData = (
   params: {
     limit: number;
     offset: number;
-    sortBy: string;
-    sortDir: string;
-    search: string;
-    skillIds: string;
+    sortBy?: string;
+    sortDir?: string;
+    search?: string;
+    skillIds?: string;
   },
   state: string
 ) => {
@@ -102,7 +105,7 @@ export const fetchEmployeesData = (
       const employeesResponseData = response.data.data;
       const employees: IGetEmployee[] = employeesResponseData.employees;
 
-      if (state === "List")
+      if (state === listDisplay)
         dispatch(
           setEmployeesForList({
             ...employeesResponseData,
@@ -111,7 +114,7 @@ export const fetchEmployeesData = (
             }),
           })
         );
-      else
+      if (state === gridDisplay)
         dispatch(
           setEmployeesForGrid({
             ...employeesResponseData,

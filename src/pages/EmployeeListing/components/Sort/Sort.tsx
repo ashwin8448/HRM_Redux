@@ -5,7 +5,7 @@ import {
   DropdownWrapper,
   SortOrderDropdownItemWrapper,
 } from "./sort.ts";
-import { SortDirection } from "../../../../core/config/constants.ts";
+import { SortDirection, defaultSortBy, defaultSortDir, sortOptions } from "../../../../core/config/constants.ts";
 import { useSearchParams } from "react-router-dom";
 import { useMediaQuery } from "usehooks-ts";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
@@ -37,17 +37,10 @@ function Sort() {
     }
   };
 
-  const sortOptions = [
-    { criteria: "id", label: "Id" },
-    { criteria: "firstName", label: "Name" },
-    { criteria: "department.id", label: "Department" },
-    { criteria: "designation", label: "Designation" },
-    { criteria: "role.id", label: "Role" },
-  ];
 
   //sort by
   const [sortBySelection, setSortBySelection] = useState<string>(
-    sortBy ?? "id"
+    sortBy ?? defaultSortBy
   );
   const handleItemSelection = (criteria: string) => {
     setSortBySelection(criteria);
@@ -68,15 +61,15 @@ function Sort() {
   };
 
   useEffect(() => {
-    setSortBySelection(sortBy ?? "id");
+    setSortBySelection(sortBy ?? defaultSortBy);
     setSortOrderSelection(getSortOrderFromParams(sortOrder ?? "asc"));
   }, [sortBy, sortOrder]);
 
   // Update URL parameters when local state changes
   useEffect(() => {
     updateSearchParams(setSearchParams, searchParams, {
-      sortBy: sortBySelection ?? "id",
-      sortDir: sortOrderSelection ?? "asc",
+      sortBy: sortBySelection ?? defaultSortBy,
+      sortDir: sortOrderSelection ?? defaultSortDir,
     });
   }, [sortBySelection, sortOrderSelection]);
 
