@@ -32,6 +32,7 @@ function Input({ config }: { config: IInputProps }) {
           case "tel":
           case "email":
           case "textarea":
+          case "password":
             inputToRender = (
               <>
                 {inputToRender}
@@ -49,6 +50,7 @@ function Input({ config }: { config: IInputProps }) {
                         message: "This field is required",
                       },
                     })}
+                    autoComplete="new-password"
                     max={config.validation?.max?.value} // for date input
                   />
                   {errorMsg && (

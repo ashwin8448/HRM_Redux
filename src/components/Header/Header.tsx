@@ -37,7 +37,6 @@ function Header() {
                     className="material-symbols-outlined profile-error"
                     title="Please complete your profile"
                   >
-                    {" "}
                     report
                   </span>
                 )}

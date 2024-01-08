@@ -16,7 +16,7 @@ const ProgressBarWrapper = styled.div<{
     gap: 10px;
   }
   .step {
-    width: 25%; 
+    width: ${(props) => String(100 / props.$stepsNumber) + "%"};
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -52,7 +52,8 @@ const ProgressBarWrapper = styled.div<{
   }
   .steps-link {
     height: 4px;
-    width: 80%;
+    width: ${(props) =>
+      String((100 / props.$stepsNumber) * (props.$stepsNumber - 1)) + "%"};
     background-color: #d1c5c5;
     position: absolute;
     top: 13px;
@@ -70,7 +71,7 @@ const ProgressBarWrapper = styled.div<{
 
   @media only screen and (max-width: 500px) {
     .step-name {
-      font-size: ${fontSizes['--font-size-x-s']};
+      font-size: ${fontSizes["--font-size-x-s"]};
     }
   }
 `;

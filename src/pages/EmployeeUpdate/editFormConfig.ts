@@ -8,7 +8,7 @@ import {
   numberValidation,
 } from "./constants/validationConfig.ts";
 
-const getFormConfig = ({
+const getEditFormConfig = ({
   departments,
   roles,
   skills,
@@ -141,4 +141,4 @@ const getFormConfig = ({
   },
 ];
 
-export default getFormConfig;
+export default getEditFormConfig;

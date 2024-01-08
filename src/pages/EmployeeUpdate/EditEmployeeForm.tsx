@@ -22,7 +22,7 @@ import ProgressBar from "../../components/ProgressBar/ProgressBar.tsx";
 import { apiURL } from "../../core/config/constants.ts";
 import EmployeeView from "../EmployeeView/EmployeeView.tsx";
 import EmployeeViewWrapper from "../EmployeeView/employeeView.ts";
-import getFormConfig from "./formConfig.ts";
+import getEditFormConfig from "./editFormConfig.ts";
 import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks.ts";
 import {
   fetchDepartmentsData,
@@ -34,7 +34,7 @@ import {
   H2Styles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
 
-const Form = () => {
+const EditEmployeeForm = () => {
   const { employeeId } = useParams();
   const location = useLocation();
   const departments = useAppSelector(
@@ -148,7 +148,7 @@ const Form = () => {
       navigate("/");
     }
   });
-  const formConfig = getFormConfig({
+  const formConfig = getEditFormConfig({
     departments: departments as ISelectOptionProps[],
     skills: skills as ISelectOptionProps[],
     roles: roles as ISelectOptionProps[],
@@ -285,4 +285,4 @@ const Form = () => {
     </>
   );
 };
-export default Form;
+export default EditEmployeeForm;

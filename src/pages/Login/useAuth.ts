@@ -47,9 +47,10 @@ const useAuth = () => {
           await getData(apiURL.employee + `/${currentEmployeeId}`)
         ).data.data;
         dispatch(setlogin(convertIGetEmployeeToIAppEmployee(currentEmployee)));
-        //TODO: Add name
         navigate(location.state ? location.state.from : "/");
-        toast.success(`Hi ${currentEmployee.firstName}. You have logged in succesfully.`);
+        toast.success(
+          `Hi ${currentEmployee.firstName}. You have logged in succesfully.`
+        );
       } else {
         //TODO: error msg
       }
@@ -82,7 +83,9 @@ const useAuth = () => {
       ).data.data;
       dispatch(setlogin(convertIGetEmployeeToIAppEmployee(currentEmployee)));
       navigate(location.state ? location.state.from : "/");
-      toast.success(`Hi ${currentEmployee.firstName}. You have logged in succesfully.`);
+      toast.success(
+        `Hi ${currentEmployee.firstName}. You have logged in succesfully.`
+      );
     } catch (error) {
       console.error(error);
       toast.error("An error occurred during sign in.", {
@@ -93,37 +96,10 @@ const useAuth = () => {
     }
   };
 
-  const signUp = async ({
-    username,
-    password,
-  }: {
-    username: string;
-    password: string;
-  }) => {
-    try {
-      setAuthLoading(true);
-      const response = await postData(apiURL.authSignUp, {
-        username,
-        password,
-      });
-      navigate("/login");
-      toast.success(
-        `Hi ${response.data.username}, you have signed up succesfully.`
-      );
-    } catch (error) {
-      toast.error("An error occurred during sign up.", {
-        toastId: "sign-up-error",
-      });
-    } finally {
-      setAuthLoading(false);
-    }
-  };
-
   return {
     user,
     login,
     logout,
-    signUp,
     authError,
     setAuthError,
     authLoading,

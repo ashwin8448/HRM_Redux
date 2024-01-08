@@ -7,6 +7,7 @@ import Sort from "../Sort/Sort.tsx";
 import Filter from "../Filter/Filter.tsx";
 import MoreActions from "./MoreActions/MoreActions.tsx";
 import { useNavigate } from "react-router-dom";
+import useAuth from "../../../Login/useAuth.ts";
 
 function ListingActions({
   deleteCheckBoxesList,
@@ -21,6 +22,7 @@ function ListingActions({
   listingActive: string;
 }) {
   const navigate = useNavigate();
+  const { user } = useAuth();
 
   return (
     <ListingActionsWrapper>
@@ -44,13 +46,15 @@ function ListingActions({
         </div>
         <div className="common-flex action-grp">
           <MoreActions deleteCheckBoxesList={deleteCheckBoxesList} />
-          <Button
-            icon="add"
-            className="invert-style"
-            onClick={() => navigate("add-employee")}
-          >
-            New
-          </Button>
+          {user.employeeDetails?.accessControlRole === "admin" && (
+            <Button
+              icon="add"
+              className="invert-style"
+              onClick={() => navigate("add-employee")}
+            >
+              New
+            </Button>
+          )}
         </div>
       </div>
     </ListingActionsWrapper>
