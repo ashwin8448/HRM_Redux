@@ -70,7 +70,10 @@ function FilterActions({ onClick }: { onClick: () => void }) {
   const resetFilters = () => {
     setSkillFilterState([]);
 
-    const paramsToUpdate = display === listDisplay? defaultPageSize : {skillIds:undefined};
+    const paramsToUpdate =
+      display === listDisplay
+        ? { skillIds: undefined, page: defaultPageSize.page }
+        : { skillIds: undefined };
     updateSearchParams(setSearchParams, searchParams, paramsToUpdate);
 
     onClick();
