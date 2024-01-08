@@ -6,6 +6,7 @@ function Checkbox({
   employeeId,
   deleteCheckBoxesList,
   employeesIdList,
+  disabled,
 }: {
   employeeId?: string;
   deleteCheckBoxesList: {
@@ -13,11 +14,13 @@ function Checkbox({
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
   employeesIdList?: string[];
+  disabled?: boolean;
 }) {
   return (
     <CheckboxWrapper
       className="checkbox"
       type="checkbox"
+      disabled={disabled}
       onClick={(e) => e.stopPropagation()}
       onChange={() =>
         handleCheckboxChange({

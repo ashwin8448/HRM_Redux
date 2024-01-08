@@ -85,14 +85,16 @@ function EmployeeIntroSection({
                   </>
                 )}
               </Button>
-              <Button icon="delete" onClick={() => handleDeleteButtonClick()}>
-                {(matchesWithMobile || matchesWithTab) && (
-                  <>
-                    {matchesWithMobile && "Delete Profile"}
-                    {matchesWithTab && "Delete Profile"}
-                  </>
-                )}
-              </Button>
+              {user.employeeDetails?.id != employeeId && (
+                <Button icon="delete" onClick={() => handleDeleteButtonClick()}>
+                  {(matchesWithMobile || matchesWithTab) && (
+                    <>
+                      {matchesWithMobile && "Delete Profile"}
+                      {matchesWithTab && "Delete Profile"}
+                    </>
+                  )}
+                </Button>
+              )}
             </ButtonGrpWrapper>
           )}
       </EmployeeIntroSectionWrapper>

@@ -37,6 +37,7 @@ function TableData({
           <Checkbox
             employeeId={employee.id}
             deleteCheckBoxesList={deleteCheckBoxesList}
+            disabled={employee.id === user.employeeDetails.id}
           />
         </TableDataStyles>
       )}

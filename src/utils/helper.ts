@@ -130,14 +130,23 @@ export const convertIGetEmployeeToIAppEmployee = (
       : { value: 0, label: "" },
     photoId: moreDetailsObject.photoId || "",
     isNew: moreDetailsObject.isNew || false,
-    accessControlRole: moreDetailsObject.accessControlRole || "user",
+    accessControlRole: moreDetailsObject.isAdmin ? "admin" : "user",
   };
 };
 
 export const convertFormDataToIPostEmployees = async (
   formData: FieldValues
 ): Promise<IPostEmployee> => {
-  const { photoId, skills, department, role, isActive, ...rest } = formData;
+  const {
+    photoId,
+    skills,
+    department,
+    role,
+    isActive,
+    accessControlRole,
+    isNew,
+    ...rest
+  } = formData;
   return {
     ...(rest as IPostEmployee),
     skills: skills.map((skill: ISelectOptionProps) => skill.value),
@@ -150,6 +159,8 @@ export const convertFormDataToIPostEmployees = async (
           ? await uploadImage(photoId![0])
           : photoId
         : "",
+      isAdmin: accessControlRole === "admin" ? true : false,
+      isNew: false,
     }),
   };
 };

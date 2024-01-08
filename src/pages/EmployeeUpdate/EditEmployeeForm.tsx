@@ -5,7 +5,6 @@ import Input from "../../components/Input/Input.tsx";
 import {
   convertIGetEmployeeToIAppEmployee,
   convertFormDataToIPostEmployees,
-  getUrlType,
 } from "../../utils/helper.ts";
 import { Fieldset, FormWrapper } from "./form.ts";
 import React, { useEffect, useState } from "react";
@@ -14,8 +13,8 @@ import {
   IInputProps,
   ISelectOptionProps,
 } from "../../core/interfaces/interface.ts";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import { getData, postData, updateData } from "../../core/api/functions.ts";
+import { useNavigate, useParams } from "react-router-dom";
+import { getData, updateData } from "../../core/api/functions.ts";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader/Loader.tsx";
 import ProgressBar from "../../components/ProgressBar/ProgressBar.tsx";
@@ -28,18 +27,20 @@ import {
   fetchDepartmentsData,
   fetchRolesData,
   fetchSkillsData,
+  setlogin,
 } from "../../core/store/actions.ts";
 import {
   H3Styles,
   H2Styles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
+import useAuth from "../Login/useAuth.ts";
 
 const EditEmployeeForm = () => {
   const { employeeId } = useParams();
-  const location = useLocation();
   const departments = useAppSelector(
     (state) => state.dropdownData.departments.departments
   );
+  const { user } = useAuth();
   const roles = useAppSelector((state) => state.dropdownData.roles.roles);
   const skills = useAppSelector((state) => state.dropdownData.skills.skills);
   const [isLoading, setIsLoading] = useState(employeeId ? true : false);
@@ -48,38 +49,34 @@ const EditEmployeeForm = () => {
   const methods = useForm({
     mode: "onChange",
   });
-  const urlType = getUrlType(location.pathname);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  
-  useEffect(() => {
-    if (!roles.length) dispatch(fetchRolesData());
-    if (!departments.length) dispatch(fetchDepartmentsData());
-    if (!skills.length) dispatch(fetchSkillsData());
 
-    if (urlType === "edit-employee") {
-      if (!employeeId) {
-        // Display error toast after initial render
-        toast.error("No employee Id was provided", {
-          toastId: "employee-not-found",
-        });
-        navigate("/");
-      } else {
-        getData("/employee/" + employeeId)
-          .then((response) => {
-            if (!response.data) {
-              throw new Response("Employee Not Found", { status: 404 });
-            } else
-              setEmployeeData(
-                convertIGetEmployeeToIAppEmployee(response.data.data)
-              );
-          })
-          .catch((error) => {
-            console.error(error);
-          })
-          .finally(() => setIsLoading(!isLoading));
-      }
+  useEffect(() => {
+    if (!employeeId) {
+      // Display error toast after initial render
+      toast.error("No employee Id was provided", {
+        toastId: "employee-not-found",
+      });
+      navigate("/");
+    } else {
+      getData("/employee/" + employeeId)
+        .then((response) => {
+          if (!response.data) {
+            throw new Response("Employee Not Found", { status: 404 });
+          } else
+            setEmployeeData(
+              convertIGetEmployeeToIAppEmployee(response.data.data)
+            );
+        })
+        .catch((error) => {
+          console.error(error);
+        })
+        .finally(() => setIsLoading(!isLoading));
     }
+    !roles.length && dispatch(fetchRolesData());
+    !departments.length && dispatch(fetchDepartmentsData());
+    !skills.length && dispatch(fetchSkillsData());
   }, []);
 
   useEffect(() => {
@@ -108,40 +105,37 @@ const EditEmployeeForm = () => {
     setIsLoading(true);
     const formValues = methods.getValues();
     try {
-      if (urlType === "add-employee") {
-        const newEmployee = await convertFormDataToIPostEmployees(formValues);
-        await postData(apiURL.employee, newEmployee);
+      if (
+        Object.keys(methods.formState.dirtyFields).length ||
+        formValues.photoId != employeeData?.photoId
+      ) {
+        const editedEmployee = await convertFormDataToIPostEmployees(
+          formValues
+        );
+        await updateData(apiURL.employee + "/" + employeeId, editedEmployee);
+        if (employeeId === user.employeeDetails?.id) {
+          const updatedUserDetails = (
+            await getData(apiURL.employee + `/${employeeId}`)
+          ).data.data;
+          dispatch(
+            setlogin(convertIGetEmployeeToIAppEmployee(updatedUserDetails))
+          );
+        }
         // Display toast for success state
-        toast.success(`Added user ${newEmployee.firstName}`, {
-          toastId: "add-toast-id",
+        toast.success(`Edited employee ${formValues.firstName}`, {
+          toastId: "edit-toast-id",
         });
       } else {
-        if (
-          Object.keys(methods.formState.dirtyFields).length ||
-          formValues.photoId != employeeData?.photoId
-        ) {
-          const editedEmployee = await convertFormDataToIPostEmployees(
-            formValues
-          );
-          await updateData(apiURL.employee + "/" + employeeId, editedEmployee);
-          // Display toast for success state
-          toast.success(`Edited employee ${formValues.firstName}`, {
-            toastId: "edit-toast-id",
-          });
-        } else {
-          // Display info toast
-          toast.info(`No edit has been made to ${formValues.firstName}`, {
-            toastId: "no-edit-toast-id",
-          });
-        }
-        navigate(`/`);
+        // Display info toast
+        toast.info(`No edit has been made to ${formValues.firstName}`, {
+          toastId: "no-edit-toast-id",
+        });
       }
+      navigate(`/`);
     } catch (error) {
       // Display error toast
       console.error(error);
-      urlType === "add-employee"
-        ? toast.error("Error adding new user", { toastId: "error-add-user" })
-        : toast.error("Error editing user", { toastId: "error-edit-user" });
+      toast.error("Error editing user", { toastId: "error-edit-user" });
       setActiveSection(4);
     } finally {
       setIsLoading(false);
