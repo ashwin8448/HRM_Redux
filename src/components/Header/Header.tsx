@@ -4,6 +4,7 @@ import useAuth from "../../pages/Login/useAuth.ts";
 import logo from "../../assets/favicon.png";
 import { useNavigate } from "react-router-dom";
 import TooltipComponent from "../Tooltip/Tooltip.tsx";
+import { H1Styles } from "../../core/constants/components/text/textStyledComponents.ts";
 
 function Header() {
   const navigate = useNavigate();
@@ -11,7 +12,7 @@ function Header() {
 
   
 const logoElement = (
-  <img className="logo" src={logo} alt="" onClick={() => navigate("/")} />
+  <H1Styles><img className="logo" src={logo} alt="" onClick={() => navigate("/")} /></H1Styles>
 );
 
   return (

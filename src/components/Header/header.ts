@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
+import { fontSizes } from "../../core/constants/fontStyles";
 
 const HeaderWrapper = styled.header`
   background-color: ${colors.WHITE_COLOR};
@@ -15,6 +16,9 @@ const HeaderWrapper = styled.header`
     align-items: center;
   }
   
+  h1{
+    font-size: ${fontSizes["--font-size-lg"]};
+  }
   .logo {
     width: 50px;
     height: auto;
