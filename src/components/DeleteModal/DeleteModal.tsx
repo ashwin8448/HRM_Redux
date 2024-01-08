@@ -28,7 +28,8 @@ function DeleteModal({
   employeesToDelete: string[];
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [confirmEmployeesDeletionLoader, setconfirmEmployeesDeletionLoader] = useState(false);
+  const [confirmEmployeesDeletionLoader, setconfirmEmployeesDeletionLoader] =
+    useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -90,10 +91,10 @@ function DeleteModal({
         ))}
       </ul>
       <div className="warning-container">
-        <div className="warning-heading common-flex">
+        <span className="warning-heading common-flex">
           <span className="material-icons-round">warning</span>
           <LabelStyles>{WARNING_HEADING}</LabelStyles>
-        </div>
+        </span>
         <ParagraphStyles>{WARNING_TEXT}</ParagraphStyles>
       </div>
       <ButtonGrpWrapper className="btn-grp">
