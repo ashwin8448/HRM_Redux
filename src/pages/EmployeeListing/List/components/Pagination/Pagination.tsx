@@ -1,10 +1,10 @@
-import usePagination, { DOTS } from "./hook/usePagination.js";
+import usePagination from "./hook/usePagination.js";
 import PaginationWrapper from "./pagination.js";
 import { useEffect } from "react";
 import { useSearchParams } from "react-router-dom";
 import React from "react";
 import { updateSearchParams } from "../../../../../utils/helper.js";
-import { defaultPageSize, recordsPerPage,totalPages } from "../../../../../core/config/constants.ts";
+import { DOTS, defaultPageSize,totalPages } from "../../../../../core/config/constants.ts";
 import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
 
 function Pagination({
@@ -26,10 +26,9 @@ function Pagination({
 
   const paginationRange = usePagination({
     totalPageCount: totalPageSize,
-    pageSize: recordsPerPage,
-    siblingCount: 1,
     currentPage: currentPageNumber,
   });
+  console.log(paginationRange)
   const checkPage = (newPage: number) => {
     return newPage > totalPageSize ? totalPageSize : newPage < 1 ? 1 : newPage;
   };
@@ -63,7 +62,7 @@ function Pagination({
       {paginationRange &&
         paginationRange.map((pageNumber) => {
           if (pageNumber === DOTS) {
-            return <li className="pagination-item dots">...</li>;
+            return <li className="pagination-item dots">&#8230;</li>;
           }
           return (
             <li
