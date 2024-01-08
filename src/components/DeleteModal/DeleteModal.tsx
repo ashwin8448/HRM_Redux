@@ -21,23 +21,23 @@ import {
 import { listDisplay, defaultPageSize } from "../../core/config/constants.ts";
 
 function DeleteModal({
-  changeDltModalOpenStatus,
-  idArrayToDlt,
+  changeDeleteModalOpenStatus,
+  employeesToDelete,
 }: {
-  changeDltModalOpenStatus: () => void;
-  idArrayToDlt: string[];
+  changeDeleteModalOpenStatus: () => void;
+  employeesToDelete: string[];
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [confirmDeleteLoader, setConfirmDeleteLoader] = useState(false);
+  const [confirmEmployeesDeletionLoader, setconfirmEmployeesDeletionLoader] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
-  const confirmDlt = async () => {
-    setConfirmDeleteLoader(true);
+  const confirmEmployeesDeletion = async () => {
+    setconfirmEmployeesDeletionLoader(true);
     try {
       // Use Promise.all to delete all employees concurrently
       await Promise.all(
-        idArrayToDlt.map(async (employeeId) => {
+        employeesToDelete.map(async (employeeId) => {
           const url = `/employee/${employeeId}`;
           await deleteData(url); // deleting employee in firebase
         })
@@ -46,9 +46,9 @@ function DeleteModal({
       if (getUrlType(location.pathname) === "view-employee") navigate("/");
       // All deletions successful, display toast with all IDs
       toast.success(
-        `Deleted user${idArrayToDlt.length > 1 ? "s" : ""} ${idArrayToDlt.join(
-          ", "
-        )}`,
+        `Deleted user${
+          employeesToDelete.length > 1 ? "s" : ""
+        } ${employeesToDelete.join(", ")}`,
         {
           toastId: "delete-toast-id",
         }
@@ -57,18 +57,18 @@ function DeleteModal({
       // Error occurred during deletion
       toast.error("Error deleting users", { toastId: "delete-user" });
     } finally {
-      setConfirmDeleteLoader(false);
+      setconfirmEmployeesDeletionLoader(false);
       const isdisplayList = searchParams.get("display") === listDisplay;
       if (isdisplayList) {
         updateSearchParams(setSearchParams, searchParams, defaultPageSize);
       }
     }
-    changeDltModalOpenStatus();
+    changeDeleteModalOpenStatus();
   };
 
   const { employees } = useAppSelector((state) => state.employeesData);
   const employeesNameList = employees
-    .filter((employee) => idArrayToDlt.includes(employee.id))
+    .filter((employee) => employeesToDelete.includes(employee.id))
     .map((employee) => employee.firstName);
 
   return (
@@ -76,13 +76,13 @@ function DeleteModal({
       <Button
         icon="close"
         className="close-btn"
-        onClick={changeDltModalOpenStatus}
+        onClick={changeDeleteModalOpenStatus}
       ></Button>
       <H2Styles className="delete-modal-heading">
         {DELETE_MODAL_HEADING}
       </H2Styles>
       <LabelStyles className="confirm-delete">
-        {CONFIRM_DELETE_TEXT(idArrayToDlt)}
+        {CONFIRM_DELETE_TEXT(employeesToDelete)}
       </LabelStyles>
       <ul className="employees-name-list">
         {employeesNameList.map((employeesName, index) => (
@@ -97,14 +97,14 @@ function DeleteModal({
         <ParagraphStyles>{WARNING_TEXT}</ParagraphStyles>
       </div>
       <ButtonGrpWrapper className="btn-grp">
-        <Button className="cancel-btn" onClick={changeDltModalOpenStatus}>
+        <Button className="cancel-btn" onClick={changeDeleteModalOpenStatus}>
           No, Cancel
         </Button>
         <Button
           className="delete-btn"
           icon="delete"
-          onClick={confirmDlt}
-          loading={confirmDeleteLoader}
+          onClick={confirmEmployeesDeletion}
+          loading={confirmEmployeesDeletionLoader}
         >
           Yes, confirm delete
         </Button>

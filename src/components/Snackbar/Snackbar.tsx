@@ -13,12 +13,11 @@ const Snackbar = ({
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
 }) => {
-
   const employeeCount = deleteCheckBoxesList.checkedBoxesList.length;
 
   //delte modal open on click
   const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
-  const changeDltModalOpenStatus = () => {
+  const changeDeleteModalOpenStatus = () => {
     setDeleteModal(
       () => deleteCheckBoxesList.checkedBoxesList.length !== 0 && !deleteModal
     );
@@ -29,15 +28,17 @@ const Snackbar = ({
   };
 
   const handleDelete = () => {
-    changeDltModalOpenStatus();
+    changeDeleteModalOpenStatus();
   };
 
   return (
     <>
       {employeeCount != 0 && (
         <SnackbarWrapper className="open">
-          <Button icon="close" onClick={handleClose} ></Button>
-          <ParagraphStyles>{employeeCount.toString()} employee selected</ParagraphStyles>
+          <Button icon="close" onClick={handleClose}></Button>
+          <ParagraphStyles>
+            {employeeCount.toString()} employee selected
+          </ParagraphStyles>
           <Button
             onClick={handleDelete}
             className="deleteBtn"
@@ -46,12 +47,12 @@ const Snackbar = ({
         </SnackbarWrapper>
       )}
       {deleteModal && (
-        <div className="overlay" onClick={changeDltModalOpenStatus}></div>
+        <div className="overlay" onClick={changeDeleteModalOpenStatus}></div>
       )}
       {deleteModal && (
         <DeleteModal
-          changeDltModalOpenStatus={changeDltModalOpenStatus}
-          idArrayToDlt={deleteCheckBoxesList.checkedBoxesList}
+          changeDeleteModalOpenStatus={changeDeleteModalOpenStatus}
+          employeesToDelete={deleteCheckBoxesList.checkedBoxesList}
         />
       )}
     </>

@@ -85,8 +85,8 @@ function EmployeeIntroSection({
         <>
           <div className="overlay" onClick={handleDeleteButtonClick}></div>
           <DeleteModal
-            changeDltModalOpenStatus={handleDeleteButtonClick}
-            idArrayToDlt={[employee.id]}
+            changeDeleteModalOpenStatus={handleDeleteButtonClick}
+            employeesToDelete={[employee.id]}
           />
         </>
       )}

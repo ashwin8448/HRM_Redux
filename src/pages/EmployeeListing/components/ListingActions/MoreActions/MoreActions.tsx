@@ -41,13 +41,13 @@ function MoreActions({
 
   //delte modal open on click
   const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
-  const changeDltModalOpenStatus = () => {
+  const changeDeleteModalOpenStatus = () => {
     setDeleteModal(
       () => deleteCheckBoxesList.checkedBoxesList.length !== 0 && !deleteModal
     );
   };
-  const dltBtnClick = () => {
-    changeDltModalOpenStatus();
+  const closeModalAndDropdown = () => {
+    changeDeleteModalOpenStatus();
     changeMoreActionsDropdownOpenStatus();
   };
   //body static on delete modal/side filter opening
@@ -81,7 +81,7 @@ function MoreActions({
         className="item"
         onClick={(e) => {
           e?.stopPropagation;
-          dltBtnClick();
+          closeModalAndDropdown();
         }}
         disabled={deleteCheckBoxesList.checkedBoxesList.length == 0}
         $noTransition
@@ -136,11 +136,13 @@ function MoreActions({
           )}
         </DropdownWrapper>
       )}
-      {deleteModal && <div className="overlay" onClick={dltBtnClick}></div>}
+      {deleteModal && (
+        <div className="overlay" onClick={closeModalAndDropdown}></div>
+      )}
       {deleteModal && (
         <DeleteModal
-          changeDltModalOpenStatus={dltBtnClick}
-          idArrayToDlt={deleteCheckBoxesList.checkedBoxesList}
+          changeDeleteModalOpenStatus={closeModalAndDropdown}
+          employeesToDelete={deleteCheckBoxesList.checkedBoxesList}
         />
       )}
     </div>
