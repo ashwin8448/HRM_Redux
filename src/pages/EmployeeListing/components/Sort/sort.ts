@@ -7,8 +7,8 @@ const DropdownWrapper = styled.div`
   z-index: 2;
   min-width: 160px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ccc;
-  background-color: #fff;
+  border: 1px solid  ${colors.LIGHT_GRAY_COLOR};
+  background-color: ${colors.WHITE_COLOR};
   padding: 5px 0;
   border-radius: 10px;
   
@@ -23,7 +23,7 @@ const DropdownWrapper = styled.div`
 
   /* sort specific */
   .sort-enable-icon {
-    color: #4dd15f;
+    color: ${colors.GREEN_COLOR};
   }
 
   /* actions dropdown specific */

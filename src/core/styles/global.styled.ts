@@ -75,7 +75,7 @@ body {
   transform: rotate(180deg);
 }
 .table-overflow-scroll{
-  border: 1px solid  #D3D3D3;
+  border: 1px solid   ${colors.LIGHT_GRAY_COLOR};
 }
 .overflow-ellipsis{
   overflow: hidden;
