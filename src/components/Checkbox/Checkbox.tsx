@@ -14,6 +14,12 @@ function Checkbox({
   };
   employeesIdList?: string[];
 }) {
+  const checkboxStatus = employeeId
+    ? deleteCheckBoxesList.checkedBoxesList.includes(employeeId)
+    : employeesIdList &&
+      deleteCheckBoxesList.checkedBoxesList.length > 0 &&
+      deleteCheckBoxesList.checkedBoxesList.length === employeesIdList.length;
+
   return (
     <CheckboxWrapper
       className="checkbox"
@@ -26,19 +32,7 @@ function Checkbox({
           employeesIdList,
         })
       }
-      checked={
-        employeeId
-          ? deleteCheckBoxesList.checkedBoxesList.includes(employeeId)
-          : employeesIdList &&
-            deleteCheckBoxesList.checkedBoxesList.length > 0 &&
-            deleteCheckBoxesList.checkedBoxesList.length ===
-              employeesIdList.length
-          ? deleteCheckBoxesList.checkedBoxesList.every((id) =>
-              employeesIdList.includes(id)
-            )
-          : deleteCheckBoxesList.checkedBoxesList.length ===
-            employeesIdList?.length
-      }
+      checked={checkboxStatus}
     />
   );
 }

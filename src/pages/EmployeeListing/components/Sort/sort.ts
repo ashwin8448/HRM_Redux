@@ -7,17 +7,16 @@ const DropdownWrapper = styled.div`
   z-index: 2;
   min-width: 160px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid  ${colors.LIGHT_GRAY_COLOR};
+  border: 1px solid ${colors.LIGHT_GRAY_COLOR};
   background-color: ${colors.WHITE_COLOR};
   padding: 5px 0;
   border-radius: 10px;
-  
+
   .item {
     cursor: pointer;
-    padding: 5px 15px;
 
     &:hover {
-      background-color: ${colors.BACKGROUND_COLOR_HOVER}
+      background-color: ${colors.BACKGROUND_COLOR_HOVER};
     }
   }
 
@@ -28,12 +27,12 @@ const DropdownWrapper = styled.div`
 
   /* actions dropdown specific */
   button {
-    width: 100%;
     border: none;
-  }
-  .export-btn{
-    text-decoration: none;
     width:100%;
+  }
+  .export-btn {
+    text-decoration: none;
+    width: 100%;
   }
 `;
 const SortByDropdownItem = styled.span<{ $sortBySelection: boolean }>`
@@ -56,8 +55,8 @@ const SortOrderDropdownItemWrapper = styled.span<{
   &:hover {
     background-color: ${colors.BACKGROUND_COLOR_HOVER};
   }
-  
-  .order{
+
+  .order {
     gap: 4px;
   }
   .sort-enable-icon {
