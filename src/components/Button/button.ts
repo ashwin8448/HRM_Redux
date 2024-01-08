@@ -43,6 +43,7 @@ const ButtonWrapper = styled.button<{
   }
 
   &:hover {
+    background-color: ${colors.BACKGROUND_COLOR_HOVER};
     ${(props) =>
       !props.$noTransition &&
       "transform: scale(0.95);"}// scales the button larger when hovered

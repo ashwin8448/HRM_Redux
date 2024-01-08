@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import colors from "../../../../core/constants/colors";
 
 const DropdownWrapper = styled.div`
   position: absolute;
@@ -16,7 +17,7 @@ const DropdownWrapper = styled.div`
     padding: 5px 15px;
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: ${colors.BACKGROUND_COLOR_HOVER}
     }
   }
 
@@ -53,7 +54,7 @@ const SortOrderDropdownItemWrapper = styled.span<{
   cursor: pointer;
   padding: 5px;
   &:hover {
-    background-color: #f5f5f5;
+    background-color: ${colors.BACKGROUND_COLOR_HOVER};
   }
   
   .order{

@@ -20,7 +20,7 @@ const PaginationWrapper = styled.ul`
       cursor: default;
     }
     &:hover {
-      background-color: rgba(0, 0, 0, 0.04);
+      background-color: ${colors.BACKGROUND_COLOR_HOVER};
       cursor: pointer;
 
       .arrow {

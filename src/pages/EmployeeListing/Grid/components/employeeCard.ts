@@ -8,9 +8,9 @@ const EmployeeCardWrapper = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
+  cursor: pointer;
 
   &:hover {
-    cursor: pointer;
     transform: scale(1.05);
   }
 

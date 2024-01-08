@@ -42,5 +42,5 @@ function selectStyleComponent(error?: string) {
     }
 
     return selectStyles;
-};
+}
 export default selectStyleComponent;
