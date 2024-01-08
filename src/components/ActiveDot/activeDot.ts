@@ -10,7 +10,6 @@ const ActiveDotWrapper = styled.span<{ $isActive: boolean }>`
   width: 10px;
   transform:  scale(1);
   transition: transform 0.2s;
-  z-index: 0;
   cursor: pointer;
   
   &:hover {
