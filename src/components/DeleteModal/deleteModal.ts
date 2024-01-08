@@ -85,12 +85,10 @@ const DeleteModalWrapper = styled.div`
     }
   }
   .cancel-btn {
-    background-color: ${colors.WHITE_COLOR};
     border: 2px solid ${colors.LIGHT_GRAY_COLOR};
-    color: ${colors.DARK_GRAY_COLOR} !important;
 
     &:hover {
-      background-color: rgba(243, 244, 246, 1) !important;
+      background-color: rgba(243, 244, 246, 1);
     }
   }
   @media only screen and (max-width: 728px) {
