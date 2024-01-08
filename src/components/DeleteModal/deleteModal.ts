@@ -86,10 +86,6 @@ const DeleteModalWrapper = styled.div`
   }
   .cancel-btn {
     border: 2px solid ${colors.LIGHT_GRAY_COLOR};
-
-    &:hover {
-      background-color: rgba(243, 244, 246, 1);
-    }
   }
   @media only screen and (max-width: 728px) {
     .btn-grp {
