@@ -13,10 +13,12 @@ function TableHeadButton({
   children,
   icon,
   title,
+  className,
 }: {
   children?: React.ReactNode;
   icon?: string;
   title: string;
+  className?: string;
 }) {
   const [searchParams, setSearchParams] = useSearchParams();
   const sortBy = searchParams.get("sortBy");
@@ -46,7 +48,7 @@ function TableHeadButton({
   }
 
   return (
-    <th>
+    <th className={className}>
       <ButtonWrapper
         $isChildren={false}
         className={`common-flex table-button-head`}

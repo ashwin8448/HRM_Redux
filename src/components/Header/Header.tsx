@@ -25,25 +25,28 @@ function Header() {
               {logoElement}
             </TooltipComponent>
             <div className="user-container">
-              <div
-                className="image-container"
-                onClick={() => {
-                  navigate(`view-employee/${user.employeeDetails?.id}`);
-                }}
-              >
-                <img
-                  src={user.employeeDetails?.photoId || dummyImg}
-                  alt="user image"
-                />
-                {user.employeeDetails?.isNew && (
-                  <span
-                    className="material-symbols-outlined profile-error"
-                    title="Please complete your profile"
-                  >
-                    report
-                  </span>
-                )}
-              </div>
+              <Button>
+                <div
+                  className="image-container"
+                  onClick={() => {
+                    navigate(`view-employee/${user.employeeDetails?.id}`);
+                  }}
+                >
+                  <img
+                    src={user.employeeDetails?.photoId || dummyImg}
+                    alt="user image"
+                  />
+                  {user.employeeDetails?.isNew && (
+                    <span
+                      className="material-symbols-outlined profile-error"
+                      title="Please complete your profile"
+                    >
+                      report
+                    </span>
+                  )}
+                  <span>{user.employeeDetails?.firstName}</span>
+                </div>
+              </Button>
               <Button
                 icon="logout"
                 onClick={() => {

@@ -41,15 +41,15 @@ function TableData({
         className={index % 2 !== 0 ? "alternate-table-row-color" : ""} // alternate colour for each row
         onClick={handleEmployeeDetailsView}
       >
-      {user.employeeDetails?.accessControlRole === "admin" && (
+        {user.employeeDetails?.accessControlRole === "admin" && (
           <TableDataStyles className="employee-data">
             <Checkbox
               employeeId={employee.id}
               deleteCheckBoxesList={deleteCheckBoxesList}
-            disabled={employee.id === user.employeeDetails.id}
+              disabled={employee.id === user.employeeDetails.id}
             />
           </TableDataStyles>
-      )}
+        )}
 
         <TableDataStyles className="employee-data">
           {employee.id}
@@ -85,26 +85,28 @@ function TableData({
         <TableDataStyles className="employee-data skills-data">
           <SkillsChip skills={employee.skills} />
         </TableDataStyles>
-        <TableDataStyles className="employee-data">
-          <div className=" actions-list common-flex">
-            {/* navigating to edit employee page */}
-            <Button
-              icon="edit"
-              onClick={(e) => {
-                e?.stopPropagation();
-                navigate(`/edit-employee/${employee.id}`);
-              }}
-            ></Button>
-            <Button
-              onClick={(e) => {
-                e?.stopPropagation();
-                handleDeleteButtonClick();
-              }}
-              className="deleteBtn"
-              icon="delete"
-            ></Button>
-          </div>
-        </TableDataStyles>
+        {user.employeeDetails?.accessControlRole === "admin" && (
+          <TableDataStyles className="employee-data">
+            <div className=" actions-list common-flex">
+              {/* navigating to edit employee page */}
+              <Button
+                icon="edit"
+                onClick={(e) => {
+                  e?.stopPropagation();
+                  navigate(`/edit-employee/${employee.id}`);
+                }}
+              ></Button>
+              <Button
+                onClick={(e) => {
+                  e?.stopPropagation();
+                  handleDeleteButtonClick();
+                }}
+                className="deleteBtn"
+                icon="delete"
+              ></Button>
+            </div>
+          </TableDataStyles>
+        )}
       </TableDataWrapper>
       {deleteModal && (
         <>

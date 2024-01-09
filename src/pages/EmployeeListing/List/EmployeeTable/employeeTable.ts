@@ -20,31 +20,13 @@ const TableWrapper = styled.table`
   th p {
     font-weight: ${fontWeights["--font-semi-bold"]};
   }
+
   tbody tr:hover {
     td {
-      background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR} !important;
+      background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR};
     }
   }
 
-  tr:nth-child(2n) {
-    td:nth-child(1),
-    td:nth-child(2) {
-      background-color: ${colors.WHITE_COLOR};
-    }
-  }
-  tr:nth-child(2n + 1) {
-    td:nth-child(1),
-    td:nth-child(2) {
-      background-color: ${colors.BACKGROUND_COLOR};
-    }
-  }
-  th {
-    border-bottom: 1px solid ${colors.LIGHT_GRAY_COLOR};
-    &:first-child,
-    &:nth-child(2) {
-      background-color: ${colors.WHITE_COLOR};
-    }
-  }
   th,
   td {
     padding: 10px;
@@ -52,16 +34,19 @@ const TableWrapper = styled.table`
     text-align: left;
     width: 100%;
   }
-  th:first-child,
-  td:first-child,
-  th:nth-child(2),
-  td:nth-child(2) {
+
+  th {
+    border-bottom: 1px solid ${colors.LIGHT_GRAY_COLOR};
+  }
+
+  .small-column {
     width: 60px;
   }
-  th:nth-child(9),
-  td:nth-child(9) {
+
+  .medium-column {
     width: 100px;
   }
+
   .loader-container {
     display: flex;
     justify-content: center;
@@ -69,12 +54,15 @@ const TableWrapper = styled.table`
     height: 100px; /* Adjust the height as needed */
     width: 150vh;
   }
+
   .no-data {
     text-align: center;
   }
+
   .alternate-table-row-color {
     background-color: ${colors.WHITE_COLOR};
   }
+
   .no-border-row {
     border: none;
   }

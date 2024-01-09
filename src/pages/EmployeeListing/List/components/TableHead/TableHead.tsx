@@ -24,14 +24,14 @@ function TableHead({
     <TableHeadWrapper>
       <tr>
         {user.employeeDetails?.accessControlRole === "admin" && (
-          <th>
+          <th className="small-column">
             <Checkbox
               employeesIdList={employeesIdList}
               deleteCheckBoxesList={deleteCheckBoxesList}
             />
           </th>
         )}
-        <TableHeadButton icon="expand_more" title="id">
+        <TableHeadButton icon="expand_more" title="id" className={"small-column"}>
           Id
         </TableHeadButton>
         <TableHeadButton icon="expand_more" title="firstName">
@@ -47,7 +47,8 @@ function TableHead({
           <span className="material-symbols-outlined">engineering</span>Role
         </TableHeadButton>
         <TableHeadButton icon="expand_more" title="isActive">
-          <span className="material-symbols-outlined">engineering</span>Active Status
+          <span className="material-symbols-outlined">engineering</span>Active
+          Status
         </TableHeadButton>
         <th>
           <span className="table-title common-flex">
@@ -55,12 +56,14 @@ function TableHead({
             <ParagraphStyles>Skills</ParagraphStyles>
           </span>
         </th>
-        <th>
-          <span className="table-title common-flex">
-            <span className="material-symbols-outlined">bolt</span>{" "}
-            <ParagraphStyles>Actions</ParagraphStyles>
-          </span>
-        </th>
+        {user.employeeDetails?.accessControlRole === "admin" && (
+          <th className="medium-column">
+            <span className="table-title common-flex">
+              <span className="material-symbols-outlined">bolt</span>{" "}
+              <ParagraphStyles>Actions</ParagraphStyles>
+            </span>
+          </th>
+        )}
       </tr>
     </TableHeadWrapper>
   );

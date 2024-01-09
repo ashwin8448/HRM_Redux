@@ -15,8 +15,8 @@ const HeaderWrapper = styled.header`
     justify-content: space-between;
     align-items: center;
   }
-  
-  h1{
+
+  h1 {
     font-size: ${fontSizes["--font-size-lg"]};
   }
   .logo {
@@ -32,6 +32,9 @@ const HeaderWrapper = styled.header`
     .image-container {
       position: relative;
       cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
       img {
         border-radius: 50%;
         width: 35px;
