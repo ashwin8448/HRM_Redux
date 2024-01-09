@@ -5,13 +5,6 @@ const DetailsWrapper = styled.div<{ $newline?: boolean }>`
   display: flex;
   flex-direction: ${(props) => props.$newline && "column"};
   width: 100%;
-  position: relative;
-
-  &:hover {
-    .skills-tooltip {
-      visibility: visible;
-    }
-  }
 
   .content {
     width: 100%;
@@ -26,10 +19,6 @@ const DetailsWrapper = styled.div<{ $newline?: boolean }>`
   .description {
     display: flex;
     align-items: center;
-  }
-
-  .skills-tooltip {
-    visibility: hidden;
   }
 
   .description {

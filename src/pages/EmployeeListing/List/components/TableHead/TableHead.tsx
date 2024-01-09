@@ -46,6 +46,9 @@ function TableHead({
         <TableHeadButton icon="expand_more" title="role.id">
           <span className="material-symbols-outlined">engineering</span>Role
         </TableHeadButton>
+        <TableHeadButton icon="expand_more" title="isActive">
+          <span className="material-symbols-outlined">engineering</span>Active Status
+        </TableHeadButton>
         <th>
           <span className="table-title common-flex">
             <span className="material-symbols-outlined">workspace_premium</span>

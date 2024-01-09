@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import colors from '../../../../core/constants/colors';
 
 const FilterWrapper = styled.div<{ $visible: boolean }>`
   position: fixed;
@@ -10,7 +11,7 @@ const FilterWrapper = styled.div<{ $visible: boolean }>`
   right: 0;
   ${({ $visible }) =>
     $visible ? 'transform: translateX(0);' : 'transform: translateX(100%);'}
-  background-color: #fff;
+  background-color:  ${colors.WHITE_COLOR};
   overflow-x: hidden;
   transition: 0.5s ease;
   display: flex;

@@ -7,10 +7,6 @@ const EmployeeDetailsSectionWrapper = styled.div`
     flex-direction: column;
     gap: 10px;
   }
-  
-  .skills-container {
-    width: 100%;
-  }
   .description {
     width: 100%;
   }

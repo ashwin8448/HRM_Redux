@@ -1,6 +1,8 @@
 import { useState } from "react";
 import SearchWrapper from "./search.ts";
 import { useSearchParams } from "react-router-dom";
+import { updateSearchParams } from "../../utils/helper.ts";
+import { defaultPageSize, listDisplay } from "../../core/config/constants.ts";
 
 function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -14,14 +16,19 @@ function SearchBar() {
 
   const handleChange = ({ searchedTxt }: { searchedTxt: string }) => {
     setSearchState(searchedTxt);
-    setSearchParams({
-      ...Object.fromEntries(searchParams.entries()),
-      ...{ search: searchedTxt, page: "1" },
-    });
+  
+    const displayValue = searchParams.get("display");
+    const commonParams = {
+      search: searchedTxt || undefined,
+      page: displayValue === listDisplay ? defaultPageSize.page : undefined,
+    };
+  
+    updateSearchParams(setSearchParams, searchParams, commonParams);
   };
+  
 
   return (
-    <SearchWrapper $focus={focus} >
+    <SearchWrapper $focus={focus}>
       <div id="searchForm" className="search-form common-flex">
         <span className="material-symbols-outlined search-icon">search</span>
         <input

@@ -10,13 +10,12 @@ import { updateSearchParams } from "../../../../utils/helper.ts";
 import Pagination from "../components/Pagination/Pagination.tsx";
 import TableData from "../components/TableData/TableData.tsx";
 import TableHead from "../components/TableHead/TableHead.tsx";
+import { defaultPageSize, defaultSortBy, defaultSortDir, listDisplay, recordsPerPage } from "../../../../core/config/constants.ts";
 
 function EmployeeTable({
   deleteCheckBoxesList,
   employees,
   loading,
-  rowsPerPage,
-  totalPages,
 }: {
   deleteCheckBoxesList: {
     checkedBoxesList: string[];
@@ -24,8 +23,6 @@ function EmployeeTable({
   };
   employees: IAppEmployee[];
   loading: boolean;
-  rowsPerPage: number;
-  totalPages: number;
 }) {
   const dispatch = useAppDispatch();
 
@@ -36,20 +33,20 @@ function EmployeeTable({
     dispatch(
       fetchEmployeesData(
         {
-          limit: rowsPerPage,
-          offset: (Number(searchParams.get("page") || "1") - 1) * rowsPerPage,
-          sortBy: searchParams.get("sortBy") || "id",
-          sortDir: searchParams.get("sortDir") || "asc",
+          limit: recordsPerPage,
+          offset: (Number(searchParams.get("page") || "1") - 1) * recordsPerPage,
+          sortBy: searchParams.get("sortBy") || defaultSortBy,
+          sortDir: searchParams.get("sortDir") || defaultSortDir,
           search: searchParams.get("search") || "",
           skillIds: searchParams.get("skillIds") || "",
         },
-        "List"
+        listDisplay
       )
     );
-  }, [searchParams, rowsPerPage]);
+  }, [searchParams, recordsPerPage]);
 
   useEffect(() => {
-    updateSearchParams(setSearchParams, searchParams, { page: "1" });
+    updateSearchParams(setSearchParams, searchParams, defaultPageSize);
   }, []);
 
   return (
@@ -99,8 +96,6 @@ function EmployeeTable({
       </div>
       <Pagination
         deleteCheckBoxesList={deleteCheckBoxesList}
-        rowsPerPage={rowsPerPage}
-        totalPages={totalPages}
       />
     </>
   );

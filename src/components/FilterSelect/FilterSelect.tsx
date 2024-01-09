@@ -23,9 +23,7 @@ function FilterSelect({
           className="label"
           isSearchable={true}
           options={options}
-          placeholder={
-            <div className="placeholder overflow-ellipsis">{placeholder}</div>
-          }
+          placeholder={placeholder}
           isMulti={isMulti}
           styles={selectStyleComponent()}
           onChange={(selectedOption) => {

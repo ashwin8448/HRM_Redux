@@ -6,5 +6,10 @@ const CheckboxWrapper = styled.input`
   height: 15px;
   accent-color: ${colors.PRIMARY_COLOR};
   cursor: pointer;
+
+
+  &:hover{
+    transform: scale(1.25);
+  }
 `;
 export default CheckboxWrapper;

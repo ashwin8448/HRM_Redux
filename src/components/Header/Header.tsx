@@ -1,27 +1,30 @@
 import HeaderWrapper from "./header.ts";
-import Tooltip from "../Tooltip/Tooltip.tsx";
 import Button from "../Button/Button.tsx";
 import useAuth from "../../pages/Login/useAuth.ts";
 import dummyImg from "../../assets/userAvatar.svg";
 import logo from "../../assets/favicon.png";
 import { useNavigate } from "react-router-dom";
+import TooltipComponent from "../Tooltip/Tooltip.tsx";
+import { H1Styles } from "../../core/constants/components/text/textStyledComponents.ts";
 
 function Header() {
   const navigate = useNavigate();
   const { user, logout } = useAuth();
+  const logoElement = (
+    <H1Styles>
+      <img className="logo" src={logo} alt="" onClick={() => navigate("/")} />
+    </H1Styles>
+  );
 
   return (
     <HeaderWrapper>
       <div className="header-content global-width">
-        <span className="logo-wrapper" onClick={() => navigate("/")}>
-          <img className="logo" src={logo} alt="" />
-          {user.isAuthenticated && (
-            <Tooltip className="header-tooltip" message="Go to homepage" />
-          )}
-        </span>
-        <div className="user-container">
-          {user.isAuthenticated && (
-            <>
+        {user.isAuthenticated ? (
+          <>
+            <TooltipComponent title="Go to homepage">
+              {logoElement}
+            </TooltipComponent>
+            <div className="user-container">
               <div
                 className="image-container"
                 onClick={() => {
@@ -47,9 +50,11 @@ function Header() {
                   logout();
                 }}
               />
-            </>
-          )}
-        </div>
+            </div>
+          </>
+        ) : (
+          logoElement
+        )}
       </div>
     </HeaderWrapper>
   );

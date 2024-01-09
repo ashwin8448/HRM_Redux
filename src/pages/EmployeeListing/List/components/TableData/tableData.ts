@@ -1,38 +1,16 @@
 import styled from "styled-components";
-import colors from "../../../../../core/constants/colors";
+// import colors from "../../../../../core/constants/colors";
 
 const TableDataWrapper = styled.tr`
+  cursor: pointer;
   .employee-data {
     position: relative;
     white-space: nowrap;
   }
-  .employee-view {
-    color: ${colors.LINK_COLOR};
-    cursor: pointer;
 
-    &:active {
-      text-decoration: underline;
-    }
-    &:hover {
-      color: ${colors.LINK_HIGHLIGHT_COLOR};
-      text-decoration: underline;
-    }
-  }
-
-  .skills-data {
-    position: relative;
-    &:hover {
-      .skills-tooltip {
-        visibility: visible;
-      }
-    }
-  }
-  .skills-tooltip {
-    visibility: hidden;
-  }
-
-   .actions-list {
+  .actions-list {
     justify-content: center;
+    gap:10px;
   }
   button {
     flex-direction: row-reverse;

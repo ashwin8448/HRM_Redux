@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { fontSizes } from "../../core/constants/fontStyles";
+import colors from "../../core/constants/colors";
 
 const ProgressBarWrapper = styled.div<{
   $activeSection: number;
@@ -24,18 +25,18 @@ const ProgressBarWrapper = styled.div<{
     text-align: center;
 
     .completed {
-      background-color: #00d100;
-      border: 4px solid #00d100;
+      background-color: ${colors.GREEN_COLOR};
+      border: 4px solid ${colors.GREEN_COLOR};
       transition: all 0.3s;
     }
     .progress {
-      background-color: #e7cf6f;
-      border: 4px solid #e7cf6f;
+      background-color: ${colors.YELLOW_COLOR};
+      border: 4px solid ${colors.YELLOW_COLOR};
       transition: all 0.3s 0.5s;
     }
     .incomplete {
-      background-color: #fffeff;
-      border: 4px solid #d1c5c5;
+      background-color: ${colors.WHITE_COLOR};
+      border: 4px solid ${colors.LIGHT_GRAY_COLOR};
       transition: all 0.3s;
     }
     .step-number {
@@ -60,7 +61,7 @@ const ProgressBarWrapper = styled.div<{
     z-index: -1;
 
     .link-progress {
-      background-color: #00d100;
+      background-color: ${colors.GREEN_COLOR};
       height: inherit;
       width: ${(props) =>
         String((props.$activeSection - 1) * (100 / (props.$stepsNumber - 1))) +
@@ -71,6 +72,7 @@ const ProgressBarWrapper = styled.div<{
 
   @media only screen and (max-width: 500px) {
     .step-name {
+      font-size: ${fontSizes["--font-size-x-s"]};
       font-size: ${fontSizes["--font-size-x-s"]};
     }
   }

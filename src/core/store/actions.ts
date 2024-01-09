@@ -14,7 +14,7 @@ import {
   IActionEmployeeData,
   IAppEmployee,
 } from "../interfaces/interface.ts";
-import { apiURL } from "../config/constants.ts";
+import { apiURL, gridDisplay, listDisplay } from "../config/constants.ts";
 import { AppDispatch } from "./configureStore.ts";
 import * as actionTypes from "./types/actionTypes.ts";
 
@@ -104,10 +104,10 @@ export const fetchEmployeesData = (
   params: {
     limit: number;
     offset: number;
-    sortBy: string;
-    sortDir: string;
-    search: string;
-    skillIds: string;
+    sortBy?: string;
+    sortDir?: string;
+    search?: string;
+    skillIds?: string;
   },
   state: string
 ) => {
@@ -118,7 +118,7 @@ export const fetchEmployeesData = (
       const employeesResponseData = response.data.data;
       const employees: IGetEmployee[] = employeesResponseData.employees;
 
-      if (state === "List")
+      if (state === listDisplay)
         dispatch(
           setEmployeesForList({
             ...employeesResponseData,
@@ -127,7 +127,7 @@ export const fetchEmployeesData = (
             }),
           })
         );
-      else
+      if (state === gridDisplay)
         dispatch(
           setEmployeesForGrid({
             ...employeesResponseData,

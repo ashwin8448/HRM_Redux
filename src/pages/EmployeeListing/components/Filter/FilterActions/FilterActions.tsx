@@ -12,6 +12,11 @@ import {
   useAppSelector,
 } from "../../../../../hooks/reduxHooks.ts";
 import { updateSearchParams } from "../../../../../utils/helper.ts";
+import {
+  defaultPageSize,
+  gridDisplay,
+  listDisplay,
+} from "../../../../../core/config/constants.ts";
 
 function FilterActions({ onClick }: { onClick: () => void }) {
   const dispatch = useAppDispatch();
@@ -45,10 +50,16 @@ function FilterActions({ onClick }: { onClick: () => void }) {
       .map((option) => option.value)
       .join(",");
     if (skillFiltersParams) {
-      if (display === "List") {
-        updateSearchParams(setSearchParams, searchParams,{ page: "1", skillIds: skillFiltersParams });
-      } else {
-        updateSearchParams(setSearchParams, searchParams,{ skillIds: skillFiltersParams });
+      if (display === listDisplay) {
+        updateSearchParams(setSearchParams, searchParams, {
+          page: defaultPageSize.page,
+          skillIds: skillFiltersParams,
+        });
+      }
+      if (display === gridDisplay) {
+        updateSearchParams(setSearchParams, searchParams, {
+          skillIds: skillFiltersParams,
+        });
       }
       onClick();
     } else {
@@ -58,13 +69,12 @@ function FilterActions({ onClick }: { onClick: () => void }) {
 
   const resetFilters = () => {
     setSkillFilterState([]);
-    searchParams.delete("skillIds");
 
-    if (display === "List") {
-      updateSearchParams(setSearchParams, searchParams,{ page: "1" });
-    } else {
-      updateSearchParams(setSearchParams, searchParams,{});
-    }
+    const paramsToUpdate =
+      display === listDisplay
+        ? { skillIds: undefined, page: defaultPageSize.page }
+        : { skillIds: undefined };
+    updateSearchParams(setSearchParams, searchParams, paramsToUpdate);
 
     onClick();
   };

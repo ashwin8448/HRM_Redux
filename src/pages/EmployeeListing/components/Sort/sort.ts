@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import colors from "../../../../core/constants/colors";
 
 const DropdownWrapper = styled.div`
   position: absolute;
@@ -6,29 +7,32 @@ const DropdownWrapper = styled.div`
   z-index: 2;
   min-width: 160px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  border: 1px solid #ccc;
-  background-color: #fff;
+  border: 1px solid ${colors.LIGHT_GRAY_COLOR};
+  background-color: ${colors.WHITE_COLOR};
   padding: 5px 0;
   border-radius: 10px;
-  
+
   .item {
     cursor: pointer;
-    padding: 5px 15px;
 
     &:hover {
-      background-color: #f5f5f5;
+      background-color: ${colors.BACKGROUND_COLOR_HOVER};
     }
   }
 
   /* sort specific */
   .sort-enable-icon {
-    color: #4dd15f;
+    color: ${colors.GREEN_COLOR};
   }
 
   /* actions dropdown specific */
   button {
-    width: 100%;
     border: none;
+    width:100%;
+  }
+  .export-btn {
+    text-decoration: none;
+    width: 100%;
   }
 `;
 const SortByDropdownItem = styled.span<{ $sortBySelection: boolean }>`
@@ -49,10 +53,10 @@ const SortOrderDropdownItemWrapper = styled.span<{
   cursor: pointer;
   padding: 5px;
   &:hover {
-    background-color: #f5f5f5;
+    background-color: ${colors.BACKGROUND_COLOR_HOVER};
   }
-  
-  .order{
+
+  .order {
     gap: 4px;
   }
   .sort-enable-icon {

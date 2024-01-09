@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
+import { fontSizes } from "../../core/constants/fontStyles";
 
 const HeaderWrapper = styled.header`
   background-color: ${colors.WHITE_COLOR};
@@ -14,15 +15,33 @@ const HeaderWrapper = styled.header`
     justify-content: space-between;
     align-items: center;
   }
-  .logo-wrapper {
-    position: relative;
-    .logo {
-      width: 50px;
-      height: auto;
-    }
-    &:hover {
-      .header-tooltip {
-        visibility: visible;
+  
+  h1{
+    font-size: ${fontSizes["--font-size-lg"]};
+  }
+  .logo {
+    width: 50px;
+    height: auto;
+    cursor: pointer;
+  }
+
+  .user-container {
+    display: flex;
+    gap: 30px;
+
+    .image-container {
+      position: relative;
+      cursor: pointer;
+      img {
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+      }
+      .profile-error {
+        position: absolute;
+        top: 20px;
+        left: 30px;
+        color: #b20808;
       }
     }
   }

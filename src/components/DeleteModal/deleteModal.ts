@@ -26,9 +26,6 @@ const DeleteModalWrapper = styled.div`
     > span {
       color: ${colors.DARK_GRAY_COLOR};
     }
-    &:hover {
-      background-color: ${colors.LIGHT_GRAY_COLOR};
-    }
   }
 
   .confirm-delete {
@@ -88,13 +85,7 @@ const DeleteModalWrapper = styled.div`
     }
   }
   .cancel-btn {
-    background-color: ${colors.WHITE_COLOR};
     border: 2px solid ${colors.LIGHT_GRAY_COLOR};
-    color: ${colors.DARK_GRAY_COLOR} !important;
-
-    &:hover {
-      background-color: rgba(243, 244, 246, 1) !important;
-    }
   }
   @media only screen and (max-width: 728px) {
     .btn-grp {
