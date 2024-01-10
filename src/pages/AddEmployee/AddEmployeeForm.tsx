@@ -1,4 +1,4 @@
-import { FormProvider, useForm } from "react-hook-form";
+import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import Button from "../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import Input from "../../components/Input/Input.tsx";
@@ -29,7 +29,9 @@ const AddEmployeeForm = () => {
 
   const onSubmit = methods.handleSubmit(async () => {
     setIsLoading(true);
-    const { password, isAdmin, confirmPassword, ...rest } = methods.getValues();
+    const formValues: FieldValues = methods.getValues();
+    delete formValues.confirmPassword;
+    const { password, isAdmin, ...rest } = formValues;
     try {
       const newEmployee = {
         ...rest,
@@ -48,6 +50,7 @@ const AddEmployeeForm = () => {
       toast.success(`Added user ${rest.firstName}`, {
         toastId: "add-toast-id",
       });
+      navigate("/");
     } catch (error) {
       // Display error toast
       console.error(error);
@@ -55,7 +58,6 @@ const AddEmployeeForm = () => {
       setActiveSection(1);
     } finally {
       setIsLoading(false);
-      navigate("/");
     }
   });
 
@@ -134,7 +136,7 @@ const AddEmployeeForm = () => {
                 </Button>
                 <Button
                   onClick={async () => {
-                    let validationStatus = await methods.trigger([
+                    const validationStatus = await methods.trigger([
                       "firstName",
                       "email",
                       "dob",

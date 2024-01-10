@@ -1,11 +1,11 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 
 const EmployeeIntroSectionWrapper = styled.div`
   width: 100%;
   gap: 20px;
 
-  .btn-grp {
-    align-self: flex-start;
+  h2 {
+    margin-bottom: 0;
   }
 
   .employee-intro {
@@ -13,8 +13,8 @@ const EmployeeIntroSectionWrapper = styled.div`
     flex-direction: column;
     align-items: flex-start;
 
-    .intro-title{
-      align-items: flex-start;
+    .intro-title {
+      justify-content: flex-start;
     }
   }
 
@@ -24,7 +24,7 @@ const EmployeeIntroSectionWrapper = styled.div`
       flex-direction: column;
       align-items: center;
     }
-    .btn-grp{
+    .btn-grp {
       align-self: center;
     }
   }

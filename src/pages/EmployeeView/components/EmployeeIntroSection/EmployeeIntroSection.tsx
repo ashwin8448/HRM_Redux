@@ -52,7 +52,7 @@ function EmployeeIntroSection({
             className=" photo"
           />
         </div>
-        <div className="common-flex employee-intro">
+        <div className="employee-intro">
           <div className="common-flex intro-title">
             <H2Styles>{employee.firstName + " " + employee.lastName}</H2Styles>
             <ActiveDot isActive={employee.isActive}></ActiveDot>

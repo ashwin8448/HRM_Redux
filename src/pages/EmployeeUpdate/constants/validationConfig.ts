@@ -9,6 +9,10 @@ export const nameValidation = {
     value: 2,
     message: "min 2 characters",
   },
+  maxLength: {
+    value: 20,
+    message: "max 20 characters",
+  },
 };
 
 export const emailValidation = {

@@ -40,7 +40,7 @@ const addFormConfig = [
         isRequired: true,
       },
       {
-        label: "Is admin?",
+        label: "Provide admin access",
         type: "radio",
         options: ["Yes", "No"],
         name: "isAdmin",
