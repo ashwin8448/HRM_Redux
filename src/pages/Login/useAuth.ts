@@ -84,7 +84,6 @@ const useAuth = () => {
         await getData(apiURL.employee + `/${currentEmployeeId}`)
       ).data.data;
       dispatch(setlogin(convertIGetEmployeeToIAppEmployee(currentEmployee)));
-      navigate(location.state ? location.state.from : '/');
     } catch (error) {
       logout();
       console.error(error);
