@@ -32,13 +32,9 @@ function ListingActions({
           icon="format_list_bulleted"
           className={listingActive === listDisplay ? "active" : ""}
           onClick={() => handleActiveListing(listDisplay)}
-          className={listingActive === listDisplay ? "active" : ""}
-          onClick={() => handleActiveListing(listDisplay)}
         ></Button>
         <Button
           icon="grid_on"
-          className={listingActive === gridDisplay ? "active" : ""}
-          onClick={() => handleActiveListing(gridDisplay)}
           className={listingActive === gridDisplay ? "active" : ""}
           onClick={() => handleActiveListing(gridDisplay)}
         ></Button>

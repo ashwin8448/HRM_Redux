@@ -19,7 +19,7 @@ function Header() {
 
   return (
     <HeaderWrapper>
-      <div className="header-content global-width">
+      <div className="header-content global-padding global-width">
         {user.isAuthenticated ? (
           <>
             <TooltipComponent title="Go to homepage">
@@ -28,7 +28,7 @@ function Header() {
             <div className="user-container">
               <Button>
                 <div
-                  className="image-container"
+                  className="image-container common-flex"
                   onClick={() => {
                     navigate(`view-employee/${user.employeeDetails?.id}`);
                   }}

@@ -54,12 +54,16 @@ const SortOrderDropdownItemWrapper = styled.span<{
 }>`
   cursor: pointer;
   padding: 5px;
+
   &:hover {
     background-color: ${colors.BACKGROUND_COLOR_HOVER};
   }
 
   .order {
     gap: 4px;
+    .material-symbols-outlined{
+      font-size: 15px;
+    }
   }
   .sort-enable-icon {
     visibility: ${(props) =>

@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import DummyImg from "../../../../assets/userAvatar.svg";
 import Button from "../../../../components/Button/Button.tsx";
 import { H3Styles, ParagraphStyles } from "../../../../core/constants/components/text/textStyledComponents.ts";
+import useAuth from "../../../Login/useAuth.ts";
 
 function EmployeeCard({
   deleteCheckBoxesList,
@@ -19,6 +20,8 @@ function EmployeeCard({
   };
   employee: IAppEmployee;
 }) {
+
+  const { user } = useAuth();
   const navigate = useNavigate();
 
   const cardEditBtnClick = (e: React.MouseEvent<HTMLButtonElement> | undefined) => {
@@ -31,15 +34,19 @@ function EmployeeCard({
     <EmployeeCardWrapper
       onClick={() => navigate(`/view-employee/${employee.id}`)}
     >
-      <div className="common-flex">
-        <Checkbox
-          employeeId={employee.id}
-          deleteCheckBoxesList={deleteCheckBoxesList}
-        />
-        {/* navigating to edit employee page */}
-        <Button icon="edit" onClick={(e) => cardEditBtnClick(e)}
-        ></Button>
-      </div>
+      {user.employeeDetails?.accessControlRole === "admin" ||
+        (user.employeeDetails?.accessControlRole === "user" && user.employeeDetails.id === employee.id) ? (
+          <div className="common-flex">
+            <Checkbox
+              employeeId={employee.id}
+              deleteCheckBoxesList={deleteCheckBoxesList}
+              disabled={employee.id === user.employeeDetails?.id}
+            />
+            {/* navigating to edit employee page */}
+            <Button className="edit-btn" icon="edit" onClick={(e) => cardEditBtnClick(e)}></Button>
+          </div>
+        ):<></>}
+
       <div className="title-section">
         <div className="photo-container">
           <img

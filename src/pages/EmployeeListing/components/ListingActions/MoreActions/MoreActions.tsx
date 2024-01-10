@@ -9,6 +9,8 @@ import { ParagraphStyles } from "../../../../../core/constants/components/text/t
 import TooltipComponent from "../../../../../components/Tooltip/Tooltip.tsx";
 import { CSVLink } from "react-csv";
 import { export_csvData } from "../../../../../utils/helper.ts";
+import { IAppEmployee } from "../../../../../core/interfaces/interface.ts";
+import useAuth from "../../../../Login/useAuth.ts";
 
 function MoreActions({
   deleteCheckBoxesList,
@@ -17,7 +19,8 @@ function MoreActions({
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-}) {
+  }) {
+  const { user } = useAuth();
   //more actions dropdown open on click
   const [moreActionsDropdown, setMoreActionsDropdown] = useState(false); // determines whether the modal is open or close
   const changeMoreActionsDropdownOpenStatus = () => {
@@ -38,6 +41,10 @@ function MoreActions({
   const selectAll =
     deleteCheckBoxesList.checkedBoxesList.length == 0 ||
     deleteCheckBoxesList.checkedBoxesList.length !== employees.length;
+
+  const employeesIdList = employees
+    .map((employee: IAppEmployee) => employee.id)
+    .filter((employeeId: string) => employeeId !== user.employeeDetails?.id);
 
   //delte modal open on click
   const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
@@ -124,7 +131,7 @@ function MoreActions({
             {selectAll ? "Select All" : "Unselect All"}
             <Checkbox
               deleteCheckBoxesList={deleteCheckBoxesList}
-              employeesIdList={employees.map((employee) => employee.id)}
+              employeesIdList={employeesIdList}
             />
           </Button>
           {deleteCheckBoxesList.checkedBoxesList.length == 0 ? (

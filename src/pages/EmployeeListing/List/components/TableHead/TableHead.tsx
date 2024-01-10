@@ -16,9 +16,9 @@ function TableHead({
   employees: IAppEmployee[];
 }) {
   const { user } = useAuth();
-  const employeesIdList = employees.map(
-    (employee: IAppEmployee) => employee.id
-  );
+  const employeesIdList = employees
+    .map((employee: IAppEmployee) => employee.id)
+    .filter((employeeId: string) => employeeId !== user.employeeDetails?.id);
 
   return (
     <TableHeadWrapper>

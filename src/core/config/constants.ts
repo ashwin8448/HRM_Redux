@@ -28,7 +28,7 @@ export const gridDisplay = "Grid";
 //pagination/infiinite loading
 export const DOTS = "...";
 export const thresholdPageSize = 6;
-export const recordsPerPage = 10;
+export const recordsPerPage = 12;
 export const paginationItemsCount = 3 + 2 * 1;
 export const totalPages = (count: number) =>
   Math.ceil(Number(count) / recordsPerPage);

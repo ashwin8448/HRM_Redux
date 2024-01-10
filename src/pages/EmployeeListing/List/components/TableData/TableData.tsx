@@ -5,7 +5,6 @@ import { useNavigate } from "react-router-dom";
 import { concatenateNames } from "../../../../../utils/helper.ts";
 import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
 import React, { useState } from "react";
-import React, { useState } from "react";
 import { TableDataStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
 import useAuth from "../../../../Login/useAuth.ts";
 import SkillsChip from "../../../../../components/Skills/SkillsChip.tsx";

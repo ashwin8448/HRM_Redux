@@ -82,7 +82,7 @@ function EmployeeCardList({
     bottomObserver.current = new IntersectionObserver(handleIntersection, {
       root: null,
       rootMargin: "0px",
-      threshold: 0.5,
+      threshold: 1,
     });
     if (bottomElement.current) {
       bottomObserver.current.observe(bottomElement.current);

@@ -17,6 +17,8 @@ const SnackbarWrapper = styled.div`
   gap: 20px;
   animation: slideUp 0.5s forwards;
   padding: 16px;
+  align-items: center;
+  padding: 5px;
 
   @keyframes slideUp {
     from {
@@ -27,17 +29,20 @@ const SnackbarWrapper = styled.div`
     }
   }
 
-  p{
-    color: ${colors.PRIMARY_COLOR}
+  p {
+    color: ${colors.PRIMARY_COLOR};
+  }
+
+  button {
+    padding: 10px;
   }
 
   &.open {
     visibility: visible;
   }
-  
+
   .deleteBtn {
     color: ${colors.WARNING_TEXT_COLOR};
   }
-
 `;
 export default SnackbarWrapper;

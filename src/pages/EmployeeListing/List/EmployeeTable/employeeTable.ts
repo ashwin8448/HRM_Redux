@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import colors from "../../../../core/constants/colors";
-import { fontWeights } from "../../../../core/constants/fontStyles";
+import styled from 'styled-components';
+import colors from '../../../../core/constants/colors';
+import { fontWeights } from '../../../../core/constants/fontStyles';
 
 const TableWrapper = styled.table`
   border-collapse: separate;
@@ -8,28 +8,27 @@ const TableWrapper = styled.table`
   table-layout: fixed;
   width: 1370px;
 
-  thead {
-    background-color: ${colors.WHITE_COLOR};
-  }
-
   thead,
   tbody {
     width: 100%;
   }
 
   th p {
-    font-weight: ${fontWeights["--font-semi-bold"]};
+    font-weight: ${fontWeights['--font-semi-bold']};
   }
 
   tbody tr:hover {
+    .loader {
+      background-color: inherit !important;
+    }
     td {
-      background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR};
+      background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR} !important;
     }
   }
 
   th,
   td {
-    padding: 10px;
+    padding: 5px;
     border-spacing: 0;
     text-align: left;
     width: 100%;
@@ -37,6 +36,7 @@ const TableWrapper = styled.table`
 
   th {
     border-bottom: 1px solid ${colors.LIGHT_GRAY_COLOR};
+    background-color: ${colors.WHITE_COLOR};
   }
 
   .small-column {
@@ -46,7 +46,14 @@ const TableWrapper = styled.table`
   .medium-column {
     width: 100px;
   }
-
+  td {
+    background-color: ${colors.BACKGROUND_COLOR};
+  }
+  .alternate-table-row-color {
+    td {
+      background-color: ${colors.WHITE_COLOR};
+    }
+  }
   .loader-container {
     display: flex;
     justify-content: center;
@@ -57,10 +64,6 @@ const TableWrapper = styled.table`
 
   .no-data {
     text-align: center;
-  }
-
-  .alternate-table-row-color {
-    background-color: ${colors.WHITE_COLOR};
   }
 
   .no-border-row {
