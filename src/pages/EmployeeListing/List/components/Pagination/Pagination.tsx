@@ -28,6 +28,7 @@ function Pagination({
     totalPageCount: totalPageSize,
     currentPage: currentPageNumber,
   });
+  console.log(paginationRange)
   const checkPage = (newPage: number) => {
     return newPage > totalPageSize ? totalPageSize : newPage < 1 ? 1 : newPage;
   };

@@ -18,7 +18,16 @@ const TableWrapper = styled.table`
   }
 
   th p {
-    font-weight: ${fontWeights["--font-semi-bold"]};
+    font-weight: ${fontWeights['--font-semi-bold']};
+  }
+
+  tbody tr:hover {
+    td {
+      background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR};
+    }
+    td{
+      background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR} !important;
+    }
   }
 
   tbody tr:hover {
@@ -29,7 +38,7 @@ const TableWrapper = styled.table`
 
   th,
   td {
-    padding: 10px;
+    padding: 5px;
     border-spacing: 0;
     text-align: left;
     width: 100%;
@@ -42,8 +51,8 @@ const TableWrapper = styled.table`
   .small-column {
     width: 60px;
   }
-
-  .medium-column {
+  th:nth-child(8),
+  td:nth-child(8) {
     width: 100px;
   }
 

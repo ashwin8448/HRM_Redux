@@ -15,42 +15,14 @@ const HeaderWrapper = styled.header`
     justify-content: space-between;
     align-items: center;
   }
-
-  h1 {
+  
+  h1{
     font-size: ${fontSizes["--font-size-lg"]};
   }
   .logo {
     width: 50px;
     height: auto;
     cursor: pointer;
-  }
-
-  .user-container {
-    display: flex;
-    gap: 30px;
-
-    .image-container {
-      position: relative;
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      gap: 10px;
-      img {
-        border-radius: 50%;
-        width: 35px;
-        height: 35px;
-      }
-      .profile-error {
-        position: absolute;
-        top: 20px;
-        left: 30px;
-        color: #b20808;
-      }
-    }
-  }
-
-  .header-tooltip {
-    visibility: hidden;
   }
 
   .user-container {

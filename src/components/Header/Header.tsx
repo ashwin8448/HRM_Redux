@@ -8,6 +8,7 @@ import TooltipComponent from "../Tooltip/Tooltip.tsx";
 import { H1Styles } from "../../core/constants/components/text/textStyledComponents.ts";
 
 function Header() {
+
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const logoElement = (

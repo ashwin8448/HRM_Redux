@@ -14,6 +14,7 @@ const DropdownWrapper = styled.div`
 
   .item {
     cursor: pointer;
+    padding: 5px 25px ;
 
     &:hover {
       background-color: ${colors.BACKGROUND_COLOR_HOVER};
@@ -27,6 +28,7 @@ const DropdownWrapper = styled.div`
 
   /* actions dropdown specific */
   button {
+    width: 100%;
     border: none;
     width:100%;
   }

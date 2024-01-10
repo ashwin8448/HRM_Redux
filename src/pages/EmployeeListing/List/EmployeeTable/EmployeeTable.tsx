@@ -60,7 +60,7 @@ function EmployeeTable({
           {loading ? (
             <tbody>
               <tr className="no-border-row">
-                <td colSpan={5}>
+                <td colSpan={5} className="loader">
                   {/* This component is rendered when data is fetching from database  */}
                   <div className="loader-container">
                     <Loader className="table-loader" />

@@ -72,8 +72,7 @@ const ProgressBarWrapper = styled.div<{
 
   @media only screen and (max-width: 500px) {
     .step-name {
-      font-size: ${fontSizes["--font-size-x-s"]};
-      font-size: ${fontSizes["--font-size-x-s"]};
+      font-size: ${fontSizes['--font-size-x-s']};
     }
   }
 `;
