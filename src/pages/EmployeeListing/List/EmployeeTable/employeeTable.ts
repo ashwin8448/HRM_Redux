@@ -25,7 +25,7 @@ const TableWrapper = styled.table`
     td {
       background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR};
     }
-    td{
+    td {
       background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR} !important;
     }
   }
@@ -51,8 +51,8 @@ const TableWrapper = styled.table`
   .small-column {
     width: 60px;
   }
-  th:nth-child(8),
-  td:nth-child(8) {
+
+  .medium-column {
     width: 100px;
   }
 
