@@ -3,6 +3,7 @@ import { ISelectOptionProps } from "../../core/interfaces/interface.ts";
 import colors from "../../core/constants/colors.ts";
 import { ChipListWrapper, ChipWrapper } from "./chip.ts";
 import TooltipComponent from "../Tooltip/Tooltip.tsx";
+import { ParagraphStyles } from "../../core/constants/components/text/textStyledComponents.ts";
 
 function SkillsChip({ skills }: { skills: ISelectOptionProps[] | undefined }) {
   //check for skills overflowing the scroll width
@@ -71,7 +72,7 @@ function SkillsChip({ skills }: { skills: ISelectOptionProps[] | undefined }) {
         })}
       </ChipListWrapper>
     ) : (
-      <p> - </p>
+      <ParagraphStyles className="content overflow-ellipsis">-</ParagraphStyles>
     );
 
   return skillsOverflow ? (

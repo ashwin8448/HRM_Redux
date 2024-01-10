@@ -7,8 +7,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import DummyImg from "../../../../assets/userAvatar.svg";
 import Button from "../../../../components/Button/Button.tsx";
-import { H3Styles, ParagraphStyles } from "../../../../core/constants/components/text/textStyledComponents.ts";
+import {
+  H3Styles,
+  ParagraphStyles,
+} from "../../../../core/constants/components/text/textStyledComponents.ts";
 import useAuth from "../../../Login/useAuth.ts";
+import TooltipComponent from "../../../../components/Tooltip/Tooltip.tsx";
 
 function EmployeeCard({
   deleteCheckBoxesList,
@@ -20,32 +24,39 @@ function EmployeeCard({
   };
   employee: IAppEmployee;
 }) {
-
   const { user } = useAuth();
   const navigate = useNavigate();
 
-  const cardEditBtnClick = (e: React.MouseEvent<HTMLButtonElement> | undefined) => {
-    if (e)
-      e.stopPropagation();
+  const cardEditBtnClick = (
+    e: React.MouseEvent<HTMLButtonElement> | undefined
+  ) => {
+    if (e) e.stopPropagation();
     navigate(`/edit-employee/${employee.id}`);
-  }
+  };
 
   return (
     <EmployeeCardWrapper
       onClick={() => navigate(`/view-employee/${employee.id}`)}
     >
       {user.employeeDetails?.accessControlRole === "admin" ||
-        (user.employeeDetails?.accessControlRole === "user" && user.employeeDetails.id === employee.id) ? (
-          <div className="common-flex">
-            <Checkbox
-              employeeId={employee.id}
-              deleteCheckBoxesList={deleteCheckBoxesList}
-              disabled={employee.id === user.employeeDetails?.id}
-            />
-            {/* navigating to edit employee page */}
-            <Button className="edit-btn" icon="edit" onClick={(e) => cardEditBtnClick(e)}></Button>
-          </div>
-        ):<></>}
+      (user.employeeDetails?.accessControlRole === "user" &&
+        user.employeeDetails.id === employee.id) ? (
+        <div className="common-flex">
+          <Checkbox
+            employeeId={employee.id}
+            deleteCheckBoxesList={deleteCheckBoxesList}
+            disabled={employee.id === user.employeeDetails?.id}
+          />
+          {/* navigating to edit employee page */}
+          <Button
+            className="edit-btn"
+            icon="edit"
+            onClick={(e) => cardEditBtnClick(e)}
+          ></Button>
+        </div>
+      ) : (
+        <></>
+      )}
 
       <div className="title-section">
         <div className="photo-container">
@@ -61,7 +72,13 @@ function EmployeeCard({
         </div>
         <div className="common-flex employee-intro">
           <div className="common-flex intro-title">
-            <H3Styles className="title">{employee.firstName + " " + employee.lastName}</H3Styles>
+            <TooltipComponent
+              title={employee.firstName + " " + employee.lastName}
+            >
+              <H3Styles className="title overflow-ellipsis">
+                {employee.firstName + " " + employee.lastName}
+              </H3Styles>
+            </TooltipComponent>
             <ActiveDot isActive={employee.isActive}></ActiveDot>
           </div>
           <ParagraphStyles>{employee.role.label}</ParagraphStyles>

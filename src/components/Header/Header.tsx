@@ -8,7 +8,6 @@ import TooltipComponent from "../Tooltip/Tooltip.tsx";
 import { H1Styles } from "../../core/constants/components/text/textStyledComponents.ts";
 
 function Header() {
-
   const navigate = useNavigate();
   const { user, logout } = useAuth();
   const logoElement = (
@@ -26,13 +25,12 @@ function Header() {
               {logoElement}
             </TooltipComponent>
             <div className="user-container">
-              <Button>
-                <div
-                  className="image-container common-flex"
-                  onClick={() => {
-                    navigate(`view-employee/${user.employeeDetails?.id}`);
-                  }}
-                >
+              <Button
+                onClick={() => {
+                  navigate(`view-employee/${user.employeeDetails?.id}`);
+                }}
+              >
+                <div className="image-container common-flex">
                   <img
                     src={user.employeeDetails?.photoId || dummyImg}
                     alt="user image"

@@ -6,6 +6,7 @@ const EmployeeIntroSectionWrapper = styled.div`
 
   h2 {
     margin-bottom: 0;
+    width: 180px;
   }
 
   .employee-intro {

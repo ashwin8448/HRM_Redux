@@ -16,6 +16,7 @@ import {
 } from "../../../../core/constants/components/text/textStyledComponents.ts";
 import ActiveDot from "../../../../components/ActiveDot/ActiveDot.tsx";
 import useAuth from "../../../Login/useAuth.ts";
+import TooltipComponent from "../../../../components/Tooltip/Tooltip.tsx";
 
 function EmployeeIntroSection({
   employee,
@@ -54,10 +55,18 @@ function EmployeeIntroSection({
         </div>
         <div className="employee-intro">
           <div className="common-flex intro-title">
-            <H2Styles>{employee.firstName + " " + employee.lastName}</H2Styles>
+            <TooltipComponent
+              title={employee.firstName + " " + employee.lastName}
+            >
+              <H2Styles className="overflow-ellipsis">
+                {employee.firstName + " " + employee.lastName}
+              </H2Styles>
+            </TooltipComponent>
             <ActiveDot isActive={employee.isActive}></ActiveDot>
           </div>
-          <ParagraphStyles>{employee.role.label}</ParagraphStyles>
+          <ParagraphStyles>
+            {employee.role ? employee.role.label : "-"}
+          </ParagraphStyles>
         </div>
 
         {getUrlType(location.pathname) === "view-employee" &&

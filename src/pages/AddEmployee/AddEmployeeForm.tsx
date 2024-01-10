@@ -6,7 +6,7 @@ import addFormConfig from "./addFormConfig.ts";
 import { Fieldset, FormWrapper } from "../EmployeeUpdate/form.ts";
 import React, { useState } from "react";
 import { IInputProps } from "../../core/interfaces/interface.ts";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { postData } from "../../core/api/functions.ts";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader/Loader.tsx";
@@ -18,8 +18,7 @@ import {
 } from "../../core/constants/components/text/textStyledComponents.ts";
 
 const AddEmployeeForm = () => {
-  const { employeeId } = useParams();
-  const [isLoading, setIsLoading] = useState(employeeId ? true : false);
+  const [isLoading, setIsLoading] = useState(false);
   const [activeSection, setActiveSection] = useState(1);
   const methods = useForm({
     mode: "onChange",
