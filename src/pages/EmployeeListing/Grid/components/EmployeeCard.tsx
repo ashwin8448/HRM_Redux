@@ -37,7 +37,7 @@ function EmployeeCard({
           deleteCheckBoxesList={deleteCheckBoxesList}
         />
         {/* navigating to edit employee page */}
-        <Button icon="edit" onClick={(e) => cardEditBtnClick(e)}
+        <Button className="edit-btn" icon="edit" onClick={(e) => cardEditBtnClick(e)}
         ></Button>
       </div>
       <div className="title-section">

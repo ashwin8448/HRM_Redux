@@ -50,7 +50,7 @@ const TableWrapper = styled.table`
   }
   th,
   td {
-    padding: 10px;
+    padding: 5px;
     border-spacing: 0;
     text-align: left;
     width: 100%;
