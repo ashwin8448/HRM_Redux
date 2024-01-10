@@ -18,10 +18,13 @@ const TableWrapper = styled.table`
   }
 
   th p {
-    font-weight: ${fontWeights["--font-semi-bold"]};
+    font-weight: ${fontWeights['--font-semi-bold']};
   }
   tbody tr:hover {
-    td {
+    .loader {
+      background-color: inherit !important;
+    }
+    td{
       background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR} !important;
     }
   }
