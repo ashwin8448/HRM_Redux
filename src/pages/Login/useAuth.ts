@@ -18,8 +18,8 @@ const useAuth = () => {
   const user = useAppSelector((state) => state.userData);
   const navigate = useNavigate();
   const location = useLocation();
-  const [authError, setAuthError] = useState("");
-  const [authLoading, setAuthLoading] = useState(false);
+  const [authError, setAuthError] = useState('');
+  const [authLoading, setAuthLoading] = useState(true);
 
   const login = async ({
     username,
@@ -84,15 +84,12 @@ const useAuth = () => {
         await getData(apiURL.employee + `/${currentEmployeeId}`)
       ).data.data;
       dispatch(setlogin(convertIGetEmployeeToIAppEmployee(currentEmployee)));
-      navigate(location.state ? location.state.from : "/");
-      toast.success(
-        `Hi ${currentEmployee.firstName}. You have logged in succesfully.`
-      );
+      navigate(location.state ? location.state.from : '/');
     } catch (error) {
       logout();
       console.error(error);
-      toast.error("An error occurred during sign in.", {
-        toastId: "fetch-user-data-error",
+      toast.error('An error occurred during sign in.', {
+        toastId: 'fetch-user-data-error',
       });
     } finally {
       setAuthLoading(false);
@@ -107,6 +104,7 @@ const useAuth = () => {
     setAuthError,
     authLoading,
     fetchCurrentUser,
+    setAuthLoading,
   };
 };
 export default useAuth;

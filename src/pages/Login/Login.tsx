@@ -3,36 +3,18 @@ import useAuth from "./useAuth";
 import LoginLayoutWrapper from "./login";
 import Button from "../../components/Button/Button.tsx";
 import Loader from "../../components/Loader/Loader.tsx";
-import { getCookie } from "../../utils/helper.ts";
 import InputWrapper from "../../components/Input/input.ts";
 import {
   H3Styles,
   LabelStyles,
   ParagraphStyles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
-import { jwtDecode } from "jwt-decode";
-import { useAppDispatch } from "../../hooks/reduxHooks.ts";
 
 function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const { login, authError, logout, fetchCurrentUser, authLoading } = useAuth();
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    const authToken = getCookie("accessToken");
-    if (authToken) {
-      const decodedToken = jwtDecode(authToken); // jwt-decode npm package
-      const currentTime = Math.floor(Date.now() / 1000);
-      // Check token expiry
-      if (decodedToken && decodedToken.exp! < currentTime) {
-        logout();
-      } else {
-        fetchCurrentUser(authToken);
-      }
-    }
-  }, [dispatch]);
+  const { login, authError, authLoading, setAuthLoading } = useAuth();
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -45,6 +27,10 @@ function Login() {
       });
     }
   }
+
+  useEffect(() => {
+    setAuthLoading(false)
+  }, []);
 
   return authLoading ? (
     <div className="center-loader">
