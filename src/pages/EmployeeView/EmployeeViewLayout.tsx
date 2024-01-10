@@ -29,6 +29,7 @@ function EmployeeViewLayout() {
       setEmployeeData({ ...employeeData, loading: false });
       navigate("/");
     } else {
+      setEmployeeData((prev) => ({ ...prev, loading: true }));
       getData("/employee/" + employeeId)
         .then((response) => {
           if (!response.data) {
@@ -46,7 +47,7 @@ function EmployeeViewLayout() {
           setEmployeeData((prev) => ({ ...prev, loading: false }))
         );
     }
-  }, []);
+  }, [employeeId]);
 
   const { loading, employee } = employeeData;
 
