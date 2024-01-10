@@ -18,16 +18,7 @@ const TableWrapper = styled.table`
   }
 
   th p {
-    font-weight: ${fontWeights['--font-semi-bold']};
-  }
-
-  tbody tr:hover {
-    td {
-      background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR};
-    }
-    td {
-      background-color: ${colors.EXTRA_LIGHT_GRAY_COLOR} !important;
-    }
+    font-weight: ${fontWeights["--font-semi-bold"]};
   }
 
   tbody tr:hover {
@@ -38,7 +29,7 @@ const TableWrapper = styled.table`
 
   th,
   td {
-    padding: 5px;
+    padding: 10px;
     border-spacing: 0;
     text-align: left;
     width: 100%;

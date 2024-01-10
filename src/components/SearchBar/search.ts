@@ -4,7 +4,7 @@ import { fontSizes } from "../../core/constants/fontStyles";
 
 const SearchWrapper = styled.div<{ $focus: boolean }>`
   background-color: ${colors.WHITE_COLOR};
-  border-radius: 5px;
+  border-radius: 10px;
   padding: 6px;
   width: 100%;
   border: ${(props) =>

@@ -19,10 +19,9 @@ const HeaderWrapper = styled.header`
   h1{
     font-size: ${fontSizes["--font-size-lg"]};
   }
-  .logo {
-    width: 50px;
-    height: auto;
-    cursor: pointer;
+
+  .header-tooltip {
+    visibility: hidden;
   }
 
   .user-container {

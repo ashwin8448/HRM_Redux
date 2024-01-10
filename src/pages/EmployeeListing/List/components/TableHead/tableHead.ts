@@ -20,7 +20,8 @@ const TableHeadWrapper = styled.thead`
   button {
     flex-direction: row-reverse;
     background: none;
-    padding: 5px;
+    padding: 0;
+    border-radius: 0;
   }
 `;
 

@@ -29,9 +29,6 @@ const EmployeeCardWrapper = styled.div`
     }
   }
 
-  .edit-btn{
-    padding: 5px;
-  } 
   .title-section {
     display: flex;
     flex-direction: column;
