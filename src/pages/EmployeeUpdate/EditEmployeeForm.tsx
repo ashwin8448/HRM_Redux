@@ -146,6 +146,10 @@ const EditEmployeeForm = () => {
     departments: departments as ISelectOptionProps[],
     skills: skills as ISelectOptionProps[],
     roles: roles as ISelectOptionProps[],
+    validationRequired: !(
+      Boolean(user.employeeDetails?.accessControlRole === "admin") &&
+      employeeId != user.employeeDetails?.id
+    ),
   });
 
   if (isLoading)

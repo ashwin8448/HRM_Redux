@@ -1,12 +1,10 @@
 import { FormEvent, useEffect, useState } from "react";
 import useAuth from "./useAuth";
 import LoginLayoutWrapper from "./login";
-import { useNavigate } from "react-router-dom";
 import Button from "../../components/Button/Button.tsx";
 import Loader from "../../components/Loader/Loader.tsx";
 import { getCookie } from "../../utils/helper.ts";
 import InputWrapper from "../../components/Input/input.ts";
-import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import {
   H3Styles,
   LabelStyles,
@@ -19,7 +17,6 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const navigate = useNavigate();
   const { login, authError, logout, fetchCurrentUser, authLoading } = useAuth();
   const dispatch = useAppDispatch();
 

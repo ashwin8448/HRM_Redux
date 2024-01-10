@@ -12,10 +12,12 @@ const getEditFormConfig = ({
   departments,
   roles,
   skills,
+  validationRequired,
 }: {
   departments: ISelectOptionProps[];
   skills: ISelectOptionProps[];
   roles: ISelectOptionProps[];
+  validationRequired: boolean;
 }) => [
   {
     sectionName: "Personal Details",
@@ -33,28 +35,28 @@ const getEditFormConfig = ({
         label: "Last name",
         type: "text",
         name: "lastName",
-        isRequired: true,
+        isRequired: validationRequired,
       },
       {
         validation: emailValidation,
         label: "Email",
         type: "email",
         name: "email",
-        isRequired: true,
+        isRequired: validationRequired,
       },
       {
         validation: phoneValidation,
         label: "Phone number",
         type: "tel",
         name: "phone",
-        isRequired: true,
+        isRequired: validationRequired,
       },
       {
         validation: addressValidation,
         label: "Address",
         type: "textarea",
         name: "address",
-        isRequired: true,
+        isRequired: validationRequired,
       },
       {
         validation: dateValidation,
@@ -81,21 +83,21 @@ const getEditFormConfig = ({
         label: "Deisgnation",
         type: "text",
         name: "designation",
-        isRequired: true,
+        isRequired: validationRequired,
       },
       {
         validation: numberValidation,
         label: "Salary",
         type: "text",
         name: "salary",
-        isRequired: true,
+        isRequired: validationRequired,
       },
       {
         label: "Currently employed",
         type: "radio",
         options: ["Yes", "No"],
         name: "isActive",
-        isRequired: true,
+        isRequired: validationRequired,
       },
       {
         label: "Choose department",
@@ -104,7 +106,7 @@ const getEditFormConfig = ({
         name: "department",
         placeholder: "Select department",
         isMulti: false,
-        isRequired: true,
+        isRequired: validationRequired,
       },
       {
         label: "Choose role",
@@ -113,7 +115,7 @@ const getEditFormConfig = ({
         name: "role",
         placeholder: "Select role",
         isMulti: false,
-        isRequired: true,
+        isRequired: validationRequired,
       },
       {
         label: "Choose skills",
@@ -122,7 +124,7 @@ const getEditFormConfig = ({
         name: "skills",
         placeholder: "Select skills",
         isMulti: true,
-        isRequired: true,
+        isRequired: validationRequired,
       },
     ],
   },
@@ -135,7 +137,7 @@ const getEditFormConfig = ({
         type: "file",
         name: "photoId",
         accept: "image/*",
-        isRequired: true,
+        isRequired: false,
       },
     ],
   },

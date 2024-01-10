@@ -57,10 +57,12 @@ const useAuth = () => {
     } catch (error: any) {
       if (error.message === "Invalid username or password")
         setAuthError(error.message);
-      else
+      else {
+        logout();
         toast.error("An error occurred during login.", {
           toastId: "login-error",
         });
+      }
     } finally {
       setAuthLoading(false);
     }
@@ -87,6 +89,7 @@ const useAuth = () => {
         `Hi ${currentEmployee.firstName}. You have logged in succesfully.`
       );
     } catch (error) {
+      logout();
       console.error(error);
       toast.error("An error occurred during sign in.", {
         toastId: "fetch-user-data-error",
