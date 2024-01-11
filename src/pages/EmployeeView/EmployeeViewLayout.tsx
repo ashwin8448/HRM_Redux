@@ -7,6 +7,7 @@ import { IAppEmployee } from "../../core/interfaces/interface.ts";
 import { convertIGetEmployeeToIAppEmployee } from "../../utils/helper.ts";
 import EmployeeView from "./EmployeeView.tsx";
 import Button from "../../components/Button/Button.tsx";
+import { Helmet } from "react-helmet";
 
 function EmployeeViewLayout() {
   const { employeeId } = useParams();
@@ -60,6 +61,13 @@ function EmployeeViewLayout() {
   return (
     employee && (
       <>
+        <Helmet>
+          <title>View Employee</title>
+          <meta
+            name="description"
+            content={`You are currently viewing employee ${employee.id}.`}
+          />
+        </Helmet>
         <Button
           className="back-btn"
           icon="arrow_back_ios"

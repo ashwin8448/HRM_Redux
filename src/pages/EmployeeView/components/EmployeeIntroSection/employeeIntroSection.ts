@@ -6,7 +6,7 @@ const EmployeeIntroSectionWrapper = styled.div`
 
   h2 {
     margin-bottom: 0;
-    width: 180px;
+    max-width: 180px; /* Set your desired maximum width */
   }
 
   .employee-intro {

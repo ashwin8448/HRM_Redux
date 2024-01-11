@@ -100,6 +100,7 @@ function TableData({
                 }}
                 className="deleteBtn"
                 icon="delete"
+                disabled={employee.id === user.employeeDetails.id}
               ></Button>
             </div>
           </TableDataStyles>

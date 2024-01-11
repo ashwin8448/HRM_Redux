@@ -33,6 +33,7 @@ import {
   H3Styles,
   H2Styles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
+import { Helmet } from "react-helmet";
 
 const EditEmployeeForm = () => {
   const { employeeId } = useParams();
@@ -170,6 +171,14 @@ const EditEmployeeForm = () => {
     );
   return (
     <>
+      <Helmet>
+        <title>Edit Employee</title>
+        <meta
+          name="description"
+          content={`You are currently editing employee ${employeeId}.`}
+        />
+      </Helmet>
+
       <Button
         className="back-btn"
         icon="arrow_back_ios"

@@ -5,8 +5,13 @@ import FilterWrapper from "./sideFilterBar.ts";
 import FilterActions from "./FilterActions/FilterActions.tsx";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 import { H2Styles } from "../../../../core/constants/components/text/textStyledComponents.ts";
+import { useSearchParams } from "react-router-dom";
 
 const Filter = () => {
+
+  const [searchParams] = useSearchParams();
+  const isFilters =searchParams.get("skillIds");
+
   //responsive
   const matches = useMediaQuery("(min-width: 768px)");
 
@@ -32,10 +37,9 @@ const Filter = () => {
 
   return (
     <>
-      <Button icon="filter_list " onClick={handleButtonClick}>
+      <Button icon="filter_list " onClick={handleButtonClick} $notification={isFilters!==null}>
         {matches && "All filters"}
       </Button>
-
       {!loading && isSideFilterBarVisible && (
         <FilterWrapper
           className="translateX"

@@ -22,7 +22,7 @@ const DeleteModalWrapper = styled.div`
 
   .close-btn {
     align-self: end;
-    background-color: transparent;
+    padding: 10px;
     > span {
       color: ${colors.DARK_GRAY_COLOR};
     }

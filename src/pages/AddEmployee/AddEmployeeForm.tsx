@@ -16,6 +16,7 @@ import {
   H3Styles,
   H2Styles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
+import { Helmet } from "react-helmet";
 
 const AddEmployeeForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -68,11 +69,20 @@ const AddEmployeeForm = () => {
     );
   return (
     <>
+      <Helmet>
+        <title>Add Employee</title>
+        <meta
+          name="description"
+          content="Admins can use this page to add new users."
+        />
+      </Helmet>
       <Button
         className="back-btn"
         icon="arrow_back_ios"
         onClick={() => navigate(-1)}
-      >Back</Button>
+      >
+        Back
+      </Button>
       <FormWrapper>
         <H2Styles>Add New Employee</H2Styles>
         <ProgressBar

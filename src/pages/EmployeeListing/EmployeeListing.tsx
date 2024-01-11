@@ -10,6 +10,7 @@ import Snackbar from "../../components/Snackbar/Snackbar.tsx";
 import { updateSearchParams } from "../../utils/helper.ts";
 import { TitleStyle } from "../../core/constants/components/text/textStyledComponents.ts";
 import { defaultPageSize, gridDisplay, listDisplay } from "../../core/config/constants.ts";
+import { Helmet } from "react-helmet";
 
 function EmployeeListing() {
   // Employees data fetching
@@ -48,6 +49,14 @@ function EmployeeListing() {
   }, [listingActive, displayValue, pageValue, searchParams, setSearchParams]);
 
   return (
+    <>
+    <Helmet>
+      <title>Employee Listing</title>
+      <meta
+        name="description"
+        content="You can view a list of employees either in table view or gallery view."
+      />
+    </Helmet>
     <EmployeeListingWrapper>
       <TitleStyle>Employee Management</TitleStyle>
       <ListingActions
@@ -71,6 +80,7 @@ function EmployeeListing() {
         />
       )}
     </EmployeeListingWrapper>
+    </>
   );
 }
 export default EmployeeListing;

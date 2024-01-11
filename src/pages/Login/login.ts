@@ -38,6 +38,7 @@ const LoginLayoutWrapper = styled.div`
     text-decoration: none;
     border: none;
     color: ${colors.WHITE_COLOR};
+    cursor: pointer;
   }
 
   .primary-btn:hover {

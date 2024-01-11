@@ -4,7 +4,9 @@ import colors from "../../core/constants/colors";
 const ButtonWrapper = styled.button<{
   $isChildren: boolean;
   $noTransition?: boolean;
+  $notification?: boolean;
 }>`
+  position: relative; /* Make the position relative to enable absolute positioning */
   border: ${(props) =>
     props.$isChildren ? `1px solid ${colors.LIGHT_GRAY_COLOR};` : `none`};
   background: ${(props) =>
@@ -27,19 +29,35 @@ const ButtonWrapper = styled.button<{
   // hint for the user agent to prioritize the processing of touch events
   touch-action: manipulation;
 
+  ${(props) =>
+    props.$notification &&
+    /* Position the dot in the top right corner */
+    `
+      &:after {
+        content: "";
+        position: absolute;
+        top: -5px; 
+        right: 0; 
+        width: 10px;
+        height: 10px;
+        background-color: ${colors.PRIMARY_COLOR}; 
+        border-radius: 50%;
+      }
+    `}
+
   > label {
     cursor: pointer;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
     position: relative;
-    width:100%;
+    width: 100%;
     .checkbox {
       opacity: 0;
       top: 0;
       left: 0;
       width: 100%;
-      height:100%;
+      height: 100%;
       position: absolute;
       cursor: pointer;
     }

@@ -5,7 +5,7 @@ import Loader from "../../../../components/Loader/Loader.tsx";
 import { fetchEmployeesData } from "../../../../core/store/actions.ts";
 import React from "react";
 import { useSearchParams } from "react-router-dom";
-import { useAppDispatch } from "../../../../hooks/reduxHooks.ts";
+import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxHooks.ts";
 import Pagination from "../components/Pagination/Pagination.tsx";
 import TableData from "../components/TableData/TableData.tsx";
 import TableHead from "../components/TableHead/TableHead.tsx";
@@ -49,11 +49,12 @@ function EmployeeTable({
       )
     );
   }, [searchParams, dispatch]);
+  const user = useAppSelector((state) => state.userData);
 
   return (
     <>
       <div className="table-overflow-scroll">
-        <TableWrapper>
+        <TableWrapper $isAdmin={user.employeeDetails?.accessControlRole === "admin"}>
           <TableHead
             deleteCheckBoxesList={deleteCheckBoxesList}
             employees={employees}

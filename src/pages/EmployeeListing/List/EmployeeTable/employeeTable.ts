@@ -1,8 +1,8 @@
-import styled from 'styled-components';
-import colors from '../../../../core/constants/colors';
-import { fontWeights } from '../../../../core/constants/fontStyles';
+import styled from "styled-components";
+import colors from "../../../../core/constants/colors";
+import { fontWeights } from "../../../../core/constants/fontStyles";
 
-const TableWrapper = styled.table`
+const TableWrapper = styled.table<{ $isAdmin: boolean }>`
   border-collapse: separate;
   border-spacing: 0;
   table-layout: fixed;
@@ -14,7 +14,7 @@ const TableWrapper = styled.table`
   }
 
   th p {
-    font-weight: ${fontWeights['--font-semi-bold']};
+    font-weight: ${fontWeights["--font-semi-bold"]};
   }
 
   tbody tr:hover {
@@ -28,10 +28,10 @@ const TableWrapper = styled.table`
 
   th,
   td {
-    padding: 5px;
     border-spacing: 0;
     text-align: left;
     width: 100%;
+    padding:5px 15px;  
   }
 
   th {
@@ -41,12 +41,8 @@ const TableWrapper = styled.table`
 
   .small-column {
     width: 60px;
-    text-align: center;
   }
 
-  .medium-column {
-    width: 100px;
-  }
   td {
     background-color: ${colors.BACKGROUND_COLOR};
   }
@@ -79,22 +75,35 @@ const TableWrapper = styled.table`
   }
 
   @media only screen and (max-width: 1200px) {
-    th:first-child,
-    td:first-child {
-      position: sticky;
-      left: 0;
-      z-index: 1;
-    }
-    th:nth-child(2),
-    td:nth-child(2) {
-      position: sticky;
-      left: 60px;
-      z-index: 1;
-    }
-    th:nth-child(2),
-    td:nth-child(2) {
-      border-right: 1px solid ${colors.LIGHT_GRAY_COLOR} !important;
-    }
+    ${(props) =>
+      props.$isAdmin &&
+      `
+      th:first-child,
+      td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+      }
+      th:nth-child(2),
+      td:nth-child(2) {
+        position: sticky;
+        left: 60px;
+        z-index: 1;
+        border-right: 1px solid ${colors.LIGHT_GRAY_COLOR} !important;
+      }
+    `}
+    ${(props) =>
+      !props.$isAdmin &&
+      `
+      th:first-child,
+      td:first-child {
+        position: sticky;
+        left: 0;
+        z-index: 1;
+        border-right: 1px solid ${colors.LIGHT_GRAY_COLOR} !important;
+      }
+
+    `}
   }
 `;
 export default TableWrapper;

@@ -49,6 +49,7 @@ function Header() {
                 </div>
               </Button>
               <Button
+              className="logout-btn"
                 icon="logout"
                 onClick={() => {
                   logout();

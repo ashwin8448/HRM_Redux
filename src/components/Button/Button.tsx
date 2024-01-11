@@ -12,6 +12,7 @@ function Button({
   $noTransition,
   disabled,
   type,
+  $notification
 }: {
   children?: React.ReactNode;
   icon?: string;
@@ -21,6 +22,7 @@ function Button({
   $noTransition?: boolean;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
+  $notification?:boolean
 }) {
   return (
     <ButtonWrapper
@@ -30,6 +32,7 @@ function Button({
       $noTransition={$noTransition}
       disabled={disabled ?? false}
       type={type ? type : "button"}
+      $notification={$notification}
     >
       {loading ? (
         <Loader className="btn-loader" />

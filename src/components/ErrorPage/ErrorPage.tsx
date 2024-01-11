@@ -6,9 +6,9 @@ import {
   ParagraphStyles,
   TitleStyle,
 } from "../../core/constants/components/text/textStyledComponents.ts";
+import { Helmet } from "react-helmet";
 
 function ErrorPage() {
-  
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
 
@@ -40,28 +40,38 @@ function ErrorPage() {
   }
 
   return (
-    <ErrorPageWrapper className="global-width global-padding">
-      <H1Styles className="error-title">
-        {statusCode ? statusCode : 404}
-      </H1Styles>
-      <TitleStyle className="error-subtitle">
-        {statusCode ? errorMessage : "Sorry. we couldn't find this page"}
-      </TitleStyle>
-      {!statusCode && (
-        <>
-          <ParagraphStyles>
-            But dont worry, you can find plenty of other things on our homepage
-          </ParagraphStyles>
-          <Button
-            icon="home"
-            className="very-important-btn"
-            onClick={()=>navigate("/")}
-          >
-            Back to homepage
-          </Button>
-        </>
-      )}
-    </ErrorPageWrapper>
+    <>
+      <Helmet>
+        <title>Error</title>
+        <meta
+          name="description"
+          content="Oops! An error occured."
+        />
+      </Helmet>
+      <ErrorPageWrapper className="global-width global-padding">
+        <H1Styles className="error-title">
+          {statusCode ? statusCode : 404}
+        </H1Styles>
+        <TitleStyle className="error-subtitle">
+          {statusCode ? errorMessage : "Sorry. we couldn't find this page"}
+        </TitleStyle>
+        {!statusCode && (
+          <>
+            <ParagraphStyles>
+              But dont worry, you can find plenty of other things on our
+              homepage
+            </ParagraphStyles>
+            <Button
+              icon="home"
+              className="very-important-btn"
+              onClick={() => navigate("/")}
+            >
+              Back to homepage
+            </Button>
+          </>
+        )}
+      </ErrorPageWrapper>
+    </>
   );
 }
 export default ErrorPage;

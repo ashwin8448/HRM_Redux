@@ -18,7 +18,7 @@ function MoreActions({
     checkedBoxesList: string[];
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
-  }) {
+}) {
   const user = useAppSelector((state) => state.userData);
   //more actions dropdown open on click
   const [moreActionsDropdown, setMoreActionsDropdown] = useState(false); // determines whether the modal is open or close
@@ -37,15 +37,13 @@ function MoreActions({
 
   const { employees, loading } = useAppSelector((state) => state.employeesData);
 
-
   const employeesIdList = employees
     .map((employee: IAppEmployee) => employee.id)
     .filter((employeeId: string) => employeeId !== user.employeeDetails?.id);
-  
+
   const selectAll =
     deleteCheckBoxesList.checkedBoxesList.length == 0 ||
     deleteCheckBoxesList.checkedBoxesList.length !== employeesIdList.length;
-
 
   //delte modal open on click
   const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
@@ -128,19 +126,24 @@ function MoreActions({
               </Button>
             </CSVLink>
           )}
-          <Button className="select-all item" $noTransition>
-            {selectAll ? "Select All" : "Unselect All"}
-            <Checkbox
-              deleteCheckBoxesList={deleteCheckBoxesList}
-              employeesIdList={employeesIdList}
-            />
-          </Button>
-          {deleteCheckBoxesList.checkedBoxesList.length == 0 ? (
-            <TooltipComponent title=" Do select the employees to delete the necessary ones">
-              {deleteButton}
-            </TooltipComponent>
-          ) : (
-            deleteButton
+
+          {user.employeeDetails?.accessControlRole === "admin" && (
+            <>
+              <Button className="select-all item" $noTransition>
+                {selectAll ? "Select All" : "Unselect All"}
+                <Checkbox
+                  deleteCheckBoxesList={deleteCheckBoxesList}
+                  employeesIdList={employeesIdList}
+                />
+              </Button>
+              {deleteCheckBoxesList.checkedBoxesList.length == 0 ? (
+                <TooltipComponent title=" Do select the employees to delete the necessary ones">
+                  {deleteButton}
+                </TooltipComponent>
+              ) : (
+                deleteButton
+              )}
+            </>
           )}
         </DropdownWrapper>
       )}
