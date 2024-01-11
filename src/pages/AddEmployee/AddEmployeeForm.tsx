@@ -139,7 +139,7 @@ const AddEmployeeForm = () => {
                       "firstName",
                       "email",
                       "dob",
-                      "doj",
+                      "dateOfJoining",
                       "isAdmin",
                     ]);
                     validationStatus && setActiveSection(activeSection + 1);
