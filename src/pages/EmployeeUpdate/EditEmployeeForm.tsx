@@ -171,10 +171,12 @@ const EditEmployeeForm = () => {
   return (
     <>
       <Button
-        className="material-symbols-outlined back-btn"
-        icon="reply"
+        className="back-btn"
+        icon="arrow_back_ios"
         onClick={() => navigate(-1)}
-      />
+      >
+        Back
+      </Button>
       <FormWrapper>
         <H2Styles>
           {employeeId

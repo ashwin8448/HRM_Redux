@@ -61,10 +61,12 @@ function EmployeeViewLayout() {
     employee && (
       <>
         <Button
-          className="material-symbols-outlined back-btn"
-          icon="reply"
+          className="back-btn"
+          icon="arrow_back_ios"
           onClick={() => navigate(-1)}
-        ></Button>
+        >
+          Back
+        </Button>
         <EmployeeView employee={employee} />
       </>
     )

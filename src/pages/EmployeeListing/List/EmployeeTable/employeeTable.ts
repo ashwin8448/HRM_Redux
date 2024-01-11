@@ -41,6 +41,7 @@ const TableWrapper = styled.table`
 
   .small-column {
     width: 60px;
+    text-align: center;
   }
 
   .medium-column {

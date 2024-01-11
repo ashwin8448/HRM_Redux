@@ -55,7 +55,7 @@ const ProgressBarWrapper = styled.div<{
     height: 4px;
     width: ${(props) =>
       String((100 / props.$stepsNumber) * (props.$stepsNumber - 1)) + "%"};
-    background-color: #d1c5c5;
+    background-color: ${colors.LIGHT_GRAY_COLOR};
     position: absolute;
     top: 13px;
     z-index: -1;

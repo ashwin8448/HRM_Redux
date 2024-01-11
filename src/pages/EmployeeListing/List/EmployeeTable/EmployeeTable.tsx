@@ -9,7 +9,12 @@ import { useAppDispatch } from "../../../../hooks/reduxHooks.ts";
 import Pagination from "../components/Pagination/Pagination.tsx";
 import TableData from "../components/TableData/TableData.tsx";
 import TableHead from "../components/TableHead/TableHead.tsx";
-import { defaultSortBy, defaultSortDir, listDisplay, recordsPerPage } from "../../../../core/config/constants.ts";
+import {
+  defaultSortBy,
+  defaultSortDir,
+  listDisplay,
+  recordsPerPage,
+} from "../../../../core/config/constants.ts";
 
 function EmployeeTable({
   deleteCheckBoxesList,
@@ -33,7 +38,8 @@ function EmployeeTable({
       fetchEmployeesData(
         {
           limit: recordsPerPage,
-          offset: (Number(searchParams.get("page") || "1") - 1) * recordsPerPage,
+          offset:
+            (Number(searchParams.get("page") || "1") - 1) * recordsPerPage,
           sortBy: searchParams.get("sortBy") || defaultSortBy,
           sortDir: searchParams.get("sortDir") || defaultSortDir,
           search: searchParams.get("search") || "",
@@ -89,9 +95,7 @@ function EmployeeTable({
           )}
         </TableWrapper>
       </div>
-      <Pagination
-        deleteCheckBoxesList={deleteCheckBoxesList}
-      />
+      {!loading && <Pagination deleteCheckBoxesList={deleteCheckBoxesList} />}
     </>
   );
 }

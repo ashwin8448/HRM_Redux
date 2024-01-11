@@ -43,7 +43,7 @@ function TableData({
         onClick={handleEmployeeDetailsView}
       >
         {user.employeeDetails?.accessControlRole === "admin" && (
-          <TableDataStyles className="employee-data">
+          <TableDataStyles className="employee-data small-column">
             <Checkbox
               employeeId={employee.id}
               deleteCheckBoxesList={deleteCheckBoxesList}
@@ -51,10 +51,6 @@ function TableData({
             />
           </TableDataStyles>
         )}
-
-        <TableDataStyles className="employee-data">
-          {employee.id}
-        </TableDataStyles>
         {/* navigating to view employee page */}
         <TableDataStyles className="employee-data overflow-ellipsis">
           {employee.lastName
