@@ -50,7 +50,7 @@ function EmployeeCardList({
 
 
   const loadData = useCallback(async () => {
-    if (hasMore) {
+    if (hasMore && !loading) {
       console.log("callbacking",hasMore)
       const offset = employees.length;
 
@@ -74,7 +74,7 @@ function EmployeeCardList({
         )
       );
     }
-  }, [dispatch, employees.length, hasMore, searchParams]);
+  }, [dispatch, employees.length, hasMore, loading, searchParams]);
 
   
   useEffect(() => {
