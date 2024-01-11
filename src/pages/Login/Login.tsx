@@ -1,4 +1,4 @@
-import { FormEvent, useEffect, useState } from "react";
+import { FormEvent, useState } from "react";
 import useAuth from "./useAuth";
 import LoginLayoutWrapper from "./login";
 import Button from "../../components/Button/Button.tsx";
@@ -14,7 +14,7 @@ function Login() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
-  const { login, authError, authLoading, setAuthLoading } = useAuth();
+  const { login, authError, authLoading } = useAuth();
 
   function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault();
@@ -27,10 +27,6 @@ function Login() {
       });
     }
   }
-
-  useEffect(() => {
-    setAuthLoading(false)
-  }, []);
 
   return authLoading ? (
     <div className="center-loader">

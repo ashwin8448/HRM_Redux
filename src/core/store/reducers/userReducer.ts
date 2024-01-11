@@ -5,7 +5,9 @@ import * as actionNames from "../types/actionNames.ts";
 
 const initialState = {
   isAuthenticated: Boolean(getCookie("accessToken")),
-  employeeDetails: null,
+  employeeDetails: localStorage.getItem("userDetails")
+    ? JSON.parse(localStorage.getItem("userDetails") as string)
+    : null,
 };
 
 function userReducer(state = initialState, action: ActionInterface): IUser {

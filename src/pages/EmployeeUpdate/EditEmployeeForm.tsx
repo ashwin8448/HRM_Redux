@@ -27,20 +27,19 @@ import {
   fetchDepartmentsData,
   fetchRolesData,
   fetchSkillsData,
-  setlogin,
+  setLogin,
 } from "../../core/store/actions.ts";
 import {
   H3Styles,
   H2Styles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
-import useAuth from "../Login/useAuth.ts";
 
 const EditEmployeeForm = () => {
   const { employeeId } = useParams();
   const departments = useAppSelector(
     (state) => state.dropdownData.departments.departments
   );
-  const { user } = useAuth();
+  const user = useAppSelector((state) => state.userData);
   const roles = useAppSelector((state) => state.dropdownData.roles.roles);
   const skills = useAppSelector((state) => state.dropdownData.skills.skills);
   const [isLoading, setIsLoading] = useState(employeeId ? true : false);
@@ -129,7 +128,7 @@ const EditEmployeeForm = () => {
             await getData(apiURL.employee + `/${employeeId}`)
           ).data.data;
           dispatch(
-            setlogin(convertIGetEmployeeToIAppEmployee(updatedUserDetails))
+            setLogin(convertIGetEmployeeToIAppEmployee(updatedUserDetails))
           );
         }
         // Display toast for success state

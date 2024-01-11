@@ -11,8 +11,8 @@ import {
   H3Styles,
   ParagraphStyles,
 } from "../../../../core/constants/components/text/textStyledComponents.ts";
-import useAuth from "../../../Login/useAuth.ts";
 import TooltipComponent from "../../../../components/Tooltip/Tooltip.tsx";
+import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 
 function EmployeeCard({
   deleteCheckBoxesList,
@@ -24,7 +24,7 @@ function EmployeeCard({
   };
   employee: IAppEmployee;
 }) {
-  const { user } = useAuth();
+  const user = useAppSelector((state) => state.userData);
   const navigate = useNavigate();
 
   const cardEditBtnClick = (
@@ -88,7 +88,11 @@ function EmployeeCard({
         <div className="company-details common-flex">
           <DetailsSection
             title="Department"
-            content={employee.department.label ?? "-"}
+            content={
+              employee.department.label && employee.department.label != ""
+                ? employee.department.label
+                : "-"
+            }
             newline
           />
           <DetailsSection

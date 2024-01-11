@@ -18,30 +18,20 @@ import {
   listDisplay,
 } from "../../../../../core/config/constants.ts";
 
-function FilterActions({ onClick }: { onClick: () => void }) {
+const FilterActions = ({ onClick }: { onClick: () => void }) => {
   const dispatch = useAppDispatch();
 
   const { skills, loading } = useAppSelector(
     (state) => state.dropdownData.skills
   );
-  useEffect(() => {
-    if (!skills.length) dispatch(fetchSkillsData());
-  }, []);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get("skillIds");
   const display = searchParams.get("display");
 
-  const skillIdsArray: ISelectOptionProps[] = filter
-    ? filter.split(",").map((value: string) => ({
-        value: Number(value),
-        label:
-          skills?.find((option) => option.value === Number(value))?.label || "",
-      }))
-    : [];
-
-  const [skillFilterState, setSkillFilterState] =
-    useState<ISelectOptionProps[]>(skillIdsArray);
+  const [skillFilterState, setSkillFilterState] = useState<
+    ISelectOptionProps[]
+  >([]);
   const skillFilterValue = { skillFilterState, setSkillFilterState };
 
   const applyFilters = () => {
@@ -77,6 +67,24 @@ function FilterActions({ onClick }: { onClick: () => void }) {
 
     onClick();
   };
+
+  useEffect(() => {
+    if (!skills.length) {
+      dispatch(fetchSkillsData());
+    }
+    const skillIdsArray: ISelectOptionProps[] = filter
+      ? filter.split(",").map((value: string) => {
+          return {
+            value: Number(value),
+            label:
+              skills?.find((option) => option.value === Number(value))?.label ||
+              "",
+          };
+        })
+      : [];
+    setSkillFilterState(skillIdsArray);
+  }, [skills]);
+
   return (
     <FilterActionsWrapper>
       {!loading ? (
@@ -102,5 +110,5 @@ function FilterActions({ onClick }: { onClick: () => void }) {
       </ButtonGrpWrapper>
     </FilterActionsWrapper>
   );
-}
+};
 export default FilterActions;

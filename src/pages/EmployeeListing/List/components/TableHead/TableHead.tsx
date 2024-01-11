@@ -1,7 +1,7 @@
 import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
 import { ParagraphStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
 import { IAppEmployee } from "../../../../../core/interfaces/interface.ts";
-import useAuth from "../../../../Login/useAuth.ts";
+import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
 import TableHeadButton from "./TableHeadButton.tsx";
 import { TableHeadWrapper } from "./tableHead.ts";
 
@@ -15,7 +15,7 @@ function TableHead({
   };
   employees: IAppEmployee[];
 }) {
-  const { user } = useAuth();
+  const user = useAppSelector((state) => state.userData);
   const employeesIdList = employees
     .map((employee: IAppEmployee) => employee.id)
     .filter((employeeId: string) => employeeId !== user.employeeDetails?.id);

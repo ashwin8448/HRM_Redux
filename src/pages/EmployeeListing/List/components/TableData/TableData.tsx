@@ -6,10 +6,10 @@ import { concatenateNames } from "../../../../../utils/helper.ts";
 import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
 import React, { useState } from "react";
 import { TableDataStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
-import useAuth from "../../../../Login/useAuth.ts";
 import SkillsChip from "../../../../../components/Skills/SkillsChip.tsx";
 import { ChipWrapper } from "../../../../../components/Skills/chip.ts";
 import DeleteModal from "../../../../../components/DeleteModal/DeleteModal.tsx";
+import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
 
 function TableData({
   employee,
@@ -24,7 +24,8 @@ function TableData({
   };
 }) {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const user = useAppSelector((state) => state.userData);
+
   const handleEmployeeDetailsView = () => {
     navigate(`/view-employee/${employee.id}`);
   };

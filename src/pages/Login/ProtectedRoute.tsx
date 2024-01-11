@@ -1,6 +1,6 @@
 import { Navigate, useLocation, useParams } from "react-router-dom";
-import useAuth from "./useAuth";
 import { ReactNode } from "react";
+import { useAppSelector } from "../../hooks/reduxHooks";
 
 const ProtectedRoute = ({
   children,
@@ -9,10 +9,9 @@ const ProtectedRoute = ({
   children: ReactNode;
   allowedRoles: string[];
 }) => {
-  const { user } = useAuth();
+  const user = useAppSelector((state) => state.userData);
   const location = useLocation();
   const { employeeId } = useParams();
-
   return (
     <>
       {user.isAuthenticated && user.employeeDetails ? (

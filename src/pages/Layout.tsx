@@ -7,11 +7,10 @@ import { useEffect } from "react";
 import { useAppDispatch } from "../hooks/reduxHooks.ts";
 import { getCookie } from "../utils/helper.ts";
 import useAuth from "./Login/useAuth.ts";
-import Loader from "../components/Loader/Loader.tsx";
+import { setLogin } from "../core/store/actions.ts";
 
 const Layout = () => {
-
-  const { logout, fetchCurrentUser, authLoading,setAuthLoading } = useAuth();
+  const { logout } = useAuth();
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -23,20 +22,12 @@ const Layout = () => {
       if (decodedToken && decodedToken.exp! < currentTime) {
         logout();
       } else {
-        fetchCurrentUser(authToken);
+        dispatch(setLogin(JSON.parse(localStorage.getItem("userDetails")!)));
       }
-    }
-    else {
-      setAuthLoading(false)
     }
   }, [dispatch]);
 
-  
-  return authLoading ? (
-    <div className="center-loader">
-      <Loader />
-    </div>
-  ) : (
+  return (
     <>
       <Header />
       <main className="main-section global-width global-padding">

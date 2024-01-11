@@ -4,25 +4,29 @@ export interface IActionEmployeeData {
 }
 
 export interface IUser {
-  employeeDetails: IAppEmployee | null;
+  employeeDetails: Partial<IAppEmployee> | null;
   isAuthenticated: boolean;
 }
 
 export interface IEmployeeData extends IActionEmployeeData {
   loading: boolean;
 }
+
 export interface ISkillsData {
   skills: ISelectOptionProps[];
   loading: boolean;
 }
+
 export interface IDepartmentsData {
   departments: ISelectOptionProps[];
   loading: boolean;
 }
+
 export interface IRolesData {
   roles: ISelectOptionProps[];
   loading: boolean;
 }
+
 interface ICommonEmployeeFields {
   firstName: string;
   dob: string;

@@ -1,7 +1,7 @@
 import {
   IActionEmployeeData,
   IAppEmployee,
-  ISelectOptionProps
+  ISelectOptionProps,
 } from "../../interfaces/interface";
 
 export interface ISET_LOADING {
@@ -50,5 +50,5 @@ export interface IRESET_EMPLOYEES {
 
 export interface ISET_USER {
   type: "LOGIN" | "LOGOUT";
-  payload?: IAppEmployee;
+  payload?: Partial<IAppEmployee>;
 }

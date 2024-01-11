@@ -10,7 +10,6 @@ import TooltipComponent from "../../../../../components/Tooltip/Tooltip.tsx";
 import { CSVLink } from "react-csv";
 import { export_csvData } from "../../../../../utils/helper.ts";
 import { IAppEmployee } from "../../../../../core/interfaces/interface.ts";
-import useAuth from "../../../../Login/useAuth.ts";
 
 function MoreActions({
   deleteCheckBoxesList,
@@ -20,7 +19,7 @@ function MoreActions({
     setCheckedBoxesList: React.Dispatch<React.SetStateAction<string[]>>;
   };
   }) {
-  const { user } = useAuth();
+  const user = useAppSelector((state) => state.userData);
   //more actions dropdown open on click
   const [moreActionsDropdown, setMoreActionsDropdown] = useState(false); // determines whether the modal is open or close
   const changeMoreActionsDropdownOpenStatus = () => {

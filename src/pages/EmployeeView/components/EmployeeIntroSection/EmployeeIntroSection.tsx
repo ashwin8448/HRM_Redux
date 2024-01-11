@@ -15,8 +15,8 @@ import {
   ParagraphStyles,
 } from "../../../../core/constants/components/text/textStyledComponents.ts";
 import ActiveDot from "../../../../components/ActiveDot/ActiveDot.tsx";
-import useAuth from "../../../Login/useAuth.ts";
 import TooltipComponent from "../../../../components/Tooltip/Tooltip.tsx";
+import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 
 function EmployeeIntroSection({
   employee,
@@ -29,7 +29,7 @@ function EmployeeIntroSection({
   const navigate = useNavigate();
   const location = useLocation();
   const [deleteModal, setDeleteModal] = useState(false);
-  const { user } = useAuth();
+  const user = useAppSelector((state) => state.userData);
   const { employeeId } = useParams();
   const handleDeleteButtonClick = () => {
     setDeleteModal((prev) => !prev);

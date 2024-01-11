@@ -149,9 +149,11 @@ export const convertFormDataToIPostEmployees = async (
   } = formData;
   return {
     ...(rest as IPostEmployee),
-    skills: skills.map((skill: ISelectOptionProps) => skill.value),
-    department: department.value,
-    role: role.value,
+    skills: skills
+      ? skills.map((skill: ISelectOptionProps) => skill.value)
+      : null,
+    department: department ? department.value : null,
+    role: role ? role.value : null,
     isActive: isActive === "Yes" ? true : false,
     moreDetails: JSON.stringify({
       photoId: photoId

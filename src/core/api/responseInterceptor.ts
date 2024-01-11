@@ -1,5 +1,9 @@
 import { AxiosError, AxiosResponse } from "axios";
-import { getNewRefreshToken, setCookie } from "../../utils/helper";
+import {
+  deleteCookie,
+  getNewRefreshToken,
+  setCookie,
+} from "../../utils/helper";
 import { API } from ".";
 import { apiURL } from "../config/constants";
 
@@ -27,7 +31,7 @@ export async function onResponseError(error: AxiosError): Promise<AxiosError> {
       error.response?.status === HTTP_STATUS.BAD_REQUEST) &&
     window.location.pathname !== "/error"
   ) {
-    // window.location.href = `/error?statusCode=${error.response?.status}`;
+    window.location.href = `/error?statusCode=${error.response?.status}`;
     return Promise.reject(error.response.data as IErrorResponse);
   } else if (
     error.response?.status === HTTP_STATUS.UNAUTHORIZED &&
@@ -40,6 +44,10 @@ export async function onResponseError(error: AxiosError): Promise<AxiosError> {
       setCookie("refreshToken", refreshResponse.refresh_token);
       return API(config!);
     } else {
+      deleteCookie("accessToken");
+      deleteCookie("refreshToken");
+      localStorage.removeItem("userDetails");
+      window.location.href = `/login`;
       return Promise.reject(error.response.data as IErrorResponse);
     }
   }

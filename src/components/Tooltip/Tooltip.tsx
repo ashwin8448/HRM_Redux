@@ -1,7 +1,13 @@
-import Tooltip from '@mui/material/Tooltip';
-import tooltipStyles from "./tooltip.ts"
+import Tooltip from "@mui/material/Tooltip";
+import tooltipStyles from "./tooltip.ts";
 
-const TooltipComponent = ({ title,children }:{title:string, children:JSX.Element}) => {
+const TooltipComponent = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: JSX.Element;
+}) => {
   return (
     <Tooltip
       title={title}

@@ -78,14 +78,14 @@ export const resetEmployeesGrid = (): actionTypes.IRESET_EMPLOYEES => {
   };
 };
 
-export const setlogin = (
-  employeeDetails: IAppEmployee
+export const setLogin = (
+  employeeDetails: Partial<IAppEmployee>
 ): actionTypes.ISET_USER => ({
   type: actionNames.LOGIN,
   payload: employeeDetails,
 });
 
-export const setlogout = (): actionTypes.ISET_USER => ({
+export const setLogout = (): actionTypes.ISET_USER => ({
   type: actionNames.LOGOUT,
 });
 

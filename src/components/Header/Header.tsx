@@ -6,10 +6,12 @@ import logo from "../../assets/favicon.png";
 import { useNavigate } from "react-router-dom";
 import TooltipComponent from "../Tooltip/Tooltip.tsx";
 import { H1Styles } from "../../core/constants/components/text/textStyledComponents.ts";
+import { useAppSelector } from "../../hooks/reduxHooks.ts";
 
 function Header() {
   const navigate = useNavigate();
-  const { user, logout } = useAuth();
+  const { logout } = useAuth();
+  const user = useAppSelector((state) => state.userData);
   const logoElement = (
     <H1Styles>
       <img className="logo" src={logo} alt="" onClick={() => navigate("/")} />

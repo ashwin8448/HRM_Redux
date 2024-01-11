@@ -8,7 +8,7 @@ import Filter from "../Filter/Filter.tsx";
 import MoreActions from "./MoreActions/MoreActions.tsx";
 import { useNavigate } from "react-router-dom";
 import { gridDisplay, listDisplay } from "../../../../core/config/constants.ts";
-import useAuth from "../../../Login/useAuth.ts";
+import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 
 function ListingActions({
   deleteCheckBoxesList,
@@ -23,7 +23,7 @@ function ListingActions({
   listingActive: string;
 }) {
   const navigate = useNavigate();
-  const { user } = useAuth();
+  const user = useAppSelector((state) => state.userData);
 
   return (
     <ListingActionsWrapper>
