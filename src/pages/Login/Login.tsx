@@ -1,32 +1,25 @@
-import { FormEvent, useState } from "react";
 import useAuth from "./useAuth";
 import LoginLayoutWrapper from "./login";
-import Button from "../../components/Button/Button.tsx";
 import Loader from "../../components/Loader/Loader.tsx";
-import InputWrapper from "../../components/Input/input.ts";
 import {
   H3Styles,
-  LabelStyles,
   ParagraphStyles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
+import loginFormConfig from "./loginFormConfig.ts";
+import { IInputProps } from "../../core/interfaces/interface.ts";
+import { FormProvider, useForm } from "react-hook-form";
+import Input from "../../components/Input/Input.tsx";
 
-function Login() {
-  const [username, setUsername] = useState("");
-  const [password, setPassword] = useState("");
-  const [errorMsg, setErrorMsg] = useState("");
+const Login = () => {
+  const methods = useForm({
+    mode: "onChange",
+  });
   const { login, authError, authLoading } = useAuth();
 
-  function handleSubmit(e: FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    if (username === "") setErrorMsg("Please enter a username.");
-    else if (password === "") setErrorMsg("Please enter a password.");
-    else {
-      login({
-        username,
-        password,
-      });
-    }
-  }
+  const onSubmit = methods.handleSubmit(() => {
+    const formValues = methods.getValues();
+    login({ username: formValues.username, password: formValues.password });
+  });
 
   return authLoading ? (
     <div className="center-loader">
@@ -35,35 +28,27 @@ function Login() {
   ) : (
     <LoginLayoutWrapper>
       <H3Styles>Sign In</H3Styles>
-      <form onSubmit={handleSubmit}>
-        <InputWrapper>
-          <LabelStyles>Username</LabelStyles>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </InputWrapper>
-        <InputWrapper>
-          <LabelStyles>Password</LabelStyles>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </InputWrapper>
-        {(errorMsg != "" && (
-          <ParagraphStyles className="error">{errorMsg}</ParagraphStyles>
-        )) ||
-          (authError != "" && (
-            <ParagraphStyles className="error">{authError}</ParagraphStyles>
+      <FormProvider {...methods}>
+        <form
+          onSubmit={(e) => {
+            e.preventDefault();
+            onSubmit();
+          }}
+          noValidate
+        >
+          {loginFormConfig.map((formField: IInputProps) => (
+            <Input key={formField.name} config={formField} />
           ))}
-        <div className="button-container">
-            <Button className="primary-btn" type={"submit"}>Submit</Button>
-        </div>
-      </form>
+          {authError != "" && (
+            <ParagraphStyles className="error">{authError}</ParagraphStyles>
+          )}
+          <div className="button-container">
+            <input className="primary-btn" type="submit" value="Submit" />
+          </div>
+        </form>
+      </FormProvider>
     </LoginLayoutWrapper>
   );
-}
+};
 
 export default Login;
