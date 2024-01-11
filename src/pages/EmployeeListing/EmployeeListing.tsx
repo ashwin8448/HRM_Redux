@@ -25,6 +25,12 @@ function EmployeeListing() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const displayValue = searchParams.get("display");
+  
+  let pageValue : string | undefined = undefined;
+  
+  if(displayValue==="List"){
+    pageValue = searchParams.get("page")?? defaultPageSize.page;
+  }
 
   //toggle between list and grid
   const [listingActive, setListingActive] = useState(displayValue ?? listDisplay);
@@ -37,9 +43,9 @@ function EmployeeListing() {
   useEffect(() => {
     updateSearchParams(setSearchParams, searchParams, {
       display: displayValue ?? listDisplay,
-      page: searchParams.get("page")?? defaultPageSize.page,
+      page: pageValue
     });
-  }, [listingActive]);
+  }, [listingActive, displayValue, pageValue, searchParams, setSearchParams]);
 
   return (
     <EmployeeListingWrapper>

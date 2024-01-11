@@ -27,7 +27,7 @@ function FilterActions({ onClick }: { onClick: () => void }) {
 
   useEffect(() => {
     if (!skills.length) dispatch(fetchSkillsData());
-  }, []);
+  }, [dispatch, skills.length]);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const filter = searchParams.get("skillIds");
