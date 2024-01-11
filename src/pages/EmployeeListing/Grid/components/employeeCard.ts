@@ -3,6 +3,7 @@ import colors from "../../../../core/constants/colors";
 
 const EmployeeCardWrapper = styled.div`
   background-color: ${colors.WHITE_COLOR};
+  box-shadow: ${colors.BOX_SHADOW};
   padding: 15px;
   border-radius: 10px;
   display: flex;

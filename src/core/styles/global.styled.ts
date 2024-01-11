@@ -42,7 +42,7 @@ body {
 }
 
   .material-symbols-outlined {
-    font-size: ${fontSizes['--font-size-md']};
+    font-size: ${fontSizes["--font-size-md"]};
   }
 
 .common-flex {
@@ -101,8 +101,11 @@ body {
 }
 
 .back-btn{
-    font-size:24px;
-    margin-bottom: 15px;
+    margin: 15px;
+    background: none;
+    border:none;
+    *{
+    color:${colors.DARK_PRIMARY_COLOR}}
 } 
 
 .photo-container {

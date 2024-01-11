@@ -47,10 +47,6 @@ const EmployeeView = ({
           title="Work Information"
           details={[
             {
-              title: "Employee ID",
-              content: employee.id ? employee.id.toString() : "-",
-            },
-            {
               title: "Date hired",
               content: employee.dateOfJoining
                 ? getDateView(employee.dateOfJoining)
