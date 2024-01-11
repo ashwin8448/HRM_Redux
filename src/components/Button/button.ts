@@ -58,8 +58,8 @@ const ButtonWrapper = styled.button<{
     color: ${colors.LIGHT_GRAY_COLOR};
   }
 
-  &.invert-style {
-    background-color: ${colors.SECONDARY_COLOR};
+  &.primary-btn {
+    background-color: ${colors.PRIMARY_COLOR};
     > * {
       color: ${colors.WHITE_COLOR};
     }

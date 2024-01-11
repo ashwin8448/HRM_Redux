@@ -37,13 +37,15 @@ function MoreActions({
 
   const { employees, loading } = useAppSelector((state) => state.employeesData);
 
-  const selectAll =
-    deleteCheckBoxesList.checkedBoxesList.length == 0 ||
-    deleteCheckBoxesList.checkedBoxesList.length !== employees.length;
 
   const employeesIdList = employees
     .map((employee: IAppEmployee) => employee.id)
     .filter((employeeId: string) => employeeId !== user.employeeDetails?.id);
+  
+  const selectAll =
+    deleteCheckBoxesList.checkedBoxesList.length == 0 ||
+    deleteCheckBoxesList.checkedBoxesList.length !== employeesIdList.length;
+
 
   //delte modal open on click
   const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close

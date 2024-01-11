@@ -24,14 +24,13 @@ const LoginLayoutWrapper = styled.div`
   form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
   }
 
   .button-container {
     margin-top: 10px;
-
     button {
-      margin-left: auto;
+      margin: auto;
     }
   }
 

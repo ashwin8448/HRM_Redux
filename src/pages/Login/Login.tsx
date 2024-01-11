@@ -37,7 +37,7 @@ function Login() {
       <H3Styles>Sign In</H3Styles>
       <form onSubmit={handleSubmit}>
         <InputWrapper>
-          <LabelStyles>Username:</LabelStyles>
+          <LabelStyles>Username</LabelStyles>
           <input
             type="text"
             value={username}
@@ -45,7 +45,7 @@ function Login() {
           />
         </InputWrapper>
         <InputWrapper>
-          <LabelStyles>Password:</LabelStyles>
+          <LabelStyles>Password</LabelStyles>
           <input
             type="password"
             value={password}
@@ -59,7 +59,7 @@ function Login() {
             <ParagraphStyles className="error">{authError}</ParagraphStyles>
           ))}
         <div className="button-container">
-          <Button type={"submit"}>Submit</Button>
+            <Button className="primary-btn" type={"submit"}>Submit</Button>
         </div>
       </form>
     </LoginLayoutWrapper>

@@ -1,6 +1,6 @@
 export interface IActionEmployeeData {
   employees: IAppEmployee[];
-  count: number;
+  count: number | null;
 }
 
 export interface IUser {

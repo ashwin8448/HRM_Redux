@@ -14,8 +14,8 @@ import { SpanStyles } from "../../../../core/constants/components/text/textStyle
 
 function Sort() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const sortBy = searchParams.get("sortBy");
-  const sortOrder = searchParams.get("sortDir");
+  const sortBy = searchParams.get("sortBy") ?? defaultSortBy;
+  const sortOrder = searchParams.get("sortDir") ?? defaultSortDir;
 
   //responsive
   const matches = useMediaQuery("(min-width: 768px)");
@@ -39,10 +39,13 @@ function Sort() {
 
 
   //sort by
-  const [sortBySelection, setSortBySelection] = useState<string>(
-    sortBy ?? defaultSortBy
-  );
+  const [sortBySelection, setSortBySelection] = useState<string>(sortBy);
   const handleItemSelection = (criteria: string) => {
+        
+    updateSearchParams(setSearchParams, searchParams, {
+      sortBy: criteria,
+      sortDir: sortOrderSelection
+    });
     setSortBySelection(criteria);
     changeSortDropdownOpenStatus();
   };
@@ -50,28 +53,25 @@ function Sort() {
   //sort order
   // Function to convert URL parameter to SortDirection enum
   const getSortOrderFromParams = (order: string) => {
-    return order === "desc" ? SortDirection.DESC : SortDirection.ASC;
+    return order === defaultSortDir ? SortDirection.ASC : SortDirection.DESC;
   };
   const [sortOrderSelection, setSortOrderSelection] = useState<SortDirection>(
-    getSortOrderFromParams(sortOrder ?? "asc")
+    getSortOrderFromParams(sortOrder)
   );
   const handleOrderSelection = (order: SortDirection) => {
+    updateSearchParams(setSearchParams, searchParams, {
+      sortDir: order,
+      sortBy: sortBySelection
+    });
     setSortOrderSelection(order);
     changeSortDropdownOpenStatus();
   };
 
   useEffect(() => {
-    setSortBySelection(sortBy ?? defaultSortBy);
-    setSortOrderSelection(getSortOrderFromParams(sortOrder ?? "asc"));
+    setSortBySelection(sortBy);
+    setSortOrderSelection(getSortOrderFromParams(sortOrder));
   }, [sortBy, sortOrder]);
 
-  // Update URL parameters when local state changes
-  useEffect(() => {
-    updateSearchParams(setSearchParams, searchParams, {
-      sortBy: sortBySelection ?? defaultSortBy,
-      sortDir: sortOrderSelection ?? defaultSortDir,
-    });
-  }, [sortBySelection, sortOrderSelection]);
 
   useEffect(() => {
     // Attach the event listener when the component mounts

@@ -42,7 +42,7 @@ body {
 }
 
   .material-symbols-outlined {
-    font-size: ${fontSizes["--font-size-md"]};
+    font-size: ${fontSizes['--font-size-md']};
   }
 
 .common-flex {
@@ -75,7 +75,8 @@ body {
   transform: rotate(180deg);
 }
 .table-overflow-scroll{
-  border: 1px solid   ${colors.LIGHT_GRAY_COLOR};
+  /* border: 1px solid   ${colors.LIGHT_GRAY_COLOR}; */
+    box-shadow: ${colors.BOX_SHADOW};
 }
 .overflow-ellipsis{
   overflow: hidden;

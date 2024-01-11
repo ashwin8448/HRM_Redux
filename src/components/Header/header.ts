@@ -4,7 +4,7 @@ import { fontSizes } from '../../core/constants/fontStyles';
 
 const HeaderWrapper = styled.header`
   background-color: ${colors.WHITE_COLOR};
-  border-bottom: 1px solid ${colors.LIGHT_GRAY_COLOR};
+  box-shadow: ${colors.BOX_SHADOW};
   width: 100%;
 
   .header-content {

@@ -18,7 +18,7 @@ function Pagination({
 
   // Employees count fetching
   const { count } = useAppSelector((state) => state.employeesData);
-  const totalPageSize = totalPages(count);
+  const totalPageSize = totalPages(count===null ? 0: count);
   
   const [searchParams, setSearchParams] = useSearchParams();
 

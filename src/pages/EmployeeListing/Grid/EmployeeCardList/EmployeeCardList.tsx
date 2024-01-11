@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useCallback, useEffect, useRef } from "react";
 import EmployeeCard from "../components/EmployeeCard.tsx";
 import Loader from "../../../../components/Loader/loader.ts";
 import {
@@ -16,9 +16,7 @@ import {
   defaultSortBy,
   defaultSortDir,
   recordsPerPage,
-  totalPages,
 } from "../../../../core/config/constants.ts";
-import { updateSearchParams } from "../../../../utils/helper.ts";
 import { gridDisplay } from "./../../../../core/config/constants";
 
 function EmployeeCardList({
@@ -38,47 +36,58 @@ function EmployeeCardList({
 
   const dispatch = useAppDispatch();
 
-  const [searchParams, setSearchParams] = useSearchParams();
-
-  const [page, setPage] = useState<number>(0);
+  const [searchParams] = useSearchParams();
 
   const bottomObserver = useRef<IntersectionObserver | null>(null);
   const bottomElement = useRef<HTMLDivElement>(null);
 
-  const handleIntersection = (entries: IntersectionObserverEntry[]) => {
-    if (entries[0].isIntersecting) {
-      // When user scrolls to the bottom, load more data
-      setPage((prevPage) => prevPage + 1);
-    }
-  };
+  const hasMore = count!==null ?  employees.length < count: true;
 
   useEffect(() => {
-    if (page <= totalPages(count) || totalPages(count) === 0) {
-      const offset = Math.max(0, (page - 1) * recordsPerPage);
+    console.log("resetting grid ");
+    dispatch(resetEmployeesGrid());
+    
+  }, [dispatch, searchParams]);
 
-      // Adding a delay of 500 milliseconds before dispatching the action
-      const delay = 500;
-      const timeoutId = setTimeout(() => {
-        dispatch(
-          fetchEmployeesData(
-            {
-              limit: recordsPerPage,
-              offset,
-              sortBy: searchParams.get("sortBy") || defaultSortBy,
-              sortDir: searchParams.get("sortDir") || defaultSortDir,
-              search: searchParams.get("search") || "",
-              skillIds: searchParams.get("skillIds") || "",
-            },
-            gridDisplay
-          )
-        );
-      }, delay);
 
-      return () => clearTimeout(timeoutId); // Clear the timeout on component unmount
+  const loadData = useCallback(async () => {
+    console.log("employees lenght", employees.length);
+    console.log("total count", count)
+    console.log("enter load data", hasMore)
+
+    if (hasMore && !loading) {
+      const offset = employees.length;
+
+      console.log(
+        "fetching data searchParams",
+        searchParams,
+        "employees",
+        offset
+      );
+      dispatch(
+        fetchEmployeesData(
+          {
+            limit: recordsPerPage,
+            offset: offset,
+            sortBy: searchParams.get("sortBy") || defaultSortBy,
+            sortDir: searchParams.get("sortDir") || defaultSortDir,
+            search: searchParams.get("search") || "",
+            skillIds: searchParams.get("skillIds") || "",
+          },
+          gridDisplay
+        )
+      );
     }
-  }, [page]);
+  }, [dispatch, employees.length, hasMore, loading, ]);
 
+  
   useEffect(() => {
+    const handleIntersection = (entries: IntersectionObserverEntry[]) => {
+      if (entries[0].isIntersecting ) {
+        console.log("intersecting")
+        loadData();
+      }
+    };
     bottomObserver.current = new IntersectionObserver(handleIntersection, {
       root: null,
       rootMargin: "0px",
@@ -89,20 +98,11 @@ function EmployeeCardList({
     }
 
     return () => {
-      if (bottomObserver.current) {
+      if (bottomObserver.current ) {
         bottomObserver.current.disconnect();
       }
     };
-  }, [searchParams]);
-
-  useEffect(() => {
-    updateSearchParams(setSearchParams, searchParams, { page: undefined });
-  }, []);
-
-  useEffect(() => {
-    setPage(0);
-    dispatch(resetEmployeesGrid());
-  }, [searchParams]);
+  }, [dispatch, loadData]);
 
   return (
     <>
