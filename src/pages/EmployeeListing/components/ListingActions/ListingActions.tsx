@@ -50,7 +50,7 @@ function ListingActions({
           {user.employeeDetails?.accessControlRole === "admin" && (
             <Button
               icon="add"
-              className="invert-style"
+              className="primary-btn"
               onClick={() => navigate("add-employee")}
             >
               New

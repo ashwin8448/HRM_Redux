@@ -95,7 +95,7 @@ function EmployeeIntroSection({
                 )}
               </Button>
               {user.employeeDetails?.id != employeeId && (
-                <Button icon="delete" onClick={() => handleDeleteButtonClick()}>
+              <Button className="delete-btn" icon="delete" onClick={() => handleDeleteButtonClick()}>
                   {(matchesWithMobile || matchesWithTab) && (
                     <>
                       {matchesWithMobile && "Delete Profile"}

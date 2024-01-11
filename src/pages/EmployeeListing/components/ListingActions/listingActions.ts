@@ -4,11 +4,13 @@ import { fontWeights } from "../../../../core/constants/fontStyles";
 
 const ListingActionsWrapper = styled.div`
   display: flex;
-  padding: 10px 0;
+  margin-top: 10px;
+  padding: 10px;
   gap: 20px;
+  box-shadow: ${colors.BOX_SHADOW};
 
   .message-text {
-    font-weight: ${fontWeights["--font-semi-bold"]} !important;
+    font-weight: ${fontWeights['--font-semi-bold']} !important;
   }
   .btn-grp-view {
     justify-content: flex-start;
