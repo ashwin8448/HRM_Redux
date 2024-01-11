@@ -41,17 +41,21 @@ function EmployeeCardList({
   const bottomObserver = useRef<IntersectionObserver | null>(null);
   const bottomElement = useRef<HTMLDivElement>(null);
 
-  const hasMore = employees.length < count||count ===0 ;
+  const hasMore = count!==null ?  employees.length < count: true;
 
   useEffect(() => {
     console.log("resetting grid ");
     dispatch(resetEmployeesGrid());
+    
   }, [dispatch, searchParams]);
 
 
   const loadData = useCallback(async () => {
+    console.log("employees lenght", employees.length);
+    console.log("total count", count)
+    console.log("enter load data", hasMore)
+
     if (hasMore && !loading) {
-      console.log("callbacking",hasMore)
       const offset = employees.length;
 
       console.log(
@@ -74,7 +78,7 @@ function EmployeeCardList({
         )
       );
     }
-  }, [dispatch, employees.length, hasMore, loading, searchParams]);
+  }, [dispatch, employees.length, hasMore, loading, ]);
 
   
   useEffect(() => {
@@ -94,7 +98,7 @@ function EmployeeCardList({
     }
 
     return () => {
-      if (bottomObserver.current) {
+      if (bottomObserver.current ) {
         bottomObserver.current.disconnect();
       }
     };

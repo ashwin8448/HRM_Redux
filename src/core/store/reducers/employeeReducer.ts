@@ -5,7 +5,7 @@ import { ActionInterface } from "../actions.ts";
 const initialState: IEmployeeData = {
   employees: [],
   loading: false,
-  count: 0,
+  count: null,
 };
 
 function employeeReducer(
@@ -49,6 +49,7 @@ function employeeReducer(
       return {
         ...state,
         employees: [],
+        count: null
       };
     case actionNames.SET_LOADING:
       return { ...state, loading: action.payload.loading };
