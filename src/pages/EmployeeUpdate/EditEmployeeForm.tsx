@@ -80,7 +80,7 @@ const EditEmployeeForm = () => {
   }, []);
 
   useEffect(() => {
-    if (employeeData)
+    if (employeeData) {
       for (const employeeProperty in employeeData) {
         if (
           (employeeProperty === "department" || employeeProperty === "role") &&
@@ -92,6 +92,11 @@ const EditEmployeeForm = () => {
             employeeProperty,
             employeeData[employeeProperty] ? "Yes" : "No"
           );
+        } else if (employeeProperty === "accessControlRole") {
+          methods.setValue(
+            "isAdmin",
+            employeeData[employeeProperty] === "admin" ? "Yes" : "No"
+          );
         } else {
           methods.setValue(
             employeeProperty,
@@ -99,14 +104,20 @@ const EditEmployeeForm = () => {
           );
         }
       }
+    }
   }, [employeeData]);
 
   const onSubmit = methods.handleSubmit(async () => {
     setIsLoading(true);
     const formValues = methods.getValues();
     try {
+      const dirtyInputs = methods.formState.dirtyFields as Record<
+        string,
+        boolean
+      >;
+      delete dirtyInputs.photoId;
       if (
-        Object.keys(methods.formState.dirtyFields).length ||
+        Object.keys(dirtyInputs).length ||
         formValues.photoId != employeeData?.photoId
       ) {
         const editedEmployee = await convertFormDataToIPostEmployees(
@@ -146,7 +157,7 @@ const EditEmployeeForm = () => {
     departments: departments as ISelectOptionProps[],
     skills: skills as ISelectOptionProps[],
     roles: roles as ISelectOptionProps[],
-    validationRequired: !(
+    required: !(
       Boolean(user.employeeDetails?.accessControlRole === "admin") &&
       employeeId != user.employeeDetails?.id
     ),
@@ -260,6 +271,7 @@ const EditEmployeeForm = () => {
                         validationStatus = await methods.trigger([
                           "dateOfJoining",
                           "isActive",
+                          "isAdmin",
                           "designation",
                           "role",
                           "department",

@@ -68,9 +68,11 @@ const EmployeeView = ({
             },
             {
               title: "Department",
-              content: employee.department.label
+              content: employee.department
                 ? employee.department.label
-                : "-",
+                  ? employee.department.label
+                  : "-"
+                : "",
             },
             {
               title: "Designation",

@@ -1,4 +1,4 @@
-import { FormProvider, useForm } from "react-hook-form";
+import { FieldValues, FormProvider, useForm } from "react-hook-form";
 import Button from "../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import Input from "../../components/Input/Input.tsx";
@@ -6,7 +6,7 @@ import addFormConfig from "./addFormConfig.ts";
 import { Fieldset, FormWrapper } from "../EmployeeUpdate/form.ts";
 import React, { useState } from "react";
 import { IInputProps } from "../../core/interfaces/interface.ts";
-import { useNavigate, useParams } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { postData } from "../../core/api/functions.ts";
 import { toast } from "react-toastify";
 import Loader from "../../components/Loader/Loader.tsx";
@@ -18,8 +18,7 @@ import {
 } from "../../core/constants/components/text/textStyledComponents.ts";
 
 const AddEmployeeForm = () => {
-  const { employeeId } = useParams();
-  const [isLoading, setIsLoading] = useState(employeeId ? true : false);
+  const [isLoading, setIsLoading] = useState(false);
   const [activeSection, setActiveSection] = useState(1);
   const methods = useForm({
     mode: "onChange",
@@ -29,7 +28,9 @@ const AddEmployeeForm = () => {
 
   const onSubmit = methods.handleSubmit(async () => {
     setIsLoading(true);
-    const { password, isAdmin, confirmPassword, ...rest } = methods.getValues();
+    const formValues: FieldValues = methods.getValues();
+    delete formValues.confirmPassword;
+    const { password, isAdmin, ...rest } = formValues;
     try {
       const newEmployee = {
         ...rest,
@@ -48,6 +49,7 @@ const AddEmployeeForm = () => {
       toast.success(`Added user ${rest.firstName}`, {
         toastId: "add-toast-id",
       });
+      navigate("/");
     } catch (error) {
       // Display error toast
       console.error(error);
@@ -55,7 +57,6 @@ const AddEmployeeForm = () => {
       setActiveSection(1);
     } finally {
       setIsLoading(false);
-      navigate("/");
     }
   });
 
@@ -134,7 +135,7 @@ const AddEmployeeForm = () => {
                 </Button>
                 <Button
                   onClick={async () => {
-                    let validationStatus = await methods.trigger([
+                    const validationStatus = await methods.trigger([
                       "firstName",
                       "email",
                       "dob",

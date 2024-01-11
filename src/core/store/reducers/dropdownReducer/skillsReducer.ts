@@ -14,7 +14,7 @@ function skillsReducer(
   switch (action.type) {
     case actionNames.SET_SKILLS:
       return { ...state, skills: action.payload };
-    case actionNames.SET_LOADING:
+    case actionNames.SET_SKILLS_LOADING:
       return { ...state, loading: action.payload.loading };
     default:
       return state;

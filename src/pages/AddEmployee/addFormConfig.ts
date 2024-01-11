@@ -17,6 +17,7 @@ const addFormConfig = [
         type: "text",
         name: "firstName",
         isRequired: true,
+        visibility: "public",
       },
       {
         validation: emailValidation,
@@ -24,6 +25,7 @@ const addFormConfig = [
         type: "email",
         name: "email",
         isRequired: true,
+        visibility: "public",
       },
       {
         validation: dateValidation,
@@ -31,6 +33,7 @@ const addFormConfig = [
         type: "date",
         name: "dob",
         isRequired: true,
+        visibility: "public",
       },
       {
         validation: dateValidation,
@@ -38,13 +41,15 @@ const addFormConfig = [
         type: "date",
         name: "dateOfJoining",
         isRequired: true,
+        visibility: "public",
       },
       {
-        label: "Is admin?",
+        label: "Provide admin access",
         type: "radio",
         options: ["Yes", "No"],
         name: "isAdmin",
         isRequired: true,
+        visibility: "public",
       },
     ],
   },
@@ -58,6 +63,7 @@ const addFormConfig = [
         type: "password",
         name: "password",
         isRequired: true,
+        visibility: "public",
       },
       {
         validation: confirmPasswordValidation,
@@ -65,6 +71,7 @@ const addFormConfig = [
         type: "password",
         name: "confirmPassword",
         isRequired: true,
+        visibility: "public",
       },
     ],
   },

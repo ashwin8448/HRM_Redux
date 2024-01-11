@@ -3,7 +3,6 @@ import colors from "../../core/constants/colors";
 import { fontSizes, fontWeights } from "../../core/constants/fontStyles";
 
 const ChipListWrapper = styled.div`
-  padding-left: 10px;
   width: 100%;
   cursor: pointer;
 `;

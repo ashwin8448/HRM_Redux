@@ -3,7 +3,7 @@ import colors from "../../core/constants/colors";
 import { fontSizes, fontWeights } from "../../core/constants/fontStyles";
 
 const InputWrapper = styled.div`
-  gap: 15px;
+  gap: 3px;
   display: flex;
   flex-direction: column;
   flex: 1;
@@ -44,7 +44,7 @@ const InputWrapper = styled.div`
     display: flex;
     flex-direction: column;
     position: relative;
-    min-height: 70px; /* Adjust the min-height based on your design */
+    min-height: 65px; /* Adjust the min-height based on your design */
   }
   .radio-list {
     gap: 15px;

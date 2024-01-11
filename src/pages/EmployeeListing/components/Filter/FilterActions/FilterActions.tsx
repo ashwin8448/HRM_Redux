@@ -24,7 +24,6 @@ function FilterActions({ onClick }: { onClick: () => void }) {
   const { skills, loading } = useAppSelector(
     (state) => state.dropdownData.skills
   );
-
   useEffect(() => {
     if (!skills.length) dispatch(fetchSkillsData());
   }, [dispatch, skills.length]);
@@ -78,7 +77,6 @@ function FilterActions({ onClick }: { onClick: () => void }) {
 
     onClick();
   };
-
   return (
     <FilterActionsWrapper>
       {!loading ? (

@@ -117,6 +117,7 @@ export interface IInputProps {
   placeholder?: string;
   isMulti?: boolean;
   accept?: string;
+  visibility: string;
 }
 
 export interface ISelectOptionProps {

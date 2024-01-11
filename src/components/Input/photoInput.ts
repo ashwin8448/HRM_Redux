@@ -4,6 +4,7 @@ import colors from "../../core/constants/colors";
 const PhotoInputWrapper = styled.div`
   display: flex;
   justify-content: center;
+  margin-top: 10px;
   label {
     border: ${`1px solid ${colors.LIGHT_GRAY_COLOR}`};
     cursor: pointer;

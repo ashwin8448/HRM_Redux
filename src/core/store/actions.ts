@@ -18,7 +18,6 @@ import { apiURL, gridDisplay, listDisplay } from "../config/constants.ts";
 import { AppDispatch } from "./configureStore.ts";
 import * as actionTypes from "./types/actionTypes.ts";
 
-
 export const setLoading = (
   actionType:
     | "SET_LOADING"
@@ -51,6 +50,7 @@ export const setEmployeesForGrid = (
   type: actionNames.SET_EMPLOYEES_GRID,
   payload: employeesData,
 });
+
 export const setDepartments = (
   departments: ISelectOptionProps[]
 ): actionTypes.ISET_DEPARTMENTS => ({
@@ -149,6 +149,7 @@ export const fetchEmployeesData = (
 export const fetchDepartmentsData = () => {
   return async function (dispatch: AppDispatch) {
     try {
+      dispatch(setLoading(actionNames.SET_DEPARTMENTS_LOADING, { loading: true }));
       // Use Promise.all to fetch data concurrently
       const departmentsResponse = await getData(apiURL.departments);
 
@@ -176,6 +177,7 @@ export const fetchDepartmentsData = () => {
 export const fetchRolesData = () => {
   return async function (dispatch: AppDispatch) {
     try {
+      dispatch(setLoading(actionNames.SET_ROLES_LOADING, { loading: true }));
       // Use Promise.all to fetch data concurrently
       const rolesResponse = await getData(apiURL.roles);
 
@@ -200,6 +202,7 @@ export const fetchRolesData = () => {
 export const fetchSkillsData = () => {
   return async function (dispatch: AppDispatch) {
     try {
+      dispatch(setLoading(actionNames.SET_SKILLS_LOADING, { loading: true }));
       // Use Promise.all to fetch data concurrently
       const skillsResponse = await getData(apiURL.skills);
 

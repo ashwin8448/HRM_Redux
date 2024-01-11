@@ -139,12 +139,12 @@ export const convertFormDataToIPostEmployees = async (
 ): Promise<IPostEmployee> => {
   const {
     photoId,
+    isAdmin,
+    isNew,
     skills,
     department,
     role,
     isActive,
-    accessControlRole,
-    isNew,
     ...rest
   } = formData;
   return {
@@ -159,8 +159,8 @@ export const convertFormDataToIPostEmployees = async (
           ? await uploadImage(photoId![0])
           : photoId
         : "",
-      isAdmin: accessControlRole === "admin" ? true : false,
-      isNew: false,
+      isAdmin: isAdmin === "Yes" ? true : false,
+      isNew: isNew && false,
     }),
   };
 };
@@ -240,7 +240,7 @@ export const handleCheckboxChange = ({
   });
 };
 
-export const export_csvData=(employees:IAppEmployee[]) => [
+export const export_csvData = (employees: IAppEmployee[]) => [
   [
     "Id",
     "Name",
