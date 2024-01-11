@@ -18,20 +18,30 @@ const LoginLayoutWrapper = styled.div`
   .error {
     color: ${colors.RED_COLOR};
     margin: 0;
-    margin-top: 10px;
   }
 
   form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
   }
 
   .button-container {
     margin-top: 10px;
-    button {
-      margin: auto;
-    }
+    display: flex;
+    justify-content: center;
+  }
+
+  .primary-btn {
+    background-color: ${colors.PRIMARY_COLOR};
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+    border: none;
+    color: ${colors.WHITE_COLOR};
+  }
+
+  .primary-btn:hover {
+    transform: scale(0.95);
   }
 
   ${media.tablet} {

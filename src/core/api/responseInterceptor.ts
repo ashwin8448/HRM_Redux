@@ -38,17 +38,21 @@ export async function onResponseError(error: AxiosError): Promise<AxiosError> {
     window.location.pathname !== "/error" &&
     config!.url != apiURL.authRenew
   ) {
-    const refreshResponse = await getNewRefreshToken();
-    if (refreshResponse) {
-      setCookie("accessToken", refreshResponse.access_token);
-      setCookie("refreshToken", refreshResponse.refresh_token);
-      return API(config!);
-    } else {
-      deleteCookie("accessToken");
-      deleteCookie("refreshToken");
-      localStorage.removeItem("userDetails");
-      window.location.href = `/login`;
+    if (config!.url === apiURL.authSignIn) {
       return Promise.reject(error.response.data as IErrorResponse);
+    } else {
+      const refreshResponse = await getNewRefreshToken();
+      if (refreshResponse) {
+        setCookie("accessToken", refreshResponse.access_token);
+        setCookie("refreshToken", refreshResponse.refresh_token);
+        return API(config!);
+      } else {
+        deleteCookie("accessToken");
+        deleteCookie("refreshToken");
+        localStorage.removeItem("userDetails");
+        window.location.href = `/login`;
+        return Promise.reject(error.response.data as IErrorResponse);
+      }
     }
   }
   return Promise.reject(error.response);
