@@ -12,7 +12,7 @@ const EmployeeView = ({
 }) => {
   return (
     <>
-      <EmployeeViewWrapper>
+      <EmployeeViewWrapper className="employee-view-page">
         <EmployeeIntroSection employee={employee} />
         <EmployeeDetailsSection
           title="Personal Information"

@@ -6,7 +6,8 @@ const EmployeeViewWrapper = styled.div`
   flex-direction: column;
   align-items: flex-start;
   background-color: ${colors.WHITE_COLOR};
-  border: 1px solid ${colors.LIGHT_GRAY_COLOR};
+  border: none;
+  box-shadow: ${colors.BOX_SHADOW};
   border-radius: 10px;
   margin: 0 auto;
   max-width: 700px;

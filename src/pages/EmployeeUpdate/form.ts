@@ -15,11 +15,15 @@ const FormWrapper = styled.div`
       gap: 0;
     }
   }
+  .employee-view-page {
+    box-shadow: none;
+  }
 `;
 
 const Fieldset = styled.fieldset`
   background-color: ${colors.WHITE_COLOR};
-  border: 1px solid ${colors.DARK_GRAY_COLOR};
+  border: none;
+  box-shadow: ${colors.BOX_SHADOW};
   min-width: 0;
   border-radius: 15px;
   padding: 20px;
