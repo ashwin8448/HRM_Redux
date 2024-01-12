@@ -2,7 +2,7 @@ import Button from "../../../../../components/Button/Button.tsx";
 import { ISelectOptionProps } from "../../../../../core/interfaces/interface.ts";
 import FilterSelect from "../../../../../components/FilterSelect/FilterSelect.tsx";
 import { useSearchParams } from "react-router-dom";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { fetchSkillsData } from "../../../../../core/store/actions.ts";
 import ButtonGrpWrapper from "../../../../../components/Button/buttonGrpWrapper.ts";
 import FilterActionsWrapper from "./filterActions.ts";
@@ -18,7 +18,12 @@ import {
   listDisplay,
 } from "../../../../../core/config/constants.ts";
 
-const FilterActions = ({ onClick }: { onClick: () => void }) => {
+const FilterActions = ({ onClick, skillFilterValue }: {
+  onClick: () => void, skillFilterValue: {
+    skillFilterState: ISelectOptionProps[];
+    setSkillFilterState: React.Dispatch<React.SetStateAction<ISelectOptionProps[]>>;
+  }
+}) => {
   const dispatch = useAppDispatch();
 
   const { skills, loading } = useAppSelector(
@@ -29,12 +34,8 @@ const FilterActions = ({ onClick }: { onClick: () => void }) => {
   const filter = searchParams.get("skillIds");
   const display = searchParams.get("display");
 
-  const [skillFilterState, setSkillFilterState] = useState<
-    ISelectOptionProps[]
-  >([]);
-  const skillFilterValue = { skillFilterState, setSkillFilterState };
   const applyFilters = () => {
-    const skillFiltersParams = skillFilterState
+    const skillFiltersParams = skillFilterValue.skillFilterState
       .map((option) => option.value)
       .join(",");
     if (skillFiltersParams) {
@@ -56,7 +57,7 @@ const FilterActions = ({ onClick }: { onClick: () => void }) => {
   };
 
   const resetFilters = () => {
-    setSkillFilterState([]);
+    skillFilterValue.setSkillFilterState([]);
 
     const paramsToUpdate =
       display === listDisplay
@@ -71,15 +72,15 @@ const FilterActions = ({ onClick }: { onClick: () => void }) => {
     }
     const skillIdsArray: ISelectOptionProps[] = filter
       ? filter.split(",").map((value: string) => {
-          return {
-            value: Number(value),
-            label:
-              skills?.find((option) => option.value === Number(value))?.label ||
-              "",
-          };
-        })
+        return {
+          value: Number(value),
+          label:
+            skills?.find((option) => option.value === Number(value))?.label ||
+            "",
+        };
+      })
       : [];
-    setSkillFilterState(skillIdsArray);
+    skillFilterValue.setSkillFilterState(skillIdsArray);
   }, [skills]);
 
   return (
