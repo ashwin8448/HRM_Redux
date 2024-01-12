@@ -3,7 +3,7 @@ import ButtonWrapper from "./button.ts";
 import Loader from "../Loader/Loader.tsx";
 import { LabelStyles } from "../../core/constants/components/text/textStyledComponents.ts";
 
-function Button({
+const Button = ({
   children,
   icon,
   className,
@@ -12,7 +12,7 @@ function Button({
   $noTransition,
   disabled,
   type,
-  $notification
+  $notification,
 }: {
   children?: React.ReactNode;
   icon?: string;
@@ -22,8 +22,8 @@ function Button({
   $noTransition?: boolean;
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
-  $notification?:boolean
-}) {
+  $notification?: boolean;
+}) => {
   return (
     <ButtonWrapper
       $isChildren={children ? true : false}
@@ -44,6 +44,6 @@ function Button({
       )}
     </ButtonWrapper>
   );
-}
+};
 
 export default Button;

@@ -12,6 +12,7 @@ function FilterSelect({
   placeholder,
   isMulti,
   value,
+  clear,
 }: ISelectDropdownProps) {
   return (
     <>
@@ -19,12 +20,13 @@ function FilterSelect({
       {value && (
         <Select
           value={value.skillFilterState}
-          isClearable={true}
+          isClearable={clear != undefined ? clear : true}
           className="label"
           isSearchable={true}
           options={options}
           placeholder={placeholder}
           isMulti={isMulti}
+          closeMenuOnSelect={isMulti != undefined ? !isMulti : false}
           styles={selectStyleComponent()}
           onChange={(selectedOption) => {
             const selectedValues = selectedOption as ISelectOptionProps[];

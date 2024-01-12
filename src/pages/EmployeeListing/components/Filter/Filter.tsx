@@ -3,19 +3,15 @@ import { useMediaQuery } from "usehooks-ts";
 import Button from "../../../../components/Button/Button.tsx";
 import FilterWrapper from "./sideFilterBar.ts";
 import FilterActions from "./FilterActions/FilterActions.tsx";
-import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 import { H2Styles } from "../../../../core/constants/components/text/textStyledComponents.ts";
 import { useSearchParams } from "react-router-dom";
 
 const Filter = () => {
-
   const [searchParams] = useSearchParams();
-  const isFilters =searchParams.get("skillIds");
+  const isFilters = searchParams.get("skillIds");
 
   //responsive
   const matches = useMediaQuery("(min-width: 768px)");
-
-  const { loading } = useAppSelector((state) => state.employeesData);
 
   //Side Filter bar visible on click
   const [isSideFilterBarVisible, setSideFilterBarVisible] = useState(false);
@@ -37,26 +33,27 @@ const Filter = () => {
 
   return (
     <>
-      <Button icon="filter_list " onClick={handleButtonClick} $notification={isFilters!==null}>
+      <Button
+        icon="filter_list "
+        onClick={handleButtonClick}
+        $notification={isFilters !== null}
+      >
         {matches && "All filters"}
       </Button>
-      {!loading && isSideFilterBarVisible && (
-        <FilterWrapper
-          className="translateX"
-          $visible={isSideFilterBarVisible}
-        >
-          <div className="common-flex">
-            <H2Styles>Filters</H2Styles>
-            <Button
-              className="close-btn"
-              icon="close"
-              onClick={handleButtonClick}
-            ></Button>
-          </div>
-          <FilterActions onClick={handleButtonClick} />
-        </FilterWrapper>
-      )}
-      {!loading && isSideFilterBarVisible && (
+
+      <FilterWrapper className="translateX" $visible={isSideFilterBarVisible}>
+        <div className="common-flex">
+          <H2Styles>Filters</H2Styles>
+          <Button
+            className="close-btn"
+            icon="close"
+            onClick={handleButtonClick}
+          ></Button>
+        </div>
+        <FilterActions />
+      </FilterWrapper>
+
+      {isSideFilterBarVisible && (
         <div
           className="overlay"
           onClick={() => setSideFilterBarVisible(false)}

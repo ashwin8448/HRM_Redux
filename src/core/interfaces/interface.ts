@@ -140,6 +140,7 @@ export interface IErrorState {
 export interface ISelectDropdownProps {
   label: string;
   options?: ISelectOptionProps[];
+  clear?: boolean;
   placeholder: string;
   isMulti?: boolean;
   value?: {

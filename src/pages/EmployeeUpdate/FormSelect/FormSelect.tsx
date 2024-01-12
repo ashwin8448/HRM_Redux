@@ -48,6 +48,7 @@ function FormSelect({
                 options={options}
                 placeholder={placeholder}
                 isMulti={isMulti || false}
+                closeMenuOnSelect={isMulti != undefined ? !isMulti : false}
                 styles={selectStyles(errorMsg?.toString())} // custom style for select dropdown
               />
               {

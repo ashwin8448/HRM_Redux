@@ -18,7 +18,7 @@ import {
   listDisplay,
 } from "../../../../../core/config/constants.ts";
 
-const FilterActions = ({ onClick }: { onClick: () => void }) => {
+const FilterActions = () => {
   const dispatch = useAppDispatch();
 
   const { skills, loading } = useAppSelector(
@@ -50,7 +50,6 @@ const FilterActions = ({ onClick }: { onClick: () => void }) => {
           skillIds: skillFiltersParams,
         });
       }
-      onClick();
     } else {
       resetFilters();
     }
@@ -64,8 +63,6 @@ const FilterActions = ({ onClick }: { onClick: () => void }) => {
         ? { skillIds: undefined, page: defaultPageSize.page }
         : { skillIds: undefined };
     updateSearchParams(setSearchParams, searchParams, paramsToUpdate);
-
-    onClick();
   };
 
   useEffect(() => {
@@ -94,6 +91,7 @@ const FilterActions = ({ onClick }: { onClick: () => void }) => {
           placeholder="Select skills"
           isMulti={true} //employees can have multiple skills
           value={skillFilterValue}
+          clear={false}
         />
       ) : (
         <div className="center-loader">

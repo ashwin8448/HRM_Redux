@@ -8,7 +8,7 @@ import TooltipComponent from "../Tooltip/Tooltip.tsx";
 import { H1Styles } from "../../core/constants/components/text/textStyledComponents.ts";
 import { useAppSelector } from "../../hooks/reduxHooks.ts";
 
-function Header() {
+const Header = () => {
   const navigate = useNavigate();
   const { logout } = useAuth();
   const user = useAppSelector((state) => state.userData);
@@ -49,7 +49,7 @@ function Header() {
                 </div>
               </Button>
               <Button
-              className="logout-btn"
+                className="logout-btn"
                 icon="logout"
                 onClick={() => {
                   logout();
@@ -63,5 +63,5 @@ function Header() {
       </div>
     </HeaderWrapper>
   );
-}
+};
 export default Header;
