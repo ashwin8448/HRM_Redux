@@ -14,7 +14,7 @@ const TableWrapper = styled.table<{ $isAdmin: boolean }>`
   }
 
   th p {
-    font-weight: ${fontWeights["--font-semi-bold"]};
+    font-weight: ${fontWeights['--font-semi-bold']};
   }
 
   tbody tr:hover {
@@ -31,7 +31,7 @@ const TableWrapper = styled.table<{ $isAdmin: boolean }>`
     border-spacing: 0;
     text-align: left;
     width: 100%;
-    padding:5px 15px;  
+    padding: 5px 15px;
   }
 
   th {
@@ -42,7 +42,7 @@ const TableWrapper = styled.table<{ $isAdmin: boolean }>`
   .small-column {
     width: 60px;
   }
-  .medium-column{
+  .medium-column {
     width: 100px;
   }
 
@@ -54,27 +54,9 @@ const TableWrapper = styled.table<{ $isAdmin: boolean }>`
       background-color: ${colors.WHITE_COLOR};
     }
   }
-  .loader-container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    height: 100px; /* Adjust the height as needed */
-    width: 150vh;
-  }
-
-  .no-data {
-    text-align: center;
-  }
 
   .no-border-row {
     border: none;
-  }
-
-  .table-loader {
-    position: fixed;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    margin: 0;
   }
 
   @media only screen and (max-width: 1200px) {

@@ -29,7 +29,7 @@ const Header = () => {
             <div className="user-container">
               <Button
                 onClick={() => {
-                  navigate(`view-employee/${user.employeeDetails?.id}`);
+                  navigate(`view-employee/${user.employeeDetails?.id}`, {replace:true});
                 }}
               >
                 <div className="image-container common-flex">

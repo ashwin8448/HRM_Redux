@@ -1,9 +1,9 @@
-import { createGlobalStyle } from "styled-components";
-import ManropeBold from "../fonts/Manrope-Bold.ttf";
-import ManropeMedium from "../fonts/Manrope-Medium.ttf";
-import ManropeLight from "../fonts/Manrope-Light.ttf";
-import colors from "../constants/colors";
-import { fontSizes } from "../constants/fontStyles";
+import { createGlobalStyle } from 'styled-components';
+import ManropeBold from '../fonts/Manrope-Bold.ttf';
+import ManropeMedium from '../fonts/Manrope-Medium.ttf';
+import ManropeLight from '../fonts/Manrope-Light.ttf';
+import colors from '../constants/colors';
+import { fontSizes } from '../constants/fontStyles';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -42,7 +42,7 @@ body {
 }
 
   .material-symbols-outlined {
-    font-size: ${fontSizes["--font-size-md"]};
+    font-size: ${fontSizes['--font-size-md']};
   }
 
 .common-flex {
@@ -91,6 +91,22 @@ body {
     justify-content: center !important;
     margin: 0 auto;
 }
+ .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px; /* Adjust the height as needed */
+  }
+
+  .table-loader {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+    .no-data {
+    text-align: center !important;
+  }
 
 //for loading
 .center-loader {

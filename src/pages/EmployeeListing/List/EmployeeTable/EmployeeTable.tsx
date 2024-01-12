@@ -1,20 +1,23 @@
-import { useEffect } from "react";
-import { IAppEmployee } from "../../../../core/interfaces/interface.ts";
-import TableWrapper from "./employeeTable.ts";
-import Loader from "../../../../components/Loader/Loader.tsx";
-import { fetchEmployeesData } from "../../../../core/store/actions.ts";
-import React from "react";
-import { useSearchParams } from "react-router-dom";
-import { useAppDispatch, useAppSelector } from "../../../../hooks/reduxHooks.ts";
-import Pagination from "../components/Pagination/Pagination.tsx";
-import TableData from "../components/TableData/TableData.tsx";
-import TableHead from "../components/TableHead/TableHead.tsx";
+import { useEffect } from 'react';
+import { IAppEmployee } from '../../../../core/interfaces/interface.ts';
+import TableWrapper from './employeeTable.ts';
+import Loader from '../../../../components/Loader/Loader.tsx';
+import { fetchEmployeesData } from '../../../../core/store/actions.ts';
+import React from 'react';
+import { useSearchParams } from 'react-router-dom';
+import {
+  useAppDispatch,
+  useAppSelector,
+} from '../../../../hooks/reduxHooks.ts';
+import Pagination from '../components/Pagination/Pagination.tsx';
+import TableData from '../components/TableData/TableData.tsx';
+import TableHead from '../components/TableHead/TableHead.tsx';
 import {
   defaultSortBy,
   defaultSortDir,
   listDisplay,
   recordsPerPage,
-} from "../../../../core/config/constants.ts";
+} from '../../../../core/config/constants.ts';
 
 function EmployeeTable({
   deleteCheckBoxesList,
@@ -39,11 +42,11 @@ function EmployeeTable({
         {
           limit: recordsPerPage,
           offset:
-            (Number(searchParams.get("page") || "1") - 1) * recordsPerPage,
-          sortBy: searchParams.get("sortBy") || defaultSortBy,
-          sortDir: searchParams.get("sortDir") || defaultSortDir,
-          search: searchParams.get("search") || "",
-          skillIds: searchParams.get("skillIds") || "",
+            (Number(searchParams.get('page') || '1') - 1) * recordsPerPage,
+          sortBy: searchParams.get('sortBy') || defaultSortBy,
+          sortDir: searchParams.get('sortDir') || defaultSortDir,
+          search: searchParams.get('search') || '',
+          skillIds: searchParams.get('skillIds') || '',
         },
         listDisplay
       )
@@ -53,24 +56,16 @@ function EmployeeTable({
 
   return (
     <>
-      <div className="table-overflow-scroll">
-        <TableWrapper $isAdmin={user.employeeDetails?.accessControlRole === "admin"}>
-          <TableHead
-            deleteCheckBoxesList={deleteCheckBoxesList}
-            employees={employees}
-          />
-          {loading ? (
-            <tbody>
-              <tr className="no-border-row">
-                <td colSpan={5} className="loader">
-                  {/* This component is rendered when data is fetching from database  */}
-                  <div className="loader-container">
-                    <Loader className="table-loader" />
-                  </div>
-                </td>
-              </tr>
-            </tbody>
-          ) : (
+      {!loading ? (
+        <div className="table-overflow-scroll">
+          <TableWrapper
+            $isAdmin={user.employeeDetails?.accessControlRole === 'admin'}
+          >
+            <TableHead
+              deleteCheckBoxesList={deleteCheckBoxesList}
+              employees={employees}
+            />
+
             <tbody>
               {employees.length > 0 ? (
                 employees.map((employee: IAppEmployee, index: number) => {
@@ -93,9 +88,13 @@ function EmployeeTable({
                 </tr>
               )}
             </tbody>
-          )}
-        </TableWrapper>
-      </div>
+          </TableWrapper>
+        </div>
+      ) : (
+          <div className="loader-container">
+            <Loader className="table-loader" />
+        </div>
+      )}
       {!loading && <Pagination deleteCheckBoxesList={deleteCheckBoxesList} />}
     </>
   );
