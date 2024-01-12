@@ -30,7 +30,7 @@ const Login = () => {
   ) : (
     <>
       <Helmet>
-        <title>Login Page</title>
+        <title>Login</title>
         <meta name="description" content="Any user or admin can login to the page using this page." />
       </Helmet>
       <LoginLayoutWrapper>

@@ -27,27 +27,31 @@ const Header = () => {
               {logoElement}
             </TooltipComponent>
             <div className="user-container">
-              <Button
-                onClick={() => {
-                  navigate(`view-employee/${user.employeeDetails?.id}`, {replace:true});
-                }}
-              >
-                <div className="image-container common-flex">
-                  <img
-                    src={user.employeeDetails?.photoId || dummyImg}
-                    alt="user image"
-                  />
-                  {user.employeeDetails?.isNew && (
-                    <span
-                      className="material-symbols-outlined profile-error"
-                      title="Please complete your profile"
-                    >
-                      report
-                    </span>
-                  )}
-                  <span>{user.employeeDetails?.firstName}</span>
+              <TooltipComponent title={user.employeeDetails?.isNew ? "Please Complete Your Profile" : "Click to View profile"}>
+                <div>
+                  <Button
+                    onClick={() => {
+                      navigate(`view-employee/${user.employeeDetails?.id}`, { replace: true });
+                    }}
+                  >
+                    <div className="image-container common-flex">
+                      <img
+                        src={user.employeeDetails?.photoId || dummyImg}
+                        alt="user image"
+                      />
+                      {user.employeeDetails?.isNew && (
+                        <span
+                          className="material-symbols-outlined profile-error"
+                          title="Please complete your profile"
+                        >
+                          report
+                        </span>
+                      )}
+                      <span>{user.employeeDetails?.firstName}</span>
+                    </div>
+                  </Button>
                 </div>
-              </Button>
+              </TooltipComponent>
               <Button
                 className="logout-btn"
                 icon="logout"
