@@ -21,6 +21,7 @@ const Login = () => {
     const formValues = methods.getValues();
     login({ username: formValues.username, password: formValues.password });
   });
+  let tabIndex = 1;
 
   return authLoading ? (
     <div className="center-loader">
@@ -38,12 +39,12 @@ const Login = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              onSubmit();
+              onSubmit(); 
             }}
             noValidate
           >
             {loginFormConfig.map((formField: IInputProps) => (
-              <Input key={formField.name} config={formField} />
+              <Input key={formField.name} config={formField} tabIndex={tabIndex++} />
             ))}
             {authError != "" && (
               <ParagraphStyles className="error">{authError}</ParagraphStyles>
