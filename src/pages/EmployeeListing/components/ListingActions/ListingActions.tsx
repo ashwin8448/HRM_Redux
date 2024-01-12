@@ -9,6 +9,7 @@ import MoreActions from "./MoreActions/MoreActions.tsx";
 import { useNavigate } from "react-router-dom";
 import { gridDisplay, listDisplay } from "../../../../core/config/constants.ts";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
+import TooltipComponent from "../../../../components/Tooltip/Tooltip.tsx";
 
 function ListingActions({
   deleteCheckBoxesList,
@@ -27,18 +28,20 @@ function ListingActions({
 
   return (
     <ListingActionsWrapper>
-      <ButtonGrpWrapper className=" btn-grp-view">
-        <Button
-          icon="format_list_bulleted"
-          className={listingActive === listDisplay ? "active" : ""}
-          onClick={() => handleActiveListing(listDisplay)}
-        ></Button>
-        <Button
-          icon="grid_on"
-          className={listingActive === gridDisplay ? "active" : ""}
-          onClick={() => handleActiveListing(gridDisplay)}
-        ></Button>
-      </ButtonGrpWrapper>
+      <TooltipComponent title="Click to toggle views">
+        <ButtonGrpWrapper className=" btn-grp-view">
+          <Button
+            icon="format_list_bulleted"
+            className={listingActive === listDisplay ? "active" : ""}
+            onClick={() => handleActiveListing(listDisplay)}
+          ></Button>
+          <Button
+            icon="grid_on"
+            className={listingActive === gridDisplay ? "active" : ""}
+            onClick={() => handleActiveListing(gridDisplay)}
+          ></Button>
+        </ButtonGrpWrapper>
+      </TooltipComponent>
       <div className="common-flex main-actions">
         <div className="common-flex action-grp">
           <SearchBar />

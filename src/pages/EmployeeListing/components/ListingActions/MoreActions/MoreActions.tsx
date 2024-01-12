@@ -106,12 +106,16 @@ function MoreActions({
 
   return (
     <div className="dropdown-container" ref={moreActionsRef}>
-      <Button
-        className=""
-        onClick={changeMoreActionsDropdownOpenStatus}
-        icon="more_horiz"
-        $noTransition
-      ></Button>
+      <TooltipComponent title="More Actions">
+        <span>
+          <Button
+            className="more-actions-btn"
+            onClick={changeMoreActionsDropdownOpenStatus}
+            icon="more_horiz"
+            $noTransition
+          ></Button>
+        </span>
+      </TooltipComponent>
       {!loading && moreActionsDropdown && (
         <DropdownWrapper>
           {csv_data.length > 0 && (
