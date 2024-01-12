@@ -12,7 +12,7 @@ const InputErrorWrapper = styled.div`
 
   & > * {
     color: ${colors.RED_COLOR} !important;
-    font-size: ${fontSizes['--font-size-x-s']};
+    font-size: ${fontSizes['--font-size-x-s']} !important;
   }
 `;
 export default InputErrorWrapper;

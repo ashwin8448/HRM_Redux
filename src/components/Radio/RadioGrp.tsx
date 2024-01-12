@@ -7,16 +7,18 @@ function RadioGrp({
   label,
   name,
   isRequired,
+  tabIndex
 }: {
   option: string;
   label: string;
   name: string;
   isRequired: boolean;
+  tabIndex:number
 }) {
   const { register } = useFormContext();
 
   return (
-    <RadioWrapper key={option} className=" common-flex">
+    <RadioWrapper key={option} className=" common-flex" tabIndex={tabIndex}>
       <input
         type="radio"
         id={`${label}-${option}`}

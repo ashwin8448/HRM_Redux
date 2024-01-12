@@ -4,7 +4,7 @@ import ButtonGrpWrapper from "../../components/Button/buttonGrpWrapper.ts";
 import Input from "../../components/Input/Input.tsx";
 import addFormConfig from "./addFormConfig.ts";
 import { Fieldset, FormWrapper } from "../EmployeeUpdate/form.ts";
-import React, { useState } from "react";
+import React, { useRef, useState } from "react";
 import { IInputProps } from "../../core/interfaces/interface.ts";
 import { useNavigate } from "react-router-dom";
 import { postData } from "../../core/api/functions.ts";
@@ -26,6 +26,9 @@ const AddEmployeeForm = () => {
   });
   const navigate = useNavigate();
   const formConfig = addFormConfig;
+
+  const ref = useRef<HTMLHeadingElement | null>(null);
+  let tabIndex = 1;
 
   const onSubmit = methods.handleSubmit(async () => {
     setIsLoading(true);
@@ -58,6 +61,9 @@ const AddEmployeeForm = () => {
       setActiveSection(1);
     } finally {
       setIsLoading(false);
+      if (ref.current) {
+        ref.current.scrollIntoView({ behavior: "smooth" });
+      }
     }
   });
 
@@ -80,11 +86,12 @@ const AddEmployeeForm = () => {
         className="back-btn"
         icon="arrow_back_ios"
         onClick={() => navigate(-1)}
+        tabIndex={-1}
       >
         Back
       </Button>
       <FormWrapper>
-        <H2Styles>Add New Employee</H2Styles>
+        <H2Styles ref={ref}>Add New Employee</H2Styles>
         <ProgressBar
           activeSection={activeSection}
           steps={["Basic Details", "User Credentials"]}
@@ -126,6 +133,7 @@ const AddEmployeeForm = () => {
                               <Input
                                 key={sectionField.name}
                                 config={sectionField}
+                                tabIndex={tabIndex++}
                               />
                             )
                           )}
@@ -140,6 +148,7 @@ const AddEmployeeForm = () => {
                 <Button
                   disabled={!(activeSection > 1)}
                   onClick={() => setActiveSection(activeSection - 1)}
+                  tabIndex={activeSection > 1 ? tabIndex : -1}
                 >
                   Previous
                 </Button>
@@ -153,7 +162,11 @@ const AddEmployeeForm = () => {
                       "isAdmin",
                     ]);
                     validationStatus && setActiveSection(activeSection + 1);
+                    if (ref.current) {
+                      ref.current.scrollIntoView({ behavior: "smooth" });
+                    }
                   }}
+                  tabIndex={tabIndex}
                 >
                   Next
                 </Button>
@@ -162,10 +175,18 @@ const AddEmployeeForm = () => {
             {activeSection === 2 && (
               <>
                 <ButtonGrpWrapper>
-                  <Button onClick={() => setActiveSection(activeSection - 1)}>
+                  <Button
+                    onClick={() => setActiveSection(activeSection - 1)}
+                    tabIndex={tabIndex}
+                  >
                     Previous
                   </Button>
-                  <Button onClick={onSubmit} loading={isLoading}>
+                  <Button
+                    onClick={onSubmit}
+                    loading={isLoading}
+                    className="primary-btn"
+                    tabIndex={tabIndex}
+                  >
                     Submit
                   </Button>
                 </ButtonGrpWrapper>

@@ -105,7 +105,7 @@ body {
     background: none;
     border:none;
     *{
-    color:${colors.DARK_PRIMARY_COLOR}}
+    color:${colors.DARK_PRIMARY_COLOR} !important }
 } 
 
 .photo-container {
