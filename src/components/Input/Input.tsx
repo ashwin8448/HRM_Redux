@@ -10,7 +10,7 @@ import FormSelect from "../../pages/EmployeeUpdate/FormSelect/FormSelect.tsx";
 import PhotoInput from "./PhotoInput.tsx";
 import { LabelStyles } from "../../core/constants/components/text/textStyledComponents.ts";
 
-function Input({ config }: { config: IInputProps }) {
+function Input({ config,tabIndex }: { config: IInputProps,tabIndex:number }) {
   const {
     register,
     formState: { errors },
@@ -27,7 +27,7 @@ function Input({ config }: { config: IInputProps }) {
           let inputToRender = <></>;
           switch (config.type) {
             case "file":
-              inputToRender = <PhotoInput config={config} />;
+              inputToRender = <PhotoInput config={config} tabIndex={tabIndex} />;
               break;
             case "text":
             case "date":
@@ -54,6 +54,7 @@ function Input({ config }: { config: IInputProps }) {
                       })}
                       autoComplete="new-password"
                       max={config.validation?.max?.value} // for date input
+                      tabIndex={tabIndex}
                     />
                     {errorMsg && (
                       <InputError error={errorMsg.message?.toString()} />
@@ -73,6 +74,7 @@ function Input({ config }: { config: IInputProps }) {
                         label={config.label}
                         name={config.name}
                         isRequired={config.isRequired}
+                        tabIndex={tabIndex}
                       />
                     ))}
                   </div>
@@ -91,6 +93,7 @@ function Input({ config }: { config: IInputProps }) {
                   isMulti={config.isMulti}
                   fieldName={config.name}
                   isRequired={config.isRequired}
+                  tabIndex={tabIndex}
                 />
               );
               break;

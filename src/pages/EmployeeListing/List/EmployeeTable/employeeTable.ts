@@ -42,6 +42,9 @@ const TableWrapper = styled.table<{ $isAdmin: boolean }>`
   .small-column {
     width: 60px;
   }
+  .medium-column{
+    width: 100px;
+  }
 
   td {
     background-color: ${colors.BACKGROUND_COLOR};

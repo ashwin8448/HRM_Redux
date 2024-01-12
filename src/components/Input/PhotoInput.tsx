@@ -7,7 +7,13 @@ import { Controller, useFormContext } from "react-hook-form";
 import PhotoInputWrapper from "./photoInput.ts";
 import { LabelStyles } from "../../core/constants/components/text/textStyledComponents.ts";
 
-const PhotoInput = ({ config }: { config: IInputProps }) => {
+const PhotoInput = ({
+  config,
+  tabIndex,
+}: {
+  config: IInputProps;
+  tabIndex: number;
+}) => {
   const {
     getValues,
     setValue,
@@ -43,6 +49,7 @@ const PhotoInput = ({ config }: { config: IInputProps }) => {
               setValue("photoId", "");
               setPlaceholderImage("");
             }}
+            tabIndex={tabIndex}
           >
             Clear
           </Button>
@@ -50,7 +57,9 @@ const PhotoInput = ({ config }: { config: IInputProps }) => {
       </div>
 
       <PhotoInputWrapper>
-        <LabelStyles htmlFor={config.label}>Select image</LabelStyles>
+        <LabelStyles htmlFor={config.label} tabIndex={tabIndex}>
+          Select image
+        </LabelStyles>
         <Controller
           name={config.name}
           control={control}

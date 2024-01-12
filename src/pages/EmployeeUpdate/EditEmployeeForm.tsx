@@ -7,7 +7,7 @@ import {
   convertFormDataToIPostEmployees,
 } from "../../utils/helper.ts";
 import { Fieldset, FormWrapper } from "./form.ts";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import {
   IAppEmployee,
   IInputProps,
@@ -58,33 +58,6 @@ const EditEmployeeForm = () => {
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-
-  // useEffect(() => {
-  //   if (!employeeId) {
-  //     // Display error toast after initial render
-  //     toast.error("No employee Id was provided", {
-  //       toastId: "employee-not-found",
-  //     });
-  //     navigate("/");
-  //   } else {
-  //     getData("/employee/" + employeeId)
-  //       .then((response) => {
-  //         if (!response.data) {
-  //           throw new Response("Employee Not Found", { status: 404 });
-  //         } else
-  //           setEmployeeData(
-  //             convertIGetEmployeeToIAppEmployee(response.data.data)
-  //           );
-  //       })
-  //       .catch((error) => {
-  //         console.error(error);
-  //       })
-  //       .finally(() => setIsLoading(!isLoading));
-  //   }
-  //   !roles.length && dispatch(fetchRolesData());
-  //   !departments.length && dispatch(fetchDepartmentsData());
-  //   !skills.length && dispatch(fetchSkillsData());
-  // }, []);
 
   useEffect(() => {
     if (!employeeId) {
@@ -211,6 +184,9 @@ const EditEmployeeForm = () => {
     ),
   });
 
+  const ref = useRef<HTMLHeadingElement | null>(null);
+  let tabIndex = 1;
+
   if (employeeData.loading)
     return (
       <div className="center-loader">
@@ -231,11 +207,12 @@ const EditEmployeeForm = () => {
         className="back-btn"
         icon="arrow_back_ios"
         onClick={() => navigate(-1)}
+        tabIndex={-1}
       >
         Back
       </Button>
       <FormWrapper>
-        <H2Styles>
+        <H2Styles ref={ref}>
           {employeeId
             ? `Edit Employee: ${
                 employeeData.employee?.firstName +
@@ -276,6 +253,7 @@ const EditEmployeeForm = () => {
                               <Input
                                 key={sectionField.name}
                                 config={sectionField}
+                                tabIndex={tabIndex++}
                               />
                             )
                           )}
@@ -293,13 +271,18 @@ const EditEmployeeForm = () => {
                   <EmployeeView employee={methods.getValues()}></EmployeeView>
                 </EmployeeViewWrapper>
                 <ButtonGrpWrapper>
-                  <Button icon="" onClick={() => setActiveSection(1)}>
+                  <Button
+                    icon=""
+                    onClick={() => setActiveSection(1)}
+                    tabIndex={tabIndex}
+                  >
                     Edit
                   </Button>
                   <Button
-                    icon=""
                     onClick={onSubmit}
                     loading={employeeData.loading}
+                    tabIndex={tabIndex}
+                    className="primary-btn"
                   >
                     Submit
                   </Button>
@@ -312,6 +295,7 @@ const EditEmployeeForm = () => {
                   icon=""
                   disabled={!(activeSection > 1)}
                   onClick={() => setActiveSection(activeSection - 1)}
+                  tabIndex={activeSection > 1 ? tabIndex : -1}
                 >
                   Previous
                 </Button>
@@ -346,7 +330,11 @@ const EditEmployeeForm = () => {
                         validationStatus = true;
                     }
                     validationStatus && setActiveSection(activeSection + 1);
+                    if (ref.current) {
+                      ref.current.scrollIntoView({ behavior: "smooth" });
+                    }
                   }}
+                  tabIndex={tabIndex}
                 >
                   Next
                 </Button>

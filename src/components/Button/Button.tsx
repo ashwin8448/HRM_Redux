@@ -13,6 +13,7 @@ const Button = ({
   disabled,
   type,
   $notification,
+  tabIndex,
 }: {
   children?: React.ReactNode;
   icon?: string;
@@ -23,6 +24,7 @@ const Button = ({
   disabled?: boolean;
   type?: "button" | "submit" | "reset";
   $notification?: boolean;
+  tabIndex?: number;
 }) => {
   return (
     <ButtonWrapper
@@ -33,6 +35,7 @@ const Button = ({
       disabled={disabled ?? false}
       type={type ? type : "button"}
       $notification={$notification}
+      tabIndex={tabIndex}
     >
       {loading ? (
         <Loader className="btn-loader" />

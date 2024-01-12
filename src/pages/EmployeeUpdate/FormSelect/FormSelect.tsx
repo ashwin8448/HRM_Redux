@@ -12,6 +12,7 @@ function FormSelect({
   isMulti,
   fieldName,
   isRequired,
+  tabIndex
 }: {
   label: string;
   options: ISelectOptionProps[];
@@ -19,6 +20,7 @@ function FormSelect({
   isMulti?: boolean;
   fieldName: string;
   isRequired: boolean;
+  tabIndex:number
 }) {
   const {
     control,
@@ -50,6 +52,8 @@ function FormSelect({
                 isMulti={isMulti || false}
                 closeMenuOnSelect={isMulti != undefined ? !isMulti : false}
                 styles={selectStyles(errorMsg?.toString())} // custom style for select dropdown
+                menuPlacement="top"
+                tabIndex={tabIndex}
               />
               {
                 errorMsg && <InputError error={errorMsg.message?.toString()} />
