@@ -43,14 +43,48 @@ const EditEmployeeForm = () => {
   const user = useAppSelector((state) => state.userData);
   const roles = useAppSelector((state) => state.dropdownData.roles.roles);
   const skills = useAppSelector((state) => state.dropdownData.skills.skills);
-  const [isLoading, setIsLoading] = useState(employeeId ? true : false);
+  // const [isLoading, setIsLoading] = useState(employeeId ? true : false);
+  // const [employeeData, setEmployeeData] = useState<IAppEmployee>();
+  const [employeeData, setEmployeeData] = useState<{
+    loading: boolean;
+    employee: IAppEmployee | null;
+  }>({
+    loading: true,
+    employee: null,
+  });
   const [activeSection, setActiveSection] = useState(1);
-  const [employeeData, setEmployeeData] = useState<IAppEmployee>();
   const methods = useForm({
     mode: "onChange",
   });
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+
+  // useEffect(() => {
+  //   if (!employeeId) {
+  //     // Display error toast after initial render
+  //     toast.error("No employee Id was provided", {
+  //       toastId: "employee-not-found",
+  //     });
+  //     navigate("/");
+  //   } else {
+  //     getData("/employee/" + employeeId)
+  //       .then((response) => {
+  //         if (!response.data) {
+  //           throw new Response("Employee Not Found", { status: 404 });
+  //         } else
+  //           setEmployeeData(
+  //             convertIGetEmployeeToIAppEmployee(response.data.data)
+  //           );
+  //       })
+  //       .catch((error) => {
+  //         console.error(error);
+  //       })
+  //       .finally(() => setIsLoading(!isLoading));
+  //   }
+  //   !roles.length && dispatch(fetchRolesData());
+  //   !departments.length && dispatch(fetchDepartmentsData());
+  //   !skills.length && dispatch(fetchSkillsData());
+  // }, []);
 
   useEffect(() => {
     if (!employeeId) {
@@ -58,49 +92,54 @@ const EditEmployeeForm = () => {
       toast.error("No employee Id was provided", {
         toastId: "employee-not-found",
       });
+      setEmployeeData({ ...employeeData, loading: false });
       navigate("/");
     } else {
+      setEmployeeData((prev) => ({ ...prev, loading: true }));
       getData("/employee/" + employeeId)
         .then((response) => {
           if (!response.data) {
             throw new Response("Employee Not Found", { status: 404 });
           } else
-            setEmployeeData(
-              convertIGetEmployeeToIAppEmployee(response.data.data)
-            );
+            setEmployeeData((prev) => ({
+              ...prev,
+              employee: convertIGetEmployeeToIAppEmployee(response.data.data),
+            }));
         })
         .catch((error) => {
           console.error(error);
         })
-        .finally(() => setIsLoading(!isLoading));
+        .finally(() =>
+          setEmployeeData((prev) => ({ ...prev, loading: false }))
+        );
     }
     !roles.length && dispatch(fetchRolesData());
     !departments.length && dispatch(fetchDepartmentsData());
     !skills.length && dispatch(fetchSkillsData());
-  }, []);
+  }, [employeeId]);
 
   useEffect(() => {
     if (employeeData) {
-      for (const employeeProperty in employeeData) {
+      for (const employeeProperty in employeeData.employee) {
         if (
           (employeeProperty === "department" || employeeProperty === "role") &&
-          employeeData[employeeProperty].value === 0
+          employeeData.employee[employeeProperty].value === 0
         ) {
           methods.setValue(employeeProperty, null);
         } else if (employeeProperty === "isActive") {
           methods.setValue(
             employeeProperty,
-            employeeData[employeeProperty] ? "Yes" : "No"
+            employeeData.employee[employeeProperty] ? "Yes" : "No"
           );
         } else if (employeeProperty === "accessControlRole") {
           methods.setValue(
             "isAdmin",
-            employeeData[employeeProperty] === "admin" ? "Yes" : "No"
+            employeeData.employee[employeeProperty] === "admin" ? "Yes" : "No"
           );
         } else {
           methods.setValue(
             employeeProperty,
-            employeeData[employeeProperty as keyof IAppEmployee]
+            employeeData.employee[employeeProperty as keyof IAppEmployee]
           );
         }
       }
@@ -108,7 +147,7 @@ const EditEmployeeForm = () => {
   }, [employeeData]);
 
   const onSubmit = methods.handleSubmit(async () => {
-    setIsLoading(true);
+    setEmployeeData((prev) => ({ ...prev, loading: true }));
     const formValues = methods.getValues();
     try {
       const dirtyInputs = methods.formState.dirtyFields as Record<
@@ -118,7 +157,7 @@ const EditEmployeeForm = () => {
       delete dirtyInputs.photoId;
       if (
         Object.keys(dirtyInputs).length ||
-        formValues.photoId != employeeData?.photoId
+        formValues.photoId != employeeData.employee?.photoId
       ) {
         const editedEmployee = await convertFormDataToIPostEmployees(
           formValues
@@ -149,7 +188,7 @@ const EditEmployeeForm = () => {
       toast.error("Error editing user", { toastId: "error-edit-user" });
       setActiveSection(4);
     } finally {
-      setIsLoading(false);
+      setEmployeeData((prev) => ({ ...prev, loading: false }));
       navigate("/");
     }
   });
@@ -163,7 +202,7 @@ const EditEmployeeForm = () => {
     ),
   });
 
-  if (isLoading)
+  if (employeeData.loading)
     return (
       <div className="center-loader">
         <Loader />
@@ -190,7 +229,9 @@ const EditEmployeeForm = () => {
         <H2Styles>
           {employeeId
             ? `Edit Employee: ${
-                employeeData?.firstName + " " + employeeData?.lastName
+                employeeData.employee?.firstName +
+                " " +
+                employeeData.employee?.lastName
               }`
             : "Add New Employee"}
         </H2Styles>
@@ -247,7 +288,11 @@ const EditEmployeeForm = () => {
                   <Button icon="" onClick={() => setActiveSection(1)}>
                     Edit
                   </Button>
-                  <Button icon="" onClick={onSubmit} loading={isLoading}>
+                  <Button
+                    icon=""
+                    onClick={onSubmit}
+                    loading={employeeData.loading}
+                  >
                     Submit
                   </Button>
                 </ButtonGrpWrapper>
