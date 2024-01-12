@@ -56,7 +56,7 @@ function TableHead({
         {user.employeeDetails?.accessControlRole === "admin" && (
           <th className="medium-column">
             <span className="table-title common-flex">
-              <span className="material-symbols-outlined">bolt</span>{" "}
+              <span className="material-symbols-outlined">bolt</span>
               <ParagraphStyles>Actions</ParagraphStyles>
             </span>
           </th>

@@ -113,7 +113,7 @@ function EmployeeCardList({
           <Loader className="infinite-scroll-loader common-flex" />
         </div>
       )}
-      <div ref={bottomElement} style={{ height: "10px" }} />{" "}
+      <div ref={bottomElement} style={{ height: "10px" }} />
       {/* This div is observed for intersection */}
     </>
   );

@@ -159,8 +159,12 @@ const EditEmployeeForm = () => {
         Object.keys(dirtyInputs).length ||
         formValues.photoId != employeeData.employee?.photoId
       ) {
+        const userEqualsEmployee = Boolean(
+          employeeId === user.employeeDetails?.id
+        );
         const editedEmployee = await convertFormDataToIPostEmployees(
-          formValues
+          formValues,
+          userEqualsEmployee
         );
         await updateData(apiURL.employee + "/" + employeeId, editedEmployee);
         if (employeeId === user.employeeDetails?.id) {
@@ -169,6 +173,10 @@ const EditEmployeeForm = () => {
           ).data.data;
           dispatch(
             setLogin(convertIGetEmployeeToIAppEmployee(updatedUserDetails))
+          );
+          localStorage.setItem(
+            "userDetails",
+            JSON.stringify(updatedUserDetails)
           );
         }
         // Display toast for success state
@@ -192,6 +200,7 @@ const EditEmployeeForm = () => {
       navigate("/");
     }
   });
+
   const formConfig = getEditFormConfig({
     departments: departments as ISelectOptionProps[],
     skills: skills as ISelectOptionProps[],
@@ -279,7 +288,6 @@ const EditEmployeeForm = () => {
 
             {activeSection === 4 && (
               <>
-                {" "}
                 <EmployeeViewWrapper className="section">
                   <H3Styles>Review</H3Styles>
                   <EmployeeView employee={methods.getValues()}></EmployeeView>

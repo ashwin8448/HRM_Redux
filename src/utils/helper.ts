@@ -135,16 +135,17 @@ export const convertIGetEmployeeToIAppEmployee = (
 };
 
 export const convertFormDataToIPostEmployees = async (
-  formData: FieldValues
+  formData: FieldValues,
+  userEqualsEmployee: boolean
 ): Promise<IPostEmployee> => {
   const {
     photoId,
     isAdmin,
-    isNew,
     skills,
     department,
     role,
     isActive,
+    isNew,
     ...rest
   } = formData;
   return {
@@ -162,7 +163,7 @@ export const convertFormDataToIPostEmployees = async (
           : photoId
         : "",
       isAdmin: isAdmin === "Yes" ? true : false,
-      isNew: isNew && false,
+      isNew: !isNew ? false : userEqualsEmployee ? false : true,
     }),
   };
 };

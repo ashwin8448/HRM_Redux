@@ -41,10 +41,11 @@ const HeaderWrapper = styled.header`
         height: 35px;
       }
       .profile-error {
-        position: absolute;
-        top: 20px;
-        left: 30px;
         color: ${colors.RED_COLOR};
+        position: absolute;
+        top: 17px;
+        left: 25px;
+        z-index: -1;
       }
     }
     .logout-btn {

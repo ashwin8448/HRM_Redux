@@ -50,7 +50,7 @@ const Filter = () => {
             onClick={handleButtonClick}
           ></Button>
         </div>
-        <FilterActions />
+        <FilterActions onClick={handleButtonClick} />
       </FilterWrapper>
 
       {isSideFilterBarVisible && (

@@ -18,7 +18,7 @@ import {
   listDisplay,
 } from "../../../../../core/config/constants.ts";
 
-const FilterActions = () => {
+const FilterActions = ({ onClick }: { onClick: () => void }) => {
   const dispatch = useAppDispatch();
 
   const { skills, loading } = useAppSelector(
@@ -33,7 +33,6 @@ const FilterActions = () => {
     ISelectOptionProps[]
   >([]);
   const skillFilterValue = { skillFilterState, setSkillFilterState };
-
   const applyFilters = () => {
     const skillFiltersParams = skillFilterState
       .map((option) => option.value)
@@ -50,6 +49,7 @@ const FilterActions = () => {
           skillIds: skillFiltersParams,
         });
       }
+      onClick();
     } else {
       resetFilters();
     }
