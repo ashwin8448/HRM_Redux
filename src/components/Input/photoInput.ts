@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
 
-const PhotoInputWrapper = styled.div`
+export const PhotoInputWrapper = styled.div`
   display: flex;
   justify-content: center;
   margin-top: 10px;
@@ -19,4 +19,6 @@ const PhotoInputWrapper = styled.div`
   }
 `;
 
-export default PhotoInputWrapper;
+export const SpanWrapper = styled.span`
+  margin: 0 auto;
+`;

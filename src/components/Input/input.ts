@@ -3,7 +3,7 @@ import colors from "../../core/constants/colors";
 import { fontSizes, fontWeights } from "../../core/constants/fontStyles";
 
 const InputWrapper = styled.div`
-  gap: 3px;
+  gap: 5px;
   display: flex;
   flex-direction: column;
   flex: 1;

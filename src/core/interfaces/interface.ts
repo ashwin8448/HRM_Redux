@@ -63,10 +63,11 @@ export interface IAppEmployee extends ICommonEmployeeFields {
   address: string;
   isNew: boolean;
   accessControlRole: string;
+  moreDetails: string | null;
 }
 
 export interface IPostEmployee extends ICommonEmployeeFields {
-  moreDetails: string;
+  moreDetails: string | null;
   role: number;
   isActive: boolean;
   department: number;

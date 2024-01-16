@@ -131,6 +131,7 @@ export const convertIGetEmployeeToIAppEmployee = (
     photoId: moreDetailsObject.photoId || "",
     isNew: moreDetailsObject.isNew || false,
     accessControlRole: moreDetailsObject.isAdmin ? "admin" : "user",
+    moreDetails: moreDetails,
   };
 };
 
@@ -146,8 +147,10 @@ export const convertFormDataToIPostEmployees = async (
     role,
     isActive,
     isNew,
+    moreDetails,
     ...rest
   } = formData;
+  const moreDetailsObject = moreDetails ? JSON.parse(moreDetails) : {};
   return {
     ...(rest as IPostEmployee),
     skills: skills
@@ -156,15 +159,18 @@ export const convertFormDataToIPostEmployees = async (
     department: department ? department.value : null,
     role: role ? role.value : null,
     isActive: isActive === "Yes" ? true : false,
-    moreDetails: JSON.stringify({
-      photoId: photoId
-        ? typeof photoId![0] == "object"
-          ? await uploadImage(photoId![0])
-          : photoId
-        : "",
-      isAdmin: isAdmin === "Yes" ? true : false,
-      isNew: !isNew ? false : userEqualsEmployee ? false : true,
-    }),
+    moreDetails: Object.keys(moreDetailsObject).length
+      ? JSON.stringify({
+          ...moreDetailsObject,
+          photoId: photoId
+            ? typeof photoId![0] == "object"
+              ? await uploadImage(photoId![0])
+              : photoId
+            : "",
+          isAdmin: isAdmin === "Yes" ? true : false,
+          isNew: !isNew ? false : userEqualsEmployee ? false : true,
+        })
+      : null,
   };
 };
 export function concatenateNames(firstName: string, lastName: string): string {

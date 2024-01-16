@@ -4,8 +4,9 @@ import { ChangeEvent, useState } from "react";
 import InputError from "../InputError/InputError.tsx";
 import Button from "../Button/Button.tsx";
 import { Controller, useFormContext } from "react-hook-form";
-import PhotoInputWrapper from "./photoInput.ts";
+import { SpanWrapper, PhotoInputWrapper } from "./photoInput.ts";
 import { LabelStyles } from "../../core/constants/components/text/textStyledComponents.ts";
+import Avatar from "../../components/Avatar/Avatar.tsx";
 
 const PhotoInput = ({
   config,
@@ -25,6 +26,12 @@ const PhotoInput = ({
   );
   const errorMsg = errors[config.name];
   const className = errorMsg ? `input-border-error ${config.label}` : "label";
+
+  const setEmployeeImage = (value: string, placeholder: string) => {
+    setValue("photoId", value);
+    setPlaceholderImage(placeholder);
+  };
+
   return (
     <>
       <div className="employee-img-container">
@@ -46,8 +53,7 @@ const PhotoInput = ({
         {placeholderImage != "" && (
           <Button
             onClick={() => {
-              setValue("photoId", "");
-              setPlaceholderImage("");
+              setEmployeeImage("", "");
             }}
             tabIndex={tabIndex}
           >
@@ -58,7 +64,7 @@ const PhotoInput = ({
 
       <PhotoInputWrapper>
         <LabelStyles htmlFor={config.label} tabIndex={tabIndex}>
-          Select image
+          Upload photo
         </LabelStyles>
         <Controller
           name={config.name}
@@ -87,6 +93,8 @@ const PhotoInput = ({
           )}
         />
       </PhotoInputWrapper>
+      <SpanWrapper className="or-span">or</SpanWrapper>
+      <Avatar onImgClick={setEmployeeImage} />
     </>
   );
 };
