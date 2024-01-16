@@ -26,23 +26,9 @@ function employeeReducer(
         count: action.payload.count,
       };
     case actionNames.SET_EMPLOYEES_GRID:{
-      
-    const mergedEmployees = [...state.employees];
-    action.payload.employees.forEach(newEmployee => {
-      const existingEmployeeIndex = mergedEmployees.findIndex(existingEmployee => existingEmployee.id === newEmployee.id);
-    
-      if (existingEmployeeIndex !== -1) {
-        // If an employee with the same ID exists, replace it with the new employee
-        mergedEmployees[existingEmployeeIndex] = newEmployee;
-      } else {
-        // If no employee with the same ID exists, add the new employee to the array
-        mergedEmployees.push(newEmployee);
-      }
-    });
-    
       return {
         ...state,
-        employees: mergedEmployees,
+        employees: [...state.employees,...action.payload.employees],
         count: action.payload.count,
       };}
     case actionNames.RESET_EMPLOYEES_GRID:
