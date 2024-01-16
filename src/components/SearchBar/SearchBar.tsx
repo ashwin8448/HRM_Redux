@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import SearchWrapper from "./search.ts";
 import { useSearchParams } from "react-router-dom";
 import { updateSearchParams } from "../../utils/helper.ts";
-import { defaultPageSize, listDisplay } from "../../core/config/constants.ts";
+import { debounceTimeout, defaultPageSize, listDisplay } from "../../core/config/constants.ts";
 
 function SearchBar() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -30,7 +30,7 @@ function SearchBar() {
 
       updateSearchParams(setSearchParams, searchParams, commonParams);
     }
-    const timeOut = setTimeout(changeSearchParams, 500);
+    const timeOut = setTimeout(changeSearchParams, debounceTimeout);
     return () => clearTimeout(timeOut);
   }, [searchParams, searchState, setSearchParams])
 

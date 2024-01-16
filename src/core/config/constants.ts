@@ -16,6 +16,7 @@ export const apiURL = {
 
 //Search Params
 export const defaultPageSize = { page: "1" };
+export const debounceTimeout = 500;
 
 //fetch employees params
 export const defaultSortBy = "id";
