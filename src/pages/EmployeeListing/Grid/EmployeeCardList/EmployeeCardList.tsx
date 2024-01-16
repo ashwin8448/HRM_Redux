@@ -64,7 +64,7 @@ function EmployeeCardList({
         )
       );
     }
-  }, [dispatch, employees.length, hasMore, loading]);
+  }, [dispatch, employees.length, hasMore, loading, searchParams]);
 
   useEffect(() => {
     const handleIntersection = (entries: IntersectionObserverEntry[]) => {

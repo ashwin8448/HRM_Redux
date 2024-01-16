@@ -11,7 +11,7 @@ import {
 } from "./constants/constants.ts";
 import { useLocation, useNavigate, useSearchParams } from "react-router-dom";
 import { useState } from "react";
-import { useAppSelector } from "../../hooks/reduxHooks.ts";
+import { useAppDispatch, useAppSelector } from "../../hooks/reduxHooks.ts";
 import { getUrlType, updateSearchParams } from "../../utils/helper.ts";
 import {
   H2Styles,
@@ -19,6 +19,7 @@ import {
   ParagraphStyles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
 import { listDisplay, defaultPageSize } from "../../core/config/constants.ts";
+import { resetEmployeesGrid } from "../../core/store/actions.ts";
 
 function DeleteModal({
   changeDeleteModalOpenStatus,
@@ -32,6 +33,7 @@ function DeleteModal({
     useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
 
   const confirmEmployeesDeletion = async () => {
     setconfirmEmployeesDeletionLoader(true);
@@ -47,8 +49,7 @@ function DeleteModal({
       if (getUrlType(location.pathname) === "view-employee") navigate("/");
       // All deletions successful, display toast with all IDs
       toast.success(
-        `Deleted user${
-          employeesToDelete.length > 1 ? "s" : ""
+        `Deleted user${employeesToDelete.length > 1 ? "s" : ""
         } ${employeesToDelete.join(", ")}`,
         {
           toastId: "delete-toast-id",
@@ -62,6 +63,9 @@ function DeleteModal({
       const isdisplayList = searchParams.get("display") === listDisplay;
       if (isdisplayList) {
         updateSearchParams(setSearchParams, searchParams, defaultPageSize);
+      }
+      else {
+        dispatch(resetEmployeesGrid());
       }
     }
     changeDeleteModalOpenStatus();
