@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import SearchWrapper from "./search.ts";
 import { useSearchParams } from "react-router-dom";
 import { updateSearchParams } from "../../utils/helper.ts";
@@ -16,16 +16,24 @@ function SearchBar() {
 
   const handleChange = ({ searchedTxt }: { searchedTxt: string }) => {
     setSearchState(searchedTxt);
-  
-    const displayValue = searchParams.get("display");
-    const commonParams = {
-      search: searchedTxt || undefined,
-      page: displayValue === listDisplay ? defaultPageSize.page : undefined,
-    };
-  
-    updateSearchParams(setSearchParams, searchParams, commonParams);
   };
-  
+
+
+
+  useEffect(() => {
+    const changeSearchParams = () => {
+      const displayValue = searchParams.get("display");
+      const commonParams = {
+        search: searchState || undefined,
+        page: displayValue === listDisplay ? defaultPageSize.page : undefined,
+      };
+
+      updateSearchParams(setSearchParams, searchParams, commonParams);
+    }
+    const timeOut = setTimeout(changeSearchParams, 500);
+    return () => clearTimeout(timeOut);
+  }, [searchParams, searchState, setSearchParams])
+
 
   return (
     <SearchWrapper $focus={focus}>
@@ -39,7 +47,7 @@ function SearchBar() {
           placeholder="Search by Name"
           onFocus={handleFocus}
           onChange={(e) => {
-            handleChange({ searchedTxt: e.target.value });  
+            handleChange({ searchedTxt: e.target.value });
           }}
           onBlur={handleBlur}
         />
