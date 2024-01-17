@@ -131,7 +131,7 @@ export const convertIGetEmployeeToIAppEmployee = (
     photoId: moreDetailsObject.photoId || "",
     isNew: moreDetailsObject.isNew || false,
     accessControlRole: moreDetailsObject.isAdmin ? "admin" : "user",
-    moreDetails: moreDetails,
+    moreDetails: moreDetails ? moreDetails : "{}",
   };
 };
 
@@ -150,8 +150,8 @@ export const convertFormDataToIPostEmployees = async (
     moreDetails,
     ...rest
   } = formData;
-  const moreDetailsObject = moreDetails ? JSON.parse(moreDetails) : {};
-  return {
+  const moreDetailsObject = JSON.parse(moreDetails);
+  console.log({
     ...(rest as IPostEmployee),
     skills: skills
       ? skills.map((skill: ISelectOptionProps) => skill.value)
@@ -171,6 +171,25 @@ export const convertFormDataToIPostEmployees = async (
           isNew: !isNew ? false : userEqualsEmployee ? false : true,
         })
       : null,
+  });
+  return {
+    ...(rest as IPostEmployee),
+    skills: skills
+      ? skills.map((skill: ISelectOptionProps) => skill.value)
+      : null,
+    department: department ? department.value : null,
+    role: role ? role.value : null,
+    isActive: isActive === "Yes" ? true : false,
+    moreDetails: JSON.stringify({
+      ...moreDetailsObject,
+      photoId: photoId
+        ? typeof photoId![0] == "object"
+          ? await uploadImage(photoId![0])
+          : photoId
+        : "",
+      isAdmin: isAdmin === "Yes" ? true : false,
+      isNew: !isNew ? false : userEqualsEmployee ? false : true,
+    }),
   };
 };
 export function concatenateNames(firstName: string, lastName: string): string {

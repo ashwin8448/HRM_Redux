@@ -136,6 +136,7 @@ const EditEmployeeForm = () => {
         const userEqualsEmployee = Boolean(
           employeeId === user.employeeDetails?.id
         );
+        console.log(formValues);
         const editedEmployee = await convertFormDataToIPostEmployees(
           formValues,
           userEqualsEmployee

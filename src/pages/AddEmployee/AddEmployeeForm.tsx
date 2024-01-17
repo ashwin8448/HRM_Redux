@@ -5,7 +5,7 @@ import Input from "../../components/Input/Input.tsx";
 import addFormConfig from "./addFormConfig.ts";
 import { Fieldset, FormWrapper } from "../EmployeeUpdate/form.ts";
 import React, { useRef, useState } from "react";
-import { IInputProps } from "../../core/interfaces/interface.ts";
+import { IInputProps, IPostEmployee } from "../../core/interfaces/interface.ts";
 import { useNavigate } from "react-router-dom";
 import { postData } from "../../core/api/functions.ts";
 import { toast } from "react-toastify";
@@ -36,16 +36,16 @@ const AddEmployeeForm = () => {
     delete formValues.confirmPassword;
     const { password, isAdmin, ...rest } = formValues;
     try {
-      const newEmployee = {
+      const newEmployee: Partial<IPostEmployee> = {
         ...rest,
         moreDetails: JSON.stringify({
           isAdmin: isAdmin === "Yes" ? true : false,
           isNew: true,
         }),
       };
-      const response = await postData(apiURL.employee, newEmployee);
+      await postData(apiURL.employee, newEmployee);
       const newUserCredentials = {
-        username: response.data.data.id,
+        username: newEmployee.email,
         password: password,
       };
       await postData(apiURL.authSignUp, newUserCredentials);

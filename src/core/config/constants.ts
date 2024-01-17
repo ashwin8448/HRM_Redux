@@ -6,6 +6,7 @@ export enum SortDirection {
 
 export const apiURL = {
   employee: "/employee",
+  employeeByMail: "/employee/email",
   skills: "/skills",
   roles: "/roles",
   departments: "/departments",

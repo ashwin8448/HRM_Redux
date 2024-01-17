@@ -43,7 +43,7 @@ const useAuth = () => {
         const currentEmployeeId = (jwtDecode(accessToken) as IAccessToken)
           .username;
         const currentEmployeeResponse = (
-          await getData(apiURL.employee + `/${currentEmployeeId}`)
+          await getData(apiURL.employeeByMail + `/${currentEmployeeId}`)
         ).data.data;
         const { id, isNew, accessControlRole, firstName, photoId } =
           convertIGetEmployeeToIAppEmployee(currentEmployeeResponse);
@@ -83,7 +83,7 @@ const useAuth = () => {
   const logout = () => {
     deleteCookie("accessToken");
     deleteCookie("refreshToken");
-    localStorage.removeItem("userDetails")
+    localStorage.removeItem("userDetails");
     dispatch(setLogout());
     navigate("/login", { replace: true });
   };
