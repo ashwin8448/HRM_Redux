@@ -34,10 +34,16 @@ import {
   H2Styles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
 import { Helmet } from "react-helmet";
-
+import { AES, enc } from "crypto-js";
 
 const EditEmployeeForm = () => {
   const { employeeId } = useParams();
+  const decryptedId = employeeId
+    ? AES.decrypt(
+        decodeURIComponent(employeeId),
+        import.meta.env.VITE_ENCRYPTION_SECRET
+      ).toString(enc.Utf8)
+    : null;
   const departments = useAppSelector(
     (state) => state.dropdownData.departments.departments
   );
@@ -61,7 +67,7 @@ const EditEmployeeForm = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    if (!employeeId) {
+    if (!decryptedId) {
       // Display error toast after initial render
       toast.error("No employee Id was provided", {
         toastId: "employee-not-found",
@@ -70,7 +76,7 @@ const EditEmployeeForm = () => {
       navigate("/");
     } else {
       setEmployeeData((prev) => ({ ...prev, loading: true }));
-      getData("/employee/" + employeeId)
+      getData("/employee/" + decryptedId)
         .then((response) => {
           if (!response.data) {
             throw new Response("Employee Not Found", { status: 404 });
@@ -90,7 +96,7 @@ const EditEmployeeForm = () => {
     !roles.length && dispatch(fetchRolesData());
     !departments.length && dispatch(fetchDepartmentsData());
     !skills.length && dispatch(fetchSkillsData());
-  }, [employeeId]);
+  }, [decryptedId]);
 
   useEffect(() => {
     if (employeeData) {
@@ -136,7 +142,6 @@ const EditEmployeeForm = () => {
         const userEqualsEmployee = Boolean(
           employeeId === user.employeeDetails?.id
         );
-        console.log(formValues);
         const editedEmployee = await convertFormDataToIPostEmployees(
           formValues,
           userEqualsEmployee

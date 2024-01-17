@@ -8,9 +8,14 @@ import { convertIGetEmployeeToIAppEmployee } from "../../utils/helper.ts";
 import EmployeeView from "./EmployeeView.tsx";
 import Button from "../../components/Button/Button.tsx";
 import { Helmet } from "react-helmet";
+import { AES, enc } from "crypto-js";
 
 function EmployeeViewLayout() {
   const { employeeId } = useParams();
+  const decryptedId = AES.decrypt(
+    `${employeeId}`,
+    import.meta.env.VITE_ENCRYPTION_SECRET
+  ).toString(enc.Utf8);
   const [employeeData, setEmployeeData] = useState<{
     loading: boolean;
     employee: IAppEmployee | null;
@@ -31,7 +36,7 @@ function EmployeeViewLayout() {
       navigate("/");
     } else {
       setEmployeeData((prev) => ({ ...prev, loading: true }));
-      getData("/employee/" + employeeId)
+      getData("/employee/" + decodeURIComponent(decryptedId))
         .then((response) => {
           if (!response.data) {
             throw new Response("Employee Not Found", { status: 404 });

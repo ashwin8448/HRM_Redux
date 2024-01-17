@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import TooltipComponent from "../Tooltip/Tooltip.tsx";
 import { H1Styles } from "../../core/constants/components/text/textStyledComponents.ts";
 import { useAppSelector } from "../../hooks/reduxHooks.ts";
+import { AES } from "crypto-js";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -27,11 +28,24 @@ const Header = () => {
               {logoElement}
             </TooltipComponent>
             <div className="user-container">
-              <TooltipComponent title={user.employeeDetails?.isNew ? "Please Complete Your Profile" : "Click to View profile"}>
+              <TooltipComponent
+                title={
+                  user.employeeDetails?.isNew
+                    ? "Please Complete Your Profile"
+                    : "Click to View profile"
+                }
+              >
                 <div>
                   <Button
                     onClick={() => {
-                      navigate(`view-employee/${user.employeeDetails?.id}`, { replace: true });
+                      const encryptedId = AES.encrypt(
+                        user.employeeDetails!.id!,
+                        import.meta.env.VITE_ENCRYPTION_SECRET
+                      ).toString();
+                      navigate(
+                        `view-employee/${encodeURIComponent(encryptedId)}`,
+                        { replace: true }
+                      );
                     }}
                   >
                     <div className="image-container common-flex">

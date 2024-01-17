@@ -31,7 +31,7 @@ export async function onResponseError(error: AxiosError): Promise<AxiosError> {
       error.response?.status === HTTP_STATUS.BAD_REQUEST) &&
     window.location.pathname !== "/error"
   ) {
-    // window.location.href = `/error?statusCode=${error.response?.status}`;
+    window.location.href = `/error?statusCode=${error.response?.status}`;
     return Promise.reject(error.response.data as IErrorResponse);
   } else if (
     error.response?.status === HTTP_STATUS.UNAUTHORIZED &&

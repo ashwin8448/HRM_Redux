@@ -13,6 +13,7 @@ import {
 } from "../../../../core/constants/components/text/textStyledComponents.ts";
 import TooltipComponent from "../../../../components/Tooltip/Tooltip.tsx";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
+import { AES } from "crypto-js";
 
 function EmployeeCard({
   deleteCheckBoxesList,
@@ -27,16 +28,23 @@ function EmployeeCard({
   const user = useAppSelector((state) => state.userData);
   const navigate = useNavigate();
 
+  const encryptedId = AES.encrypt(
+    `${employee.id}`,
+    import.meta.env.VITE_ENCRYPTION_SECRET
+  ).toString();
+  
   const cardEditBtnClick = (
     e: React.MouseEvent<HTMLButtonElement> | undefined
   ) => {
     if (e) e.stopPropagation();
-    navigate(`/edit-employee/${employee.id}`);
+    navigate(`/edit-employee/${encodeURIComponent(encryptedId)}`);
   };
 
   return (
     <EmployeeCardWrapper
-      onClick={() => navigate(`/view-employee/${employee.id}`)}
+      onClick={() =>
+        navigate(`/view-employee/${encodeURIComponent(encryptedId)}`)
+      }
     >
       {user.employeeDetails?.accessControlRole === "admin" ||
       (user.employeeDetails?.accessControlRole === "user" &&

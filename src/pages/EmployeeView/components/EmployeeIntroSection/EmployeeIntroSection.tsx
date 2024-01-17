@@ -17,6 +17,7 @@ import {
 import ActiveDot from "../../../../components/ActiveDot/ActiveDot.tsx";
 import TooltipComponent from "../../../../components/Tooltip/Tooltip.tsx";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
+import { AES } from "crypto-js";
 
 function EmployeeIntroSection({
   employee,
@@ -75,7 +76,13 @@ function EmployeeIntroSection({
             <ButtonGrpWrapper className="btn-grp common-flex">
               <Button
                 icon="edit"
-                onClick={() => navigate(`/edit-employee/${employee!.id}`)}
+                onClick={() => {
+                  const encryptedId = AES.encrypt(
+                    `${employee.id}`,
+                    import.meta.env.VITE_ENCRYPTION_SECRET
+                  ).toString();
+                  navigate(`/edit-employee/${encodeURIComponent(encryptedId)}`);
+                }}
               >
                 {(matchesWithMobile || matchesWithTab) && (
                   <>
@@ -95,7 +102,11 @@ function EmployeeIntroSection({
                 )}
               </Button>
               {user.employeeDetails?.id != employeeId && (
-              <Button className="delete-btn" icon="delete" onClick={() => handleDeleteButtonClick()}>
+                <Button
+                  className="delete-btn"
+                  icon="delete"
+                  onClick={() => handleDeleteButtonClick()}
+                >
                   {(matchesWithMobile || matchesWithTab) && (
                     <>
                       {matchesWithMobile && "Delete Profile"}

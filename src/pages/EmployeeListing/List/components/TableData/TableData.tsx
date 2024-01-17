@@ -10,6 +10,7 @@ import SkillsChip from "../../../../../components/Skills/SkillsChip.tsx";
 import { ChipWrapper } from "../../../../../components/Skills/chip.ts";
 import DeleteModal from "../../../../../components/DeleteModal/DeleteModal.tsx";
 import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
+import { AES } from "crypto-js";
 
 function TableData({
   employee,
@@ -26,8 +27,13 @@ function TableData({
   const navigate = useNavigate();
   const user = useAppSelector((state) => state.userData);
 
+  const encryptedId = AES.encrypt(
+    `${employee.id}`,
+    import.meta.env.VITE_ENCRYPTION_SECRET
+  ).toString();
+
   const handleEmployeeDetailsView = () => {
-    navigate(`/view-employee/${employee.id}`);
+    navigate(`/view-employee/${encodeURIComponent(encryptedId)}`);
   };
 
   const [deleteModal, setDeleteModal] = useState(false);
@@ -90,7 +96,7 @@ function TableData({
                 icon="edit"
                 onClick={(e) => {
                   e?.stopPropagation();
-                  navigate(`/edit-employee/${employee.id}`);
+                  navigate(`/edit-employee/${encodeURIComponent(encryptedId)}`);
                 }}
               ></Button>
               <Button

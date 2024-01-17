@@ -151,27 +151,6 @@ export const convertFormDataToIPostEmployees = async (
     ...rest
   } = formData;
   const moreDetailsObject = JSON.parse(moreDetails);
-  console.log({
-    ...(rest as IPostEmployee),
-    skills: skills
-      ? skills.map((skill: ISelectOptionProps) => skill.value)
-      : null,
-    department: department ? department.value : null,
-    role: role ? role.value : null,
-    isActive: isActive === "Yes" ? true : false,
-    moreDetails: Object.keys(moreDetailsObject).length
-      ? JSON.stringify({
-          ...moreDetailsObject,
-          photoId: photoId
-            ? typeof photoId![0] == "object"
-              ? await uploadImage(photoId![0])
-              : photoId
-            : "",
-          isAdmin: isAdmin === "Yes" ? true : false,
-          isNew: !isNew ? false : userEqualsEmployee ? false : true,
-        })
-      : null,
-  });
   return {
     ...(rest as IPostEmployee),
     skills: skills
