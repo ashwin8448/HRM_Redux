@@ -5,6 +5,7 @@ const tooltipStyles = {
       color: 'black',
       border: '1px solid',
       borderColor: 'black',
+      fontFamily: "Manrope",
       '& .MuiTooltip-arrow': {
         color: 'black',
       },

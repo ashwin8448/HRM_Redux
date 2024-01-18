@@ -12,7 +12,7 @@ const SnackbarWrapper = styled.div`
   text-align: center;
   border-radius: 8px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-  z-index: 2;
+  z-index: 1;
   display: flex;
   gap: 20px;
   animation: slideUp 0.5s forwards;

@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, {  useRef, useState } from "react";
 import Button from "../../../../../components/Button/Button.tsx";
 import { DropdownWrapper } from "../../Sort/sort.ts";
 import Checkbox from "../../../../../components/Checkbox/Checkbox.tsx";
@@ -8,8 +8,10 @@ import { useAppSelector } from "../../../../../hooks/reduxHooks.ts";
 import { ParagraphStyles } from "../../../../../core/constants/components/text/textStyledComponents.ts";
 import TooltipComponent from "../../../../../components/Tooltip/Tooltip.tsx";
 import { CSVLink } from "react-csv";
-import { export_csvData } from "../../../../../utils/helper.ts";
+import { export_csvData, handleCheckboxChange } from "../../../../../utils/helper.ts";
 import { IAppEmployee } from "../../../../../core/interfaces/interface.ts";
+import useDisableScroll from "../../../../../hooks/disableScrollHook.ts";
+import useOutsideClick from "../../../../../hooks/dropdownHook.ts";
 
 function MoreActions({
   deleteCheckBoxesList,
@@ -26,14 +28,12 @@ function MoreActions({
     setMoreActionsDropdown(() => !moreActionsDropdown);
   };
   const moreActionsRef = useRef<HTMLDivElement | null>(null); // Set the type explicitly
-  const handleOutsideClick = (event: MouseEvent) => {
-    if (
-      moreActionsRef.current &&
-      !moreActionsRef.current.contains(event.target as Node)
-    ) {
-      setMoreActionsDropdown(false);
-    }
+
+  const closeMoreActionsDropdown = () => {
+    setMoreActionsDropdown(false);
   };
+
+  useOutsideClick(moreActionsRef, closeMoreActionsDropdown);
 
   const { employees, loading } = useAppSelector((state) => state.employeesData);
 
@@ -55,28 +55,10 @@ function MoreActions({
   const closeModalAndDropdown = () => {
     changeDeleteModalOpenStatus();
     changeMoreActionsDropdownOpenStatus();
+    handleCheckboxChange({ deleteCheckBoxesList, employeesIdList: [] });
   };
-  //body static on delete modal/side filter opening
-  useEffect(() => {
-    deleteModal
-      ? (document.body.style.overflow = "hidden") // Disable scrolling
-      : (document.body.style.overflow = "auto"); // Enable scrolling
 
-    // Cleanup function to re-enable scrolling when the component unmounts or when the modal is closed
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [deleteModal]);
-
-  useEffect(() => {
-    // Attach the event listener when the component mounts
-    document.addEventListener("click", handleOutsideClick);
-
-    // Detach the event listener when the component unmounts
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, []); // Empty dependency array ensures that the effect runs only once
+  useDisableScroll(deleteModal);
 
   const deleteButton = (
     <DeleteBtnWrapper
