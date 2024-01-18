@@ -48,13 +48,9 @@ function DeleteModal({
 
       if (getUrlType(location.pathname) === "view-employee") navigate("/");
       // All deletions successful, display toast with all IDs
-      toast.success(
-        `Deleted user${employeesToDelete.length > 1 ? "s" : ""
-        } ${employeesToDelete.join(", ")}`,
-        {
-          toastId: "delete-toast-id",
-        }
-      );
+      toast.success(`Deleted user${employeesToDelete.length > 1 ? "s" : ""}`, {
+        toastId: "delete-toast-id",
+      });
     } catch (error) {
       // Error occurred during deletion
       toast.error("Error deleting users", { toastId: "delete-user" });
@@ -63,8 +59,7 @@ function DeleteModal({
       const isdisplayList = searchParams.get("display") === listDisplay;
       if (isdisplayList) {
         updateSearchParams(setSearchParams, searchParams, defaultPageSize);
-      }
-      else {
+      } else {
         dispatch(resetEmployeesGrid());
       }
     }

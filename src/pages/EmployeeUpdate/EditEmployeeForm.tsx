@@ -50,8 +50,6 @@ const EditEmployeeForm = () => {
   const user = useAppSelector((state) => state.userData);
   const roles = useAppSelector((state) => state.dropdownData.roles.roles);
   const skills = useAppSelector((state) => state.dropdownData.skills.skills);
-  // const [isLoading, setIsLoading] = useState(employeeId ? true : false);
-  // const [employeeData, setEmployeeData] = useState<IAppEmployee>();
   const [employeeData, setEmployeeData] = useState<{
     loading: boolean;
     employee: IAppEmployee | null;
@@ -140,16 +138,16 @@ const EditEmployeeForm = () => {
         formValues.photoId != employeeData.employee?.photoId
       ) {
         const userEqualsEmployee = Boolean(
-          employeeId === user.employeeDetails?.id
+          decryptedId === user.employeeDetails?.id
         );
         const editedEmployee = await convertFormDataToIPostEmployees(
           formValues,
           userEqualsEmployee
         );
-        await updateData(apiURL.employee + "/" + employeeId, editedEmployee);
-        if (employeeId === user.employeeDetails?.id) {
+        await updateData(apiURL.employee + "/" + decryptedId, editedEmployee);
+        if (decryptedId === user.employeeDetails?.id) {
           const updatedUserDetails = (
-            await getData(apiURL.employee + `/${employeeId}`)
+            await getData(apiURL.employee + `/${decryptedId}`)
           ).data.data;
           dispatch(
             setLogin(convertIGetEmployeeToIAppEmployee(updatedUserDetails))
@@ -187,7 +185,7 @@ const EditEmployeeForm = () => {
     roles: roles as ISelectOptionProps[],
     required: !(
       Boolean(user.employeeDetails?.accessControlRole === "admin") &&
-      employeeId != user.employeeDetails?.id
+      decryptedId != user.employeeDetails?.id
     ),
   });
 
@@ -219,13 +217,11 @@ const EditEmployeeForm = () => {
       </Button>
       <FormWrapper>
         <H2Styles ref={ref}>
-          {employeeId
-            ? `Edit Employee: ${
-                employeeData.employee?.firstName +
-                " " +
-                employeeData.employee?.lastName
-              }`
-            : "Add New Employee"}
+          {`Edit Employee: ${
+            employeeData.employee?.firstName +
+            " " +
+            employeeData.employee?.lastName
+          }`}
         </H2Styles>
         <ProgressBar
           activeSection={activeSection}

@@ -18,6 +18,7 @@ import ActiveDot from "../../../../components/ActiveDot/ActiveDot.tsx";
 import TooltipComponent from "../../../../components/Tooltip/Tooltip.tsx";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 import { AES } from "crypto-js";
+import ProgressiveImg from "../../../../components/ProgressiveImg/ProgressiveImg.tsx";
 
 function EmployeeIntroSection({
   employee,
@@ -40,7 +41,7 @@ function EmployeeIntroSection({
     <>
       <EmployeeIntroSectionWrapper className="common-flex ">
         <div className="photo-container">
-          <img
+          <ProgressiveImg
             src={
               employee.photoId === "" ||
               employee.photoId === undefined ||
@@ -51,7 +52,7 @@ function EmployeeIntroSection({
                 : URL.createObjectURL(employee.photoId[0])
             }
             alt="Employee image"
-            className=" photo"
+            className="photo"
           />
         </div>
         <div className="employee-intro">

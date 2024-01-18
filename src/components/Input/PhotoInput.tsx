@@ -7,6 +7,7 @@ import { Controller, useFormContext } from "react-hook-form";
 import { SpanWrapper, PhotoInputWrapper } from "./photoInput.ts";
 import { LabelStyles } from "../../core/constants/components/text/textStyledComponents.ts";
 import Avatar from "../../components/Avatar/Avatar.tsx";
+import ProgressiveImg from "../ProgressiveImg/ProgressiveImg.tsx";
 
 const PhotoInput = ({
   config,
@@ -36,7 +37,7 @@ const PhotoInput = ({
     <>
       <div className="employee-img-container">
         <div className="photo-container">
-          <img
+          <ProgressiveImg
             src={
               placeholderImage === "" ||
               placeholderImage === undefined ||

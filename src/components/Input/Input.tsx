@@ -44,7 +44,7 @@ function Input({ config,tabIndex }: { config: IInputProps,tabIndex:number }) {
                       id={config.label}
                       className={className}
                       accept={config.accept}
-                      placeholder={`Enter your ${config.label}`}
+                      placeholder={`Enter ${config.label.toLowerCase()}`}
                       {...register(config.name, {
                         ...config.validation,
                         required: {

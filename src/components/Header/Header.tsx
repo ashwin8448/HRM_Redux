@@ -8,6 +8,7 @@ import TooltipComponent from "../Tooltip/Tooltip.tsx";
 import { H1Styles } from "../../core/constants/components/text/textStyledComponents.ts";
 import { useAppSelector } from "../../hooks/reduxHooks.ts";
 import { AES } from "crypto-js";
+import ProgressiveImg from "../ProgressiveImg/ProgressiveImg.tsx";
 
 const Header = () => {
   const navigate = useNavigate();
@@ -49,7 +50,7 @@ const Header = () => {
                     }}
                   >
                     <div className="image-container common-flex">
-                      <img
+                      <ProgressiveImg
                         src={user.employeeDetails?.photoId || dummyImg}
                         alt="user image"
                       />

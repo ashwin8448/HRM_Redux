@@ -1,4 +1,5 @@
-import AvatarWrapper from "./Avatar";
+import ProgressiveImg from "../ProgressiveImg/ProgressiveImg";
+import AvatarWrapper from "./avatar";
 import avatarLinks from "./avatarConfig";
 
 const Avatar = ({
@@ -11,7 +12,7 @@ const Avatar = ({
       <span>Choose an avatar</span>
       <AvatarWrapper>
         {avatarLinks.map((link) => (
-          <img
+          <ProgressiveImg
             key={link}
             src={link}
             alt={"Avatar"}

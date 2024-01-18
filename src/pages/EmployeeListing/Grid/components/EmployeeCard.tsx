@@ -14,6 +14,7 @@ import {
 import TooltipComponent from "../../../../components/Tooltip/Tooltip.tsx";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 import { AES } from "crypto-js";
+import ProgressiveImg from "../../../../components/ProgressiveImg/ProgressiveImg.tsx";
 
 function EmployeeCard({
   deleteCheckBoxesList,
@@ -32,7 +33,7 @@ function EmployeeCard({
     `${employee.id}`,
     import.meta.env.VITE_ENCRYPTION_SECRET
   ).toString();
-  
+
   const cardEditBtnClick = (
     e: React.MouseEvent<HTMLButtonElement> | undefined
   ) => {
@@ -68,13 +69,13 @@ function EmployeeCard({
 
       <div className="title-section">
         <div className="photo-container">
-          <img
+          <ProgressiveImg
             src={
               employee.photoId === "" || employee.photoId === undefined
                 ? DummyImg
                 : employee.photoId
             }
-            alt=""
+            alt="Employee image"
             className="photo"
           />
         </div>
