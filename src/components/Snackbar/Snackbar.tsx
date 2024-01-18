@@ -18,9 +18,8 @@ const Snackbar = ({
   //delte modal open on click
   const [deleteModal, setDeleteModal] = useState(false); // determines whether the modal is open or close
   const changeDeleteModalOpenStatus = () => {
-    setDeleteModal(
-      () => deleteCheckBoxesList.checkedBoxesList.length !== 0 && !deleteModal
-    );
+    setDeleteModal(false);
+    handleClose();
   };
 
   const handleClose = () => {
@@ -28,7 +27,9 @@ const Snackbar = ({
   };
 
   const handleDelete = () => {
-    changeDeleteModalOpenStatus();
+    setDeleteModal(
+      () => deleteCheckBoxesList.checkedBoxesList.length !== 0 && !deleteModal
+    );
   };
 
   return (
@@ -47,7 +48,8 @@ const Snackbar = ({
         </SnackbarWrapper>
       )}
       {deleteModal && (
-        <div className="overlay" onClick={changeDeleteModalOpenStatus}></div>
+        <div className="overlay" onClick={() => setDeleteModal(false)
+        }></div>
       )}
       {deleteModal && (
         <DeleteModal

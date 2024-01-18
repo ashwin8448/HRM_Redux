@@ -32,7 +32,7 @@ function SearchBar() {
     }
     const timeOut = setTimeout(changeSearchParams, debounceTimeout);
     return () => clearTimeout(timeOut);
-  }, [searchParams, searchState, setSearchParams])
+  }, [ searchState])
 
 
   return (

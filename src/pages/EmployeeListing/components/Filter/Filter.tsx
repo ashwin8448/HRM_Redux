@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useMediaQuery } from "usehooks-ts";
 import Button from "../../../../components/Button/Button.tsx";
 import FilterWrapper from "./sideFilterBar.ts";
@@ -7,6 +7,7 @@ import { H2Styles } from "../../../../core/constants/components/text/textStyledC
 import { useSearchParams } from "react-router-dom";
 import { ISelectOptionProps } from "../../../../core/interfaces/interface.ts";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
+import useDisableScroll from "../../../../hooks/disableScrollHook.ts";
 
 const Filter = () => {
   const [searchParams] = useSearchParams();
@@ -40,17 +41,8 @@ const Filter = () => {
     })
     : [];
 
-  //body static on delete modal/side filter opening
-  useEffect(() => {
-    isSideFilterBarVisible
-      ? (document.body.style.overflow = "hidden") // Disable scrolling
-      : (document.body.style.overflow = "auto"); // Enable scrolling
+  useDisableScroll(isSideFilterBarVisible);
 
-    // Cleanup function to re-enable scrolling when the component unmounts or when the modal is closed
-    return () => {
-      document.body.style.overflow = "auto";
-    };
-  }, [isSideFilterBarVisible]);
 
   return (
     <>

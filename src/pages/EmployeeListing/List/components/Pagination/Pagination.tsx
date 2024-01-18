@@ -44,7 +44,7 @@ function Pagination({
   useEffect(() => {
     if (!searchParams.get("page"))
       updateSearchParams(setSearchParams, searchParams, defaultPageSize);
-  }, [searchParams]);
+  }, [searchParams, setSearchParams]);
 
   return totalPageSize > 1 ? (
     <PaginationWrapper className="pagination-bar">

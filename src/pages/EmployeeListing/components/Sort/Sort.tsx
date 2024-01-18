@@ -11,6 +11,7 @@ import { useMediaQuery } from "usehooks-ts";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 import { updateSearchParams } from "../../../../utils/helper.ts";
 import { SpanStyles } from "../../../../core/constants/components/text/textStyledComponents.ts";
+import useOutsideClick from "../../../../hooks/dropdownHook.ts";
 
 function Sort() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -28,14 +29,12 @@ function Sort() {
     setSortDropdown(() => !sortDropdown);
   };
   const dropdownRef = useRef<HTMLDivElement | null>(null); // Set the type explicitly
-  const handleOutsideClick = (event: MouseEvent) => {
-    if (
-      dropdownRef.current &&
-      !dropdownRef.current.contains(event.target as Node)
-    ) {
-      setSortDropdown(false);
-    }
+  const closeSortDropdown = () => {
+    setSortDropdown(false);
   };
+
+  useOutsideClick(dropdownRef, closeSortDropdown);
+
 
 
   //sort by
@@ -72,16 +71,6 @@ function Sort() {
     setSortOrderSelection(getSortOrderFromParams(sortOrder));
   }, [sortBy, sortOrder]);
 
-
-  useEffect(() => {
-    // Attach the event listener when the component mounts
-    document.addEventListener("click", handleOutsideClick);
-
-    // Detach the event listener when the component unmounts
-    return () => {
-      document.removeEventListener("click", handleOutsideClick);
-    };
-  }, []); // Empty dependency array ensures that the effect runs only once
 
   return (
     <div className="dropdown-container" ref={dropdownRef}>
