@@ -15,10 +15,6 @@ const EmployeeCardWrapper = styled.div`
     transform: scale(1.05);
   }
 
-  h3{
-    width: 160px;
-  }
-
   .employee-intro {
     flex-direction: column;
     align-items: center;
@@ -49,6 +45,10 @@ const EmployeeCardWrapper = styled.div`
     flex-direction: column;
     align-items: flex-start;
     gap: 10px;
+
+    .title {
+      margin-right: 10px;
+    }
   }
   .company-details {
     border-bottom: 1px solid ${colors.LIGHT_GRAY_COLOR};

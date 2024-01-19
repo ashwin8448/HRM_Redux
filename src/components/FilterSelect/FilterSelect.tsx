@@ -18,7 +18,7 @@ function FilterSelect({
       {value && (
         <Select
           value={value.skillFilterState}
-          isClearable={true}
+          isClearable={false}
           className="label"
           isSearchable={true}
           options={options}

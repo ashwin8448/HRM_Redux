@@ -13,20 +13,17 @@ function SkillsChip({ skills }: { skills: ISelectOptionProps[] | undefined }) {
   };
 
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
-  const handleResize = () => {
-    const skillsContainer = skillsContainerRef.current;
-    if (skillsContainer) {
-      const isOverflowing =
-        skillsContainer.scrollWidth > skillsContainer.clientWidth;
-
-      handleSkillsOverflow?.(isOverflowing);
-    }
-  };
 
   useEffect(() => {
-    // Initial check
-    handleResize();
-
+    const handleResize = () => {
+      const skillsContainer = skillsContainerRef.current;
+      if (skillsContainer) {
+        const isOverflowing =
+          skillsContainer.scrollWidth > skillsContainer.clientWidth;
+  
+        handleSkillsOverflow(isOverflowing);
+      }
+    };
     // Add event listener
     window.addEventListener("resize", handleResize); // calculate the scrollwidth whenever the window gets resized
 
