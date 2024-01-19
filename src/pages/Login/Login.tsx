@@ -18,7 +18,7 @@ const Login = () => {
   });
   const { login, authError, authLoading } = useAuth();
 
-  const onSubmit = methods.handleSubmit(() => {
+  const onSubmit = methods.handleSubmit(async () => {
     const formValues = methods.getValues();
     login({ username: formValues.username, password: formValues.password });
   });
@@ -43,7 +43,6 @@ const Login = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              onSubmit();
             }}
             noValidate
           >
@@ -58,7 +57,12 @@ const Login = () => {
               <ParagraphStyles className="error">{authError}</ParagraphStyles>
             )}
             <div className="button-container">
-              <Button className="primary-btn" type="submit">
+              <Button
+                className="primary-btn"
+                type="submit"
+                tabIndex={tabIndex}
+                onClick={onSubmit}
+              >
                 Submit
               </Button>
             </div>
