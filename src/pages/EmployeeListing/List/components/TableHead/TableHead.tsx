@@ -31,7 +31,7 @@ function TableHead({
             />
           </th>
         )}
-        <TableHeadButton icon="expand_more" title="firstName">
+        <TableHeadButton icon="expand_more" title="firstName" className="name-column">
           <span className="material-symbols-outlined">person</span>Name
         </TableHeadButton>
         <TableHeadButton icon="expand_more" title="designation">

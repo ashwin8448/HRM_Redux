@@ -58,7 +58,7 @@ function TableData({
           </TableDataStyles>
         )}
         {/* navigating to view employee page */}
-        <TableDataStyles className="employee-data overflow-ellipsis">
+        <TableDataStyles className="employee-data overflow-ellipsis name-column">
           {employee.lastName
             ? concatenateNames(employee.firstName, employee.lastName)
             : employee.firstName}

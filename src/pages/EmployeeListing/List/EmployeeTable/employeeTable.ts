@@ -40,7 +40,10 @@ const TableWrapper = styled.table<{ $isAdmin: boolean }>`
   }
 
   .small-column {
-    width: 60px;
+    width: 60px ;
+  }
+  .name-column {
+    width: 150px;
   }
   .medium-column {
     width: 100px;
