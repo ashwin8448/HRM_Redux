@@ -9,6 +9,7 @@ import InputWrapper from "./input.ts";
 import FormSelect from "../../pages/EmployeeUpdate/FormSelect/FormSelect.tsx";
 import PhotoInput from "./PhotoInput.tsx";
 import { LabelStyles } from "../../core/constants/components/text/textStyledComponents.ts";
+import { useState } from "react";
 
 function Input({
   config,
@@ -24,6 +25,14 @@ function Input({
 
   const errorMsg = errors[config.name]; // error value for input
   const className = errorMsg ? `input-border-error ${config.label}` : "label";
+
+  const [isPasswordVisible, setIsPasswordVisible] = useState<boolean>(false);
+
+  // Function to toggle password visibility
+  const togglePasswordVisibility = () => {
+    setIsPasswordVisible((prev) => !prev);
+  };
+
   return (
     (config.visibility === "public" ||
       (config.visibility === "private" && config.isRequired)) && (
@@ -45,7 +54,6 @@ function Input({
             case "tel":
             case "email":
             case "textarea":
-            case "password":
               inputToRender = (
                 <>
                   {inputToRender}
@@ -67,6 +75,43 @@ function Input({
                       max={config.validation?.max?.value} // for date input
                       tabIndex={tabIndex}
                     />
+                    {errorMsg && (
+                      <InputError error={errorMsg.message?.toString()} />
+                    )}
+                  </div>
+                </>
+              );
+              break;
+            case "password":
+              inputToRender = (
+                <>
+                  {inputToRender}
+                  <div className="input-field-error">
+                    <div className="common-flex password-input-container">
+                      <input
+                        type={isPasswordVisible ? "text" : config.type}
+                        id={config.label}
+                        className={className}
+                        accept={config.accept}
+                        placeholder={`Enter ${config.label.toLowerCase()}`}
+                        {...register(config.name, {
+                          ...config.validation,
+                          required: {
+                            value: config.isRequired,
+                            message: "This field is required",
+                          },
+                        })}
+                        autoComplete="new-password"
+                        max={config.validation?.max?.value} // for date input
+                        tabIndex={tabIndex}
+                      />
+                      <span
+                        className="material-symbols-outlined password-eye-icon"
+                        onClick={togglePasswordVisibility}
+                      >
+                        {isPasswordVisible ? `visibility` : `visibility_off`}
+                      </span>
+                    </div>
                     {errorMsg && (
                       <InputError error={errorMsg.message?.toString()} />
                     )}

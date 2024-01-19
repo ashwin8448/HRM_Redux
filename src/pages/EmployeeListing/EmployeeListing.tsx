@@ -62,7 +62,7 @@ function EmployeeListing() {
         />
       </Helmet>
       <EmployeeListingWrapper>
-        <TitleStyle>Employee Management</TitleStyle>
+        <TitleStyle>Dashboard</TitleStyle>
         <ListingActions
           listingActive={listingActive}
           handleActiveListing={handleActiveListing}

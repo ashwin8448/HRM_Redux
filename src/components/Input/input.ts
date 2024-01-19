@@ -55,7 +55,18 @@ const InputWrapper = styled.div`
   .select-border-radius {
     border-radius: 4px;
   }
-
+  .password-input-container{
+    border: 1px solid ${colors.LIGHT_GRAY_COLOR};
+    border-radius: 5px;
+    input{
+      border: none;
+    }
+    .password-eye-icon{
+      padding: 0 10px;
+      color: ${colors.SECONDARY_COLOR};
+      cursor: pointer;
+    }
+  }
   @media only screen and (max-width: 480px) {
     .radio-list {
       flex-direction: column;

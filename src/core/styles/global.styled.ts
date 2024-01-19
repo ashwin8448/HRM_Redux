@@ -61,7 +61,7 @@ body {
   height: 100%;
   background-color: ${colors.SECONDARY_COLOR};
   opacity: 0.5;
-  z-index: 2;
+  z-index: 3;
   pointer-events: auto; /* Disable pointer events on the overlay so that clicks pass through */
   transition: 0.5s ease; 
 }
