@@ -36,7 +36,6 @@ export const totalPages = (count: number) =>
   Math.ceil(Number(count) / recordsPerPage);
 
 export const sortOptions = [
-  { criteria: "id", label: "Id" },
   { criteria: "firstName", label: "Name" },
   { criteria: "department.id", label: "Department" },
   { criteria: "designation", label: "Designation" },

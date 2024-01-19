@@ -140,7 +140,9 @@ body {
     object-fit: cover;
     max-width: 100%;
   }
-
+.important-input{
+  color:${colors.RED_COLOR};
+}
 @media screen and (max-width: 1400px) {
   .table-overflow-scroll {
     overflow-x: auto;

@@ -1,6 +1,6 @@
 const loginFormConfig = [
   {
-    label: "User Id",
+    label: "Email address",
     type: "text",
     name: "username",
     isRequired: true,

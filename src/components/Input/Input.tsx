@@ -10,7 +10,13 @@ import FormSelect from "../../pages/EmployeeUpdate/FormSelect/FormSelect.tsx";
 import PhotoInput from "./PhotoInput.tsx";
 import { LabelStyles } from "../../core/constants/components/text/textStyledComponents.ts";
 
-function Input({ config,tabIndex }: { config: IInputProps,tabIndex:number }) {
+function Input({
+  config,
+  tabIndex,
+}: {
+  config: IInputProps;
+  tabIndex: number;
+}) {
   const {
     register,
     formState: { errors },
@@ -22,12 +28,17 @@ function Input({ config,tabIndex }: { config: IInputProps,tabIndex:number }) {
     (config.visibility === "public" ||
       (config.visibility === "private" && config.isRequired)) && (
       <InputWrapper>
-        <LabelStyles>{config.label}</LabelStyles>
+        <LabelStyles>
+          {config.label}{" "}
+          {config.isRequired && <span className="important-input">*</span>}
+        </LabelStyles>
         {(() => {
           let inputToRender = <></>;
           switch (config.type) {
             case "file":
-              inputToRender = <PhotoInput config={config} tabIndex={tabIndex} />;
+              inputToRender = (
+                <PhotoInput config={config} tabIndex={tabIndex} />
+              );
               break;
             case "text":
             case "date":
