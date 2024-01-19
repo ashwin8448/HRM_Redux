@@ -40,6 +40,11 @@ const HeaderWrapper = styled.header`
         width: 35px;
         height: 35px;
       }
+      .img-loader{
+        width: 35px;
+        height: 35px;
+        border-width:3px;
+      }
       .profile-error {
         color: ${colors.RED_COLOR};
         position: absolute;

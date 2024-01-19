@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import ImgWrapper from "./progressiveImg";
-import LoaderImg from "../../assets/load-icon.png";
+import Loader from "../Loader/Loader.tsx"; // Import the Loader component
 
 const ProgressiveImg = ({
   onClick,
@@ -13,10 +12,13 @@ const ProgressiveImg = ({
   alt: string;
   className?: string;
 }) => {
-  const [imgSrc, setImgSrc] = useState({
-    src: LoaderImg,
-    loaded: false,
-  });
+  const [imgSrc, setImgSrc] = useState<{ src: string | null; loaded: boolean }>(
+    {
+      src: null, // Set to null initially
+      loaded: false,
+    }
+  );
+
   useEffect(() => {
     const img = new Image();
     img.src = src;
@@ -24,14 +26,22 @@ const ProgressiveImg = ({
       setImgSrc({ src: src, loaded: true });
     };
   }, [src]);
+
   return (
-    <ImgWrapper
-      src={imgSrc.src}
-      onClick={onClick}
-      alt={alt}
-      className={className}
-      $loaded={imgSrc.loaded}
-    />
+    <>
+      {/* Render the Loader component when the image is not loaded */}
+      {!imgSrc.loaded && <Loader className="img-loader"/>}
+
+      {/* Render the ImgWrapper with the appropriate image source and other props */}
+      {imgSrc.loaded && imgSrc.src && (
+        <img
+          src={imgSrc.src}
+          onClick={onClick}
+          alt={alt}
+          className={className}
+        />
+      )}
+    </>
   );
 };
 

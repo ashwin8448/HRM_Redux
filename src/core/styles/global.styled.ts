@@ -107,6 +107,10 @@ body {
     .no-data {
     text-align: center !important;
   }
+  .img-loader{
+    width: 100%;
+    height: 100%;
+  }
 
 //for loading
 .center-loader {
