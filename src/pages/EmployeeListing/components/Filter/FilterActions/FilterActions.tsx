@@ -90,9 +90,7 @@ const FilterActions = ({ onClick, skillFilterValue }: {
           label="Skills"
           options={skills}
           placeholder="Select skills"
-          isMulti={true} //employees can have multiple skills
           value={skillFilterValue}
-          clear={false}
         />
       ) : (
         <div className="center-loader">

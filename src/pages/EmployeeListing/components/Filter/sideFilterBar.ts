@@ -5,7 +5,7 @@ const FilterWrapper = styled.div<{ $visible: boolean }>`
   position: fixed;
   height: 100%;
   padding: 20px;
-  width: 30%;
+  width: 40%;
   z-index: 5;
   top: 0;
   right: 0;

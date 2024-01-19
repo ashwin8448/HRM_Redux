@@ -9,7 +9,7 @@ const FilterActionsWrapper = styled.div`
   flex-direction: column;
   
   .btn-grp {
-    margin-top: 15px;
+    margin-top: 25px;
     gap: 10px;
 
     > button {
