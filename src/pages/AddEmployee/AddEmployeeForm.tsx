@@ -17,6 +17,7 @@ import {
   H2Styles,
 } from "../../core/constants/components/text/textStyledComponents.ts";
 import { Helmet } from "react-helmet";
+import { AxiosError } from "axios";
 
 const AddEmployeeForm = () => {
   const [isLoading, setIsLoading] = useState(false);
@@ -25,6 +26,7 @@ const AddEmployeeForm = () => {
     mode: "onChange",
   });
   const navigate = useNavigate();
+  const { formState } = useForm();
   const formConfig = addFormConfig;
 
   const ref = useRef<HTMLHeadingElement | null>(null);
@@ -56,9 +58,16 @@ const AddEmployeeForm = () => {
       navigate("/");
     } catch (error) {
       // Display error toast
-      console.error(error);
-      toast.error("Error adding new user", { toastId: "error-add-user" });
       setActiveSection(1);
+      if (error instanceof AxiosError && error.response?.status === 409) {
+        methods.setError("email", {
+          type: "manual",
+          message: "Email already exists.",
+        });
+      } else {
+        console.error(error);
+        toast.error("Error adding new user", { toastId: "error-add-user" });
+      }
     } finally {
       setIsLoading(false);
       if (ref.current) {
@@ -66,7 +75,6 @@ const AddEmployeeForm = () => {
       }
     }
   });
-
   if (isLoading)
     return (
       <div className="center-loader">
@@ -161,7 +169,9 @@ const AddEmployeeForm = () => {
                       "dateOfJoining",
                       "isAdmin",
                     ]);
-                    validationStatus && setActiveSection(activeSection + 1);
+                    validationStatus &&
+                      !formState.errors.email &&
+                      setActiveSection(activeSection + 1);
                     if (ref.current) {
                       ref.current.scrollIntoView({ behavior: "smooth" });
                     }
