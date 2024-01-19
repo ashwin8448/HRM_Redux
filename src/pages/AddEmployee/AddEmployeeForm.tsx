@@ -64,6 +64,7 @@ const AddEmployeeForm = () => {
           type: "manual",
           message: "Email already exists.",
         });
+        toast.error("Email already exists", { toastId: "duplicate-email" });
       } else {
         console.error(error);
         toast.error("Error adding new user", { toastId: "error-add-user" });
