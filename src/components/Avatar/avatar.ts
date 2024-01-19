@@ -11,6 +11,11 @@ const AvatarWrapper = styled.div`
 
   .progressive-img-box{
     margin: 0 25px;
+    width: 100px;
+    height: 100px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   img {
     width: 100px;
@@ -19,8 +24,8 @@ const AvatarWrapper = styled.div`
     cursor: pointer;
   }
   .img-loader{
-    width: 100px;
-    height: 100px;
+    width: 50px;
+    height: 50px;
   }
 `;
 

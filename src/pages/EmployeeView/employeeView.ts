@@ -9,7 +9,7 @@ const EmployeeViewWrapper = styled.div`
   border: none;
   box-shadow: ${colors.BOX_SHADOW};
   border-radius: 10px;
-  margin: 0 auto;
+  margin: 0 auto 20px;
   max-width: 700px;
   padding: 25px;
   gap: 30px;
