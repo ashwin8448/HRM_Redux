@@ -26,17 +26,17 @@ const ProgressBarWrapper = styled.div<{
 
     .completed {
       background-color: ${colors.GREEN_COLOR};
-      border: 4px solid ${colors.GREEN_COLOR};
+      border: 2px solid ${colors.GREEN_COLOR};
       transition: all 0.3s;
     }
     .progress {
       background-color: ${colors.YELLOW_COLOR};
-      border: 4px solid ${colors.YELLOW_COLOR};
+      border: 2px solid ${colors.YELLOW_COLOR};
       transition: all 0.3s 0.5s;
     }
     .incomplete {
       background-color: ${colors.WHITE_COLOR};
-      border: 4px solid ${colors.LIGHT_GRAY_COLOR};
+      border: 2px solid ${colors.LIGHT_GRAY_COLOR};
       transition: all 0.3s;
     }
     .step-number {
@@ -52,7 +52,7 @@ const ProgressBarWrapper = styled.div<{
     }
   }
   .steps-link {
-    height: 4px;
+    height: 2px;
     width: ${(props) =>
       String((100 / props.$stepsNumber) * (props.$stepsNumber - 1)) + "%"};
     background-color: ${colors.LIGHT_GRAY_COLOR};
