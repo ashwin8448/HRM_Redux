@@ -15,6 +15,7 @@ export enum HTTP_STATUS {
   FORBIDDEN = 403,
   SERVER_ERROR = 500,
   UNAUTHORIZED = 401,
+  CONFLICT = 409,
 }
 
 interface IErrorResponse {
@@ -54,6 +55,11 @@ export async function onResponseError(error: AxiosError): Promise<AxiosError> {
         return Promise.reject(error.response.data as IErrorResponse);
       }
     }
+  } else if (
+    error.response?.status === HTTP_STATUS.CONFLICT &&
+    window.location.pathname !== "/error"
+  ) {
+    return Promise.reject(error);
   }
   return Promise.reject(error.response);
 }
