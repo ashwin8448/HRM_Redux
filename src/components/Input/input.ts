@@ -39,7 +39,7 @@ const InputWrapper = styled.div`
 
   .input-border-error,
   .input-border-error:focus {
-    border: 1px solid red;
+    border: 1px solid ${colors.RED_COLOR};
   }
   .input-field-error {
     display: flex;
@@ -55,18 +55,32 @@ const InputWrapper = styled.div`
   .select-border-radius {
     border-radius: 4px;
   }
-  .password-input-container{
+
+  .label{
     border: 1px solid ${colors.LIGHT_GRAY_COLOR};
-    border-radius: 5px;
-    input{
-      border: none;
+    &:focus{
+      border: 1px solid ${colors.DARK_GRAY_COLOR};
     }
-    .password-eye-icon{
+  }
+  .password-input-container {
+    border-radius: 5px;
+    input {
+      border: none;
+      &:focus {
+        border: none;
+      }
+    }
+    .input-border-error,
+    .input-border-error:focus {
+      border: 1px solid ${colors.RED_COLOR};
+    }
+    .password-eye-icon {
       padding: 0 10px;
       color: ${colors.SECONDARY_COLOR};
       cursor: pointer;
     }
   }
+
   @media only screen and (max-width: 480px) {
     .radio-list {
       flex-direction: column;

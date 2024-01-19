@@ -87,11 +87,10 @@ function Input({
                 <>
                   {inputToRender}
                   <div className="input-field-error">
-                    <div className="common-flex password-input-container">
+                    <div className={`common-flex password-input-container ${className}`}>
                       <input
                         type={isPasswordVisible ? "text" : config.type}
                         id={config.label}
-                        className={className}
                         accept={config.accept}
                         placeholder={`Enter ${config.label.toLowerCase()}`}
                         {...register(config.name, {

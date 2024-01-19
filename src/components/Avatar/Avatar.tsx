@@ -12,9 +12,8 @@ const Avatar = ({
       <span>Choose an avatar</span>
       <AvatarWrapper>
         {avatarLinks.map((link) => (
-          <span className="progressive-img-box">
+          <span className="progressive-img-box" key={link}>
             <ProgressiveImg
-              key={link}
               src={link}
               alt={"Avatar"}
               onClick={() => onImgClick(link, link)}

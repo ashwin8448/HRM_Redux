@@ -58,7 +58,7 @@ const addFormConfig = [
     sectionActiveState: 2,
     sectionFields: [
       {
-        validation: passwordValidation && confirmPasswordValidation ,
+        validation: passwordValidation ,
         label: "Password",
         type: "password",
         name: "password",
