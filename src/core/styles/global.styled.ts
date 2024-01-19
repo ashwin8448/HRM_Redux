@@ -122,8 +122,8 @@ body {
 
 .back-btn{
     margin: 15px;
-    background: none;
-    border:none;
+    background: none !important;
+    border:none !important;
     *{
     color:${colors.DARK_PRIMARY_COLOR} !important }
 } 

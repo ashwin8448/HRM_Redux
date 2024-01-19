@@ -27,10 +27,6 @@ const Fieldset = styled.fieldset`
   min-width: 0;
   border-radius: 15px;
   padding: 20px;
-
-  .submit-btn {
-    margin: 30px;
-  }
 `;
 const InputRow = styled.div`
   flex-wrap: wrap;

@@ -10,13 +10,12 @@ const TableDataWrapper = styled.tr`
 
   .actions-list {
     justify-content: center;
-    gap:10px;
-  }
-  button {
-    flex-direction: row-reverse;
-    background: none;
-    padding: 0;
-    border-radius: 0;
+    gap: 10px;
+    button{
+      &:hover{
+        background-color: transparent ;
+      }
+    }
   }
 `;
 export default TableDataWrapper;

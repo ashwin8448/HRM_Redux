@@ -12,12 +12,14 @@ const Avatar = ({
       <span>Choose an avatar</span>
       <AvatarWrapper>
         {avatarLinks.map((link) => (
-          <ProgressiveImg
-            key={link}
-            src={link}
-            alt={"Avatar"}
-            onClick={() => onImgClick(link, link)}
-          />
+          <span className="progressive-img-box">
+            <ProgressiveImg
+              key={link}
+              src={link}
+              alt={"Avatar"}
+              onClick={() => onImgClick(link, link)}
+            />
+          </span>
         ))}
       </AvatarWrapper>
     </>

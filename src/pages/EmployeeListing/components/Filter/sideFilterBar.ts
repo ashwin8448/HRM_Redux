@@ -18,7 +18,6 @@ const FilterWrapper = styled.div<{ $visible: boolean }>`
   flex-direction: column;
 
   .close-btn {
-    padding: 10px;
     cursor: pointer;
   }
 

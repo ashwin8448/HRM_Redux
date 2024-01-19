@@ -10,6 +10,7 @@ import { IInputProps } from "../../core/interfaces/interface.ts";
 import { FormProvider, useForm } from "react-hook-form";
 import Input from "../../components/Input/Input.tsx";
 import { Helmet } from "react-helmet";
+import Button from "../../components/Button/Button.tsx";
 
 const Login = () => {
   const methods = useForm({
@@ -31,7 +32,10 @@ const Login = () => {
     <>
       <Helmet>
         <title>Login</title>
-        <meta name="description" content="Any user or admin can login to the page using this page." />
+        <meta
+          name="description"
+          content="Any user or admin can login to the page using this page."
+        />
       </Helmet>
       <LoginLayoutWrapper>
         <H3Styles>Sign In</H3Styles>
@@ -39,18 +43,24 @@ const Login = () => {
           <form
             onSubmit={(e) => {
               e.preventDefault();
-              onSubmit(); 
+              onSubmit();
             }}
             noValidate
           >
             {loginFormConfig.map((formField: IInputProps) => (
-              <Input key={formField.name} config={formField} tabIndex={tabIndex++} />
+              <Input
+                key={formField.name}
+                config={formField}
+                tabIndex={tabIndex++}
+              />
             ))}
             {authError != "" && (
               <ParagraphStyles className="error">{authError}</ParagraphStyles>
             )}
             <div className="button-container">
-              <input className="primary-btn" type="submit" value="Submit" />
+              <Button className="primary-btn" type="submit">
+                Submit
+              </Button>
             </div>
           </form>
         </FormProvider>

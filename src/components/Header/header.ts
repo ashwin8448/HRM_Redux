@@ -43,7 +43,7 @@ const HeaderWrapper = styled.header`
       .img-loader{
         width: 35px;
         height: 35px;
-        border-width:3px;
+
       }
       .profile-error {
         color: ${colors.RED_COLOR};
@@ -53,9 +53,7 @@ const HeaderWrapper = styled.header`
         z-index: -1;
       }
     }
-    .logout-btn {
-      padding: 10px;
-    }
+
   }
 
   .header-tooltip {

@@ -13,7 +13,7 @@ const ButtonWrapper = styled.button<{
     props.$isChildren ? `${colors.WHITE_COLOR}` : `transparent`};
   cursor: pointer;
   color: ${colors.SECONDARY_COLOR};
-  padding: ${(props) => (props.$isChildren ? `5px 10px` : `0`)};
+  padding: ${(props) => (props.$isChildren ? `5px 10px` : `5px`)};
   border-radius: 5px;
   text-decoration: none;
   gap: 5px;
