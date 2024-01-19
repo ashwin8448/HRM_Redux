@@ -35,6 +35,7 @@ import {
 } from "../../core/constants/components/text/textStyledComponents.ts";
 import { Helmet } from "react-helmet";
 import { AES, enc } from "crypto-js";
+import { AxiosError } from "axios";
 
 const EditEmployeeForm = () => {
   const { employeeId } = useParams();
@@ -170,12 +171,19 @@ const EditEmployeeForm = () => {
       navigate(`/`);
     } catch (error) {
       // Display error toast
-      console.error(error);
-      toast.error("Error editing user", { toastId: "error-edit-user" });
-      setActiveSection(4);
+      setActiveSection(1);
+      if (error instanceof AxiosError && error.response?.status === 409) {
+        methods.setError("email", {
+          type: "manual",
+          message: "Email already exists.",
+        });
+        toast.error("Email already exists", { toastId: "duplicate-email" });
+      } else {
+        console.error(error);
+        toast.error("Error editing user", { toastId: "error-add-user" });
+      }
     } finally {
       setEmployeeData((prev) => ({ ...prev, loading: false }));
-      navigate("/");
     }
   });
 
