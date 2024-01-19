@@ -108,8 +108,8 @@ body {
     text-align: center !important;
   }
   .img-loader{
-    width: 100%;
-    height: 100%;
+    width: 50%;
+    height: 50%;
   }
 
 //for loading
@@ -133,6 +133,9 @@ body {
     height: 100px;
     border-radius: 50%;
     overflow: hidden;
+    display: flex;
+    justify-content: center ;
+    align-items: center;
   }
   .photo {
     width: 100%;

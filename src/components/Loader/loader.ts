@@ -4,10 +4,9 @@ import colors from "../../core/constants/colors";
 const LoaderWrapper = styled.span`
   width: 48px;
   height: 48px;
-  border: 5px solid ${colors.WHITE_COLOR};
-  border-bottom-color: ${colors.PRIMARY_COLOR};
-  border-radius: 100%;
-  animation: rotation 1s linear infinite;
+  border: 5px dotted ${colors.PRIMARY_COLOR};
+  border-radius: 50%;
+  animation: rotation 3s linear infinite;
 
     @keyframes rotation {
     0% {
