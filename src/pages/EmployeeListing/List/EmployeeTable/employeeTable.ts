@@ -1,6 +1,6 @@
-import styled from "styled-components";
-import colors from "../../../../core/constants/colors";
-import { fontWeights } from "../../../../core/constants/fontStyles";
+import styled from 'styled-components';
+import colors from '../../../../core/constants/colors';
+import { fontWeights } from '../../../../core/constants/fontStyles';
 
 const TableWrapper = styled.table<{ $isAdmin: boolean }>`
   border-collapse: separate;
@@ -40,13 +40,10 @@ const TableWrapper = styled.table<{ $isAdmin: boolean }>`
   }
 
   .small-column {
-    width: 60px ;
-  }
-  .name-column {
-    width: 150px;
+    width: 60px;
   }
   .medium-column {
-    width: 100px;
+    width: 150px;
   }
 
   td {

@@ -60,7 +60,7 @@ const EmployeeView = ({
             },
             {
               title: "Salary",
-              content: employee.salary ? employee.salary : "-",
+              content: employee.salary ? `₹ ${employee.salary}` : "-",
             },
             {
               title: "Department",

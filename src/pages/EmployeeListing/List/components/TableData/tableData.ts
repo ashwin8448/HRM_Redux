@@ -9,7 +9,7 @@ const TableDataWrapper = styled.tr`
   }
 
   .actions-list {
-    justify-content: center;
+    justify-content: flex-start;
     gap: 10px;
     button{
       &:hover{

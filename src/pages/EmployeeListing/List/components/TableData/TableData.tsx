@@ -58,7 +58,7 @@ function TableData({
           </TableDataStyles>
         )}
         {/* navigating to view employee page */}
-        <TableDataStyles className="employee-data overflow-ellipsis name-column">
+        <TableDataStyles className="employee-data overflow-ellipsis medium-column">
           {employee.lastName
             ? concatenateNames(employee.firstName, employee.lastName)
             : employee.firstName}
@@ -76,11 +76,10 @@ function TableData({
         <TableDataStyles className="employee-data">
           <ChipWrapper
             $color={`${employee.isActive ? "GREEN_COLOR" : "RED_COLOR"}`}
-            $backgroundColor={`${
-              employee.isActive
+            $backgroundColor={`${employee.isActive
                 ? "GREEN_BACKGROUND_COLOR"
                 : "RED_BACKGROUND_COLOR"
-            }`}
+              }`}
           >
             {employee.isActive ? "Active" : "Inactive"}
           </ChipWrapper>
@@ -89,7 +88,7 @@ function TableData({
           <SkillsChip skills={employee.skills} />
         </TableDataStyles>
         {user.employeeDetails?.accessControlRole === "admin" && (
-          <TableDataStyles className="employee-data">
+          <TableDataStyles className="employee-data medium-column">
             <div className=" actions-list common-flex">
               {/* navigating to edit employee page */}
               <Button

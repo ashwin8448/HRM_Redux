@@ -1,37 +1,16 @@
-import { useEffect, useRef, useState } from "react";
+import { useRef } from "react";
 import { ISelectOptionProps } from "../../core/interfaces/interface.ts";
 import colors from "../../core/constants/colors.ts";
 import { ChipListWrapper, ChipWrapper } from "./chip.ts";
 import TooltipComponent from "../Tooltip/Tooltip.tsx";
 import { ParagraphStyles } from "../../core/constants/components/text/textStyledComponents.ts";
+import useOverflowCheck from "../../hooks/overflowHook.ts";
 
 function SkillsChip({ skills }: { skills: ISelectOptionProps[] | undefined }) {
-  //check for skills overflowing the scroll width
-  const [skillsOverflow, setSkillsOverflow] = useState(false);
-  const handleSkillsOverflow = (isOverflow: boolean) => {
-    setSkillsOverflow(isOverflow);
-  };
 
   const skillsContainerRef = useRef<HTMLDivElement | null>(null);
+  const skillsOverflow = useOverflowCheck(skillsContainerRef);
 
-  useEffect(() => {
-    const handleResize = () => {
-      const skillsContainer = skillsContainerRef.current;
-      if (skillsContainer) {
-        const isOverflowing =
-          skillsContainer.scrollWidth > skillsContainer.clientWidth;
-  
-        handleSkillsOverflow(isOverflowing);
-      }
-    };
-    // Add event listener
-    window.addEventListener("resize", handleResize); // calculate the scrollwidth whenever the window gets resized
-
-    // Cleanup function to remove the event listener
-    return () => {
-      window.removeEventListener("resize", handleResize);
-    };
-  }, [skills, skillsContainerRef]);
 
   const colorsRange: (keyof typeof colors)[] = [
     "SKILL_CHIP_COLOR_1",
@@ -51,6 +30,7 @@ function SkillsChip({ skills }: { skills: ISelectOptionProps[] | undefined }) {
       <ChipListWrapper
         className="overflow-ellipsis skills-container"
         ref={skillsContainerRef}
+        $skillsOverflow={skillsOverflow}
       >
         {skills.map((skill: ISelectOptionProps, index: number) => {
           const colorIndex = index % colorsRange.length;

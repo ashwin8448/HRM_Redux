@@ -4,7 +4,7 @@ import { useMediaQuery } from "usehooks-ts";
 import Button from "../../../../components/Button/Button.tsx";
 import ButtonGrpWrapper from "../../../../components/Button/buttonGrpWrapper.ts";
 import DummyImg from "../../../../assets/userAvatar.svg";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { IAppEmployee } from "../../../../core/interfaces/interface.ts";
 import { FieldValues } from "react-hook-form";
 import DeleteModal from "../../../../components/DeleteModal/DeleteModal.tsx";
@@ -19,6 +19,7 @@ import TooltipComponent from "../../../../components/Tooltip/Tooltip.tsx";
 import { useAppSelector } from "../../../../hooks/reduxHooks.ts";
 import { AES } from "crypto-js";
 import ProgressiveImg from "../../../../components/ProgressiveImg/ProgressiveImg.tsx";
+import useOverflowCheck from "../../../../hooks/overflowHook.ts";
 
 function EmployeeIntroSection({
   employee,
@@ -37,19 +38,26 @@ function EmployeeIntroSection({
     setDeleteModal((prev) => !prev);
   };
 
+  const nameRef = useRef<HTMLDivElement | null>(null);
+  const nameOverflow = useOverflowCheck(nameRef);
+
+  const employeeName = <H2Styles className="overflow-ellipsis" ref={nameRef}>
+    {employee.firstName + " " + employee.lastName}
+  </H2Styles>;
+
   return (
     <>
-      <EmployeeIntroSectionWrapper className="common-flex ">
+      <EmployeeIntroSectionWrapper className="common-flex " $nameOverflow={nameOverflow}>
         <div className="photo-container">
           <ProgressiveImg
             src={
               employee.photoId === "" ||
-              employee.photoId === undefined ||
-              (typeof employee.photoId === "object" && !employee.photoId.length)
+                employee.photoId === undefined ||
+                (typeof employee.photoId === "object" && !employee.photoId.length)
                 ? DummyImg
                 : typeof employee.photoId === "string"
-                ? employee.photoId
-                : URL.createObjectURL(employee.photoId[0])
+                  ? employee.photoId
+                  : URL.createObjectURL(employee.photoId[0])
             }
             alt="Employee image"
             className="photo"
@@ -57,13 +65,12 @@ function EmployeeIntroSection({
         </div>
         <div className="employee-intro">
           <div className="common-flex intro-title">
-            <TooltipComponent
-              title={employee.firstName + " " + employee.lastName}
-            >
-              <H2Styles className="overflow-ellipsis">
-                {employee.firstName + " " + employee.lastName}
-              </H2Styles>
-            </TooltipComponent>
+            {nameOverflow ?
+              <TooltipComponent
+                title={employee.firstName + " " + employee.lastName}
+              >
+                {employeeName}
+              </TooltipComponent> : employeeName}
             <ActiveDot isActive={employee.isActive}></ActiveDot>
           </div>
           <ParagraphStyles>
@@ -88,16 +95,14 @@ function EmployeeIntroSection({
                 {(matchesWithMobile || matchesWithTab) && (
                   <>
                     {matchesWithMobile &&
-                      `${
-                        user.employeeDetails?.isNew
-                          ? "Complete Profile"
-                          : "Edit Profile"
+                      `${user.employeeDetails?.isNew
+                        ? "Complete Profile"
+                        : "Edit Profile"
                       }`}
                     {matchesWithTab &&
-                      `${
-                        user.employeeDetails?.isNew
-                          ? "Complete Profile"
-                          : "Edit Profile"
+                      `${user.employeeDetails?.isNew
+                        ? "Complete Profile"
+                        : "Edit Profile"
                       }`}
                   </>
                 )}
