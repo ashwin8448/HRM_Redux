@@ -1,12 +1,10 @@
 import axios, { AxiosRequestConfig, AxiosResponse, InternalAxiosRequestConfig } from 'axios';
 import { onRequest, onRequestError } from './requestInterceptor';
 import { onResponse, onResponseError } from './responseInterceptor';
+import { apiConfig } from './api.config';
 
 
-const API = axios.create({
-    baseURL: import.meta.env.VITE_DATABASE_URL,
-    timeout: 120000,
-});
+export const API = axios.create(apiConfig);
 
 API.interceptors.request.use(onRequest as unknown as (
     (value: InternalAxiosRequestConfig<any>) => InternalAxiosRequestConfig<any> | Promise<InternalAxiosRequestConfig<any>>), 
@@ -14,7 +12,6 @@ API.interceptors.request.use(onRequest as unknown as (
 API.interceptors.response.use(onResponse as unknown as (
     value: AxiosResponse<any, any>) => AxiosResponse<any, any> | Promise<AxiosResponse<any, any>>, 
     onResponseError);
-
 
 export const makeRequest = (
     method: string,

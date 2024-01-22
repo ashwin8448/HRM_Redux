@@ -1,11 +1,20 @@
-import { AxiosError, AxiosRequestConfig } from "axios";
+import { AxiosError, AxiosRequestConfig } from 'axios';
+import { getCookie } from '../../utils/helper';
 
 export const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
+  const token = getCookie('accessToken');
 
-    config.headers = {
-        'Content-type': 'application/json',
-        ...config.headers,
-    };
-    return config;
+  const headers = token
+    ? {
+        Authorization: `Bearer ${token}`,
+      }
+    : {};
+
+  config.headers = {
+    'Content-type': 'application/json',
+    ...config.headers,
+    ...headers,
+  };
+  return config;
 };
 export const onRequestError = (error: AxiosError) => Promise.reject(error);

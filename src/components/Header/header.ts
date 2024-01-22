@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import colors from "../../core/constants/colors";
+import { fontSizes } from "../../core/constants/fontStyles";
 
 const HeaderWrapper = styled.header`
-  background-color:  ${colors.WHITE_COLOR};
-  border-bottom: 1px solid ${colors.LIGHT_GRAY_COLOR};
+  background-color: ${colors.WHITE_COLOR};
+  box-shadow: ${colors.BOX_SHADOW};
   width: 100%;
 
   .header-content {
@@ -14,8 +15,49 @@ const HeaderWrapper = styled.header`
     justify-content: space-between;
     align-items: center;
   }
-  .logo{
-    position:relative
+
+  h1 {
+    font-size: ${fontSizes["--font-size-lg"]};
+  }
+  .logo {
+    width: 50px;
+    height: auto;
+    cursor: pointer;
+  }
+
+  .user-container {
+    display: flex;
+    gap: 30px;
+
+    .image-container {
+      position: relative;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      img {
+        border-radius: 50%;
+        width: 35px;
+        height: 35px;
+      }
+      .img-loader{
+        width: 35px;
+        height: 35px;
+
+      }
+      .profile-error {
+        color: ${colors.RED_COLOR};
+        position: absolute;
+        top: 17px;
+        left: 25px;
+        z-index: -1;
+      }
+    }
+
+  }
+
+  .header-tooltip {
+    visibility: hidden;
   }
 `;
 export default HeaderWrapper;

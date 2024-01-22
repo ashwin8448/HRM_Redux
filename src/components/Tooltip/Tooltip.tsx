@@ -1,27 +1,22 @@
-import { useState, useEffect } from "react";
-import { ISkill } from "../../core/interfaces/interface.ts";
-import TooltipWrapper from "./tooltip";
+import Tooltip from "@mui/material/Tooltip";
+import tooltipStyles from "./tooltip.ts";
 
-function Tooltip({ message }: { message: ISkill[] | string }) {
-  const [mousePosition, setMousePosition] = useState({ x: 0 });
+const TooltipComponent = ({
+  title,
+  children,
+}: {
+  title: string;
+  children: JSX.Element;
+}) => {
+  return (
+    <Tooltip
+      title={title}
+      arrow
+      componentsProps={{ tooltip: tooltipStyles.tooltip }}
+    >
+      {children}
+    </Tooltip>
+  );
+};
 
-  //find mouse position on each mouse movement
-  const handleMouseMove = (e: MouseEvent) => {
-    setMousePosition({ x: (e.clientX / window.innerWidth) * 100 });
-  };
-
-  useEffect(() => {
-    window.addEventListener('mousemove', handleMouseMove);//calculate the mouseposition whenever the mouse moves
-    return () => {
-      window.removeEventListener('mousemove', handleMouseMove);
-    };
-  }, []);
-
-  let tooltipMsg = "";
-  if (Array.isArray(message))
-    tooltipMsg = message.map((msg) => msg.skill).join(", ");
-  else tooltipMsg = message;
-  return <TooltipWrapper $left={mousePosition.x}>{tooltipMsg}</TooltipWrapper>;
-}
-
-export default Tooltip;
+export default TooltipComponent;

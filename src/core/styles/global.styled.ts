@@ -1,8 +1,9 @@
-import { createGlobalStyle } from "styled-components";
-import ManropeBold from "../fonts/Manrope-Bold.ttf";
-import ManropeMedium from "../fonts/Manrope-Medium.ttf";
-import ManropeLight from "../fonts/Manrope-Light.ttf";
-import colors from "../constants/colors";
+import { createGlobalStyle } from 'styled-components';
+import ManropeBold from '../fonts/Manrope-Bold.ttf';
+import ManropeMedium from '../fonts/Manrope-Medium.ttf';
+import ManropeLight from '../fonts/Manrope-Light.ttf';
+import colors from '../constants/colors';
+import { fontSizes } from '../constants/fontStyles';
 
 const GlobalStyle = createGlobalStyle`
 * {
@@ -33,54 +34,21 @@ body {
   display: flex;
   flex-direction: column;
 }
-.ul-reset {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
 .global-width {
   max-width: 1400px;
 }
 .global-padding{
   padding:15px;
 }
-.page-title {
-  margin: 0;
-  font-size: 35px;
-  font-weight: 700;
-  line-height: 1.5;
-  color: ${colors.SECONDARY_COLOR};
-}
-.subheading {
-  margin: 0;
-  font-weight: 700;
-  font-size: 16px;
-  line-height: 1.5;
-  color: ${colors.SECONDARY_COLOR};
-}
-.modal-heading {
-  margin: 0;
-  font-size: 14px;
-  font-weight: 700;
-  line-height: 1.5;
-  color: ${colors.SECONDARY_COLOR};
-}
+
+  .material-symbols-outlined {
+    font-size: ${fontSizes['--font-size-md']};
+  }
+
 .common-flex {
   display: flex;
   justify-content: space-between;
   align-items: center;
-}
-.logo-wrap {
-  text-decoration: none;
-}
-.material-symbols-outlined {
-  color: ${colors.WHITE_COLOR};
-}
-.button-decoration {
-  font-weight: 500;
-  text-decoration: none;
-  color: ${colors.WHITE_COLOR};
 }
 .rotate {
   transform: rotate(180deg);
@@ -93,13 +61,9 @@ body {
   height: 100%;
   background-color: ${colors.SECONDARY_COLOR};
   opacity: 0.5;
-  z-index: 1;
+  z-index: 3;
   pointer-events: auto; /* Disable pointer events on the overlay so that clicks pass through */
-  transition: 0.5s ease;  
-
-  body{
-    overflow:hidden;
-  }
+  transition: 0.5s ease; 
 }
 .main-section {
   flex-grow:1;
@@ -107,33 +71,82 @@ body {
   margin-inline: auto;
   width: 100%
 }
-.open{
-  opacity: 0.6;
-  pointer-events: visible;
-}
-.m-30 {
-  margin-bottom: 30px;
-}
 .rotate {
   transform: rotate(180deg);
 }
-.center-screen{
-  top: 50%;
-  left: 50%;
-}
 .table-overflow-scroll{
-  border: 1px solid  #D3D3D3;
+  /* border: 1px solid   ${colors.LIGHT_GRAY_COLOR}; */
+    box-shadow: ${colors.BOX_SHADOW};
 }
 .overflow-ellipsis{
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap; 
 }
-.back-btn{
-  color:${colors.SECONDARY_COLOR};
-  cursor:pointer;
+.infinite-scroll-loader-div {
+    margin: 20px;
+    width: 100%;
 }
-@media screen and (max-width: 1200px) {
+.infinite-scroll-loader {
+    justify-content: center !important;
+    margin: 0 auto;
+}
+ .loader-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100px; /* Adjust the height as needed */
+  }
+
+  .table-loader {
+    position: fixed;
+    transform: translate(-50%, -50%);
+    margin: 0;
+  }
+    .no-data {
+    text-align: center !important;
+  }
+  .img-loader{
+    width: 50%;
+    height: 50%;
+  }
+
+//for loading
+.center-loader {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.back-btn{
+    margin: 15px;
+    background: none !important;
+    border:none !important;
+    *{
+    color:${colors.DARK_PRIMARY_COLOR} !important }
+} 
+
+.photo-container {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    overflow: hidden;
+    display: flex;
+    justify-content: center ;
+    align-items: center;
+  }
+  .photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    max-width: 100%;
+  }
+.important-input{
+  color:${colors.RED_COLOR};
+}
+@media screen and (max-width: 1400px) {
   .table-overflow-scroll {
     overflow-x: auto;
   }
